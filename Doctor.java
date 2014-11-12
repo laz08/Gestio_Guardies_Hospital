@@ -11,6 +11,10 @@ public class Doctor {
 	private int sou;
 	private boolean actiu;
 	
+	public Doctor(){
+		
+	}
+	
 	public Doctor(String d) {
 		dni = d;
 	}
