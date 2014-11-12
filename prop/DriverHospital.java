@@ -3,8 +3,6 @@ package prop;
 import java.lang.NumberFormatException;
 import java.util.Scanner;
 
-import prop.*;
-
 public class DriverHospital {
 
     public static void main(String[] args) {

@@ -69,7 +69,8 @@ public class CtrlPlantilla {
         Doctor d = consulta_doctor(dni);
         Plantilla p= consulta_plantilla(id_plantilla);
         ArrayList llista = p.get_llista_doctors();
-        if(llista.isEmpty()) throw new Error("La llista es buida"); 
+        if(llista.isEmpty()) throw new Error("La llista es buida");
+        llista.remove()
         llista.remove(d);
     }
     

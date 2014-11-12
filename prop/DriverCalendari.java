@@ -4,8 +4,6 @@ import java.lang.NumberFormatException;
 import java.util.GregorianCalendar;
 import java.util.Scanner;
 
-import prop.*;
-
 public class DriverCalendari {
 	
 	public static void main(String[] args) throws Error {
