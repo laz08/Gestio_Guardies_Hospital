@@ -1,17 +1,18 @@
 package prop;
 
-import java.lang.NumberFormatException;
+
 import java.util.Scanner;
 import java.lang.*;
 
-import prop.*;
+
 
 public class DriverDoctor {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Error {
 
         Scanner arg;
         int cas;
+        CtrlDoctor CtrlDoc = new CtrlDoctor();
         while (true) {
             System.out.println("Menú");
             System.out.println("1.- Crear Doctor:");
@@ -39,6 +40,15 @@ public class DriverDoctor {
                 throw new Error ("Has d'introduir un numero.");
             }
 
+            String dni;
+            String nom;
+            String cognom1;
+            String cognom2;
+            int sou;
+            int telf;
+            String correu;
+            boolean actiu;
+
             switch(cas){
 
 
@@ -47,22 +57,23 @@ public class DriverDoctor {
                 case 1:
                         //Tornem a llegir
                         Scanner arg2 = new Scanner(System.in);
-                        String dni = arg2.toString();
+                        dni = arg2.toString();
                         arg2 = new Scanner(System.in);
-                        String nom = arg2.toString();
+                        nom = arg2.toString();
                         arg2 = new Scanner(System.in);
-                        String cognom1 = arg2.toString();
+                        cognom1 = arg2.toString();
                         arg2 = new Scanner(System.in);
-                        String cognom2 = arg2.toString();
+                        cognom2 = arg2.toString();
                         arg2 = new Scanner(System.in);
-                        int sou = arg2.nextInt();
+                        sou = arg2.nextInt();
                         arg2 = new Scanner(System.in);
-                        int telf = arg2.nextInt();
+                        telf = arg2.nextInt();
                         arg2 = new Scanner(System.in);
-                        String correu = arg.toString();
+                        correu = arg2.toString();
 
 
-                        doc = CtrlDoctor.crearDoctor(dni, nom, cognom1, cognom2, sou, telf, correu);
+
+                    doc = CtrlDoc.crearDoctor(dni, nom, cognom1, cognom2, sou, telf, correu);
                     break;
 
 
@@ -70,9 +81,10 @@ public class DriverDoctor {
 
                 case 2:
 
-                    Scanner arg2 = new Scanner(System.in);
-                    int telf = arg2.nextInt();
-                    CtrlDoctor.modificarTelf(doc, telf);
+                    arg2 = new Scanner(System.in);
+                    telf = arg2.nextInt();
+                    CtrlDoc.modificarTelf(doc, telf);
+
                     break;
 
 
@@ -80,69 +92,70 @@ public class DriverDoctor {
 
                 case 3:
 
-                    Scanner arg2 = new Scanner(System.in);
-                    String correu = arg2.toString();
-                    CtrlDoctor.modificarCorreu(doc, correu);
+                    arg2 = new Scanner(System.in);
+                    correu = arg2.toString();
+                    CtrlDoc.modificarCorreu(doc, correu);
                     break;
 
 
                 //Modificar sou
                 case 4:
 
-                    Scanner arg2 = new Scanner(System.in);
-                    String sou = arg2.nextInt();
-                    CtrlDoctor.modificarSou(doc, sou);
+                    arg2 = new Scanner(System.in);
+                    sou = arg2.nextInt();
+                    CtrlDoc.modificarSou(doc, sou);
                     break;
 
                     //Modificar Activitat
 
                 case 5:
-                    Scanner arg2 = new Scanner(System.in);
-                    boolean actiu = arg2.nextBoolean();
-                    CtrlDoctor.modificarActivitat(doc, actiu);
+                    arg2 = new Scanner(System.in);
+                    actiu = arg2.nextBoolean();
+                    CtrlDoc.modificarActivitat(doc, actiu);
                     break;
 
                 //Consultar dni
                 case 6:
-                    String dni = CtrlDoctor.consultarDni(doc);
+                    dni = CtrlDoc.consultarDni(doc);
                     System.out.println(dni);
                     break;
 
                 //Consultar nom
                 case 7:
-                    String nom = CtrlDoctor.consultarNom(doc);
+                    nom = CtrlDoc.consultarNom(doc);
                     System.out.println(nom);
                     break;
 
                 case 8:
-                    String cog1 = CtrlDoctor.consultarCognom1(doc);
+                    String cog1 = CtrlDoc.consultarCognom1(doc);
                     System.out.println(cog1);
                     break;
 
                 case 9:
-                    String cog2 = CtrlDoctor.ConsultarCognom2(doc);
+                    String cog2 = CtrlDoc.consultarCognom2(doc);
                     System.out.println(cog2);
                     break;
 
                 case 10:
-                    int sou = CtrlDoctor.consultarSou(doc);
+                    sou = CtrlDoc.consultarSou(doc);
                     System.out.println(sou);
                     break;
 
                 case 11:
-                    int telf = CtrlDoctor.consultarTelefon(doc);
+                    telf = CtrlDoc.consultarTelefon(doc);
                     System.out.println(telf);
                     break;
 
                 case 12:
-                    String email = CtrlDoctor.consultarCorreu(doc);
+                    String email = CtrlDoc.consultarCorreu(doc);
                     System.out.println(email);
                     break;
 
                 case 13:
-                    boolean actiu = CtrlDoctor.consultarActivitat(doc);
+                    actiu = CtrlDoc.consultarActivitat(doc);
                     System.out.println(actiu);
                     break;
+
                 default:
                     System.out.println("El numero ha d'estar entre 1 i 13.");
                     break;
