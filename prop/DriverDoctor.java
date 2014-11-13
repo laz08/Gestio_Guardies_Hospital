@@ -58,6 +58,7 @@ public class DriverDoctor {
                         //Tornem a llegir
                         Scanner arg2 = new Scanner(System.in);
                         dni = arg2.toString();
+<<<<<<< HEAD
 
                         arg2 = new Scanner(System.in);
                         nom = arg2.toString();
@@ -75,6 +76,18 @@ public class DriverDoctor {
                         arg2 = new Scanner(System.in);
                         telf = arg2.nextInt();
 
+=======
+                        arg2 = new Scanner(System.in);
+                        nom = arg2.toString();
+                        arg2 = new Scanner(System.in);
+                        cognom1 = arg2.toString();
+                        arg2 = new Scanner(System.in);
+                        cognom2 = arg2.toString();
+                        arg2 = new Scanner(System.in);
+                        sou = arg2.nextInt();
+                        arg2 = new Scanner(System.in);
+                        telf = arg2.nextInt();
+>>>>>>> 866e95ac90529616f1234859b9902c1d518682d7
                         arg2 = new Scanner(System.in);
                         correu = arg2.toString();
 
