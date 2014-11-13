@@ -30,7 +30,7 @@ public class R_NOT extends Restriccio{
      * @return Restricció a la que es fa referència
      * @throws Error 
      */
-    public Restriccio getRestriccio() throws Error{
+    public Restriccio getRestriccio() throws Error {
         if (restriccio == null) throw new Error("Aquesta restricció NOT no fa referència a una altra restricció");
         return restriccio;
     }

@@ -44,7 +44,7 @@ public class R_OR extends Restriccio{
      * @return Segona restricció
      * @throws Error 
      */
-    public Restriccio getRestriccio2() throws Error{
+    public Restriccio getRestriccio2() throws Error {
         if(restriccio2 == null) throw new Error ("Aquesta restricció OR no esta formada per altres restriccions");
         return restriccio2;
     }
