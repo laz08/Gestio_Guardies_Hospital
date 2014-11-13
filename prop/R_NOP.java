@@ -21,7 +21,7 @@ public class R_NOP extends Restriccio{
     }
     
     @Override
-    public String getOP() {
+    public String getOp() {
         return "NOP";
     }
     

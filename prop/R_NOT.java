@@ -46,7 +46,7 @@ public class R_NOT extends Restriccio{
     }
 
     @Override
-    public String getOP() {
+    public String getOp() {
         return "NOT";
     }
     

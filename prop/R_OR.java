@@ -70,7 +70,7 @@ public class R_OR extends Restriccio{
     }
     
     @Override
-    public String getOP() {
+    public String getOp() {
         return "OR";
     }
     

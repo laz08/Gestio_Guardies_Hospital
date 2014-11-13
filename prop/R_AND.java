@@ -70,7 +70,7 @@ public class R_AND extends Restriccio{
     }
 
     @Override
-    public String getOP() {
+    public String getOp() {
         return "AND";
     }
     
