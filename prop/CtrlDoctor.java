@@ -1,11 +1,9 @@
 
 package prop;
 
-import prop.*;
-
 public class CtrlDoctor {
 
-    public void CtrlDoctor(){
+    public CtrlDoctor(){
 
     }
 
