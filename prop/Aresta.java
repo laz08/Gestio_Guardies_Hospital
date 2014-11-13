@@ -1,5 +1,5 @@
 package prop;
-class Aresta {
+public class Aresta {
 	int v, w;
 	long long int flow, capacitat;
 	
