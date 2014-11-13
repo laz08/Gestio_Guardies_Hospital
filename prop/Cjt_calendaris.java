@@ -4,13 +4,9 @@ import java.util.ArrayList;
 
 public class Cjt_calendaris {
 	
-	private ArrayList<Calendari> calendaris;
+	private static ArrayList<Calendari> calendaris = new ArrayList<Calendari>();
 	
-	public Cjt_calendaris() {
-		calendaris = new ArrayList<Calendari>();
-	}
-	
-	public ArrayList<Calendari> get_llista_calendaris() {
+	public static ArrayList<Calendari> get_llista_calendaris() {
 		return calendaris;
 	}
 }
