@@ -21,9 +21,12 @@ public class Torn {
      * @param min_d minim nombre de doctors per torn
      * @param p_sou percentatge de l'increment del sou
      */
+    
+    public Torn() {
+    	
+    }
+    
     public Torn(GregorianCalendar d_i, GregorianCalendar d_f, int min_d, int p_sou){
-        //hora_fi = h_f;
-        //hora_inici = h_i; 
         data_inici = d_i;
         data_fi = d_f;
         n_min_doc = min_d;

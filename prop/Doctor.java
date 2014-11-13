@@ -12,7 +12,7 @@ public class Doctor {
 	private boolean actiu;
 	
 	public Doctor(){
-		
+		int a;
 	}
 	
 	public Doctor(String d) {

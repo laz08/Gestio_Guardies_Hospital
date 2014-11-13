@@ -52,7 +52,7 @@ public class CtrlCalendari {
 		int i =0;
 		while (i<calendaris.size() && calendaris.get(i).getId_plantilla()!=id_plt) ++i;
 		if(calendaris.get(i).getId_plantilla()==id_plt) return calendaris.get(i);
-		else throw new Error("No hi ha cap plantilla amb el identificador proporcionat");
+		else throw new Error("No hi ha cap calendari de la plantilla escollida");
 	}
 	
 	public int posicio_torn(Torn t, ArrayList<Torn> torns) throws Error {
@@ -74,6 +74,16 @@ public class CtrlCalendari {
 			return false;
 		}
 		return true;
+	}
+	
+	public void escriure_plantilles() {
+		Cjt_calendaris c = null;
+		ArrayList<Calendari> llcalendaris = c.get_llista_calendaris();
+		for(int i=0; i<llcalendaris.size(); i++) {
+			System.out.println(llcalendaris.get(i).getId());
+			System.out.println(llcalendaris.get(i).getId_plantilla()); 
+		}
+		
 	}
 	
 }
