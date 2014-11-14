@@ -32,7 +32,7 @@ public class DriverRestriccio {
             int opcio = scan.nextInt();
             switch (opcio) {
                 case 1:
-                    System.out.println("\nQuina expresió vols inserir?");
+                    System.out.println("\nQuina expresió vols inserir? ");
                     scan = new Scanner(System.in);
                     expressio = scan.nextLine();
                     break;
@@ -56,9 +56,8 @@ public class DriverRestriccio {
                         case "AND":
                             R_AND and = (R_AND) r;
                             Object oAnd = and.getFill1();
-                            if(oAnd.getClass().equals(Torn.class)){
-                                Torn f1 = (Torn) oAnd;
-                                System.out.println("El primer torn va de " + f1.getData_inici().getTime() + " fins " + f1.getData_fi().getTime());
+                            if(oAnd.getClass().equals(String.class)){
+                                System.out.println("El primer torn es " + oAnd);
                             }
                             else{
                                 Restriccio f1 = (Restriccio) oAnd;
@@ -68,9 +67,8 @@ public class DriverRestriccio {
                         case "OR":
                             R_OR or = (R_OR) r;
                             Object oOr = or.getFill1();
-                            if(Torn.class.equals(oOr.getClass())){
-                                Torn f1 = (Torn) oOr;
-                                System.out.println("El primer torn va de " + f1.getData_inici().getTime() + " fins " + f1.getData_fi().getTime());
+                            if(String.class.equals(oOr.getClass())){
+                                System.out.println("El primer torn es " + oOr);
                             }
                             else{
                                 Restriccio f1 = (Restriccio) oOr;
@@ -80,9 +78,8 @@ public class DriverRestriccio {
                         case "NOT":
                             R_NOT not = (R_NOT) r;
                             Object oNot = not.getFill();
-                            if(Torn.class.equals(oNot.getClass())){
-                                Torn f1 = (Torn) oNot;
-                                System.out.println("El primer torn va de " + f1.getData_inici().getTime() + " fins " + f1.getData_fi().getTime());
+                            if(String.class.equals(oNot.getClass())){
+                                System.out.println("El primer torn es "+ oNot);
                             }
                             else{
                                 Restriccio f1 = (Restriccio) oNot;
@@ -91,8 +88,7 @@ public class DriverRestriccio {
                             break;
                         case "NOP":
                             R_NOP nop = (R_NOP) r;
-                            Torn nopt1 = nop.getTorn();
-                            System.out.println("El primer torn va de " + nopt1.getData_inici().getTime() + " fins " + nopt1.getData_fi().getTime());
+                            System.out.println("El primer torn es " + nop);
                             break;
                     }
                     break;
@@ -102,9 +98,8 @@ public class DriverRestriccio {
                         case "AND":
                             R_AND and = (R_AND) r;
                             Object oAnd = and.getFill2();
-                            if(oAnd.getClass().equals(Torn.class)){
-                                Torn f2 = (Torn) oAnd;
-                                System.out.println("El segon torn va de " + f2.getData_inici().getTime() + " fins " + f2.getData_fi().getTime());
+                            if(oAnd.getClass().equals(String.class)){
+                                System.out.println("El segon torn es " + oAnd);
                             }
                             else{
                                 Restriccio f2 = (Restriccio) oAnd;
@@ -114,9 +109,8 @@ public class DriverRestriccio {
                         case "OR":
                             R_OR or = (R_OR) r;
                             Object oOr = or.getFill2();
-                            if(Torn.class.equals(oOr.getClass())){
-                                Torn f2 = (Torn) oOr;
-                                System.out.println("El segon torn va de " + f2.getData_inici().getTime() + " fins " + f2.getData_fi().getTime());
+                            if(String.class.equals(oOr.getClass())){
+                                System.out.println("El segon torn es " + oOr);
                             }
                             else{
                                 Restriccio f2 = (Restriccio) oOr;
@@ -130,7 +124,7 @@ public class DriverRestriccio {
                     switch (op5) {
                         case "AND":
                             R_AND and = (R_AND) r;
-                            if(!Torn.class.equals(and.getFill1().getClass())){
+                            if(!String.class.equals(and.getFill1().getClass())){
                                 r = (Restriccio) and.getFill1();
                             }
                             else{
@@ -139,7 +133,7 @@ public class DriverRestriccio {
                             break;
                         case "OR":
                             R_OR or = (R_OR) r;
-                            if(!Torn.class.equals(or.getFill1().getClass())){
+                            if(!String.class.equals(or.getFill1().getClass())){
                                 r = (Restriccio) or.getFill1();
                             }
                             else{
@@ -148,7 +142,7 @@ public class DriverRestriccio {
                             break;
                         case "NOT":
                             R_NOT not = (R_NOT) r;
-                            if(!Torn.class.equals(not.getFill().getClass())){
+                            if(!String.class.equals(not.getFill().getClass())){
                                 r = (Restriccio) not.getFill();
                             }
                             else{
@@ -162,7 +156,7 @@ public class DriverRestriccio {
                     switch (op6) {
                         case "AND":
                             R_AND and = (R_AND) r;
-                            if(!Torn.class.equals(and.getFill2().getClass())){
+                            if(!String.class.equals(and.getFill2().getClass())){
                                 r = (Restriccio) and.getFill2();
                             }
                             else{
@@ -171,7 +165,7 @@ public class DriverRestriccio {
                             break;
                         case "OR":
                             R_OR or = (R_OR) r;
-                            if(!Torn.class.equals(or.getFill2().getClass())){
+                            if(!String.class.equals(or.getFill2().getClass())){
                                 r = (Restriccio) or.getFill2();
                             }
                             else{
@@ -223,7 +217,8 @@ public class DriverRestriccio {
                     break;
             }
         }  else {
-            System.out.print(" T ");
+            String torn = " "+o+" ";
+            System.out.print(torn);
         }
     }
 }

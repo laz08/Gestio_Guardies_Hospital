@@ -6,8 +6,8 @@ package prop;
 
 
 public class R_NOT extends Restriccio{
-    Restriccio restriccio = null;
-    Torn torn = null;
+    private Restriccio restriccio = null;
+    private String torn = null;
     
     /**
      * Operació lògica NOT fent referència a una restricció
@@ -21,7 +21,7 @@ public class R_NOT extends Restriccio{
      * Operació lògica NOT fent referència a un torn
      * @param t Torn
      */
-    public R_NOT(Torn t){
+    public R_NOT(String t){
         torn = t;
     }
     

@@ -6,8 +6,8 @@ package prop;
 
 
 public class R_OR extends Restriccio{
-    Restriccio restriccio1 = null, restriccio2 = null;
-    Torn torn1 = null, torn2 = null;
+    private Restriccio restriccio1 = null, restriccio2 = null;
+    private String torn1 = null, torn2 = null;
     
     /**
      * Operació lògica OR que fa referència a 2 restriccions
@@ -24,7 +24,7 @@ public class R_OR extends Restriccio{
      * @param t1 Primer torn
      * @param t2 Segon torn
      */
-    public R_OR(Torn t1, Torn t2){
+    public R_OR(String t1, String t2){
         torn1 = t1;
         torn2 = t2;
     }

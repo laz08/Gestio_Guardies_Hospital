@@ -60,24 +60,26 @@ public abstract class Restriccio {
                }
            }
            else if(!esRestriccio(sub_r1) && !esRestriccio(sub_r2)){
-               //Torn t1 = Cjt_calendaris.cerca_torn(sub_r1); //retorna el torn que te per identificador sub_r1
-               //Torn t2 = Cjt_calendaris.cerca_torn(sub_r2); //retorna el torn que te per identificador sub_r2
-               GregorianCalendar d_i = new GregorianCalendar(1000, 10, 20, 10, 30);
-               GregorianCalendar d_f = new GregorianCalendar(1000, 10, 20, 11, 00);
-               Torn t1 = new Torn(d_i, d_f, 1, 10);
-               d_i = new GregorianCalendar(1000, 10, 20, 13, 00);
-               d_f = new GregorianCalendar(1000, 10, 20, 14, 00);
-               Torn t2 = new Torn(d_i, d_f, 2, 10);
+//               //Torn t1 = Cjt_calendaris.cerca_torn(sub_r1); //retorna el torn que te per identificador sub_r1
+//               //Torn t2 = Cjt_calendaris.cerca_torn(sub_r2); //retorna el torn que te per identificador sub_r2
+//               GregorianCalendar d_i = new GregorianCalendar(1000, 10, 20, 10, 30);
+//               GregorianCalendar d_f = new GregorianCalendar(1000, 10, 20, 11, 00);
+//               Torn t1 = new Torn(d_i, d_f, 1, 10);
+//               d_i = new GregorianCalendar(1000, 10, 20, 13, 00);
+//               d_f = new GregorianCalendar(1000, 10, 20, 14, 00);
+//               Torn t2 = new Torn(d_i, d_f, 2, 10);
                
                
                
                
                switch (operacio){
                    case "AND":
-                      r = new R_AND(t1,t2);
+                      //r = new R_AND(t1,t2);
+                       r = new R_AND(sub_r1, sub_r2); 
                       break;
                    case "OR":
-                       r = new R_OR(t1,t2);
+                       r = new R_OR(sub_r1, sub_r2);
+                       //r = new R_OR(t1,t2);
                        break;
                    default:
                        throw new Error("El nom de l'operació logica no es correcte");
@@ -100,18 +102,20 @@ public abstract class Restriccio {
                r = new R_NOT(r1);
            }
            else{
-               //Torn t1 = Cjt_calendaris.cerca_torn(sub_r1);
-               GregorianCalendar d_i = new GregorianCalendar(1000, 10, 20, 10, 30);
-               GregorianCalendar d_f = new GregorianCalendar(1000, 10, 20, 11, 00);
-               Torn t1 = new Torn(d_i, d_f, 1, 10);
+//               //Torn t1 = Cjt_calendaris.cerca_torn(sub_r1);
+//               GregorianCalendar d_i = new GregorianCalendar(1000, 10, 20, 10, 30);
+//               GregorianCalendar d_f = new GregorianCalendar(1000, 10, 20, 11, 00);
+//               Torn t1 = new Torn(d_i, d_f, 1, 10);
                
                
                switch (operacio){
                    case "NOT":
-                      r = new R_NOT(t1);
+                      r = new R_NOT(sub_r1); 
+                      //r = new R_NOT(t1);
                       break;
                    case "NOP":
-                       r = new R_NOP(t1);
+                       //r = new R_NOP(t1);
+                       r = new R_NOP(sub_r1); 
                        break;
                    default:
                        throw new Error("El nom de l'operació logica no es correcte");
