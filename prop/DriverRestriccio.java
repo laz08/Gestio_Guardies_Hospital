@@ -18,14 +18,14 @@ public class DriverRestriccio {
         Scanner scan;
         while (true) {
             System.out.println("---------MENU---------");
-            System.out.println("1 => Insereix una expressió per la restriccio");
-            System.out.println("2 => Crea l'arbre de la restriccio");
-            System.out.println("3 => Consulta l'operació de la restricció");
+            System.out.println("1 => Lectura de una expresió que defineix una restricció");
+            System.out.println("2 => crea_arbre(String expresió)");
+            System.out.println("3 => getOp()");
             System.out.println("4 => Mostra l'arbre que sorgeix de la restricció");
-            System.out.println("5 => consulta el primer fill de la restricció");
-            System.out.println("6 => consulta el segon fill de la restricció");
-            System.out.println("7 => accedeix a la primera restricció filla");
-            System.out.println("8 => accedeix a la segona restricció filla");
+            System.out.println("5 => getFill1()");
+            System.out.println("6 => getFill2()");
+            System.out.println("7 => accedeix al fill1 (recorregurt dins l'arbre)");
+            System.out.println("8 => accedeix a la fill2 (recorregut dins l'arbre)");
 
             scan = new Scanner(System.in);
 
