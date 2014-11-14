@@ -30,43 +30,21 @@ public class R_AND extends Restriccio{
     }
     
     /**
-     * En el cas que es faci referència a restriccions, retorna la primera. 
-     * @return Primera restricció
-     * @throws Error 
+     * Retorna el primer fill de la restricció. 
+     * @return Objecte que fa referencia al primer fill (restricció o torn)
      */
-    public Restriccio getRestriccio1() throws Error{
-        if(restriccio1 == null) throw new Error ("Aquesta restricció AND no esta formada per altres restriccions");
-        return restriccio1;
+    public Object getFill1(){
+        if(restriccio1 == null) return torn1;
+        else return restriccio1;
     }
     
     /**
-     * En el cas que es faci referència a restriccions, retorna la segona
-     * @return Segona restricció
-     * @throws Error 
+     * Retorna el segon fill de la restricció
+     * @return Objecte que fa referencia al segon fill (restricció o torn)
      */
-    public Restriccio getRestriccio2() throws Error { 
-        if(restriccio2 == null) throw new Error ("Aquesta restricció AND no esta formada per altres restriccions");
-        return restriccio2;
-    }
-    
-    /**
-     * En el cas que es faci referància a torns, retorna el primer
-     * @return Primer torn
-     * @throws Error 
-     */
-    public Torn getTorn1() throws Error{
-        if(torn1 == null) throw new Error ("Aquesta restricció AND no esta formada per torns");
-        return torn1;
-    }
-    
-    /**
-     * En el cas que es faci referència a torns, retorna el segon
-     * @return Segon torn
-     * @throws Error 
-     */
-    public Torn getTorn2() throws Error{
-        if(torn2 == null) throw new Error ("Aquesta restricció AND no esta formada per torns");
-        return torn2;
+    public Object getFill2(){ 
+        if(restriccio2 == null) return torn2;
+        else return restriccio2;
     }
 
     @Override

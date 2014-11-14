@@ -26,23 +26,12 @@ public class R_NOT extends Restriccio{
     }
     
     /**
-     * En el cas que es faci referència a una restricció, la retorna
-     * @return Restricció a la que es fa referència
-     * @throws Error 
+     * Retorna el fill de la restricció. 
+     * @return Objecte que fa referencia al primer fill (restricció o torn)
      */
-    public Restriccio getRestriccio() throws Error {
-        if (restriccio == null) throw new Error("Aquesta restricció NOT no fa referència a una altra restricció");
-        return restriccio;
-    }
-    
-    /**
-     * En el cas que es daci referència a un torn, el retorna
-     * @return Torn al que fa referència
-     * @throws Error 
-     */
-    public Torn getTorn() throws Error{
-        if (torn == null) throw new Error("Aquesta restriccio NOT no fa referència a un torn");
-        return torn;
+    public Object getFill(){
+        if(restriccio == null) return torn;
+        else return restriccio;
     }
 
     @Override
