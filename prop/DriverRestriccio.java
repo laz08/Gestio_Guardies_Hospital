@@ -48,6 +48,7 @@ public class DriverRestriccio {
                     break;
                 case 4:
                     MostraArbre(r);
+                    System.out.println();
                     break;
                 case 5:
                     String op = r.getOp();
@@ -194,29 +195,33 @@ public class DriverRestriccio {
             switch (op) {
                 case "AND":
                     R_AND and = (R_AND) r;
-                    System.out.print("(");
+                    System.out.print("AND ( ");
                     MostraArbre(and.getFill1());
-                    System.out.print(" , ");
+                    System.out.print(" || ");
                     MostraArbre(and.getFill2());
+                    System.out.print(" )");
                     break;
                 case "OR":
                     R_OR or = (R_OR) r;
-                    System.out.print("(");
+                    System.out.print("OR ( ");
                     MostraArbre(or.getFill1());
-                    System.out.print(" , ");
+                    System.out.print(" || ");
                     MostraArbre(or.getFill2());
+                    System.out.print(" )");
                     break;
                 case "NOT":
                     R_NOT not = (R_NOT) r;
-                    System.out.print("(");
+                    System.out.print("NOT ( ");
                     MostraArbre(not.getFill());
+                    System.out.print(" )");
                     break;
                 case "NOP":
                     R_NOP nop = (R_NOP) r;
-                    System.out.print("( T ");
+                    System.out.println("NOP ( ");
+                    MostraArbre(nop.getTorn());
+                    System.out.print(" )");
                     break;
             }
-            System.out.print(")-->" + op + "\n");
         }  else {
             System.out.print(" T ");
         }
