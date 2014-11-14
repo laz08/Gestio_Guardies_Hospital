@@ -12,11 +12,7 @@ public class Doctor {
 	private boolean actiu;
 	
 	public Doctor(){
-<<<<<<< HEAD
-		int a;
-=======
-		
->>>>>>> 866e95ac90529616f1234859b9902c1d518682d7
+
 	}
 	
 	public Doctor(String d) {
