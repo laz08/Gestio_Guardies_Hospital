@@ -1,67 +1,110 @@
 package prop;
 
-import java.lang.NumberFormatException;
 import java.util.Scanner;
 
 public class DriverHospital {
 
+    static Hospital H = new Hospital();
+
     public static void main(String[] args) {
 
-        Hospital H;
         Scanner arg;
         int cas;
-        while (true) {
-            System.out.println("Menú");
-            System.out.println("1.- Afegir Doctor:");
-            System.out.println("dni, nom, cognom1, cognom2, sou, telf, correu");
-
-            System.out.println("2.- Eliminar Doctor");
-            System.out.println("dni");
-            System.out.println("3.- Existeix Doctor:");
-            System.out.println("dni");
-            System.out.println("4.- Consultar Doctor");
-            System.out.println("dni");
-
-            arg = new Scanner(System.in);
+        boolean sortir = false;
+        while (!sortir) {
             try {
-                cas = arg.parseInt();
-            } catch (NumberFormatException e){
-                throw new Error ("Has d'introduir un numero.");
+                escriuMenu();
+
+                arg = new Scanner(System.in);
+                cas = arg.nextInt();
+
+                switch (cas) {
+                    case 1: casCreaDoctor(); break;
+                    case 2: casEliminaDoctor(); break;
+                    case 3: casExisteixDoctor(); break;
+                    case 4: casConsultaDoctor(); break;
+                    case 5: casLlistatDoctors(); break;
+                    case 0: sortir = true; break;
+                    default:
+                        System.out.println("El numero ha d'estar entre 0 i 4.");
+                        break;
+                }
+
+            }catch (Exception e){
+                System.err.println("Has d'introduir un numero\n"+e);
             }
+        }
+    }
 
-            switch(cas){
-                case 1:
-                        //Tornem a llegir
-                        String dni = new Scanner(System.in);
-                        String nom = new Scanner(System.in);
-                        String cognom1 = new Scanner(System.in);
-                        String cognom2 = new Scanner(System.in);
-                        String lsou = new Scanner(System.in);
-                        int sou = lsou.nextInt();
-                        String ltelf = new Scanner(System.in);
-                        int telf = ltelf.nextInt();
-                        String correu = new Scanner(System.in);
+    public static void escriuMenu(){
+        System.out.println("\n\n---------Menú---------");
+        System.out.println("1.- crearDoctor(dni: String, nom: String, cognom1: String, cognom2: String, sou: int, telf: int, correu: String)");
+        System.out.println("2.- Eliminar Doctor(dni: String)");
+        System.out.println("3.- Existeix Doctor(dni: String)");
+        System.out.println("4.- Consultar Doctor(dni: String)");
+        System.out.println("5.- Consultar llistat doctors()");
+        System.out.println("0.- Exit");
 
+    }
 
+    public static void casCreaDoctor(){
+        Scanner sc = new Scanner(System.in);
+        String dni = sc.next();
+        String nom = sc.next();
+        String cg1 = sc.next();
+        String cg2 = sc.next();
+        int sou = sc.nextInt();
+        int telf = sc.nextInt();
+        String correu = sc.next();
 
-                    break;
+        H.creariAfegirDoctor(dni, nom, cg1, cg2, sou, telf, correu);
+    }
 
-                case 2:
+    public static void casEliminaDoctor(){
+        Scanner sc = new Scanner(System.in);
+        String dni = sc.next();
 
-                    break;
+        int pos = H.existeixDoctor(dni);
+        if (pos != -1){
+            H.eliminarDoctor(pos);
+        }
+    }
 
-                case 3:
-                    break;
+    public static void casExisteixDoctor(){
+        Scanner sc = new Scanner(System.in);
+        String dni = sc.next();
+        int pos = H.existeixDoctor(dni);
+        if (pos != -1)
+            System.out.println("true");
+        else
+            System.out.println("false");
+    }
 
-                case 4:
-                    break;
+    public static void casConsultaDoctor(){
+        Scanner sc = new Scanner(System.in);
+        String dni = sc.next();
+        int pos = H.existeixDoctor(dni);
+        if (pos != -1){
+            Doctor doc = H.getDoctor(pos);
+            System.out.println("dni: "+doc.getdni());
+            System.out.println("nom i cognoms: "+doc.getNom()+" "+doc.getCognom1()+" "+doc.getCognom2());
+            System.out.println("sou: "+doc.getSou());
+            System.out.println("Telefon: "+doc.getTelefon());
+            System.out.println("Correu: "+doc.getCorreu());
+        }
+    }
 
-                default:
-                    System.out.println("El numero ha d'estar entre 1 i 4.");
-                    break;
-            }
-
-
+    public static void casLlistatDoctors(){
+        Doctor doc;
+        for (int i = 0; i < H.numDocs(); ++i){
+            doc = H.getDoctor(i);
+            System.out.println("\n\n");
+            System.out.println("Doctor num.: "+ i);
+            System.out.println("dni: "+doc.getdni());
+            System.out.println("nom i cognoms: "+doc.getNom()+" "+doc.getCognom1()+" "+doc.getCognom2());
+            System.out.println("sou: "+doc.getSou());
+            System.out.println("Telefon: "+doc.getTelefon());
+            System.out.println("Correu: "+doc.getCorreu());
         }
     }
 }

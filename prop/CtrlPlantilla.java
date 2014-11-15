@@ -13,8 +13,8 @@ import java.util.ArrayList;
 public class CtrlPlantilla {
     
     /**
-     * Afageix un doctor a una plantilla determinada ordenat alfabeticament
-     * @param d Doctor que es vol intoroduir
+     * Afegeix un doctor a una plantilla determinada ordenat alfabeticament
+     * @param d Doctor que es vol introduir
      * @param p Plantilla a la que es vol introduir el doctor
      */
     public void afegirDoctor(String dni, String id_plantilla) throws Error {
