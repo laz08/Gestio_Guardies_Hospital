@@ -5,9 +5,9 @@ import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.Scanner;
 
-public class DriverCalendari {
+public class DriverCjt_calendaris {
 	
-	static Calendari c = new Calendari();
+	static Cjt_calendaris c = new Cjt_calendaris();
 	
 	public static void main(String[] args) throws Error {
 		
@@ -15,15 +15,7 @@ public class DriverCalendari {
 		Scanner arg = new Scanner(System.in);
 		int cas;
 		System.out.println("Menu: \n"
-				+ "1. Crear Calendari:"
-				+ "int id calendari, int id plantilla, int N_torns, torn1...tornN\n"
-				+ "2. Consultar id calendari\n"
-				+ "3. Modificar id calendari\n"
-				+ "int id nou\n"
-				+ "4. Consultar id plantilla\n"
-				+ "5. Modificar id plantilla\n"
-				+ "int id plantilla\n"
-				+ "6. Consultar torns del calendari\n");
+				+ "1. Consultar llista calendaris\n");
 		
 		while(true) {
 			
@@ -35,57 +27,51 @@ public class DriverCalendari {
 			Scanner aux = new Scanner(System.in);
 			
 			switch(cas) {
-				case 1: crear_calendari(aux); break;
-				case 2: consultar_id(aux); break;
-				case 3: modificar_id(aux); break;
-				case 4: consultar_id_plantilla(aux); break;
-				case 5: modificar_id_plantilla(aux); break;
-				case 6: consultar_torns(aux); break;
-				default: System.out.println("El número ha d'estar entre 1 i 6");
-				break;
-				
+				case 1: consultar_llista_calendaris(aux); break;
+				case 2: afegir_calendari(aux); break;
+				case 3: eliminar_calendari(aux); break;
+				case 4: consultar_calendari(aux); break;
+				default: break;
 			}
 		}
 	}
 	
-	public static void crear_calendari(Scanner s) {
+	public static void consultar_llista_calendaris(Scanner s) {
+		ArrayList<Calendari> llc = c.get_llista_calendaris();
+		for(int i=0; i<llc.size(); i++) {
+			System.out.println("Calendari: " + llc.get(i).getId());
+			System.out.println("Plantilla: " + llc.get(i).getId_plantilla());
+		}
+	}
+	
+	public static void afegir_calendari(Scanner s) {
+		Calendari cl = crear_calendari(s);
+		c.afegir_calendari(cl);
+	}
+	
+	public static void eliminar_calendari(Scanner s) {
+		int id = s.nextInt();
+		c.eliminar_calendari(id);
+	}
+	
+	public static void consultar_calendari(Scanner s) {
+		int id = s.nextInt();
+		Calendari cal = c.consultar_calendari(id);
+		ArrayList<Torn> llt = cal.getTorns();
+		for(int j=0; j<llt.size(); j++) escriure_torn(llt.get(j));
+	}
+	
+	public static Calendari crear_calendari(Scanner s) {
 		int id = s.nextInt();
 		int id_plt = s.nextInt();
 		int n = s.nextInt();
 		ArrayList<Torn> lltorns = new ArrayList<Torn>();
-		Torn t;
-		System.out.println("fora\n");
-
 		for(int i=0; i<n; i++) {
-			t = crear_torn(s);
-			lltorns.add(t);
+			lltorns.add(crear_torn(s));
 		}
-		c = new Calendari(id,id_plt,lltorns);
+		Calendari cl = new Calendari(id,id_plt,lltorns);
+		return cl;
 		
-	}
-	
-	public static void consultar_id(Scanner s) {
-		System.out.println("El identificador del calendari es: " + c.getId());
-	}
-	
-	public static void modificar_id(Scanner s) {
-		c.setId(s.nextInt());
-	}
-	
-	public static void consultar_id_plantilla(Scanner s) {
-		System.out.println("El identificador de la plantilla associada al calendari es: " + c.getId_plantilla());
-	}
-	
-	public static void modificar_id_plantilla(Scanner s) {
-		c.setId_plantilla(s.nextInt());
-	}
-	
-	public static void consultar_torns(Scanner s) {
-		ArrayList<Torn> l = c.getTorns();
-		for(int i=0; i<l.size(); i++) {
-			escriure_torn(l.get(i));
-			System.out.println("\n");
-		}
 	}
 	
 	public static void escriure_torn(Torn t) {
@@ -123,7 +109,6 @@ public class DriverCalendari {
 			doc = s.next(); 
 			doctors_assig.add(doc);
 		}
-
 		Torn t = new Torn(data_inici,data_fi,min_doc,p_sou,doctors_assig);
 		return t;
 	}

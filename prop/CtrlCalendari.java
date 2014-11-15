@@ -14,8 +14,9 @@ public class CtrlCalendari {
 		//comprovem que el torn que es vol afegir no es solapi amb els existents
 		int pos = posicio_torn(t,llTorns);
 		int i;
+		Torn taux;
 		for (i=pos; i < llTorns.size(); i++) {
-			Torn taux = llTorns.get(i);
+			taux = llTorns.get(i);
 			llTorns.add(i,t);
 			t=taux;
 		}

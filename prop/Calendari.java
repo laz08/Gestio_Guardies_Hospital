@@ -15,10 +15,14 @@ public class Calendari {
 	/** 
 	 * Creació d'un nou calendari
 	 */
-	public Calendari(int ident, int ident_plantilla) {
+	public Calendari(){
+	}
+	
+	@SuppressWarnings("unchecked")
+	public Calendari(int ident, int ident_plantilla, ArrayList<Torn> llt) {
 		id = ident;
 		id_plantilla = ident_plantilla;
-		c = new ArrayList<Torn>();
+		c = (ArrayList<Torn>) llt.clone();
 	}
 	
 	public int getId() {
