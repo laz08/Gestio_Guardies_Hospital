@@ -84,7 +84,6 @@ public class DriverDoctor {
 
 
                     // Modificar correu
-
                     case 6:
 
                         arg = new Scanner(System.in);
@@ -102,7 +101,6 @@ public class DriverDoctor {
                         break;
 
                     //Modificar Activitat
-
                     case 8:
                         arg = new Scanner(System.in);
                         actiu = arg.nextBoolean();

@@ -1,6 +1,8 @@
 package prop;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class Hospital {
 
@@ -26,6 +28,12 @@ public class Hospital {
         doc.setCorreu(mail);
         doc.setActiu(false); //Primer el posem com a inactiu
         H.add(doc);
+        Collections.sort(H, new Comparator<Doctor>() {
+            @Override
+            public int compare(Doctor doctor, Doctor doctor2) {
+                return doctor.getdni().compareTo(doctor2.getdni());
+            }
+        });
     }
 
 
