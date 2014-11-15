@@ -8,7 +8,7 @@ package prop;
 public class R_AND extends Restriccio{
     private Restriccio restriccio1 = null, restriccio2 = null;
     private String torn1 = null, torn2 = null;
-    
+    private final int capacitat = 2;
     /**
      * Operació lògica AND fent referència a 2 altres restriccions 
      * @param r1 Primera restricció
@@ -47,6 +47,11 @@ public class R_AND extends Restriccio{
         else return restriccio2;
     }
 
+    @Override
+    public int getCapacitat(){
+        return capacitat;
+    }
+    
     @Override
     public String getOp() {
         return "AND";

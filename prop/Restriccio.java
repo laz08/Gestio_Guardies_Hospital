@@ -9,13 +9,7 @@ import java.util.GregorianCalendar;
 public abstract class Restriccio {
     private Torn t1 = null, t2 = null;
     private Restriccio r1, r2;
-    private Doctor d; 
-    //////////////////////////////////////////////////////////////////////////
-    // Per accedir a un torn determinat s'hauria de consultar la classe graf//
-    // i anar recorreguent node a node fins trobar-ne un amb un             //
-    // identificador de torn que sigui igual al que es cerca??              //
-    //////////////////////////////////////////////////////////////////////////
-    
+    private Doctor d;
     /**
      * Donat una explresió lògica, es crea un arbre que la representa i en retorna l'arrel
      * @param s String amb la explresió lògica que determina la restricció completa
@@ -182,9 +176,10 @@ public abstract class Restriccio {
     }
     
     /**
-     * Retorna la primera restricció en cas de que la actual estigui composta per una o més restriccions
-     * @return Primera restricció filla
+     * Retorna una constant que conté la capacitat que hauria de tenir l'aresta que apunta a aquesta restricció dins el graf
+     * @return 
      */
+    public abstract int getCapacitat();
     
     /**
      * Retorna l'operació lògica que s'aplica a aquesta restricció

@@ -8,7 +8,7 @@ package prop;
 public class R_XOR extends Restriccio{
     private Restriccio restriccio1 = null, restriccio2 = null;
     private String torn1 = null, torn2 = null;
-    
+    private final int capacitat = 1;
     /**
      * Operació lògica OR que fa referència a 2 restriccions
      * @param r1 Primera restricció
@@ -50,6 +50,11 @@ public class R_XOR extends Restriccio{
     @Override
     public String getOp() {
         return "OR";
+    }
+
+    @Override
+    public int getCapacitat() {
+        return capacitat;
     }
     
 }

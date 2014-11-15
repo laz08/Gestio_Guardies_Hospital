@@ -8,7 +8,7 @@ package prop;
 public class R_NOT extends Restriccio{
     private Restriccio restriccio = null;
     private String torn = null;
-    
+    private final int capacitat = 0;
     /**
      * Operació lògica NOT fent referència a una restricció
      * @param r Restricció
@@ -37,6 +37,11 @@ public class R_NOT extends Restriccio{
     @Override
     public String getOp() {
         return "NOT";
+    }
+
+    @Override
+    public int getCapacitat() {
+        return capacitat;
     }
     
 }
