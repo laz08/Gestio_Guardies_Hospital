@@ -41,9 +41,11 @@ public class DriverRestriccio {
                     }
                     break;
                 case 3:
+                    System.out.print("L'operació lògica de la restricció actual és: ");
                     System.out.println(r.getOp());
                     break;
                 case 4:
+                    System.out.println("L'estructura de l'arbre que penja d'aquesta restricció és: ");
                     MostraArbre(r);
                     System.out.println();
                     break;
@@ -118,6 +120,7 @@ public class DriverRestriccio {
                     break;
                 case 7:
                     String op5 = r.getOp();
+                    System.out.println("Accedim al fill dret de la restricció actual");
                     switch (op5) {
                         case "AND":
                             R_AND and = (R_AND) r;
@@ -149,6 +152,7 @@ public class DriverRestriccio {
                     }
                     break;
                 case 8:
+                    System.out.println("Accedim al fill esquerre de la restricció actual");
                     String op6 = r.getOp();
                     switch (op6) {
                         case "AND":
@@ -208,7 +212,7 @@ public class DriverRestriccio {
                     break;
                 case "NOP":
                     R_NOP nop = (R_NOP) r;
-                    System.out.println("NOP ( ");
+                    System.out.print("NOP ( ");
                     MostraArbre(nop.getTorn());
                     System.out.print(" )");
                     break;
