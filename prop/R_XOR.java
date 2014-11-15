@@ -49,7 +49,7 @@ public class R_XOR extends Restriccio{
     
     @Override
     public String getOp() {
-        return "OR";
+        return "XOR";
     }
 
     @Override
