@@ -8,53 +8,44 @@ import java.lang.*;
 
 public class DriverDoctor {
 
+    static Doctor doc = new Doctor();
+
     public static void main(String[] args) throws Error {
 
         Scanner arg;
         int cas;
-        CtrlDoctor CtrlDoc = new CtrlDoctor();
-        Doctor doc = new Doctor();
-        while (true) {
+
+        String dni;
+        String nom;
+        String cognom1;
+        String cognom2;
+        int sou;
+        int telf;
+        String correu;
+        boolean actiu;
+
+        //CtrlDoctor CtrlDoc = new CtrlDoctor();
+
+
+        boolean sortir = false;
+
+        while (!sortir) {
             try {
 
-                System.out.println("Menú");
-                System.out.println("1.- Crear Doctor:");
-                System.out.println("dni, nom, cognom1, cognom2, sou, telf, correu");
-                System.out.println("2.- Modificar telf (telf)");
-                System.out.println("3.- Modificar correu (correu)");
-                System.out.println("4.- Modificar sou (sou)");
-                System.out.println("5.- Modificar Activitat (actiu)");
-                System.out.println("6.- Consultar DNI ()");
-                System.out.println("7.- Consultar nom ()");
-                System.out.println("8.- Consultar cognom1 ()");
-                System.out.println("9.- Consultar cognom2 ()");
-                System.out.println("10.- Consultar sou ()");
-                System.out.println("11.- Consultar telefon ()");
-                System.out.println("12.- Consultar email ()");
-                System.out.println("13.- Consultar activitat ()");
-
+                escriuMenu();
 
                 arg = new Scanner(System.in);
                 cas = arg.nextInt();
 
 
-
-                String dni;
-                String nom;
-                String cognom1;
-                String cognom2;
-                int sou;
-                int telf;
-                String correu;
-                boolean actiu;
-
                 switch (cas) {
-
+                    case 0:
+                        sortir = true;
+                        break;
 
                     //Crear Doctor
 
                     case 1:
-                        //Tornem a llegir
                         Scanner arg2 = new Scanner(System.in);
                         dni = arg2.next();
                         nom = arg2.next();
@@ -64,19 +55,15 @@ public class DriverDoctor {
                         telf = arg2.nextInt();
                         correu = arg2.next();
 
-
-                        doc = CtrlDoc.crearDoctor(dni, nom, cognom1, cognom2, sou, telf, correu);
+                        crearDoctor(dni, nom, cognom1, cognom2, sou, telf, correu);
                         break;
 
 
                     //Modificar telf
-
                     case 2:
-
                         arg2 = new Scanner(System.in);
                         telf = arg2.nextInt();
-                        CtrlDoc.modificarTelf(doc, telf);
-
+                        modificarTelf(telf);
                         break;
 
 
@@ -86,7 +73,7 @@ public class DriverDoctor {
 
                         arg2 = new Scanner(System.in);
                         correu = arg2.toString();
-                        CtrlDoc.modificarCorreu(doc, correu);
+                        modificarCorreu(correu);
                         break;
 
 
@@ -95,7 +82,7 @@ public class DriverDoctor {
 
                         arg2 = new Scanner(System.in);
                         sou = arg2.nextInt();
-                        CtrlDoc.modificarSou(doc, sou);
+                        modificarSou(sou);
                         break;
 
                     //Modificar Activitat
@@ -103,53 +90,45 @@ public class DriverDoctor {
                     case 5:
                         arg2 = new Scanner(System.in);
                         actiu = arg2.nextBoolean();
-                        CtrlDoc.modificarActivitat(doc, actiu);
+                        modificarActivitat(actiu);
                         break;
 
                     //Consultar dni
                     case 6:
-                        dni = CtrlDoc.consultarDni(doc);
-                        System.out.println(dni);
+                        consultarDni();
                         break;
 
                     //Consultar nom
                     case 7:
-                        nom = CtrlDoc.consultarNom(doc);
-                        System.out.println(nom);
+                        consultarNom();
                         break;
 
                     case 8:
-                        String cog1 = CtrlDoc.consultarCognom1(doc);
-                        System.out.println(cog1);
+                        consultarCognom1();
                         break;
 
                     case 9:
-                        String cog2 = CtrlDoc.consultarCognom2(doc);
-                        System.out.println(cog2);
+                        consultarCognom2();
                         break;
 
                     case 10:
-                        sou = CtrlDoc.consultarSou(doc);
-                        System.out.println(sou);
+                        consultarSou();
                         break;
 
                     case 11:
-                        telf = CtrlDoc.consultarTelefon(doc);
-                        System.out.println(telf);
+                       consultarTelefon();
                         break;
 
                     case 12:
-                        String email = CtrlDoc.consultarCorreu(doc);
-                        System.out.println(email);
+                        consultarCorreu();
                         break;
 
                     case 13:
-                        actiu = CtrlDoc.consultarActivitat(doc);
-                        System.out.println(actiu);
+                        consultarActivitat();
                         break;
 
                     default:
-                        System.out.println("El numero ha d'estar entre 1 i 13.");
+                        System.out.println("El numero ha d'estar entre 0 i 13.");
                         break;
 
                 }
@@ -160,4 +139,86 @@ public class DriverDoctor {
 
         }
     }
+
+    public static void escriuMenu(){
+        System.out.println("\n\nMenú");
+        System.out.print("1.- Crear Doctor:");
+        System.out.println("(dni:string, nom:string, cognom1:string, cognom2:string, sou:int, telf:int, correu:string)");
+        System.out.println("2.- Modificar telf(telf:int)");
+        System.out.println("3.- Modificar correu (correu:string)");
+        System.out.println("4.- Modificar sou (sou:int)");
+        System.out.println("5.- Modificar Activitat (actiu: boolean)");
+        System.out.println("6.- Consultar DNI()");
+        System.out.println("7.- Consultar nom ()");
+        System.out.println("8.- Consultar cognom1 ()");
+        System.out.println("9.- Consultar cognom2 ()");
+        System.out.println("10.- Consultar sou ()");
+        System.out.println("11.- Consultar telefon ()");
+        System.out.println("12.- Consultar email ()");
+        System.out.println("13.- Consultar activitat ()");
+        System.out.println("0.- Exit");
+    }
+
+    public static void crearDoctor(String d, String n, String cg1, String cg2, int s, int telf, String mail){
+        doc.setdni(d);
+        doc.setNom(n);
+        doc.setCognom1(cg1);
+        doc.setCognom2(cg2);
+        doc.setSou(s);
+        doc.setTelefon(telf);
+        doc.setCorreu(mail);
+        doc.setActiu(false); //Primer el posem com a inactiu
+    }
+
+
+    public static void modificarTelf(int telf){
+        doc.setTelefon(telf);
+    }
+
+    public static void modificarCorreu(String mail){
+        doc.setCorreu(mail);
+    }
+
+    public static void modificarSou(int sou){
+        doc.setSou(sou);
+    }
+
+    public static void modificarActivitat(boolean actiu){
+        doc.setActiu(actiu);
+    }
+
+    public static void consultarNom(){
+        System.out.println(doc.getNom());
+    }
+
+    public static void consultarCognom1(){
+        System.out.println(doc.getCognom1());
+
+    }
+
+    public static void consultarCognom2(){
+        System.out.println(doc.getCognom2());
+    }
+
+    public static void consultarDni(){
+        System.out.println(doc.getdni());
+    }
+
+    public static void consultarSou(){
+        System.out.println(doc.getSou());
+    }
+
+    public static void consultarTelefon(){
+        System.out.println(doc.getTelefon());
+    }
+
+    public static void consultarCorreu(){
+        System.out.println(doc.getCorreu());
+    }
+
+    public static void consultarActivitat(){
+       System.out.println(doc.isActiu());
+    }
+
+
 }
