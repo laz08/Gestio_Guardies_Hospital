@@ -5,16 +5,16 @@
 package prop;
 
 
-public class R_OR extends Restriccio{
-    Restriccio restriccio1 = null, restriccio2 = null;
-    Torn torn1 = null, torn2 = null;
-    
+public class R_XOR extends Restriccio{
+    private Restriccio restriccio1 = null, restriccio2 = null;
+    private String torn1 = null, torn2 = null;
+    private final int capacitat = 1;
     /**
      * Operació lògica OR que fa referència a 2 restriccions
      * @param r1 Primera restricció
      * @param r2 Segona restricció
      */
-    public R_OR(Restriccio r1, Restriccio r2){
+    public R_XOR(Restriccio r1, Restriccio r2){
         restriccio1 = r1;
         restriccio2 = r2;
     }
@@ -24,7 +24,7 @@ public class R_OR extends Restriccio{
      * @param t1 Primer torn
      * @param t2 Segon torn
      */
-    public R_OR(Torn t1, Torn t2){
+    public R_XOR(String t1, String t2){
         torn1 = t1;
         torn2 = t2;
     }
@@ -50,6 +50,11 @@ public class R_OR extends Restriccio{
     @Override
     public String getOp() {
         return "OR";
+    }
+
+    @Override
+    public int getCapacitat() {
+        return capacitat;
     }
     
 }

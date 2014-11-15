@@ -9,13 +9,7 @@ import java.util.GregorianCalendar;
 public abstract class Restriccio {
     private Torn t1 = null, t2 = null;
     private Restriccio r1, r2;
-    private Doctor d; 
-    //////////////////////////////////////////////////////////////////////////
-    // Per accedir a un torn determinat s'hauria de consultar la classe graf//
-    // i anar recorreguent node a node fins trobar-ne un amb un             //
-    // identificador de torn que sigui igual al que es cerca??              //
-    //////////////////////////////////////////////////////////////////////////
-    
+    private Doctor d;
     /**
      * Donat una explresió lògica, es crea un arbre que la representa i en retorna l'arrel
      * @param s String amb la explresió lògica que determina la restricció completa
@@ -52,32 +46,34 @@ public abstract class Restriccio {
                    case "AND":
                       r = new R_AND(r1,r2); 
                       break;
-                   case "OR":
-                       r = new R_OR(r1,r2);
+                   case "XOR":
+                       r = new R_XOR(r1,r2);
                        break;
                    default:
                        throw new Error("El nom de l'operació logica no es correcte");
                }
            }
            else if(!esRestriccio(sub_r1) && !esRestriccio(sub_r2)){
-               //Torn t1 = Cjt_calendaris.cerca_torn(sub_r1); //retorna el torn que te per identificador sub_r1
-               //Torn t2 = Cjt_calendaris.cerca_torn(sub_r2); //retorna el torn que te per identificador sub_r2
-               GregorianCalendar d_i = new GregorianCalendar(1000, 10, 20, 10, 30);
-               GregorianCalendar d_f = new GregorianCalendar(1000, 10, 20, 11, 00);
-               Torn t1 = new Torn(d_i, d_f, 1, 10);
-               d_i = new GregorianCalendar(1000, 10, 20, 13, 00);
-               d_f = new GregorianCalendar(1000, 10, 20, 14, 00);
-               Torn t2 = new Torn(d_i, d_f, 2, 10);
+//               //Torn t1 = Cjt_calendaris.cerca_torn(sub_r1); //retorna el torn que te per identificador sub_r1
+//               //Torn t2 = Cjt_calendaris.cerca_torn(sub_r2); //retorna el torn que te per identificador sub_r2
+//               GregorianCalendar d_i = new GregorianCalendar(1000, 10, 20, 10, 30);
+//               GregorianCalendar d_f = new GregorianCalendar(1000, 10, 20, 11, 00);
+//               Torn t1 = new Torn(d_i, d_f, 1, 10);
+//               d_i = new GregorianCalendar(1000, 10, 20, 13, 00);
+//               d_f = new GregorianCalendar(1000, 10, 20, 14, 00);
+//               Torn t2 = new Torn(d_i, d_f, 2, 10);
                
                
                
                
                switch (operacio){
                    case "AND":
-                      r = new R_AND(t1,t2);
+                      //r = new R_AND(t1,t2);
+                       r = new R_AND(sub_r1, sub_r2); 
                       break;
-                   case "OR":
-                       r = new R_OR(t1,t2);
+                   case "XOR":
+                       r = new R_XOR(sub_r1, sub_r2);
+                       //r = new R_XOR(t1,t2);
                        break;
                    default:
                        throw new Error("El nom de l'operació logica no es correcte");
@@ -100,18 +96,20 @@ public abstract class Restriccio {
                r = new R_NOT(r1);
            }
            else{
-               //Torn t1 = Cjt_calendaris.cerca_torn(sub_r1);
-               GregorianCalendar d_i = new GregorianCalendar(1000, 10, 20, 10, 30);
-               GregorianCalendar d_f = new GregorianCalendar(1000, 10, 20, 11, 00);
-               Torn t1 = new Torn(d_i, d_f, 1, 10);
+//               //Torn t1 = Cjt_calendaris.cerca_torn(sub_r1);
+//               GregorianCalendar d_i = new GregorianCalendar(1000, 10, 20, 10, 30);
+//               GregorianCalendar d_f = new GregorianCalendar(1000, 10, 20, 11, 00);
+//               Torn t1 = new Torn(d_i, d_f, 1, 10);
                
                
                switch (operacio){
                    case "NOT":
-                      r = new R_NOT(t1);
+                      r = new R_NOT(sub_r1); 
+                      //r = new R_NOT(t1);
                       break;
                    case "NOP":
-                       r = new R_NOP(t1);
+                       //r = new R_NOP(t1);
+                       r = new R_NOP(sub_r1); 
                        break;
                    default:
                        throw new Error("El nom de l'operació logica no es correcte");
@@ -178,9 +176,10 @@ public abstract class Restriccio {
     }
     
     /**
-     * Retorna la primera restricció en cas de que la actual estigui composta per una o més restriccions
-     * @return Primera restricció filla
+     * Retorna una constant que conté la capacitat que hauria de tenir l'aresta que apunta a aquesta restricció dins el graf
+     * @return 
      */
+    public abstract int getCapacitat();
     
     /**
      * Retorna l'operació lògica que s'aplica a aquesta restricció
