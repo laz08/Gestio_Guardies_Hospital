@@ -52,8 +52,8 @@ public abstract class Restriccio {
                    case "AND":
                       r = new R_AND(r1,r2); 
                       break;
-                   case "OR":
-                       r = new R_OR(r1,r2);
+                   case "XOR":
+                       r = new R_XOR(r1,r2);
                        break;
                    default:
                        throw new Error("El nom de l'operació logica no es correcte");
@@ -77,9 +77,9 @@ public abstract class Restriccio {
                       //r = new R_AND(t1,t2);
                        r = new R_AND(sub_r1, sub_r2); 
                       break;
-                   case "OR":
-                       r = new R_OR(sub_r1, sub_r2);
-                       //r = new R_OR(t1,t2);
+                   case "XOR":
+                       r = new R_XOR(sub_r1, sub_r2);
+                       //r = new R_XOR(t1,t2);
                        break;
                    default:
                        throw new Error("El nom de l'operació logica no es correcte");

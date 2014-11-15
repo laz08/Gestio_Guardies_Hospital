@@ -6,10 +6,7 @@ package prop;
 
 import java.util.Scanner;
 
-/**
- *
- * @author Xisco
- */
+
 public class DriverRestriccio {
 
     public static void main(String[] args) throws Error {
@@ -64,14 +61,14 @@ public class DriverRestriccio {
                                 System.out.println("La primera restricció es " + f1.getOp());
                             }
                             break;
-                        case "OR":
-                            R_OR or = (R_OR) r;
-                            Object oOr = or.getFill1();
-                            if(String.class.equals(oOr.getClass())){
-                                System.out.println("El primer torn es " + oOr);
+                        case "XOR":
+                            R_XOR xor = (R_XOR) r;
+                            Object oXor = xor.getFill1();
+                            if(String.class.equals(oXor.getClass())){
+                                System.out.println("El primer torn es " + oXor);
                             }
                             else{
-                                Restriccio f1 = (Restriccio) oOr;
+                                Restriccio f1 = (Restriccio) oXor;
                                 System.out.println("La primera restricció es " + f1.getOp());
                             }
                             break;
@@ -106,14 +103,14 @@ public class DriverRestriccio {
                                 System.out.println("La segona restricció es " + f2.getOp());
                             }
                             break;
-                        case "OR":
-                            R_OR or = (R_OR) r;
-                            Object oOr = or.getFill2();
-                            if(String.class.equals(oOr.getClass())){
-                                System.out.println("El segon torn es " + oOr);
+                        case "XOR":
+                            R_XOR xor = (R_XOR) r;
+                            Object oXor = xor.getFill2();
+                            if(String.class.equals(oXor.getClass())){
+                                System.out.println("El segon torn es " + oXor);
                             }
                             else{
-                                Restriccio f2 = (Restriccio) oOr;
+                                Restriccio f2 = (Restriccio) oXor;
                                 System.out.println("La segona restricció es " + f2.getOp());
                             }
                             break;
@@ -131,10 +128,10 @@ public class DriverRestriccio {
                                 System.err.println("el fill no es una restriccio");
                             }
                             break;
-                        case "OR":
-                            R_OR or = (R_OR) r;
-                            if(!String.class.equals(or.getFill1().getClass())){
-                                r = (Restriccio) or.getFill1();
+                        case "XOR":
+                            R_XOR xor = (R_XOR) r;
+                            if(!String.class.equals(xor.getFill1().getClass())){
+                                r = (Restriccio) xor.getFill1();
                             }
                             else{
                                 System.err.println("el fill no es una restriccio");
@@ -163,10 +160,10 @@ public class DriverRestriccio {
                                 System.err.println("el fill no es una restriccio");
                             }
                             break;
-                        case "OR":
-                            R_OR or = (R_OR) r;
-                            if(!String.class.equals(or.getFill2().getClass())){
-                                r = (Restriccio) or.getFill2();
+                        case "XOR":
+                            R_XOR xor = (R_XOR) r;
+                            if(!String.class.equals(xor.getFill2().getClass())){
+                                r = (Restriccio) xor.getFill2();
                             }
                             else{
                                 System.err.println("el fill no es una restriccio");
@@ -181,7 +178,7 @@ public class DriverRestriccio {
 
     private static void MostraArbre(Object o) throws Error {
         if (R_AND.class.equals(o.getClass())
-                || R_OR.class.equals(o.getClass())
+                || R_XOR.class.equals(o.getClass())
                 || R_NOT.class.equals(o.getClass())
                 || R_NOP.class.equals(o.getClass())) {
             Restriccio r = (Restriccio) o;
@@ -195,12 +192,12 @@ public class DriverRestriccio {
                     MostraArbre(and.getFill2());
                     System.out.print(" )");
                     break;
-                case "OR":
-                    R_OR or = (R_OR) r;
-                    System.out.print("OR ( ");
-                    MostraArbre(or.getFill1());
+                case "XOR":
+                    R_XOR xor = (R_XOR) r;
+                    System.out.print("XOR ( ");
+                    MostraArbre(xor.getFill1());
                     System.out.print(" || ");
-                    MostraArbre(or.getFill2());
+                    MostraArbre(xor.getFill2());
                     System.out.print(" )");
                     break;
                 case "NOT":
