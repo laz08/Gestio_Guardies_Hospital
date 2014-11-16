@@ -1,80 +1,97 @@
 package prop;
 
-
 public class Doctor {
-	private String dni;
-	private String correu;
-	private int telefon;
-	private String nom;
+
+    private String dni;
+    private String correu;
+    private int telefon;
+    private String nom;
     private String cognom1;
     private String cognom2;
-	private int sou;
-	private boolean actiu;
-	
-	public Doctor(){
+    private int sou;
+    private boolean actiu;
+
+    public Doctor() {
+        
     }
-	
-	public Doctor(String d) {
-		dni = d;
-	}
-	
-	public String getdni() {
-		return dni;
-	}
 
-	public void setdni(String d) {
-		dni = d;
-	}
+    public Doctor(String d) {
+        dni = d;
+    }
 
-	public int getTelefon() {
-		return telefon;
-	}
+    public void afegir_res(Restriccio r) throws Error{
+        int pos = CtrlRestriccio.existeix(r);
+        if (pos != -1) Doc_Res.relaciona(dni, pos);
+        else throw new Error ("No existeix la restricció que el doctor ha demanat");
+    }
+    
+    public void eliminar_res(Restriccio r) throws Error {
+        int pos = CtrlRestriccio.existeix(r);
+        if (pos != -1) Doc_Res.elimina(dni, pos);
+        else throw new Error ("No existeix la restricció que el doctor vol eliminar");
+    }
+    
+    public String getdni() {
+        return dni;
+    }
 
-	public void setTelefon(int telf) {
-		telefon = telf;
-	}
+    public void setdni(String d) {
+        dni = d;
+    }
 
-	public String getCorreu() {
-		return correu;
-	}
+    public int getTelefon() {
+        return telefon;
+    }
 
-	public void setCorreu(String email) {
-		correu = email;
-	}
+    public void setTelefon(int telf) {
+        telefon = telf;
+    }
 
-	public int getSou() {
-		return sou;
-	}
+    public String getCorreu() {
+        return correu;
+    }
 
-	public void setSou(int s) {
-	sou = s;
-	}
+    public void setCorreu(String email) {
+        correu = email;
+    }
 
-	public String getNom() {
-		return nom;
-	}
+    public int getSou() {
+        return sou;
+    }
 
-	public void setNom(String nm) {
-		nom = nm;
-	}
+    public void setSou(int s) {
+        sou = s;
+    }
 
-    public String getCognom1(){ return cognom1; }
+    public String getNom() {
+        return nom;
+    }
 
-    public void setCognom1(String cg1){
+    public void setNom(String nm) {
+        nom = nm;
+    }
+
+    public String getCognom1() {
+        return cognom1;
+    }
+
+    public void setCognom1(String cg1) {
         cognom1 = cg1;
     }
 
-    public String getCognom2(){ return cognom2; }
+    public String getCognom2() {
+        return cognom2;
+    }
 
-    public void setCognom2(String cg2){
+    public void setCognom2(String cg2) {
         cognom2 = cg2;
     }
 
-	public boolean isActiu() {
-		return actiu;
-	}
+    public boolean isActiu() {
+        return actiu;
+    }
 
-	public void setActiu(boolean act) {
-		actiu = act;
-	}
+    public void setActiu(boolean act) {
+        actiu = act;
+    }
 }
