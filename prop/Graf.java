@@ -1,9 +1,12 @@
 package prop;
 
 //Classe molt primitiva, falta arreclar tot el tema de les restriccions primer
+
+import java.util.ArrayList;
+
 class Graf { 
 	int V, E, numa = 0;
-	List<Integer>[] adj;
+	ArrayList<Integer>[] adj;
 	Aresta[] As;
 	int inifinit = Integer.MAX_VALUE;
 	int zero = 0;
@@ -12,15 +15,15 @@ class Graf {
 		V = nV;
 		E = nA;
 		As = new Aresta[nA];
-		adj = new List[V];
+		adj = new ArrayList[V];
 		for (int i = 0; i < V; ++i) {
-			adj[i] = new ArrayList<intger>();
+			adj[i] = new ArrayList<Integer>();
 		}
 	}
 	
-	public int afegirAresta(int a, int b, long long int capacitat, long long int flow) {
+	public int afegirAresta(int a, int b, int capacitat, int flow) {
         if (numa >= E) return -1;
-        Aresta[numa] = new Aresta(a, b, capacitat, flow);
+        As[numa] = new Aresta(a, b, capacitat, flow);
         adj[a].add(numa);
         adj[b].add(numa);
         return numa++;
@@ -34,13 +37,13 @@ class Graf {
 		return V;
 	}
 	
-	public List<int> adjacents(int v) {
+	public ArrayList<Integer> adjacents(int v) {
 		return adj[v];
 	}
 	
-	public resetFlow(int e) {
+	public void resetFlow(int e) {
 		for (int i = 0; i < E; ++i) {
-			As[].resetflow();
+			As[i].resetflow();
 		}
 	}
 }

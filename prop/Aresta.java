@@ -1,17 +1,17 @@
 package prop;
 public class Aresta {
-	int v, w;
-	long long int flow, capacitat;
+	private int v, w;
+	private int flow, capacitat;
 	
-	public void Aresta(int vertexv, int vertexw, long long int f, long long int cap) {
+	public Aresta(int vertexv, int vertexw, int f, Integer cap) {
 		v = vertexv;
 		w = vertexw;
 		flow = f;
-		if (cap != null) capacitat = cap;
+		if (cap.equals(null)) capacitat = cap;
 		else capacitat = 0;
 	}
 	
-	public void Aresta(Aresta a) {
+	public Aresta(Aresta a) {
 		v = a.v;
 		w = a.w;
 		flow = a.flow;
@@ -38,7 +38,7 @@ public class Aresta {
 		w = vertex;
 	}
 	
-	public void setflow(long long int f) {
+	public void setflow(int f) {
 		flow = f;
 	}
 	
@@ -50,13 +50,14 @@ public class Aresta {
 		flow = 0;
 	}
 	
-	public void addresflow(int vertex, long long int f) {
+	public void addresflow(int vertex, int f) {
 		if (vertex == v) flow -= f;
 		else if (vertex == w) flow += f; 
 	}
 	
-	public long long int capres(int vertex) {
+	public int capres(int vertex) {
 		if (vertex == v) return flow;
 		else if (vertex == w) return capacitat-flow;
+                else return -1;
 	}
 }
