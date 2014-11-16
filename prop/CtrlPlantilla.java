@@ -12,7 +12,7 @@ import java.util.Comparator;
 public class CtrlPlantilla {
 
     private static ArrayList<Plantilla> Cjt_plantilles = new ArrayList<Plantilla>();
-
+    private static int plantillaActual;
 
     // ------ PLANTILLES EN GENERAL ------
 
@@ -44,6 +44,18 @@ public class CtrlPlantilla {
 
 
     // ------ PLANTILLA EN CONCRET ------
+
+    public static void setPlantillaActual(int p){
+       plantillaActual = p;
+    }
+
+    public static Plantilla getPlantillaActual(){
+        return Cjt_plantilles.get(plantillaActual);
+    }
+
+    public static Integer getidPlantillaActual(){
+        return plantillaActual;
+    }
 
     public static Plantilla consultarPlantilla(int pos){
         return Cjt_plantilles.get(pos);
