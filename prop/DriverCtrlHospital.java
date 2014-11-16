@@ -4,7 +4,6 @@ import java.util.Scanner;
 
 public class DriverCtrlHospital {
 
-    static CtrlHospital CH = new CtrlHospital();
 
     public static void main(String[] args) {
 
@@ -58,7 +57,7 @@ public class DriverCtrlHospital {
         sou = sc.nextInt();
         telf = sc.nextInt();
         String correu = sc.next();
-        if(CH.existeixDoctor(dni) == -1) CH.creariAfegirDoctor(dni, nom, cg1, cg2, sou, telf, correu);
+        if(CtrlHospital.existeixDoctor(dni) == -1) CtrlHospital.creariAfegirDoctor(dni, nom, cg1, cg2, sou, telf, correu);
         else System.out.println("Ja existeix un doctor amb dni == "+dni);
     }
 
@@ -66,16 +65,16 @@ public class DriverCtrlHospital {
         Scanner sc = new Scanner(System.in);
         String dni = sc.next();
 
-        int pos = CH.existeixDoctor(dni);
+        int pos = CtrlHospital.existeixDoctor(dni);
         if (pos != -1){
-            CH.eliminarDoctor(pos);
+            CtrlHospital.eliminarDoctor(pos);
         }
     }
 
     public static void casExisteixDoctor(){
         Scanner sc = new Scanner(System.in);
         String dni = sc.next();
-        int pos = CH.existeixDoctor(dni);
+        int pos = CtrlHospital.existeixDoctor(dni);
         if (pos != -1)
             System.out.println("true");
         else
@@ -85,9 +84,9 @@ public class DriverCtrlHospital {
     public static void casConsultaDoctor(){
         Scanner sc = new Scanner(System.in);
         String dni = sc.next();
-        int pos = CH.existeixDoctor(dni);
+        int pos = CtrlHospital.existeixDoctor(dni);
         if (pos != -1){
-            Doctor doc = CH.getDoctor(pos);
+            Doctor doc = CtrlHospital.getDoctor(pos);
             System.out.println("dni: "+doc.getdni());
             System.out.println("nom i cognoms: "+doc.getNom()+" "+doc.getCognom1()+" "+doc.getCognom2());
             System.out.println("sou: "+doc.getSou());
@@ -98,8 +97,8 @@ public class DriverCtrlHospital {
 
     public static void casLlistatDoctors(){
         Doctor doc;
-        for (int i = 0; i < CH.numDocs(); ++i){
-            doc = CH.getDoctor(i);
+        for (int i = 0; i < CtrlHospital.numDocs(); ++i){
+            doc = CtrlHospital.getDoctor(i);
             System.out.println("\n\n");
             System.out.println("Doctor num.: "+ i);
             System.out.println("dni: "+doc.getdni());

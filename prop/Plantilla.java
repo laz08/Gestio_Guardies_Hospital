@@ -5,25 +5,29 @@ import java.util.ArrayList;
 public class Plantilla {
 
     private String nom_p;
-    private ArrayList p;
+    private ArrayList<Doctor> P;
+
+    public Plantilla(){
+
+    }
 
     public Plantilla(String nom) {
         String nom_p = nom;
-        p = new ArrayList<Doctor>();
+        P = new ArrayList<Doctor>();
     }
 
     /**
      * Pre:	- Post:	Retorna el nom de la plantilla.
      */
-    public String get_nom_Plantilla() {
-        return this.nom_p;
+    public String getNomPlantilla() {
+        return nom_p;
     }
 
     /**
      * Pre:	- Post:	Retorna el punter a l'array que conté tota la plantilla.
      */
-    public ArrayList get_llista_doctors() {
-        return this.p;
+    public ArrayList getLlistaDoctors() {
+        return P;
     }
 
     /**
@@ -31,7 +35,7 @@ public class Plantilla {
      * @param nom Nom que es vol posar a la plantilla
      */
     public void setNomPlantilla(String nom) {
-        this.nom_p = nom;
+        nom_p = nom;
     }
     
 }

@@ -6,20 +6,25 @@ package prop;
 
 import java.util.ArrayList;
 
-/**
- *
- * @author Xisco
- */
+
 public class CtrlPlantilla {
-    
+
+    private ArrayList<Plantilla> Cjt_plantilla = new ArrayList<Plantilla>();
+    void CtrlPlantilla(){
+
+    }
+
+
+
     /**
-     * Afegeix un doctor a una plantilla determinada ordenat alfabeticament
+     * Afegeix un doctor a una plantilla determinada ordenat alfabeticament per nom plantilla
      * @param d Doctor que es vol introduir
      * @param p Plantilla a la que es vol introduir el doctor
+     * pre: Doctor amb dni = dni existeix a l'hospital
+     * post: El doctor de l'hospital amb dni = dni pertany ara a la plantilla amb nom = id_plantilla
      */
     public void afegirDoctor(String dni, String id_plantilla) throws Error {
-        Plantilla p;
-        ArrayList llistaDoctors;
+        CtrlHospital CtrlDoc = new CtrlHospital();
         Doctor d = consulta_doctor(dni);
         //COMPROVAM QUE EL DOCTOR NO ESTIGUI DINS CAP ALTRA PLANTILLA
         for(int i=0; i<num_plantilles(); i++){
