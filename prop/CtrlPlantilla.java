@@ -12,7 +12,7 @@ import java.util.Comparator;
 public class CtrlPlantilla {
 
     private static ArrayList<Plantilla> Cjt_plantilles = new ArrayList<Plantilla>();
-    private static int plantillaActual;
+    private static int plantillaActual = -1;
 
     // ------ PLANTILLES EN GENERAL ------
 
@@ -133,7 +133,7 @@ public class CtrlPlantilla {
     }
 
 
-    //Pre: Existeix plantilla amb id = id_plantilla
+    //Pre: Existeix plantilla amb id = id_plantilla, existeix doctor amb dni = dni
     //Post: Retorna si el doctor està a la plantilla amb id_plantilla.
     public static boolean docEnPlantilla(String dni, String id_plantilla){
             Plantilla p;
