@@ -295,11 +295,18 @@ public class DriverCtrlPlantilla {
     public static void casEscollirPlantillaActual(){
         Scanner sc = new Scanner(System.in);
         String nom_p = sc.next();
-        CtrlPlantilla.setPlantillaActual(pos);
+        int pos = CtrlPlantilla.existeixPlantilla(nom_p);
+        if (pos != -1)
+            CtrlPlantilla.setPlantillaActual(pos);
+        else
+            System.out.println("No existeix cap plantilla amb nom "+nom_p);
     }
 
     public static void casConsultarPlantillaActual(){
-        CtrlPlantilla.getPlantillaActual();
+        if(CtrlPlantilla.getidPlantillaActual() != -1)
+            System.out.println(CtrlPlantilla.getPlantillaActual().getNomPlantilla());
+        else
+            System.out.println("No estem a cap plantilla");
     }
 
 

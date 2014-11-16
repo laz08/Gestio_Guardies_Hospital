@@ -12,7 +12,7 @@ import java.util.Comparator;
 public class CtrlPlantilla {
 
     private static ArrayList<Plantilla> Cjt_plantilles = new ArrayList<Plantilla>();
-    private static int plantillaActual;
+    private static int plantillaActual = -1;
 
     // ------ PLANTILLES EN GENERAL ------
 
