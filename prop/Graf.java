@@ -22,12 +22,12 @@ class Graf {
 	}
 	
 	public int afegirAresta(int a, int b, int capacitat, int flow) {
-        if (numa >= E) return -1;
-        As[numa] = new Aresta(a, b, capacitat, flow);
-        adj[a].add(numa);
-        adj[b].add(numa);
-        return numa++;
-    }
+            if (numa >= E) return -1;
+            As[numa] = new Aresta(a, b, capacitat, flow);
+            adj[a].add(numa);
+            adj[b].add(numa);
+            return numa++;
+        }
 	
 	public int getNumA() {
 		return E;

@@ -4,11 +4,6 @@
  */
 package prop;
 
-public class CtrlEntrada {
+public class Entrada {
     
-     Graf g;
-    
-     public static void seleccioPlantilla(){
-         
-     }
 }
