@@ -19,7 +19,8 @@ public class CtrlPlantilla {
         //Pre: No existeix una plantilla amb nom = nom_plantilla
         //Post: Cjt_Plantilles ara té una nova plantilla amb el nom = nom_plantilla
         public static void creariAfegirPlantilla(String nom_plantilla){
-            Cjt_plantilles.add(new Plantilla(nom_plantilla));
+            Plantilla p = new Plantilla(nom_plantilla);
+            Cjt_plantilles.add(p);
         }
 
         //Pre: Existeix una plantilla a la posició pos, i pos és una posició vàlida
@@ -53,7 +54,7 @@ public class CtrlPlantilla {
         return Cjt_plantilles.get(plantillaActual);
     }
 
-    public static Integer getidPlantillaActual(){
+    public static int getidPlantillaActual(){
         return plantillaActual;
     }
 
