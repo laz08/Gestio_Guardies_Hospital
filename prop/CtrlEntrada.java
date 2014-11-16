@@ -84,6 +84,7 @@ public class CtrlEntrada {
     }
 
     private static Vertex recorregut_restriccio(Restriccio r, Graf g) throws Error {
+        /// NO SE COM SEGUIR ///
         Vertex v = g.getVertex(r.toString(), Vertex.RESTRICCIO); // si el vertex ja existeix, el retornara, sino retorna null
         if(v == null){
             switch (r.getOp()) {
