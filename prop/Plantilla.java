@@ -12,7 +12,7 @@ public class Plantilla {
     }
 
     public Plantilla(String nom) {
-        String nom_p = nom;
+        nom_p = nom;
         P = new ArrayList<Doctor>();
     }
 

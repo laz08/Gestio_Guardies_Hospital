@@ -84,7 +84,6 @@ public class DriverCtrlPlantilla {
         // Si no existeix una plantilla amb aquest nom...
         if(CtrlPlantilla.existeixPlantilla(nom_p) == -1){
             CtrlPlantilla.creariAfegirPlantilla(nom_p);
-            System.out.println(CtrlPlantilla.consultarPlantilla(0).getNomPlantilla());
         }
         else{
             System.out.println("Ja existeix plantilla amb nom "+nom_p);
@@ -203,14 +202,18 @@ public class DriverCtrlPlantilla {
         String nom_p = sc.next();
 
         if(CtrlHospital.existeixDoctor(dni) != -1){
-            if(!CtrlPlantilla.docTePlantilla(dni)){
-                if (CtrlPlantilla.existeixPlantilla(nom_p) != -1)
-                    CtrlPlantilla.docEnPlantilla(dni, nom_p);
+            if(CtrlPlantilla.docTePlantilla(dni)){
+                if (CtrlPlantilla.existeixPlantilla(nom_p) != -1) {
+                    if (CtrlPlantilla.docEnPlantilla(dni, nom_p)) {
+                        System.out.println("true");
+                    }
+                    else System.out.println("false");
+                }
                 else
                     System.out.println("No existeix cap plantilla amb el nom "+nom_p);
             }
             else {
-                System.out.println("El doctor ja està assignat a una plantilla");
+                System.out.println("El doctor no està assignat a cap plantilla");
             }
         }
         else{
@@ -291,12 +294,12 @@ public class DriverCtrlPlantilla {
 
     public static void casEscollirPlantillaActual(){
         Scanner sc = new Scanner(System.in);
-        int pos = sc.nextInt();
+        String nom_p = sc.next();
         CtrlPlantilla.setPlantillaActual(pos);
     }
 
     public static void casConsultarPlantillaActual(){
-        Plantilla p = CtrlPlantilla.getPlantillaActual();
+        CtrlPlantilla.getPlantillaActual();
     }
 
 
