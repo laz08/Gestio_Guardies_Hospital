@@ -23,20 +23,25 @@ public class DriverCtrlPlantilla {
                     case 3: casExisteixPlantilla(); break;
                     case 4: casConsultarPlantilla(); break;
                     case 5: casConsultarnumPlantilles(); break;
+                    case 6: casConsultarLlistatPlantilles(); break;
 
-                    case 6: casAfegirDocAPlantilla(); break;
-                    case 7: casEsborrarDocdePlantilla(); break;
-                    case 8: casDoctorTePlantilla(); break;
-                    case 9: casDoctorEstaEnPlantilla(); break;
+                    case 7: casAfegirDocAPlantilla(); break;
+                    case 8: casEsborrarDocdePlantilla(); break;
+                    case 9: casDoctorTePlantilla(); break;
+                    case 10: casDoctorEstaEnPlantilla(); break;
 
-                    case 10: casCreaDoctor(); break;
-                    case 11: casEliminaDoctor(); break;
-                    case 12: casExisteixDoctor(); break;
-                    case 13: casConsultaDoctor(); break;
-                    case 14: casLlistatDoctors(); break;
+                    case 11: casCreaDoctor(); break;
+                    case 12: casEliminaDoctor(); break;
+                    case 13: casExisteixDoctor(); break;
+                    case 14: casConsultaDoctor(); break;
+                    case 15: casLlistatDoctors(); break;
+
+                    case 16: casEscollirPlantillaActual(); break;
+                    case 17: casConsultarPlantillaActual(); break;
+
                     case 0: sortir = true; break;
                     default:
-                        System.out.println("El numero ha d'estar entre 0 i 14.");
+                        System.out.println("El numero ha d'estar entre 0 i 15.");
                         break;
                 }
 
@@ -48,23 +53,27 @@ public class DriverCtrlPlantilla {
 
     public static void escriuMenu(){
         System.out.println("\n\n---------Menú---------");
-        System.out.println("\n*-*-Plantilles en general-*-*");
+        System.out.println("\nPlantilles en general");
         System.out.println("1.- Crear i afegir plantilla (Nom_plantilla: String)");
         System.out.println("2.- Eliminar Plantilla(Nom_plantilla: String)");
         System.out.println("3.- Existeix Plantilla(Nom_plantilla: String)");
         System.out.println("4.- Consultar Plantilla(Nom_plantilla: String)");
         System.out.println("5.- Consultar num de plantilles()");
-        System.out.println("\n*-*-Plantilles i els seus doctors-*-*");
-        System.out.println("6.- Afegir doctor a plantilla (dni: String, nom_Plantilla: string)");
-        System.out.println("7.- Esborrar doctor de plantilla (dni: String, nom_Plantilla: string)");
-        System.out.println("8.- Doctor te plantilla (dni: String)");
-        System.out.println("9.- Doctor esta en plantilla (dni: String, nom_Plantilla: string)");
-        System.out.println("\n*-*-Doctors (en Hospital) -*-*");
-        System.out.println("10.- Crear Doctor(dni: String, nom: String, cognom1: String, cognom2: String, sou: int, telf: int, correu: String)");
-        System.out.println("11.- Eliminar Doctor(dni: String)");
-        System.out.println("12.- Existeix Doctor(dni: String)");
-        System.out.println("13.- Consultar Doctor(dni: String)");
-        System.out.println("14.- Consultar llistat doctors()");
+        System.out.println("6.- Consultar llistat plantilles existents()");
+        System.out.println("\nPlantilles i els seus doctors");
+        System.out.println("7.- Afegir doctor a plantilla (dni: String, nom_Plantilla: string)");
+        System.out.println("8.- Esborrar doctor de plantilla (dni: String, nom_Plantilla: string)");
+        System.out.println("9.- Doctor te plantilla (dni: String)");
+        System.out.println("10.- Doctor esta en plantilla (dni: String, nom_Plantilla: string)");
+        System.out.println("\nDoctors (en Hospital)");
+        System.out.println("11.- Crear Doctor(dni: String, nom: String, cognom1: String, cognom2: String, sou: int, telf: int, correu: String)");
+        System.out.println("12.- Eliminar Doctor(dni: String)");
+        System.out.println("13.- Existeix Doctor(dni: String)");
+        System.out.println("14.- Consultar Doctor(dni: String)");
+        System.out.println("15.- Consultar llistat doctors()");
+        System.out.println("\nPlantilla actual");
+        System.out.println("16.- Escollir Plantilla actual()");
+        System.out.println("17.- Consultar Plantilla actual()");
         System.out.println("0.- Exit");
 
     }
@@ -75,6 +84,7 @@ public class DriverCtrlPlantilla {
         // Si no existeix una plantilla amb aquest nom...
         if(CtrlPlantilla.existeixPlantilla(nom_p) == -1){
             CtrlPlantilla.creariAfegirPlantilla(nom_p);
+            System.out.println(CtrlPlantilla.consultarPlantilla(0).getNomPlantilla());
         }
         else{
             System.out.println("Ja existeix plantilla amb nom "+nom_p);
@@ -271,6 +281,22 @@ public class DriverCtrlPlantilla {
             System.out.println("Telefon: "+doc.getTelefon());
             System.out.println("Correu: "+doc.getCorreu());
         }
+    }
+
+    public static void casConsultarLlistatPlantilles(){
+        for (int i = 0; i < CtrlPlantilla.num_plantilles(); ++i){
+            System.out.println(CtrlPlantilla.consultarPlantilla(i).getNomPlantilla());
+        }
+    }
+
+    public static void casEscollirPlantillaActual(){
+        Scanner sc = new Scanner(System.in);
+        int pos = sc.nextInt();
+        CtrlPlantilla.setPlantillaActual(pos);
+    }
+
+    public static void casConsultarPlantillaActual(){
+        Plantilla p = CtrlPlantilla.getPlantillaActual();
     }
 
 
