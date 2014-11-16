@@ -26,7 +26,7 @@ public class Plantilla {
     /**
      * Pre:	- Post:	Retorna el punter a l'array que conté tota la plantilla.
      */
-    public ArrayList getLlistaDoctors() {
+    public ArrayList<Doctor> getLlistaDoctors() {
         return P;
     }
 
