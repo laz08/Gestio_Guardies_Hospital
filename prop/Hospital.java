@@ -4,17 +4,13 @@ import java.util.ArrayList;
 
 public class Hospital {
 
-    private ArrayList<Doctor> H;
+    private static ArrayList<Doctor> H = new ArrayList<Doctor>();
 
-    public Hospital() {
-        H = new ArrayList<Doctor>();
-    }
-
-    public ArrayList<Doctor> getHospital(){
+    public static ArrayList<Doctor> getHospital(){
         return H;
     }
 
-    public void setHospital(ArrayList<Doctor> L){
+    public static void setHospital(ArrayList<Doctor> L){
         H = L;
     }
 
