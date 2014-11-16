@@ -1,12 +1,16 @@
 package prop;
 
+import java.util.ArrayList;
+
 public class Vertex {
-    private String identificador;
+    private String id;
     private int classe;
-    public final int DOCTOR = 0, RESTRICCIO = 1, TORN = 2;
+    public static final int DOCTOR = 0, RESTRICCIO = 1, TORN = 2, FONT_POU=3;
+    private ArrayList<Integer> arestes;
     
-    public Vertex(String id, int c) throws Error{
-        identificador = id;
+    public Vertex(String identif, int c) throws Error{
+        id = identif;
+        arestes = new ArrayList<Integer>();
         if (c == DOCTOR || c == RESTRICCIO || c == TORN){
             classe = c;
         }
@@ -15,12 +19,20 @@ public class Vertex {
         }
     }
     
+    public void afegir_aresta(int aresta){
+        arestes.add(aresta); 
+    }
+    
     public int getClasse(){
         return classe;
     }
     
+    public ArrayList<Integer> getArestes(){
+        return arestes; 
+    }
+    
     public String getId(){
-        return identificador;
+        return id;
     }
     
     
