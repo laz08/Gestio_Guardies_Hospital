@@ -45,7 +45,7 @@ public class CtrlPlantilla {
 
     // ------ PLANTILLA EN CONCRET ------
 
-    public static Plantilla getPlantilla(int pos){
+    public static Plantilla consultarPlantilla(int pos){
         return Cjt_plantilles.get(pos);
     }
 
