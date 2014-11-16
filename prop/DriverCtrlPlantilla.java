@@ -14,6 +14,7 @@ public class DriverCtrlPlantilla {
             try {
                 escriuMenu();
 
+
                 arg = new Scanner(System.in);
                 cas = arg.nextInt();
 
@@ -75,6 +76,8 @@ public class DriverCtrlPlantilla {
         System.out.println("16.- Escollir Plantilla actual()");
         System.out.println("17.- Consultar Plantilla actual()");
         System.out.println("0.- Exit");
+        System.out.println("---------------------------------");
+        System.out.print(">> ");
 
     }
 
@@ -269,6 +272,9 @@ public class DriverCtrlPlantilla {
             System.out.println("sou: "+doc.getSou());
             System.out.println("Telefon: "+doc.getTelefon());
             System.out.println("Correu: "+doc.getCorreu());
+        }
+        else {
+            System.out.println("El doctor amb dni "+dni+" no existeix.");
         }
     }
 
