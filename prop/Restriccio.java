@@ -4,12 +4,11 @@
  */
 package prop;
 
-import java.util.GregorianCalendar;
-
 public abstract class Restriccio {
-    private Torn t1 = null, t2 = null;
-    private Restriccio r1, r2;
-    private Doctor d;
+    
+    private String t;
+    private int numv = 0;
+    
     /**
      * Donat una explresió lògica, es crea un arbre que la representa i en retorna l'arrel
      * @param s String amb la explresió lògica que determina la restricció completa
@@ -17,6 +16,9 @@ public abstract class Restriccio {
      * @throws Error 
      */
     public static Restriccio crea_arbre(String s) throws Error{
+        String tipus = s.substring(0,1); //agafam el tipus de restricció
+        s = s.substring(1);
+       
        Restriccio r = null; // arrel de l'arbre de restriccions
        String c = s.substring(0,1);
        s = s.substring(1);
@@ -40,8 +42,8 @@ public abstract class Restriccio {
            if (!c.equals("(")) throw new Error("Error a l'estructuració de les restriccions");
            String sub_r2 = cerca_tancament(s);
            if (esRestriccio(sub_r1) && esRestriccio(sub_r2)){
-               Restriccio r1 = crea_arbre(sub_r1);
-               Restriccio r2 = crea_arbre(sub_r2);
+               Restriccio r1 = crea_arbre(tipus+sub_r1);
+               Restriccio r2 = crea_arbre(tipus+sub_r2);
                switch (operacio){
                    case "AND":
                       r = new R_AND(r1,r2); 
@@ -52,19 +54,10 @@ public abstract class Restriccio {
                    default:
                        throw new Error("El nom de l'operació logica no es correcte");
                }
+               r.numv += r1.numv;
+               r.numv += r2.numv+1;
            }
            else if(!esRestriccio(sub_r1) && !esRestriccio(sub_r2)){
-//               //Torn t1 = Cjt_calendaris.cerca_torn(sub_r1); //retorna el torn que te per identificador sub_r1
-//               //Torn t2 = Cjt_calendaris.cerca_torn(sub_r2); //retorna el torn que te per identificador sub_r2
-//               GregorianCalendar d_i = new GregorianCalendar(1000, 10, 20, 10, 30);
-//               GregorianCalendar d_f = new GregorianCalendar(1000, 10, 20, 11, 00);
-//               Torn t1 = new Torn(d_i, d_f, 1, 10);
-//               d_i = new GregorianCalendar(1000, 10, 20, 13, 00);
-//               d_f = new GregorianCalendar(1000, 10, 20, 14, 00);
-//               Torn t2 = new Torn(d_i, d_f, 2, 10);
-               
-               
-               
                
                switch (operacio){
                    case "AND":
@@ -78,6 +71,7 @@ public abstract class Restriccio {
                    default:
                        throw new Error("El nom de l'operació logica no es correcte");
                }
+               r.numv += 3; // si els fills no son restriccions i en te 2, en nombre de vertex del seu subarbre serà 3
            }
            else{
                throw new Error("Error a la deteccio dels parametres de les restriccions");
@@ -91,16 +85,12 @@ public abstract class Restriccio {
            s = s.substring(1);
            String sub_r1 = cerca_tancament(s);
            if (esRestriccio(sub_r1)){
-               Restriccio r1 = crea_arbre(sub_r1);
+               Restriccio r1 = crea_arbre(tipus+sub_r1);
                if (!operacio.equals("NOT")) throw new Error ("L'operacio lògica no es pot aplicar sobre una restricció");
                r = new R_NOT(r1);
+               r.numv += r1.numv+1;
            }
            else{
-//               //Torn t1 = Cjt_calendaris.cerca_torn(sub_r1);
-//               GregorianCalendar d_i = new GregorianCalendar(1000, 10, 20, 10, 30);
-//               GregorianCalendar d_f = new GregorianCalendar(1000, 10, 20, 11, 00);
-//               Torn t1 = new Torn(d_i, d_f, 1, 10);
-               
                
                switch (operacio){
                    case "NOT":
@@ -114,11 +104,14 @@ public abstract class Restriccio {
                    default:
                        throw new Error("El nom de l'operació logica no es correcte");
                }
+               r.numv += 2;
            }
        }
        else {
            throw new Error("No s'ha detectat la restriccio correctament");
        }
+       
+       r.setTipus(tipus);
        return r;
     }
     
@@ -174,6 +167,29 @@ public abstract class Restriccio {
         // en qualsevol altre cas no es considerarà restreicció
         return esR;
     }
+    
+    public int getNumVertex(){
+        return numv;
+    }    
+    
+    /**
+     * Assigna un valor a la variable tipus que defineix si la restricció fa referència a dies, hores o setmanes
+     * @param tipus 
+     */
+    public void setTipus(String tipus) throws Error{
+        if (tipus.equals("D") || tipus.equals("H") || tipus.equals("S")){
+            t = tipus;
+        }
+        else{
+            throw new Error("El tipus de que s'ha assignat a la restricció no es el correcte");
+        }
+    }
+    
+    
+    public String getTipus(){
+        return t;
+    }
+    
     
     /**
      * Retorna una constant que conté la capacitat que hauria de tenir l'aresta que apunta a aquesta restricció dins el graf

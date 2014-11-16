@@ -7,7 +7,7 @@ package prop;
 
 public class R_NOT extends Restriccio{
     private Restriccio restriccio = null;
-    private String torn = null;
+    private String fill = null;
     private final int capacitat = 0;
     /**
      * Operació lògica NOT fent referència a una restricció
@@ -22,7 +22,7 @@ public class R_NOT extends Restriccio{
      * @param t Torn
      */
     public R_NOT(String t){
-        torn = t;
+        fill = t;
     }
     
     /**
@@ -30,7 +30,7 @@ public class R_NOT extends Restriccio{
      * @return Objecte que fa referencia al primer fill (restricció o torn)
      */
     public Object getFill(){
-        if(restriccio == null) return torn;
+        if(restriccio == null) return fill;
         else return restriccio;
     }
 

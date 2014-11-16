@@ -7,7 +7,7 @@ package prop;
 
 public class R_AND extends Restriccio{
     private Restriccio restriccio1 = null, restriccio2 = null;
-    private String torn1 = null, torn2 = null;
+    private String fill1 = null, fill2 = null;
     private final int capacitat = 2;
     /**
      * Operació lògica AND fent referència a 2 altres restriccions 
@@ -21,12 +21,12 @@ public class R_AND extends Restriccio{
     
     /**
      * Operació lògica AND fent referència a 2 torns
-     * @param t1 Primer torn
-     * @param t2 Segon torn
+     * @param f1 Primer torn
+     * @param f2 Segon torn
      */
-    public R_AND(String id_t1, String id_t2){
-        torn1 = id_t1;
-        torn2 = id_t2;
+    public R_AND(String f1, String f2){
+        fill1 = f1;
+        fill2 = f2;
     }
     
     /**
@@ -34,7 +34,7 @@ public class R_AND extends Restriccio{
      * @return Objecte que fa referencia al primer fill (restricció o torn)
      */
     public Object getFill1(){
-        if(restriccio1 == null) return torn1;
+        if(restriccio1 == null) return fill1;
         else return restriccio1;
     }
     
@@ -43,7 +43,7 @@ public class R_AND extends Restriccio{
      * @return Objecte que fa referencia al segon fill (restricció o torn)
      */
     public Object getFill2(){ 
-        if(restriccio2 == null) return torn2;
+        if(restriccio2 == null) return fill2;
         else return restriccio2;
     }
 

@@ -23,7 +23,8 @@ public class DriverRestriccio {
             System.out.println("6 => getFill2()");
             System.out.println("7 => accedeix al fill1 (recorregut dins l'arbre)");
             System.out.println("8 => accedeix al fill2 (recorregut dins l'arbre)");
-
+            System.out.println("9 => getTipus()");
+            System.out.println("10 => getNumVertex()");
             scan = new Scanner(System.in);
 
             int opcio = scan.nextInt();
@@ -175,6 +176,11 @@ public class DriverRestriccio {
                             break;
                     }
                     break;
+                case 9:
+                    System.out.println("El tipus de la restricció es: "+r.getTipus());
+                    break;
+                case 10:
+                    System.out.println("El nombre de vertex de l'arbre es: "+r.getNumVertex());
             }
 
         }

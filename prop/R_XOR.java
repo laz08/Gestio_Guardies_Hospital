@@ -7,7 +7,7 @@ package prop;
 
 public class R_XOR extends Restriccio{
     private Restriccio restriccio1 = null, restriccio2 = null;
-    private String torn1 = null, torn2 = null;
+    private String fill1 = null, fill2 = null;
     private final int capacitat = 1;
     /**
      * Operació lògica OR que fa referència a 2 restriccions
@@ -20,30 +20,30 @@ public class R_XOR extends Restriccio{
     }
     
     /**
-     * Operació lògica OR que fa referència a 2 torns
-     * @param t1 Primer torn
-     * @param t2 Segon torn
+     * Operació lògica OR que fa referència a 2 fills
+     * @param f1 Primer fill
+     * @param f2 Segon fill
      */
-    public R_XOR(String t1, String t2){
-        torn1 = t1;
-        torn2 = t2;
+    public R_XOR(String f1, String f2){
+        fill1 = f1;
+        fill2 = f2;
     }
     
     /**
      * Retorna el primer fill de la restricció. 
-     * @return Objecte que fa referencia al primer fill (restricció o torn)
+     * @return Objecte que fa referencia al primer fill (restricció o fill)
      */
     public Object getFill1(){
-        if(restriccio1 == null) return torn1;
+        if(restriccio1 == null) return fill1;
         else return restriccio1;
     }
     
     /**
      * Retorna el segon fill de la restricció
-     * @return Objecte que fa referencia al segon fill (restricció o torn)
+     * @return Objecte que fa referencia al segon fill (restricció o fill)
      */
     public Object getFill2(){ 
-        if(restriccio2 == null) return torn2;
+        if(restriccio2 == null) return fill2;
         else return restriccio2;
     }
     
