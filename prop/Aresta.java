@@ -50,14 +50,18 @@ public class Aresta {
 		flow = 0;
 	}
 	
+	public int get contrari(int ver) {
+		if (ver == v) return w;
+		else if (ver == w) return v;
+	}
+	
 	public void addresflow(int vertex, int f) {
 		if (vertex == v) flow -= f;
 		else if (vertex == w) flow += f; 
 	}
 	
 	public int capres(int vertex) {
-		if (vertex == v) return flow;
-		else if (vertex == w) return capacitat-flow;
-                else return -1;
+		if (vertex == v) return capacitat-flow;
+		else if (vertex == w) return flow;
 	}
 }
