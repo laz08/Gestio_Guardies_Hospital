@@ -8,7 +8,7 @@ public class PushRelabel extends Algorisme {
 	Boolean[] esta;
 	int ZERO = 0;
 	
-	PushRelabel(Graph GG) {
+	PushRelabel(Graf GG) {
 		G = GG;
 	}
 	
@@ -18,7 +18,7 @@ public class PushRelabel extends Algorisme {
 	}
 	
 	public void preflow(int s, int t) {
-		int n = G.numeroVertex();
+		int n = G.numV();
 		altura = new int[n];
 		exces = new int[n];
 		
@@ -31,17 +31,17 @@ public class PushRelabel extends Algorisme {
 		G.resetFlow();
 		
 		altura[s] = n;
-		List<Integer> L = G.adyacentes(s);
+		List<Integer> L = G.adjacents(s);
         Iterator<Integer> it = L.iterator();
 		
 		while (it.hasNext()) {
 			int e = (Integer) it.next();
 			Aresta arista = G.getAresta(e);
-			if (s == arista.extremDret()) continue;
-			int v = arista.vei(s);
-			arista.augmentaFlow(v, arista.cap(s));
-			exces[v] = exces[v].add(arista.getFlow());
-			exces[s] = exces[s].subtract(arista.getFlow());
+			if (s == arista.getw()) continue;
+			int v = arista.contrari(s);
+			arista.addresflow(v, arista.capres(s));
+			exces[v] = exces[v].add(arista.getflow());
+			exces[s] = exces[s].subtract(arista.getflow());
 			if (v != t) {
 				esta[v] = true;
 				q.add(v);
@@ -50,45 +50,43 @@ public class PushRelabel extends Algorisme {
 	}
 	
 	public void push(int u, int e) {
-		Edge arista = G.getAresta(e);
-		int aux = min(exces[u], arista.cap(u));
-		int v = arista.vei(u);
-		arista.augmentaFlow(v, aux);
+		Edge a = G.getAresta(e);
+		int aux = min(exces[u], a.capres(u));
+		int v = a.contrari(u);
+		arista.addresflow(v, aux);
 		exces[u] = exces[u].subtract(aux);
 		exces[v] = exces[v].add(aux);
 	}	
 	
-	public BigInteger maxFlow(int s, int t) {
+	public int maxFlow(int s, int t) {
 		
 		Buscador B = new Buscador(G);
-		int[] cami = new int[G.numeroVertex()];
+		int[] cami = new int[G.getNumA()];
 		if (!B.BFS(s, t, cami)) return ZERO;
 		
 		q = new LinkedList<Integer>();
-		esta = new Boolean[G.numeroVertex()];
+		esta = new Boolean[G.getNumA()];
 		preflow(s, t);
 		
 		while(!q.isEmpty()) {
 			
             int u = (Integer) q.peek();
-            List<Integer> L = G.adyacentes(u);
+            List<Integer> L = G.adjacents(u);
             Iterator<Integer> it = L.iterator();
             int nou = -1;
             
             while (it.hasNext() && exces[u] > 0) {
             	int e = (Integer) it.next();
             	Edge arista = G.getAresta(e);
-            	int v = arista.vei(u);
+            	int v = arista.contrari(u);
             	
-            	if (arista.cap(u) > 0) {
-            		
+            	if (arista.capres(u) > 0) {
             		if (altura[u] == altura[v] + 1) {
             			push(u, e);
             			if (!esta[v] && v != t && v != s) {
             				esta[v] = true;
             				q.add(v);
             			}
-            			
             		}
             		else {
             			if(nou == -1) nou = altura[v];
