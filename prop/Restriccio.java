@@ -185,7 +185,10 @@ public abstract class Restriccio {
         }
     }
     
-    
+    /**
+     * Retorna un String que determina si la restricció fa referència a dies, hores o setmanes
+     * @return D, H o S
+     */
     public String getTipus(){
         return t;
     }
