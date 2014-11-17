@@ -4,15 +4,13 @@ import java.util.Scanner;
 
 public class DriverCtrlHospital {
 
-
+    static Scanner arg = new Scanner(System.in);
     public static void main(String[] args) {
 
-        Scanner arg = new Scanner(System.in);
         int cas;
         boolean sortir = false;
         escriuMenu();
         while (!sortir && arg.hasNext()) {
-
             try {
                 cas = arg.nextInt();
             } catch (Exception e){
@@ -21,10 +19,6 @@ public class DriverCtrlHospital {
                 arg.next();
                 continue;
             }
-
-                arg = new Scanner(System.in);
-                cas = arg.nextInt();
-
                 switch (cas) {
                     case 1: casCreaDoctor(); break;
                     case 2: casEliminaDoctor(); break;
@@ -54,23 +48,57 @@ public class DriverCtrlHospital {
     }
 
     public static void casCreaDoctor(){
-        Scanner sc = new Scanner(System.in);
-        String dni = sc.next();
-        String nom = sc.next();
-        String cg1 = sc.next();
-        String cg2 = sc.next();
+
+        boolean valid = false;
+        String dni = null;
+        while(!valid) {
+            dni = arg.next();
+            if(CtrlHospital.existeixDoctor(dni) == -1) valid = true;
+            else{
+                System.out.println("Ja existeix un doctor amb aquest DNI.");
+                System.out.println("El llistat dels dni de doctors ja existents es el seguent: ");
+                for (int i = 0; i < CtrlHospital.numDocs(); ++i){
+                    System.out.println(CtrlHospital.getDoctor(i).getdni());
+                }
+                System.out.println("Introdueix DNI de nou.");
+            }
+
+        }
+        String nom = arg.next();
+        String cg1 = arg.next();
+        String cg2 = arg.next();
         int sou = 0;
         int telf = 0;
-        sou = sc.nextInt();
-        telf = sc.nextInt();
-        String correu = sc.next();
-        if(CtrlHospital.existeixDoctor(dni) == -1) CtrlHospital.creariAfegirDoctor(dni, nom, cg1, cg2, sou, telf, correu);
-        else System.out.println("Ja existeix un doctor amb dni == "+dni);
+
+        valid = false;
+        while(!valid) {
+            try {
+                sou = arg.nextInt();
+                valid = true;
+            } catch (Exception e) {
+                System.out.println("Sou ha de ser un enter");
+                arg.next();
+                continue;
+            }
+        }
+        valid = false;
+        while(!valid){
+            try {
+                telf = arg.nextInt();
+                valid = true;
+            } catch (Exception e){
+                System.out.println("Telf ha de ser un enter");
+                arg.next();
+                continue;
+            }
+        }
+        String correu = arg.next();
+        CtrlHospital.creariAfegirDoctor(dni, nom, cg1, cg2, sou, telf, correu);
+
     }
 
     public static void casEliminaDoctor(){
-        Scanner sc = new Scanner(System.in);
-        String dni = sc.next();
+        String dni = arg.next();
 
         int pos = CtrlHospital.existeixDoctor(dni);
         if (pos != -1){
@@ -79,8 +107,7 @@ public class DriverCtrlHospital {
     }
 
     public static void casExisteixDoctor(){
-        Scanner sc = new Scanner(System.in);
-        String dni = sc.next();
+        String dni = arg.next();
         int pos = CtrlHospital.existeixDoctor(dni);
         if (pos != -1)
             System.out.println("true");
@@ -89,8 +116,7 @@ public class DriverCtrlHospital {
     }
 
     public static void casConsultaDoctor(){
-        Scanner sc = new Scanner(System.in);
-        String dni = sc.next();
+        String dni = arg.next();
         int pos = CtrlHospital.existeixDoctor(dni);
         if (pos != -1){
             Doctor doc = CtrlHospital.getDoctor(pos);

@@ -266,8 +266,8 @@ public class DriverCtrlPlantilla {
             }
         }
         String correu = arg.next();
-        if(CtrlHospital.existeixDoctor(dni) == -1) CtrlHospital.creariAfegirDoctor(dni, nom, cg1, cg2, sou, telf, correu);
-        else System.out.println("Ja existeix un doctor amb dni == "+dni);
+        CtrlHospital.creariAfegirDoctor(dni, nom, cg1, cg2, sou, telf, correu);
+
     }
 
     public static void casEliminaDoctor(){
