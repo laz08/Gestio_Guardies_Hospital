@@ -15,6 +15,7 @@ public class Plantilla {
     public Plantilla(String nom) {
         nom_p = nom;
         P = new ArrayList<Doctor>();
+        id_calendari_asoc = -1;
     }
 
     /**
@@ -38,5 +39,15 @@ public class Plantilla {
     public void setNomPlantilla(String nom) {
         nom_p = nom;
     }
-    
+
+    public void setId_calendari_asoc(int idC){
+        id_calendari_asoc = idC;
+    }
+
+    public int getId_calendari_asoc(){
+        return id_calendari_asoc;
+    }
+
+
+
 }
