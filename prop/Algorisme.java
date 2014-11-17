@@ -1,3 +1,5 @@
-public class Algorisme {
-	public int compute(Graf G, Plantilla p, Calendari c);
+package prop;
+
+public abstract class Algorisme {
+	public abstract int maxFlow();
 }

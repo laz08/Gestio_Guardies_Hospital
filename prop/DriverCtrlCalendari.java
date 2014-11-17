@@ -46,67 +46,137 @@ public class DriverCtrlCalendari {
     public static void escriureMenu(){
         System.out.println("----------Menu:-----------\n"
                         + "1. Consultar calendari(id plantilla: int)\n"
-                        + "2. Consultar calendari d'un doctor(dni doctor: String)\n"
-                        + "3. Afegir torn a una plantilla(id plantilla: int, torn: (data inici (yyyy:int, mm:int, dd:int, hh:int), data fi (yyyy:int, mm:int, dd:int, hh:int), numero minim doctors: int, numero doctors assignats: int, doctors assignats: String .. String, percentatge sou: float\n"
-                        + "4. Modificar torn(id plantilla: int, torn, torn_nou)\n"
-                        + "5. Eliminar torn(id plantilla: int, torn)\n"
-                        + "6. Afegir calendari(id: int, id plantilla: int, torn..torn\n"
-                        + "7. Eliminar calendari(id: int)\n"
+                        + "2. Consultar calendari d'un doctor(id plantilla: int, dni doctor: String)\n"
+                        + "3. Afegir torn a una plantilla(id plantilla: int, torn: (data inici (yyyy:int, mm:int, dd:int, hh:int), data fi (yyyy:int, mm:int, dd:int, hh:int), numero minim doctors: int, numero doctors assignats: int, doctors assignats: String .. String, percentatge sou: float)\n"
+                        + "4. Modificar torn(id plantilla: int, data inici del torn a modificar(yyyy:int, mm:int, dd:int, hh:int), torn_nou)\n"
+                        + "5. Eliminar torn(id plantilla: int, data inici del torn a eliminar(yyyy:int, mm:int, dd:int, hh:int))\n"
+                        + "6. Afegir calendari(id_Calendari: int, id plantilla: int, torn..torn)\n"
+                        + "7. Eliminar calendari(id plantilla: int)\n"
                         + "0. Sortir"
         );
         System.out.print(">> ");
     }
 	
 	public static void afegir_torn(){
-		int id_plt = arg.nextInt();
-		Calendari cl = c.consultar_calendari(id_plt);
+        String id_plt = arg.next();
+        Calendari cl = CtrlCalendari.consultar_calendari(id_plt);
 		if(cl!=null) {
 			Torn t = crear_torn();
 			c.afegir_torn_calendari(t, cl);		
 		}
+        else {
+            System.out.println("No hi ha cap calendari associat a la plantilla amb id "+id_plt);
+        }
 	}
 	
 	public static void modificar_torn()  {
-		int id_plt = arg.nextInt();
-		Calendari cl = c.consultar_calendari(id_plt);
+        String id_plt = arg.next();
+		Calendari cl = CtrlCalendari.consultar_calendari(id_plt);
 
 		if(cl!=null) {
 			ArrayList<Torn> llt = cl.getTorns();
 			for(int i=0; i<llt.size(); i++) escriure_torn(llt.get(i));
-			System.out.println("Introdueix la data inici del torn a modificar i tots els parametres d'un torn per modificarlo\n");
-			int any = arg.nextInt();
-			int mes = arg.nextInt()-1;
-			int dia = arg.nextInt();
-			int hora = arg.nextInt();
-			GregorianCalendar data_inici = new GregorianCalendar(any,mes,dia,hora,0);
-			Torn t = c.torn_data(data_inici,cl);
+			System.out.println("Introdueix la data inici del torn a modificar(yyyy mm dd hh) i tots els parametres d'un torn per modificarlo\n");
+            // DATA INICI
+            int any = -1;
+            boolean valid = false;
+            while(!valid){
+                try{
+                    any = arg.nextInt();
+                    valid = true;
+                } catch (Exception e){
+                    System.out.println("Any ha de ser un numero.");
+                    System.out.println("Torna a introduir l'any.");
+                    arg.next();
+                    continue;
+                }
+            }
+
+            valid = false;
+            int mes = -1;
+            while(!valid){
+                try{
+                    mes = arg.nextInt() - 1;
+                    valid = true;
+                } catch (Exception e){
+                    System.out.println("Mes ha de ser un numero.");
+                    System.out.println("Torna a introduir el mes.");
+                    arg.next();
+                    continue;
+                }
+            }
+
+            valid = false;
+            int dia = -1;
+            while(!valid){
+                try{
+                    dia = arg.nextInt();
+                    valid = true;
+                } catch (Exception e){
+                    System.out.println("Dia ha de ser un numero.");
+                    System.out.println("Torna a introduir el dia.");
+                    arg.next();
+                    continue;
+                }
+            }
+
+
+            valid = false;
+            int hora = -1;
+            while(!valid){
+                try{
+                    hora = arg.nextInt();
+                    valid = true;
+                } catch (Exception e){
+                    System.out.println("Hora ha de ser un numero.");
+                    System.out.println("Torna a introduir l'hora.");
+                    arg.next();
+                    continue;
+                }
+            }
+            GregorianCalendar data_inici = new GregorianCalendar(any,mes,dia,hora,0);
+			Torn t = CtrlCalendari.torn_data(data_inici,cl);
 			if(t!=null) {
 				Torn t_nou = crear_torn();
-				c.modificar_torn(t,t_nou,cl);
+				CtrlCalendari.modificar_torn(t,t_nou,cl);
 			}
 		}
 	}
 	
 	public static void eliminar_torn() {
-		Torn t = crear_torn();
-		int id_plt = arg.nextInt();
-		c.eliminar_torn(t, id_plt);		
+        String id_plt = arg.next();
+		Calendari cl = CtrlCalendari.consultar_calendari(id_plt);
+
+		if(cl!=null) {
+			ArrayList<Torn> llt = cl.getTorns();
+			for(int i=0; i<llt.size(); i++) escriure_torn(llt.get(i));
+			System.out.println("Introdueix la data inici del torn que vols eliminar\n");
+			int any = arg.nextInt();
+			int mes = arg.nextInt()-1;
+			int dia = arg.nextInt();
+			int hora = arg.nextInt();
+			GregorianCalendar data_inici = new GregorianCalendar(any,mes,dia,hora,0);
+			CtrlCalendari.eliminar_torn_data(data_inici,cl);	
+		}
+        else{
+            System.out.println("No existeix cap plantilla amb el nom "+id_plt);
+        }
 	}
 	
 	public static void consultar_calendari()  {
-		int id_plt = arg.nextInt();
-		Calendari cld = c.consultar_calendari(id_plt);	
+       String id_plt = arg.next();
+		Calendari cld = CtrlCalendari.consultar_calendari(id_plt);	
 		if(cld!=null) {
 			System.out.println("El identificador es: " + cld.getId());
 			System.out.println("Associat a la plantilla: " + cld.getId_plantilla());
 			ArrayList<Torn> llt = cld.getTorns();
-			for(int i=0; i<llt.size(); i++) escriure_torn(llt.get(i));
+			if(!llt.isEmpty()) for(int i=0; i<llt.size(); i++) escriure_torn(llt.get(i));
 		}
 	}
 	
 	public static void consultar_calendari_doctor() {
-		int id_plt = arg.nextInt();
-		Calendari cld = c.consultar_calendari(id_plt);	
+        String id_plt = arg.next();
+		Calendari cld = CtrlCalendari.consultar_calendari(id_plt);	
 		if(cld!=null) {
 			String doc = arg.next();
 			ArrayList<Torn> llt = cld.getTorns();
@@ -141,22 +211,49 @@ public class DriverCtrlCalendari {
 	}
 	
 	public static void afegir_calendari() {
-		int id = arg.nextInt();
-		int id_plt = arg.nextInt();
-		int n = arg.nextInt();
+        boolean valid = false;
+
+        int id = -1;
+        while(!valid){
+            try{
+                id = arg.nextInt();
+                valid = true;
+            } catch (Exception e){
+                System.out.println("ID calendari ha de ser un numero.");
+                System.out.println("Torna a introduir ID calendari.");
+                arg.next();
+                continue;
+            }
+        }
+
+
+       String id_plt = arg.next();
+
+        int n = -1;
+        while(!valid){
+            try{
+                n = arg.nextInt();
+                valid = true;
+            } catch (Exception e){
+                System.out.println("n ha de ser un numero.");
+                System.out.println("Torna a introduir n.");
+                arg.next();
+                continue;
+            }
+        }
 		ArrayList<Torn> lt = new ArrayList<Torn>();
-		Torn t = new Torn();
+		Torn t1 = new Torn();
 		for(int i=0; i<n; i++) {
-			t = crear_torn();
-			afegir_t(lt,t);
+			t1 = crear_torn();
+			afegir_t(lt,t1);
 		}
 		Calendari cld = new Calendari(id,id_plt,lt);
 		c.afegir_calendari(cld);
 	}
 	
 	public static void eliminar_calendari() {
-		int id = arg.nextInt();
-		c.eliminar_calendari(id);
+        String id_plt = arg.next();
+		c.eliminar_calendari(id_plt);
 	}
 	
 	public static void escriure_torn(Torn t) {
@@ -176,20 +273,150 @@ public class DriverCtrlCalendari {
 	
 	public static Torn crear_torn() {
 		Torn t;
-		int any = arg.nextInt();
-		int mes = arg.nextInt()-1;
-		int dia = arg.nextInt();
-		int hora = arg.nextInt();
-		GregorianCalendar data_inici = new GregorianCalendar(any,mes,dia,hora,0);
-		any = arg.nextInt();
-		mes = arg.nextInt()-1;
-		dia = arg.nextInt();
-		hora = arg.nextInt();
-		GregorianCalendar data_fi = new GregorianCalendar(any,mes,dia,hora,0);
-		int min_doc = arg.nextInt();
+        boolean valid = false;
 
-		int n = arg.nextInt();
-		String doc; 
+
+        // DATA INICI
+        int any = -1;
+        while(!valid){
+            try{
+                any = arg.nextInt();
+                valid = true;
+            } catch (Exception e){
+                System.out.println("Any ha de ser un numero.");
+                System.out.println("Torna a introduir l'any.");
+                arg.next();
+                continue;
+            }
+        }
+
+        valid = false;
+        int mes = -1;
+        while(!valid){
+            try{
+                mes = arg.nextInt() - 1;
+                valid = true;
+            } catch (Exception e){
+                System.out.println("Mes ha de ser un numero.");
+                System.out.println("Torna a introduir el mes.");
+                arg.next();
+                continue;
+            }
+        }
+
+        valid = false;
+        int dia = -1;
+        while(!valid){
+            try{
+                dia = arg.nextInt();
+                valid = true;
+            } catch (Exception e){
+                System.out.println("Dia ha de ser un numero.");
+                System.out.println("Torna a introduir el dia.");
+                arg.next();
+                continue;
+            }
+        }
+
+
+        valid = false;
+        int hora = -1;
+        while(!valid){
+            try{
+                hora = arg.nextInt();
+                valid = true;
+            } catch (Exception e){
+                System.out.println("Hora ha de ser un numero.");
+                System.out.println("Torna a introduir l'hora.");
+                arg.next();
+                continue;
+            }
+        }
+        GregorianCalendar data_inici = new GregorianCalendar(any,mes,dia,hora,0);
+
+        //DATA FI
+        while(!valid){
+            try{
+                any = arg.nextInt();
+                valid = true;
+            } catch (Exception e){
+                System.out.println("Any ha de ser un numero.");
+                System.out.println("Torna a introduir l'any.");
+                arg.next();
+                continue;
+            }
+        }
+
+        valid = false;
+        while(!valid){
+            try{
+                mes = arg.nextInt() - 1;
+                valid = true;
+            } catch (Exception e){
+                System.out.println("Mes ha de ser un numero.");
+                System.out.println("Torna a introduir el mes.");
+                arg.next();
+                continue;
+            }
+        }
+
+        valid = false;
+        while(!valid){
+            try{
+                dia = arg.nextInt();
+                valid = true;
+            } catch (Exception e){
+                System.out.println("Dia ha de ser un numero.");
+                System.out.println("Torna a introduir el dia.");
+                arg.next();
+                continue;
+            }
+        }
+
+
+        valid = false;
+        while(!valid){
+            try{
+                hora = arg.nextInt();
+                valid = true;
+            } catch (Exception e){
+                System.out.println("Hora ha de ser un numero.");
+                System.out.println("Torna a introduir l'hora.");
+                arg.next();
+                continue;
+            }
+        }
+		GregorianCalendar data_fi = new GregorianCalendar(any,mes,dia,hora,0);
+
+        valid = false;
+        int min_doc = -1;
+        while(!valid){
+            try{
+                min_doc = arg.nextInt();
+                valid = true;
+            } catch (Exception e){
+                System.out.println("Min_doc ha de ser un numero.");
+                System.out.println("Torna a introduir el minim de doctors.");
+                arg.next();
+                continue;
+            }
+        }
+
+        valid = false;
+        int n = -1;
+        while(!valid){
+            try{
+                n = arg.nextInt();
+                valid = true;
+            } catch (Exception e){
+                System.out.println("Min_doc ha de ser un numero.");
+                System.out.println("Torna a introduir el minim de doctors.");
+                arg.next();
+                continue;
+            }
+        }
+
+		String doc;
 		ArrayList<String> doctors_assig =  new ArrayList<String>();
 		for(int i=0; i<n; i++) {
 			doc = arg.next(); 
