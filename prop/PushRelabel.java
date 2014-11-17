@@ -1,5 +1,9 @@
 package prop;
 
+import java.util.*;
+import java.math.*;
+import java.io.*;
+
 public class PushRelabel extends Algorisme {
 	Graf G;
 	int[] altura;
@@ -36,12 +40,12 @@ public class PushRelabel extends Algorisme {
 		
 		while (it.hasNext()) {
 			int e = (Integer) it.next();
-			Aresta arista = G.getAresta(e);
-			if (s == arista.getw()) continue;
-			int v = arista.contrari(s);
-			arista.addresflow(v, arista.capres(s));
-			exces[v] = exces[v].add(arista.getflow());
-			exces[s] = exces[s].subtract(arista.getflow());
+			Aresta a = G.getA(e);
+			if (s == a.getw()) continue;
+			int v = a.contrari(s);
+			a.addresflow(v, a.capres(s));
+			exces[v] = exces[v]+a.getflow();
+			exces[s] = exces[s]-a.getflow();
 			if (v != t) {
 				esta[v] = true;
 				q.add(v);
@@ -50,19 +54,42 @@ public class PushRelabel extends Algorisme {
 	}
 	
 	public void push(int u, int e) {
-		Edge a = G.getAresta(e);
+		Aresta a = G.getA(e);
 		int aux = min(exces[u], a.capres(u));
 		int v = a.contrari(u);
-		arista.addresflow(v, aux);
-		exces[u] = exces[u].subtract(aux);
-		exces[v] = exces[v].add(aux);
+		a.addresflow(v, aux);
+		exces[u] = exces[u]-aux;
+		exces[v] = exces[v]+aux;
 	}	
+	
+	public Boolean BFS(int s, int t, int[] cami) {
+		int N = G.numV();
+		Queue<Integer> q = new LinkedList<Integer>();
+		for (int i = 0; i < N; ++i) cami[i] = -1;
+		cami[s] = s;
+		q.add(s);
+		while (!q.isEmpty()) {
+			int u = (Integer)q.remove();
+			List<Integer> L = G.adjacents(u);
+			Iterator<Integer> it = L.iterator();
+			while (it.hasNext()) {
+				int e = (Integer) it.next();
+				Aresta a = G.getA(e);
+				int v = a.contrari(u);
+				if (a.capres(u)> 0 && cami[v] == -1) {
+					cami[v] = e;
+					q.add(v);
+					if (v == t) return true;
+				}
+			}
+		}
+		return false;
+	}
 	
 	public int maxFlow(int s, int t) {
 		
-		Buscador B = new Buscador(G);
 		int[] cami = new int[G.getNumA()];
-		if (!B.BFS(s, t, cami)) return ZERO;
+		if (BFS(s, t, cami)) return ZERO;
 		
 		q = new LinkedList<Integer>();
 		esta = new Boolean[G.getNumA()];
@@ -77,10 +104,10 @@ public class PushRelabel extends Algorisme {
             
             while (it.hasNext() && exces[u] > 0) {
             	int e = (Integer) it.next();
-            	Edge arista = G.getAresta(e);
-            	int v = arista.contrari(u);
+            	Aresta a = G.getA(e);
+            	int v = a.contrari(u);
             	
-            	if (arista.capres(u) > 0) {
+            	if (a.capres(u) > 0) {
             		if (altura[u] == altura[v] + 1) {
             			push(u, e);
             			if (!esta[v] && v != t && v != s) {

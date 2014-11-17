@@ -1,4 +1,5 @@
 package prop;
+
 public class Aresta {
 	private int v, w;
 	private int flow, capacitat;
@@ -50,7 +51,7 @@ public class Aresta {
 		flow = 0;
 	}
 	
-	public int get contrari(int ver) {
+	public int contrari(int ver) {
 		if (ver == v) return w;
 		else if (ver == w) return v;
 	}

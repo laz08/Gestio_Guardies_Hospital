@@ -34,11 +34,11 @@ class Graf {
 		return As.size();
 	}
     
-    public int getA(int a) {
-    	return As[a];
+    public Aresta getA(int a) {
+    	return As.get(a);
     }
 	
-	public int getNumV() {
+	public int numV() {
 		return Vs.size();
 	}
 	
@@ -58,7 +58,7 @@ class Graf {
 		return Vs.get(v).getArestes();
 	}
 	
-	public void resetFlow(int e) {
+	public void resetFlow() {
 		for (int i = 0; i < As.size(); ++i) {
 			As.get(i).resetflow();
 		}

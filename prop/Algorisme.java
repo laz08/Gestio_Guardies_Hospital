@@ -1,5 +1,5 @@
 package prop;
 
-public class Algorisme {
-	public int maxFlow(Graf G, Plantilla p, Calendari c);
+public abstract class Algorisme {
+	public abstract int maxFlow();
 }
