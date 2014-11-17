@@ -33,7 +33,7 @@ public class CtrlCalendari {
 		return null;
 	}
 	
-	public void afegir_torn(Torn t, int id_plt) throws Error {
+	public void afegir_torn(Torn t, int id_plt) {
 		int i=0;
 		while(i<llcalendaris.size() && llcalendaris.get(i).getId_plantilla()!=id_plt) ++i;
 		if(i<llcalendaris.size() && llcalendaris.get(i).getId_plantilla()==id_plt) {
@@ -67,7 +67,7 @@ public class CtrlCalendari {
 		return null;
 	}
 	
-	public void modificar_torn(Torn t, Torn t_nou, Calendari cl) throws Error {
+	public void modificar_torn(Torn t, Torn t_nou, Calendari cl){
 			//comprovem si el torn nou té data diferent, si es així afegim el torn modificat i eliminem el torn anterior
 			if (t.getData_inici()!=t_nou.getData_inici() || t.getData_fi()!=t_nou.getData_fi()) {
 				afegir_torn(t_nou,cl.getId_plantilla());
