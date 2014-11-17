@@ -54,6 +54,7 @@ public class CtrlPlantilla {
         return Cjt_plantilles.get(plantillaActual);
     }
 
+
     public static String getidPlantillaActual(){
         return Cjt_plantilles.get(plantillaActual).getNomPlantilla();
     }
