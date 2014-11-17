@@ -76,19 +76,7 @@ public class DriverCalendari {
         }
 
 
-        int id_plt = -1;
-        valid = false;
-        while(!valid){
-            try{
-                id_plt = arg.nextInt();
-                valid = true;
-            } catch (Exception e){
-                System.out.println("ID plantilla ha de ser un numero.");
-                System.out.println("Torna a introduir ID plantilla.");
-                arg.next();
-                continue;
-            }
-        }
+        String id_plt = arg.next();
 
 		int n = -1;
         valid = false;
@@ -97,8 +85,8 @@ public class DriverCalendari {
                 n = arg.nextInt();
                 valid = true;
             } catch (Exception e){
-                System.out.println("ID plantilla ha de ser un numero.");
-                System.out.println("Torna a introduir ID plantilla.");
+                System.out.println("n ha de ser un numero.");
+                System.out.println("Torna a introduir n.");
                 arg.next();
                 continue;
             }
@@ -125,7 +113,7 @@ public class DriverCalendari {
 	}
 	
 	public static void modificar_id_plantilla() {
-		c.setId_plantilla(arg.nextInt());
+		c.setId_plantilla(arg.next());
 	}
 	
 	public static void consultar_torns() {

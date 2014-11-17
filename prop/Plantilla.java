@@ -6,6 +6,7 @@ public class Plantilla {
 
     private String nom_p;
     private ArrayList<Doctor> P;
+    private int id_calendari_asoc;
 
     public Plantilla(){
 
