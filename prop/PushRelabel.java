@@ -1,3 +1,5 @@
+package prop;
+
 public class PushRelabel extends Algorisme {
 	Graf G;
 	int[] altura;
@@ -15,7 +17,7 @@ public class PushRelabel extends Algorisme {
 		return b;
 	}
 	
-	public void inicialitza(int s, int t) {
+	public void preflow(int s, int t) {
 		int n = G.numeroVertex();
 		altura = new int[n];
 		exces = new int[n];
@@ -26,7 +28,7 @@ public class PushRelabel extends Algorisme {
 			esta[i] = false;
 		}
 		
-		G.borraFlow();
+		G.resetFlow();
 		
 		altura[s] = n;
 		List<Integer> L = G.adyacentes(s);
@@ -34,7 +36,7 @@ public class PushRelabel extends Algorisme {
 		
 		while (it.hasNext()) {
 			int e = (Integer) it.next();
-			Aresta arista = G.getEdge(e);
+			Aresta arista = G.getAresta(e);
 			if (s == arista.extremDret()) continue;
 			int v = arista.vei(s);
 			arista.augmentaFlow(v, arista.cap(s));
@@ -48,7 +50,7 @@ public class PushRelabel extends Algorisme {
 	}
 	
 	public void push(int u, int e) {
-		Edge arista = G.getEdge(e);
+		Edge arista = G.getAresta(e);
 		int aux = min(exces[u], arista.cap(u));
 		int v = arista.vei(u);
 		arista.augmentaFlow(v, aux);
@@ -64,7 +66,7 @@ public class PushRelabel extends Algorisme {
 		
 		q = new LinkedList<Integer>();
 		esta = new Boolean[G.numeroVertex()];
-		inicialitza(s, t);
+		preflow(s, t);
 		
 		while(!q.isEmpty()) {
 			
@@ -75,7 +77,7 @@ public class PushRelabel extends Algorisme {
             
             while (it.hasNext() && exces[u] > 0) {
             	int e = (Integer) it.next();
-            	Edge arista = G.getEdge(e);
+            	Edge arista = G.getAresta(e);
             	int v = arista.vei(u);
             	
             	if (arista.cap(u) > 0) {
@@ -92,7 +94,6 @@ public class PushRelabel extends Algorisme {
             			if(nou == -1) nou = altura[v];
             			nou = min(nou, altura[v]);
             		}
-            		
             	}
             }
             

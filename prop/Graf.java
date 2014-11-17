@@ -7,9 +7,9 @@ import java.util.ArrayList;
 class Graf { 
 	int numa = 0;
 	ArrayList<Aresta> As;
-        ArrayList<Vertex> Vs; 
+    ArrayList<Vertex> Vs; 
 	public final static int INFINIT = Integer.MAX_VALUE;
-	int zero = 0;
+	int ZERO = 0;
 	
 	public Graf() {
 		As = new ArrayList<Aresta>();
