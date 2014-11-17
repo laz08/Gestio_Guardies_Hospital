@@ -13,8 +13,10 @@ public class DriverRestriccio {
         Restriccio r = null;
         String expressio = null;
         Scanner scan;
-        while (true) {
+        boolean sortir = false;
+        while (!sortir) {
             System.out.println("---------MENU---------");
+            System.out.println("0 => Sortir");
             System.out.println("1 => Insereix una expressió per la restriccio");
             System.out.println("2 => crea_arbre(String expresio)");
             System.out.println("3 => getOp()");
@@ -29,6 +31,8 @@ public class DriverRestriccio {
 
             int opcio = scan.nextInt();
             switch (opcio) {
+                case 0: sortir = true;
+                    break;
                 case 1:
                     System.out.println("\nQuina expresió vols inserir? ");
                     scan = new Scanner(System.in);
