@@ -19,7 +19,7 @@ public class Calendari {
 	public Calendari(){
 	}
 	
-	@SuppressWarnings("unchecked")
+	
 	public Calendari(int ident, int ident_plantilla, ArrayList<Torn> llt) {
 		id = ident;
 		id_plantilla = ident_plantilla;

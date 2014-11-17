@@ -74,7 +74,7 @@ public class CtrlPlantilla {
      *          i també existeix doctor amb dni = dni
      * post: El doctor de l'hospital amb dni = dni pertany ara a la plantilla amb nom = id_plantilla
      */
-    public static void afegirDoctorAPlantilla(String dni, String id_plantilla) throws Error {
+    public static void afegirDoctorAPlantilla(String dni, String id_plantilla){
         Plantilla p;
         Doctor doc = null;
 
