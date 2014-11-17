@@ -1,5 +1,7 @@
 package prop;
 
+import java.util.ArrayList;
+
 public class Doctor {
 
     private String dni;
@@ -93,5 +95,9 @@ public class Doctor {
 
     public void setActiu(boolean act) {
         actiu = act;
+    }
+    
+    public ArrayList<Integer> getRestriccions(){
+        return Doc_Res.getRestriccions(dni);
     }
 }

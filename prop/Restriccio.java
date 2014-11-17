@@ -71,7 +71,7 @@ public abstract class Restriccio {
                    default:
                        throw new Error("El nom de l'operació logica no es correcte");
                }
-               r.numv += 3; // si els fills no son restriccions i en te 2, en nombre de vertex del seu subarbre serà 3
+               r.numv ++; // si els fills no son restriccions i en te 2, en nombre de vertex del seu subarbre serà 3
            }
            else{
                throw new Error("Error a la deteccio dels parametres de les restriccions");
@@ -104,7 +104,7 @@ public abstract class Restriccio {
                    default:
                        throw new Error("El nom de l'operació logica no es correcte");
                }
-               r.numv += 2;
+               r.numv ++;
            }
        }
        else {
