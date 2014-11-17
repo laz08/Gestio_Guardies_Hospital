@@ -7,12 +7,20 @@ public class DriverCtrlHospital {
 
     public static void main(String[] args) {
 
-        Scanner arg;
+        Scanner arg = new Scanner(System.in);
         int cas;
         boolean sortir = false;
-        while (!sortir) {
+        escriuMenu();
+        while (!sortir && arg.hasNext()) {
+
             try {
-                escriuMenu();
+                cas = arg.nextInt();
+            } catch (Exception e){
+                System.out.println("S'esperava la introduccio d'un numero.");
+                System.out.print(">> ");
+                arg.next();
+                continue;
+            }
 
                 arg = new Scanner(System.in);
                 cas = arg.nextInt();
@@ -25,13 +33,12 @@ public class DriverCtrlHospital {
                     case 5: casLlistatDoctors(); break;
                     case 0: sortir = true; break;
                     default:
-                        System.out.println("El numero ha d'estar entre 0 i 4.");
+                        System.out.println("El numero ha d'estar entre 0 i 5.");
                         break;
                 }
 
-            }catch (Exception e){
-                System.err.println("Has d'introduir un numero\n"+e);
-            }
+            if(cas != 0) escriuMenu();
+
         }
     }
 
@@ -43,7 +50,7 @@ public class DriverCtrlHospital {
         System.out.println("4.- Consultar Doctor(dni: String)");
         System.out.println("5.- Consultar llistat doctors()");
         System.out.println("0.- Exit");
-
+        System.out.print(">> ");
     }
 
     public static void casCreaDoctor(){

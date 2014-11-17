@@ -221,14 +221,29 @@ public class DriverCtrlPlantilla {
 
 
     public static void casCreaDoctor(){
-        String dni = arg.next();
+
+        boolean valid = false;
+        String dni = null;
+        while(!valid) {
+            dni = arg.next();
+            if(CtrlHospital.existeixDoctor(dni) == -1) valid = true;
+            else{
+                System.out.println("Ja existeix un doctor amb aquest DNI.");
+                System.out.println("El llistat dels dni de doctors ja existents es el seguent: ");
+                for (int i = 0; i < CtrlHospital.numDocs(); ++i){
+                    System.out.println(CtrlHospital.getDoctor(i).getdni());
+                }
+                System.out.println("Introdueix DNI de nou.");
+            }
+
+        }
         String nom = arg.next();
         String cg1 = arg.next();
         String cg2 = arg.next();
         int sou = 0;
         int telf = 0;
 
-        boolean valid = false;
+        valid = false;
         while(!valid) {
             try {
                 sou = arg.nextInt();
