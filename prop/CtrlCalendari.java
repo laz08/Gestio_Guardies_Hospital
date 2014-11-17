@@ -12,56 +12,73 @@ public class CtrlCalendari {
 	public void afegir_calendari(Calendari c) {
 		if (llcalendaris.isEmpty()) llcalendaris.add(c);
 		else {
-			int i=0;
-			while(llcalendaris.get(i).getId_plantilla()<c.getId_plantilla()) ++i;
-			if(llcalendaris.get(i).getId_plantilla()==c.getId_plantilla()) System.out.println("El calendari per aquesta plantilla ja existeix\n");
-			else llcalendaris.add(i,c);
+            boolean trobat = false;
+            for(int i = 0; i < llcalendaris.size() && !trobat; ++i){
+                if(llcalendaris.get(i).getId_plantilla().equals(c.getId_plantilla())) {
+                    System.out.println("El calendari per aquesta plantilla ja existeix\n");
+                    trobat = true;
+                }
+            }
+            if(!trobat){
+                //Podem afegir el calendari
+                llcalendaris.add(c);
+            }
 		}
 	}
-	public void eliminar_calendari(int id_plt) {
+
+    public void eliminar_calendari(String id_plt) {
 		if(llcalendaris.isEmpty()) System.out.println("No existeix cap calendari per aquesta plantilla\n");
 		else {
-			int i=0;
-			while(i<llcalendaris.size() && llcalendaris.get(i).getId_plantilla()<id_plt) ++i;
-			if(llcalendaris.get(i).getId_plantilla()==id_plt) llcalendaris.remove(i);
-			else System.out.println("No existeix cap calendari per aquesta plantilla\n");
+            boolean trobat = false;
+            for(int i = 0; i < llcalendaris.size() && !trobat; ++i){
+                if(llcalendaris.get(i).getId_plantilla().equals(id_plt)){
+                    trobat = true;
+                    llcalendaris.remove(i);
+                }
+            }
+			if(!trobat) System.out.println("No existeix cap calendari per aquesta plantilla\n");
 		}
 	}
 	
 	
-	public static Calendari consultar_calendari(int id_plt) {
+	public static Calendari consultar_calendari(String id_plt) {
 		if(llcalendaris.isEmpty()) System.out.println("No existeix cap calendari per aquesta plantilla\n");
 		else {
-			int i=0;
-			while(i<llcalendaris.size() && llcalendaris.get(i).getId_plantilla() <id_plt) ++i;
-			if(i<llcalendaris.size() && llcalendaris.get(i).getId_plantilla()==id_plt) return llcalendaris.get(i);
-			else System.out.println("No existeix cap calendari per aquesta plantilla\n");
-		}
-		return null;
-	}
+            for (int i = 0; i < llcalendaris.size(); ++i){
+                if(llcalendaris.get(i).getId_plantilla().equals(id_plt)) return llcalendaris.get(i);
+            }
+            System.out.println("No existeix cap calendari per aquesta plantilla\n");
+            return null;
+        }
+        return null;
+    }
 	
-	public static void afegir_torn(Torn t, int id_plt)  {
-		int i=0;
-		while(i<llcalendaris.size() && llcalendaris.get(i).getId_plantilla()!=id_plt) ++i;
-		if(i<llcalendaris.size() && llcalendaris.get(i).getId_plantilla()==id_plt) {
-			ArrayList<Torn> lltorns = llcalendaris.get(i).getTorns();
-			//comprovem que el torn que es vol afegir no es solapi amb els existents
-			int pos = posicio_torn(t,lltorns);
-			if(pos!=-1)lltorns.add(pos,t);
-		}
-		else System.out.println("No existeix cap calendari per aquesta plantilla\n");
-	}
+	public static void afegir_torn(Torn t, String id_plt){
+        boolean trobat = false;
+		for (int i = 0; i < llcalendaris.size(); ++i){
+            if(llcalendaris.get(i).getId_plantilla().equals(id_plt)){
+                trobat = true;
+                ArrayList<Torn> lltorns = llcalendaris.get(i).getTorns();
+                //comprovem que el torn que es vol afegir no es solapi amb els existents
+                int pos = posicio_torn(t,lltorns);
+                if(pos!=-1)lltorns.add(pos, t);
+                else System.out.println("El torn es solapa amb un altre, no es pot afegir al calendari.");
+            }
+        }
+        if (!trobat) System.out.println("No existeix cap calendari per aquesta plantilla\n");
+    }
 	
 	public void afegir_torn_calendari(Torn t, Calendari cl) {
 		ArrayList<Torn> lltorns = cl.getTorns();
 		//comprovem que el torn que es vol afegir no es solapi amb els existents
 		int pos = posicio_torn(t,lltorns);
 		if(pos!=-1)lltorns.add(pos,t);
+        //else no es pot afegir
 	}
 	
-	public boolean existeix_torn(Torn t, int id_plt) {
+	public boolean existeix_torn(Torn t, String id_plt) {
 		int i=0;
-		while(llcalendaris.get(i).getId_plantilla()!=id_plt) ++i;
+		while(llcalendaris.get(i).getId_plantilla().equals(id_plt)) ++i;
 		ArrayList<Torn> lltorns = llcalendaris.get(i).getTorns();
 		while(lltorns.get(i).getData_inici().before(t.getData_inici())) ++i;
 		return(mateix_torn(lltorns.get(i),t));

@@ -10,7 +10,7 @@ import java.util.GregorianCalendar;
 public class Calendari {
 	
 	private int id;
-	private int id_plantilla;
+	private String id_plantilla;
 	private ArrayList<Torn> c;
 	
 	/** 
@@ -20,7 +20,7 @@ public class Calendari {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public Calendari(int ident, int ident_plantilla, ArrayList<Torn> llt) {
+	public Calendari(int ident, String ident_plantilla, ArrayList<Torn> llt) {
 		id = ident;
 		id_plantilla = ident_plantilla;
 		c = (ArrayList<Torn>) llt.clone();
@@ -34,11 +34,11 @@ public class Calendari {
 		id = id_nou;
 	}
 	
-	public int getId_plantilla() {
+	public String getId_plantilla() {
 		return id_plantilla;
 	}
 	
-	public void setId_plantilla(int id_plantilla_nou) {
+	public void setId_plantilla(String id_plantilla_nou) {
 		id_plantilla = id_plantilla_nou;
 	}
 	
