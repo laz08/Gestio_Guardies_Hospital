@@ -4,19 +4,21 @@ import java.util.Scanner;
 
 public class DriverCtrlPlantilla {
 
-
+    static Scanner arg = new Scanner(System.in);
     public static void main(String[] args) {
 
-        Scanner arg;
-        int cas;
+        int cas = 0;
         boolean sortir = false;
-        while (!sortir) {
-            try {
-                escriuMenu();
-
-
-                arg = new Scanner(System.in);
-                cas = arg.nextInt();
+        escriuMenu();
+        while (!sortir && arg.hasNext()) {
+                try {
+                    cas = arg.nextInt();
+                } catch (Exception e){
+                    System.out.println("S'esperava la introduccio d'un numero.");
+                    System.out.print(">> ");
+                    arg.next();
+                    continue;
+                }
 
                 switch (cas) {
                     case 1: casCreaPlantilla(); break;
@@ -46,9 +48,8 @@ public class DriverCtrlPlantilla {
                         break;
                 }
 
-            }catch (Exception e){
-                System.err.println("Has d'introduir un numero\n"+e);
-            }
+            if(cas != 0) escriuMenu();
+
         }
     }
 
@@ -82,8 +83,7 @@ public class DriverCtrlPlantilla {
     }
 
     public static void casCreaPlantilla(){
-        Scanner sc = new Scanner(System.in);
-        String nom_p = sc.next();
+        String nom_p = arg.next();
         // Si no existeix una plantilla amb aquest nom...
         if(CtrlPlantilla.existeixPlantilla(nom_p) == -1){
             CtrlPlantilla.creariAfegirPlantilla(nom_p);
@@ -94,8 +94,7 @@ public class DriverCtrlPlantilla {
     }
 
     public static void casEliminaPlantilla(){
-        Scanner sc = new Scanner(System.in);
-        String nom_p = sc.next();
+        String nom_p = arg.next();
         int pos = CtrlPlantilla.existeixPlantilla(nom_p);
         if(pos != -1){
             CtrlPlantilla.esborrarPlantilla(pos);
@@ -106,8 +105,7 @@ public class DriverCtrlPlantilla {
     }
 
     public static void casExisteixPlantilla(){
-        Scanner sc = new Scanner(System.in);
-        String nom_p = sc.next();
+        String nom_p = arg.next();
         int pos = CtrlPlantilla.existeixPlantilla(nom_p);
         if(pos != -1){
             System.out.println("true");
@@ -118,8 +116,7 @@ public class DriverCtrlPlantilla {
     }
 
     public static void casConsultarPlantilla(){
-        Scanner sc = new Scanner(System.in);
-        String nom_p = sc.next();
+        String nom_p = arg.next();
         int pos = CtrlPlantilla.existeixPlantilla(nom_p);
         if(pos != -1){
            Plantilla p = CtrlPlantilla.consultarPlantilla(pos);
@@ -144,15 +141,15 @@ public class DriverCtrlPlantilla {
         System.out.println(CtrlPlantilla.num_plantilles());
     }
 
-    public static void casAfegirDocAPlantilla() throws Error {
-        Scanner sc = new Scanner(System.in);
-        String dni = sc.next();
-        String nom_p = sc.next();
+    public static void casAfegirDocAPlantilla(){
+        String dni = arg.next();
+        String nom_p = arg.next();
 
         if(CtrlHospital.existeixDoctor(dni) != -1){
             if(!CtrlPlantilla.docTePlantilla(dni)){
-                if (CtrlPlantilla.existeixPlantilla(nom_p) != -1)
+                if (CtrlPlantilla.existeixPlantilla(nom_p) != -1) {
                     CtrlPlantilla.afegirDoctorAPlantilla(dni, nom_p);
+                }
                 else
                     System.out.println("No existeix cap plantilla amb el nom "+nom_p);
             }
@@ -165,10 +162,9 @@ public class DriverCtrlPlantilla {
         }
     }
 
-    public static void casEsborrarDocdePlantilla() throws Error {
-        Scanner sc = new Scanner(System.in);
-        String dni = sc.next();
-        String nom_p = sc.next();
+    public static void casEsborrarDocdePlantilla() {
+        String dni = arg.next();
+        String nom_p = arg.next();
 
         if(CtrlHospital.existeixDoctor(dni) != -1) {
             if (!CtrlPlantilla.docTePlantilla(dni)) {
@@ -185,8 +181,7 @@ public class DriverCtrlPlantilla {
     }
 
     public static void casDoctorTePlantilla(){
-        Scanner sc = new Scanner(System.in);
-        String dni = sc.next();
+        String dni = arg.next();
         if (CtrlHospital.existeixDoctor(dni) != -1) {
             if (!CtrlPlantilla.docTePlantilla(dni)) {
                 System.out.println("El doctor no té cap plantilla");
@@ -200,9 +195,8 @@ public class DriverCtrlPlantilla {
     }
 
     public static void casDoctorEstaEnPlantilla(){
-        Scanner sc = new Scanner(System.in);
-        String dni = sc.next();
-        String nom_p = sc.next();
+        String dni = arg.next();
+        String nom_p = arg.next();
 
         if(CtrlHospital.existeixDoctor(dni) != -1){
             if(CtrlPlantilla.docTePlantilla(dni)){
@@ -227,23 +221,21 @@ public class DriverCtrlPlantilla {
 
 
     public static void casCreaDoctor(){
-        Scanner sc = new Scanner(System.in);
-        String dni = sc.next();
-        String nom = sc.next();
-        String cg1 = sc.next();
-        String cg2 = sc.next();
+        String dni = arg.next();
+        String nom = arg.next();
+        String cg1 = arg.next();
+        String cg2 = arg.next();
         int sou = 0;
         int telf = 0;
-        sou = sc.nextInt();
-        telf = sc.nextInt();
-        String correu = sc.next();
+        sou = arg.nextInt();
+        telf = arg.nextInt();
+        String correu = arg.next();
         if(CtrlHospital.existeixDoctor(dni) == -1) CtrlHospital.creariAfegirDoctor(dni, nom, cg1, cg2, sou, telf, correu);
         else System.out.println("Ja existeix un doctor amb dni == "+dni);
     }
 
     public static void casEliminaDoctor(){
-        Scanner sc = new Scanner(System.in);
-        String dni = sc.next();
+        String dni = arg.next();
 
         int pos = CtrlHospital.existeixDoctor(dni);
         if (pos != -1){
@@ -252,8 +244,7 @@ public class DriverCtrlPlantilla {
     }
 
     public static void casExisteixDoctor(){
-        Scanner sc = new Scanner(System.in);
-        String dni = sc.next();
+        String dni = arg.next();
         int pos = CtrlHospital.existeixDoctor(dni);
         if (pos != -1)
             System.out.println("true");
@@ -262,8 +253,7 @@ public class DriverCtrlPlantilla {
     }
 
     public static void casConsultaDoctor(){
-        Scanner sc = new Scanner(System.in);
-        String dni = sc.next();
+        String dni = arg.next();
         int pos = CtrlHospital.existeixDoctor(dni);
         if (pos != -1){
             Doctor doc = CtrlHospital.getDoctor(pos);
@@ -299,8 +289,7 @@ public class DriverCtrlPlantilla {
     }
 
     public static void casEscollirPlantillaActual(){
-        Scanner sc = new Scanner(System.in);
-        String nom_p = sc.next();
+        String nom_p = arg.next();
         int pos = CtrlPlantilla.existeixPlantilla(nom_p);
         if (pos != -1)
             CtrlPlantilla.setPlantillaActual(pos);

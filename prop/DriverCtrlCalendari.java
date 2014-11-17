@@ -53,17 +53,32 @@ public class DriverCtrlCalendari {
 	
 	public static void afegir_torn(Scanner s) throws Error {
 		int id_plt = s.nextInt();
-		Torn t = crear_torn(s);
-		c.afegir_torn(t, id_plt);		
+		Calendari cl = c.consultar_calendari(id_plt);
+		if(cl!=null) {
+			Torn t = crear_torn(s);
+			c.afegir_torn_calendari(t, cl);		
+		}
 	}
 	
 	public static void modificar_torn(Scanner s) throws Error {
 		int id_plt = s.nextInt();
+		Calendari cl = c.consultar_calendari(id_plt);
 
-		Torn t = crear_torn(s);
-		Torn t_nou = crear_torn(s);
-		
-		c.modificar_torn(t,t_nou,id_plt);
+		if(cl!=null) {
+			ArrayList<Torn> llt = cl.getTorns();
+			for(int i=0; i<llt.size(); i++) escriure_torn(llt.get(i));
+			System.out.println("Introdueix la data inici del torn a modificar i tots els parametres d'un torn per modificarlo\n");
+			int any = s.nextInt();
+			int mes = s.nextInt()-1;
+			int dia = s.nextInt();
+			int hora = s.nextInt();
+			GregorianCalendar data_inici = new GregorianCalendar(any,mes,dia,hora,0);
+			Torn t = c.torn_data(data_inici,cl);
+			if(t!=null) {
+				Torn t_nou = crear_torn(s);
+				c.modificar_torn(t,t_nou,cl);
+			}
+		}
 	}
 	
 	public static void eliminar_torn(Scanner s) throws Error {
@@ -141,6 +156,7 @@ public class DriverCtrlCalendari {
 	public static void escriure_torn(Torn t) {
 		GregorianCalendar dia = t.getData_inici();
 		GregorianCalendar diaf = t.getData_fi();
+		System.out.println("\n----Torn----");
 		System.out.println("Data inici: " + dia.getTime().toString()+
 				"\nData fi: "+diaf.getTime().toString() +
 				"\nNumero minim doctors: " + t.getN_min_doc() +

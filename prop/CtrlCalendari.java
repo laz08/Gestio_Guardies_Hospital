@@ -44,6 +44,12 @@ public class CtrlCalendari {
 		}
 		else System.out.println("No existeix cap calendari per aquesta plantilla\n");
 	}
+	public void afegir_torn_calendari(Torn t, Calendari cl) {
+		ArrayList<Torn> lltorns = cl.getTorns();
+		//comprovem que el torn que es vol afegir no es solapi amb els existents
+		int pos = posicio_torn(t,lltorns);
+		if(pos!=-1)lltorns.add(pos,t);
+	}
 	
 	public boolean existeix_torn(Torn t, int id_plt) {
 		int i=0;
@@ -53,13 +59,19 @@ public class CtrlCalendari {
 		return(mateix_torn(lltorns.get(i),t));
 	}
 	
-	public void modificar_torn(Torn t, Torn t_nou, int id_plt) throws Error {
-		//comprovar si existeix el torn
-		if(existeix_torn(t,id_plt)) {
+	public Torn torn_data(GregorianCalendar d_i, Calendari cl) {
+		int i=0;
+		while(cl.getTorns().get(i).getData_inici().before(d_i)) ++i;
+		if(cl.getTorns().get(i).getData_inici().equals(d_i)) return cl.getTorns().get(i);
+		else System.out.println("No existeix el torn");
+		return null;
+	}
+	
+	public void modificar_torn(Torn t, Torn t_nou, Calendari cl) throws Error {
 			//comprovem si el torn nou té data diferent, si es així afegim el torn modificat i eliminem el torn anterior
 			if (t.getData_inici()!=t_nou.getData_inici() || t.getData_fi()!=t_nou.getData_fi()) {
-				afegir_torn(t_nou,id_plt);
-				eliminar_torn(t,id_plt);
+				afegir_torn(t_nou,cl.getId_plantilla());
+				eliminar_torn(t,cl.getId_plantilla());
 			}
 			//sino modifica la data només canviem els atributs 
 			else {
@@ -67,8 +79,6 @@ public class CtrlCalendari {
 				if (t.getDoc_assignats()!=t_nou.getDoc_assignats()) t.setDoc_assignats(t_nou.getDoc_assignats());
 				if (t.getPercent_sou()!=t_nou.getPercent_sou()) t.setPercent_sou(t_nou.getPercent_sou());
 			}
-		}
-		else System.out.println("El torn no existeix");
 	}
 	
 	public void eliminar_torn(Torn t, int id_plt)  {
