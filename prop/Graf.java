@@ -30,9 +30,13 @@ class Graf {
             if(!Vs.contains(v)) Vs.add(v);
         }
         
-        public int getNumA() {
+    public int getNumA() {
 		return As.size();
 	}
+    
+    public int getA(int a) {
+    	return As[a];
+    }
 	
 	public int getNumV() {
 		return Vs.size();
