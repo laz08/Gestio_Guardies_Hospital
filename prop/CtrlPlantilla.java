@@ -54,6 +54,7 @@ public class CtrlPlantilla {
         return Cjt_plantilles.get(plantillaActual);
     }
 
+
     public static int getidPlantillaActual(){
         return plantillaActual;
     }
@@ -150,5 +151,7 @@ public class CtrlPlantilla {
             }
         return false;
     }
+
+
 
 }
