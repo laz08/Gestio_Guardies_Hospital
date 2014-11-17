@@ -227,8 +227,29 @@ public class DriverCtrlPlantilla {
         String cg2 = arg.next();
         int sou = 0;
         int telf = 0;
-        sou = arg.nextInt();
-        telf = arg.nextInt();
+
+        boolean valid = false;
+        while(!valid) {
+            try {
+                sou = arg.nextInt();
+                valid = true;
+            } catch (Exception e) {
+                System.out.println("Sou ha de ser un enter");
+                arg.next();
+                continue;
+            }
+        }
+        valid = false;
+        while(!valid){
+            try {
+                telf = arg.nextInt();
+                valid = true;
+            } catch (Exception e){
+                System.out.println("Telf ha de ser un enter");
+                arg.next();
+                continue;
+            }
+        }
         String correu = arg.next();
         if(CtrlHospital.existeixDoctor(dni) == -1) CtrlHospital.creariAfegirDoctor(dni, nom, cg1, cg2, sou, telf, correu);
         else System.out.println("Ja existeix un doctor amb dni == "+dni);
