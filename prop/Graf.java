@@ -1,22 +1,22 @@
 package prop;
 
-//Classe molt primitiva, falta arreclar tot el tema de les restriccions primer
 
 import java.util.ArrayList;
 
-class Graf { 
-	int numa = 0;
-	ArrayList<Aresta> As;
-    ArrayList<Vertex> Vs; 
+public class Graf{
+	private int numa = 0;
+	private ArrayList<Aresta> As;
+    private ArrayList<Vertex> Vs;
 	public final static int INFINIT = Integer.MAX_VALUE;
-	int ZERO = 0;
+	public int ZERO = 0;
+
 	
 	public Graf() {
 		As = new ArrayList<Aresta>();
 		Vs = new ArrayList<Vertex>();
 	}
 	
-	public void afegirAresta(Vertex v1, Vertex v2, int capacitat, int flow) {
+  	public void afegirAresta(Vertex v1, Vertex v2, int capacitat, int flow) {
 		int a = Vs.indexOf(v1);
         int b = Vs.indexOf(v2);
         Aresta ar = new Aresta(a, b, capacitat, flow);
