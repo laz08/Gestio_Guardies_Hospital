@@ -85,7 +85,7 @@ public class PushRelabel extends Algorisme {
 		}
 		return false;
 	}
-	
+	@Override
 	public int maxFlow(int s, int t) {
 		
 		int[] cami = new int[G.getNumA()];
