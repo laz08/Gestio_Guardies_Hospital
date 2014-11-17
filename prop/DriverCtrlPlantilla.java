@@ -334,11 +334,7 @@ public class DriverCtrlPlantilla {
     }
 
     public static void casConsultarPlantillaActual(){
-        if(CtrlPlantilla.getidPlantillaActual() != -1)
             System.out.println(CtrlPlantilla.getPlantillaActual().getNomPlantilla());
-        else
-            System.out.println("No estem a cap plantilla");
     }
-
 
 }
