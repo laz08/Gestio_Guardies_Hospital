@@ -40,7 +40,7 @@ public class CtrlEntrada {
 
     private static void posaVertexTorn(Graf g) throws Error {
         int num = CtrlPlantilla.getidPlantillaActual();
-        ArrayList<Torn> llistaTorns = Cjt_calendaris.consultar_calendari(num).getTorns();
+        ArrayList<Torn> llistaTorns = CtrlCalendari.consultar_calendari(num).getTorns();
         int ntorns = llistaTorns.size();
         for (int i = 0; i < ntorns; i++) { // cream nodes de tipus torn i els afagim al graf
             Torn t = llistaTorns.get(i);
@@ -65,7 +65,7 @@ public class CtrlEntrada {
                 g.afegirAresta(vd, vr, vr.getCapacitatAcumulada(), 0);
             }
             int num = CtrlPlantilla.getidPlantillaActual();
-            ArrayList<Torn> llistaTorns = Cjt_calendaris.consultar_calendari(num).getTorns();
+            ArrayList<Torn> llistaTorns = CtrlCalendari.consultar_calendari(num).getTorns();
             for (int x=0; x<llistaTorns.size(); x++){
                 Torn t = llistaTorns.get(x);
                 boolean trobat = false;
@@ -211,7 +211,7 @@ public class CtrlEntrada {
     private static ArrayList<Vertex> consulta_torns_afectats(String t, String tipus_r, Graf g) throws Error{
         ArrayList<Vertex> v_torns = new ArrayList<Vertex>();
         int num = CtrlPlantilla.getidPlantillaActual();
-        ArrayList<Torn> llistaTorns = Cjt_calendaris.consultar_calendari(num).getTorns();
+        ArrayList<Torn> llistaTorns = CtrlCalendari.consultar_calendari(num).getTorns();
         switch (tipus_r){
             case "D":
                 String [] data = t.split("-");// separa per -

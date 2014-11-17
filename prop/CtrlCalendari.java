@@ -7,7 +7,7 @@ import java.util.GregorianCalendar;
 
 public class CtrlCalendari {
 	
-	private ArrayList<Calendari> llcalendaris = new ArrayList<Calendari>();
+	private static ArrayList<Calendari> llcalendaris = new ArrayList<Calendari>();
 	
 	public void afegir_calendari(Calendari c) {
 		if (llcalendaris.isEmpty()) llcalendaris.add(c);
@@ -25,7 +25,7 @@ public class CtrlCalendari {
 		else System.out.println("No existeix cap calendari amb aquest id\n");
 	}
 	
-	public Calendari consultar_calendari(int id) {
+	public static Calendari consultar_calendari(int id) {
 		int i=0;
 		while(i<llcalendaris.size() && llcalendaris.get(i).getId()<id) ++i;
 		if(i<llcalendaris.size() && llcalendaris.get(i).getId()==id) return llcalendaris.get(i);
