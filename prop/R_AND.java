@@ -47,10 +47,6 @@ public class R_AND extends Restriccio{
         else return restriccio2;
     }
 
-    @Override
-    public int getCapacitat(){
-        return capacitat;
-    }
     
     @Override
     public String getOp() {

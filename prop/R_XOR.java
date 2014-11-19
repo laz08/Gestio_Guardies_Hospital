@@ -51,10 +51,5 @@ public class R_XOR extends Restriccio{
     public String getOp() {
         return "XOR";
     }
-
-    @Override
-    public int getCapacitat() {
-        return capacitat;
-    }
     
 }

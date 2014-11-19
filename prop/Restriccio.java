@@ -6,122 +6,18 @@ package prop;
 
 public abstract class Restriccio {
     
-    private String t;
+    private String t = "D"; // per defecte les restriccions seran diaries
     private int numv = 0;
     
     /**
-     * Donat una explresió lògica, es crea un arbre que la representa i en retorna l'arrel
-     * @param s String amb la explresió lògica que determina la restricció completa
-     * @return Restricció arrel de l'arbre
-     * @throws Error 
-     */
-    public static Restriccio crea_arbre(String s) throws Error{
-        String tipus = s.substring(0,1); //agafam el tipus de restricció
-        s = s.substring(1);
-       
-       Restriccio r = null; // arrel de l'arbre de restriccions
-       String c = s.substring(0,1);
-       s = s.substring(1);
-       while (c.equals(" ")){
-          c = s.substring(0,1); // agafam el primer cara<cter de s
-          s = s.substring(1); // treim el primer caracter de s
-       }
-       if (c.equals("(")) {
-           String sub_r1 = cerca_tancament(s);;
-           s = s.substring(sub_r1.length()); // treim la part de sub_r1 de s
-           c = s.substring(0,1); // agafam el primer caracter de s
-           s = s.substring(1); // treim el primer caracter de s
-           String operacio = llegeix_op(s);
-           s = s.substring(operacio.length()); // idem anterior per operacio 
-           c = s.substring(0,1); 
-           s = s.substring(1);
-           while (c.equals(" ")){
-               c = s.substring(0,1);
-               s = s.substring(1);
-           }
-           if (!c.equals("(")) throw new Error("Error a l'estructuració de les restriccions");
-           String sub_r2 = cerca_tancament(s);
-           if (esRestriccio(sub_r1) && esRestriccio(sub_r2)){
-               Restriccio r1 = crea_arbre(tipus+sub_r1);
-               Restriccio r2 = crea_arbre(tipus+sub_r2);
-               switch (operacio){
-                   case "AND":
-                      r = new R_AND(r1,r2); 
-                      break;
-                   case "XOR":
-                       r = new R_XOR(r1,r2);
-                       break;
-                   default:
-                       throw new Error("El nom de l'operació logica no es correcte");
-               }
-               r.numv += r1.numv;
-               r.numv += r2.numv+1;
-           }
-           else if(!esRestriccio(sub_r1) && !esRestriccio(sub_r2)){
-               
-               switch (operacio){
-                   case "AND":
-                      //r = new R_AND(t1,t2);
-                       r = new R_AND(sub_r1, sub_r2); 
-                      break;
-                   case "XOR":
-                       r = new R_XOR(sub_r1, sub_r2);
-                       //r = new R_XOR(t1,t2);
-                       break;
-                   default:
-                       throw new Error("El nom de l'operació logica no es correcte");
-               }
-               r.numv ++; // si els fills no son restriccions i en te 2, en nombre de vertex del seu subarbre serà 3
-           }
-           else{
-               throw new Error("Error a la deteccio dels parametres de les restriccions");
-           }
-       }
-       else if( c.equals("N")){ //es NOT o NOP
-           s = c+s; // Afagim el caracter a l'inici de la cadena per treure l'operacio sencera
-           String operacio = llegeix_op(s);
-           s = s.substring(operacio.length());
-           c = s.substring(0,1);
-           s = s.substring(1);
-           String sub_r1 = cerca_tancament(s);
-           if (esRestriccio(sub_r1)){
-               Restriccio r1 = crea_arbre(tipus+sub_r1);
-               if (!operacio.equals("NOT")) throw new Error ("L'operacio lògica no es pot aplicar sobre una restricció");
-               r = new R_NOT(r1);
-               r.numv += r1.numv+1;
-           }
-           else{
-               
-               switch (operacio){
-                   case "NOT":
-                      r = new R_NOT(sub_r1); 
-                      //r = new R_NOT(t1);
-                      break;
-                   case "NOP":
-                       //r = new R_NOP(t1);
-                       r = new R_NOP(sub_r1); 
-                       break;
-                   default:
-                       throw new Error("El nom de l'operació logica no es correcte");
-               }
-               r.numv ++;
-           }
-       }
-       else {
-           throw new Error("No s'ha detectat la restriccio correctament");
-       }
-       
-       r.setTipus(tipus);
-       return r;
-    }
-    
-    /**
      * Donat una explresió com string retorna la part que es troba encapsulada dins el parentesis que ve a continuació
+     * Es necessari que el primer que trobi sigui un parentesi obert
      * @param s Expresió d'on s'ha d'extreure el primer parentesis
      * @return Substring que conté l'explresio encapsulada dins el primer parentesis de l'expresió
      */
-    private static String cerca_tancament(String s){
+    public static String cerca_tancament(String s){
         String sub = "";
+        s = s.substring(1);
         int contador = 0; //parentesis que ha trobat oberts abans del primer tancat
         while(!s.substring(0, 1).equals(")") || contador>0){
             if(s.substring(0,1).equals("(")) contador++;
@@ -134,10 +30,11 @@ public abstract class Restriccio {
     
     /**
      * Donat una part de la expresió, en treu la operació lògica que es troba a continuació
+     * Es necessari que el primer que hi hagui a l'string sigui el començament de l'operació lògica
      * @param s Expresió d'on s'ha d'extreure l'operació
      * @return Substring que conte el nom de la operacio lògica
      */
-    private static String llegeix_op(String s){
+    public static String llegeix_op(String s){
         String op = "";
         while(!s.substring(0,1).equals(" ") && !s.substring(0,1).equals("(") && !s.substring(0,1).equals(")")){
             op += s.substring(0,1); 
@@ -151,7 +48,7 @@ public abstract class Restriccio {
      * @param s Expresió que cal evaluar
      * @return 
      */
-    private static boolean esRestriccio(String s){
+    public static boolean esRestriccio(String s){
         boolean esR = false;
         while(s.substring(0,1).equals(" ")){ // elimina tots els espais en blanc
             s = s.substring(1);
@@ -168,9 +65,21 @@ public abstract class Restriccio {
         return esR;
     }
     
+    /**
+     * Retorna el nombre de vertex no fulles que formen el subarbre d'aquesta restricció
+     * @return 
+     */
     public int getNumVertex(){
         return numv;
     }    
+    
+    /**
+     * modifica el nombre de vertex no fulles que formen el subarbre d'aquesta restricció
+     * @param nv Nou nombre de vertex
+     */
+    public void setNumVertex(int nv){
+        numv = nv;
+    }
     
     /**
      * Assigna un valor a la variable tipus que defineix si la restricció fa referència a dies, hores o setmanes
@@ -192,13 +101,6 @@ public abstract class Restriccio {
     public String getTipus(){
         return t;
     }
-    
-    
-    /**
-     * Retorna una constant que conté la capacitat que hauria de tenir l'aresta que apunta a aquesta restricció dins el graf
-     * @return 
-     */
-    public abstract int getCapacitat();
     
     /**
      * Retorna l'operació lògica que s'aplica a aquesta restricció

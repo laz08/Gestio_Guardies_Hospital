@@ -22,13 +22,13 @@ public class Doctor {
     }
 
     public void afegir_res(Restriccio r) throws Error{
-        int pos = CtrlRestriccio.existeix(r);
+        int pos = CtrlRestriccio.consulta_pos(r);
         if (pos != -1) Doc_Res.relaciona(dni, pos);
         else throw new Error ("No existeix la restricció que el doctor ha demanat");
     }
     
     public void eliminar_res(Restriccio r) throws Error {
-        int pos = CtrlRestriccio.existeix(r);
+        int pos = CtrlRestriccio.consulta_pos(r);
         if (pos != -1) Doc_Res.elimina(dni, pos);
         else throw new Error ("No existeix la restricció que el doctor vol eliminar");
     }

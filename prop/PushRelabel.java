@@ -35,7 +35,7 @@ public class PushRelabel extends Algorisme {
 		G.resetFlow();
 		
 		altura[s] = n;
-		List<Integer> L = G.adjacents(s);
+		List<Integer> L = G.getAdjacents(s);
         Iterator<Integer> it = L.iterator();
 		
 		while (it.hasNext()) {
@@ -70,7 +70,7 @@ public class PushRelabel extends Algorisme {
 		q.add(s);
 		while (!q.isEmpty()) {
 			int u = (Integer)q.remove();
-			List<Integer> L = G.adjacents(u);
+			List<Integer> L = G.getAdjacents(u);
 			Iterator<Integer> it = L.iterator();
 			while (it.hasNext()) {
 				int e = (Integer) it.next();
@@ -98,7 +98,7 @@ public class PushRelabel extends Algorisme {
 		while(!q.isEmpty()) {
 			
             int u = (Integer) q.peek();
-            List<Integer> L = G.adjacents(u);
+            List<Integer> L = G.getAdjacents(u);
             Iterator<Integer> it = L.iterator();
             int nou = -1;
             

@@ -26,7 +26,7 @@ public class FordFulkerson extends Algorisme {
 		q.add(s);
 		while (!q.isEmpty()) {
 			int u = (Integer)q.remove();
-			List<Integer> L = G.adjacents(u);
+			List<Integer> L = G.getAdjacents(u);
 			Iterator<Integer> it = L.iterator();
 			while (it.hasNext()) {
 				int e = (Integer) it.next();

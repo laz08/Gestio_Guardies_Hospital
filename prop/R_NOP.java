@@ -21,11 +21,6 @@ public class R_NOP extends Restriccio{
     }
     
     @Override
-    public int getCapacitat(){
-        return capacitat;
-    }
-    
-    @Override
     public String getOp() {
         return "NOP";
     }

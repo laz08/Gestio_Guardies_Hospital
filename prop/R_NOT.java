@@ -38,10 +38,4 @@ public class R_NOT extends Restriccio{
     public String getOp() {
         return "NOT";
     }
-
-    @Override
-    public int getCapacitat() {
-        return capacitat;
-    }
-    
 }
