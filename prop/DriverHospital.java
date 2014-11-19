@@ -1,13 +1,9 @@
 package prop;
 
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.Scanner;
 
 public class DriverHospital {
-
-    static Hospital H = new Hospital();
-
+    
     public static void main(String[] args) {
 
         Scanner arg;
@@ -19,7 +15,6 @@ public class DriverHospital {
 
                 arg = new Scanner(System.in);
                 cas = arg.nextInt();
-
                 switch (cas) {
                     case 1: casCreaDoctor(); break;
                     case 2: casEliminaDoctor(); break;
@@ -32,8 +27,8 @@ public class DriverHospital {
                         break;
                 }
 
-            }catch (Exception e){
-                System.err.println("Has d'introduir un numero\n"+e);
+            } catch (Exception e){
+                System.err.println("Has d'introduir un numero\n"+e.getLocalizedMessage());
             }
         }
     }
@@ -60,7 +55,7 @@ public class DriverHospital {
         sou = sc.nextInt();
         telf = sc.nextInt();
         String correu = sc.next();
-        if(existeixDoctor(dni) == -1) creariAfegirDoctor(dni, nom, cg1, cg2, sou, telf, correu);
+        if(CtrlHospital.existeixDoctor(dni) == -1) CtrlHospital.creariAfegirDoctor(dni, nom, cg1, cg2, sou, telf, correu);
         else System.out.println("Ja existeix un doctor amb dni == "+dni);
     }
 
@@ -68,16 +63,16 @@ public class DriverHospital {
         Scanner sc = new Scanner(System.in);
         String dni = sc.next();
 
-        int pos = H.existeixDoctor(dni);
+        int pos = CtrlHospital.existeixDoctor(dni);
         if (pos != -1){
-            H.eliminarDoctor(pos);
+            CtrlHospital.eliminarDoctor(pos);
         }
     }
 
     public static void casExisteixDoctor(){
         Scanner sc = new Scanner(System.in);
         String dni = sc.next();
-        int pos = H.existeixDoctor(dni);
+        int pos = CtrlHospital.existeixDoctor(dni);
         if (pos != -1)
             System.out.println("true");
         else
@@ -87,9 +82,9 @@ public class DriverHospital {
     public static void casConsultaDoctor(){
         Scanner sc = new Scanner(System.in);
         String dni = sc.next();
-        int pos = H.existeixDoctor(dni);
+        int pos = CtrlHospital.existeixDoctor(dni);
         if (pos != -1){
-            Doctor doc = H.getDoctor(pos);
+            Doctor doc = CtrlHospital.getDoctor(pos);
             System.out.println("dni: "+doc.getdni());
             System.out.println("nom i cognoms: "+doc.getNom()+" "+doc.getCognom1()+" "+doc.getCognom2());
             System.out.println("sou: "+doc.getSou());
@@ -100,8 +95,8 @@ public class DriverHospital {
 
     public static void casLlistatDoctors(){
         Doctor doc;
-        for (int i = 0; i < H.numDocs(); ++i){
-            doc = H.getDoctor(i);
+        for (int i = 0; i < CtrlHospital.numDocs(); ++i){
+            doc = CtrlHospital.getDoctor(i);
             System.out.println("\n\n");
             System.out.println("Doctor num.: "+ i);
             System.out.println("dni: "+doc.getdni());
