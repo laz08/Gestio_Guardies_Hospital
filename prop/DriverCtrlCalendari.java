@@ -86,8 +86,6 @@ public class DriverCtrlCalendari {
                 } catch (Exception e){
                     System.out.println("Any ha de ser un numero.");
                     System.out.println("Torna a introduir l'any.");
-                    arg.next();
-                    continue;
                 }
             }
 
@@ -100,8 +98,6 @@ public class DriverCtrlCalendari {
                 } catch (Exception e){
                     System.out.println("Mes ha de ser un numero.");
                     System.out.println("Torna a introduir el mes.");
-                    arg.next();
-                    continue;
                 }
             }
 
@@ -114,8 +110,6 @@ public class DriverCtrlCalendari {
                 } catch (Exception e){
                     System.out.println("Dia ha de ser un numero.");
                     System.out.println("Torna a introduir el dia.");
-                    arg.next();
-                    continue;
                 }
             }
 
@@ -129,8 +123,6 @@ public class DriverCtrlCalendari {
                 } catch (Exception e){
                     System.out.println("Hora ha de ser un numero.");
                     System.out.println("Torna a introduir l'hora.");
-                    arg.next();
-                    continue;
                 }
             }
             GregorianCalendar data_inici = new GregorianCalendar(any,mes,dia,hora,0);
@@ -366,7 +358,6 @@ public class DriverCtrlCalendari {
         while(!valid){
             try{
                 hora = arg.nextInt();
-                System.out.println("Hora: "+hora);
                 valid = true;
             } catch (Exception e){
                 System.out.println("Hora ha de ser un numero.");
@@ -380,7 +371,6 @@ public class DriverCtrlCalendari {
         while(!valid){
             try{
                 min_doc = arg.nextInt();
-                System.out.println("Min_doc: "+min_doc);
                 valid = true;
             } catch (Exception e){
                 System.out.println("Min_doc ha de ser un numero.");
@@ -393,7 +383,6 @@ public class DriverCtrlCalendari {
         while(!valid){
             try{
                 n = arg.nextInt();
-                System.out.println("num doc: "+n);
                 valid = true;
             } catch (Exception e){
                 System.out.println("Min_doc ha de ser un numero.");
@@ -405,7 +394,6 @@ public class DriverCtrlCalendari {
 		ArrayList<String> doctors_assig =  new ArrayList<String>();
 		for(int i=0; i<n; i++) {
 			doc = arg.next();
-                        System.out.println("Doctor: "+doc);
 			if(doctors_assig.isEmpty()) doctors_assig.add(doc);
 			else {
 				int j=0;

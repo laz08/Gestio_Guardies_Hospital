@@ -162,8 +162,6 @@ public class DriverCalendari {
             } catch (Exception e){
                 System.out.println("Any ha de ser un numero.");
                 System.out.println("Torna a introduir l'any.");
-                arg.next();
-                continue;
             }
         }
 
@@ -176,8 +174,6 @@ public class DriverCalendari {
             } catch (Exception e){
                 System.out.println("Mes ha de ser un numero.");
                 System.out.println("Torna a introduir el mes.");
-                arg.next();
-                continue;
             }
         }
 
@@ -190,8 +186,6 @@ public class DriverCalendari {
             } catch (Exception e){
                 System.out.println("Dia ha de ser un numero.");
                 System.out.println("Torna a introduir el dia.");
-                arg.next();
-                continue;
             }
         }
 
@@ -205,8 +199,7 @@ public class DriverCalendari {
             } catch (Exception e){
                 System.out.println("Hora ha de ser un numero.");
                 System.out.println("Torna a introduir l'hora.");
-                arg.next();
-                continue;
+                
             }
         }
         GregorianCalendar data_inici = new GregorianCalendar(any,mes,dia,hora,0);
@@ -219,8 +212,6 @@ public class DriverCalendari {
             } catch (Exception e){
                 System.out.println("Any ha de ser un numero.");
                 System.out.println("Torna a introduir l'any.");
-                arg.next();
-                continue;
             }
         }
 
@@ -232,8 +223,6 @@ public class DriverCalendari {
             } catch (Exception e){
                 System.out.println("Mes ha de ser un numero.");
                 System.out.println("Torna a introduir el mes.");
-                arg.next();
-                continue;
             }
         }
 
@@ -245,8 +234,6 @@ public class DriverCalendari {
             } catch (Exception e){
                 System.out.println("Dia ha de ser un numero.");
                 System.out.println("Torna a introduir el dia.");
-                arg.next();
-                continue;
             }
         }
 
@@ -259,8 +246,6 @@ public class DriverCalendari {
             } catch (Exception e){
                 System.out.println("Hora ha de ser un numero.");
                 System.out.println("Torna a introduir l'hora.");
-                arg.next();
-                continue;
             }
         }
         GregorianCalendar data_fi = new GregorianCalendar(any,mes,dia,hora,0);
@@ -274,8 +259,6 @@ public class DriverCalendari {
             } catch (Exception e){
                 System.out.println("Min_doc ha de ser un numero.");
                 System.out.println("Torna a introduir el minim de doctors.");
-                arg.next();
-                continue;
             }
         }
 
@@ -288,8 +271,6 @@ public class DriverCalendari {
             } catch (Exception e){
                 System.out.println("Min_doc ha de ser un numero.");
                 System.out.println("Torna a introduir el minim de doctors.");
-                arg.next();
-                continue;
             }
         }
 

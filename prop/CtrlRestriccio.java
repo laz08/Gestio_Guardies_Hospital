@@ -14,7 +14,6 @@ public class CtrlRestriccio {
         Plantilla plt = CtrlPlantilla.getPlantillaActual();
         Calendari cldr = CtrlCalendari.consultar_calendari(plt.getNomPlantilla());
         expressio = transforma_expressio(expressio, cldr);
-        System.out.println(expressio);
         Restriccio r = crea_arbre(expressio);
         restriccions.add(r);
     }
