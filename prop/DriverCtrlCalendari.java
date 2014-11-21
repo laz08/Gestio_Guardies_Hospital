@@ -36,8 +36,6 @@ public class DriverCtrlCalendari {
 				case 7: eliminar_calendari(); break;
 				default: 
 					System.out.println("El número ha d'estar entre 0 i 7");
-					break;
-					
 			}
             if(cas != 0) escriureMenu();
         }	
@@ -47,7 +45,7 @@ public class DriverCtrlCalendari {
         System.out.println("----------Menu:-----------\n"
                         + "1. Consultar calendari(id plantilla: int)\n"
                         + "2. Consultar calendari d'un doctor(id plantilla: int, dni doctor: String)\n"
-                        + "3. Afegir torn a una plantilla(id plantilla: int, torn: (data inici (yyyy:int, mm:int, dd:int, hh:int), data fi (yyyy:int, mm:int, dd:int, hh:int), numero minim doctors: int, numero doctors assignats: int, doctors assignats: String .. String, percentatge sou: float)\n"
+                        + "3. Afegir torn a una plantilla(id plantilla: String, torn: (data inici (yyyy:int, mm:int, dd:int, hh:int), data fi (yyyy:int, mm:int, dd:int, hh:int), numero minim doctors: int, numero doctors assignats: int, doctors assignats: String .. String, percentatge sou: float)\n"
                         + "4. Modificar torn(id plantilla: int, data inici del torn a modificar(yyyy:int, mm:int, dd:int, hh:int), torn_nou)\n"
                         + "5. Eliminar torn(id plantilla: int, data inici del torn a eliminar(yyyy:int, mm:int, dd:int, hh:int))\n"
                         + "6. Afegir calendari(id_Calendari: int, id plantilla: int, torn..torn)\n"
@@ -59,6 +57,7 @@ public class DriverCtrlCalendari {
 	
 	public static void afegir_torn(){
         String id_plt = arg.next();
+        System.out.println("Plantilla: "+id_plt);
         Calendari cl = CtrlCalendari.consultar_calendari(id_plt);
 		if(cl!=null) {
 			Torn t = crear_torn();
@@ -193,7 +192,9 @@ public class DriverCtrlCalendari {
 		GregorianCalendar d_fi = t.getData_fi();
 		int i=0;
 		while (i!=-1 && i<lt.size() && lt.get(i).getData_inici().before(d_fi)) {
-			if (d_inici.before(lt.get(i).getData_inici()) || (d_inici.before(lt.get(i).getData_fi()))){
+			if ((d_fi.before(lt.get(i).getData_inici()) && d_fi.after(lt.get(i).getData_fi()))
+                             ||
+                            (d_inici.after(lt.get(i).getData_inici()) && d_inici.before(lt.get(i).getData_inici()))){
 				System.out.println("El torn es solapa amb un altre torn ja existent");
 				i=-1;
 			}
@@ -285,8 +286,6 @@ public class DriverCtrlCalendari {
             } catch (Exception e){
                 System.out.println("Any ha de ser un numero.");
                 System.out.println("Torna a introduir l'any.");
-                arg.next();
-                continue;
             }
         }
 
@@ -299,8 +298,6 @@ public class DriverCtrlCalendari {
             } catch (Exception e){
                 System.out.println("Mes ha de ser un numero.");
                 System.out.println("Torna a introduir el mes.");
-                arg.next();
-                continue;
             }
         }
 
@@ -313,8 +310,6 @@ public class DriverCtrlCalendari {
             } catch (Exception e){
                 System.out.println("Dia ha de ser un numero.");
                 System.out.println("Torna a introduir el dia.");
-                arg.next();
-                continue;
             }
         }
 
@@ -328,13 +323,12 @@ public class DriverCtrlCalendari {
             } catch (Exception e){
                 System.out.println("Hora ha de ser un numero.");
                 System.out.println("Torna a introduir l'hora.");
-                arg.next();
-                continue;
             }
         }
         GregorianCalendar data_inici = new GregorianCalendar(any,mes,dia,hora,0);
 
         //DATA FI
+        valid = false;
         while(!valid){
             try{
                 any = arg.nextInt();
@@ -342,8 +336,6 @@ public class DriverCtrlCalendari {
             } catch (Exception e){
                 System.out.println("Any ha de ser un numero.");
                 System.out.println("Torna a introduir l'any.");
-                arg.next();
-                continue;
             }
         }
 
@@ -355,8 +347,6 @@ public class DriverCtrlCalendari {
             } catch (Exception e){
                 System.out.println("Mes ha de ser un numero.");
                 System.out.println("Torna a introduir el mes.");
-                arg.next();
-                continue;
             }
         }
 
@@ -368,8 +358,6 @@ public class DriverCtrlCalendari {
             } catch (Exception e){
                 System.out.println("Dia ha de ser un numero.");
                 System.out.println("Torna a introduir el dia.");
-                arg.next();
-                continue;
             }
         }
 
@@ -378,12 +366,11 @@ public class DriverCtrlCalendari {
         while(!valid){
             try{
                 hora = arg.nextInt();
+                System.out.println("Hora: "+hora);
                 valid = true;
             } catch (Exception e){
                 System.out.println("Hora ha de ser un numero.");
                 System.out.println("Torna a introduir l'hora.");
-                arg.next();
-                continue;
             }
         }
 		GregorianCalendar data_fi = new GregorianCalendar(any,mes,dia,hora,0);
@@ -393,12 +380,11 @@ public class DriverCtrlCalendari {
         while(!valid){
             try{
                 min_doc = arg.nextInt();
+                System.out.println("Min_doc: "+min_doc);
                 valid = true;
             } catch (Exception e){
                 System.out.println("Min_doc ha de ser un numero.");
                 System.out.println("Torna a introduir el minim de doctors.");
-                arg.next();
-                continue;
             }
         }
 
@@ -407,19 +393,19 @@ public class DriverCtrlCalendari {
         while(!valid){
             try{
                 n = arg.nextInt();
+                System.out.println("num doc: "+n);
                 valid = true;
             } catch (Exception e){
                 System.out.println("Min_doc ha de ser un numero.");
                 System.out.println("Torna a introduir el minim de doctors.");
-                arg.next();
-                continue;
             }
         }
 
 		String doc;
 		ArrayList<String> doctors_assig =  new ArrayList<String>();
 		for(int i=0; i<n; i++) {
-			doc = arg.next(); 
+			doc = arg.next();
+                        System.out.println("Doctor: "+doc);
 			if(doctors_assig.isEmpty()) doctors_assig.add(doc);
 			else {
 				int j=0;
@@ -427,7 +413,8 @@ public class DriverCtrlCalendari {
 				doctors_assig.add(j,doc);
 			}
 		}
-		float p_sou = arg.nextFloat();
+		float p_sou = Float.parseFloat(arg.next());
+                System.out.println("p_sou: "+p_sou);
 		t = new Torn(data_inici,data_fi,min_doc,doctors_assig,p_sou);
 		return t;
 	}

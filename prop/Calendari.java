@@ -17,6 +17,7 @@ public class Calendari {
 	 * Creació d'un nou calendari
 	 */
 	public Calendari(){
+            
 	}
 	
 	@SuppressWarnings("unchecked")

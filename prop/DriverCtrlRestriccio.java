@@ -7,10 +7,6 @@ package prop;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-/**
- *
- * @author Xisco
- */
 public class DriverCtrlRestriccio {
 
     private static Restriccio restriccio = new Restriccio() {
@@ -34,6 +30,9 @@ public class DriverCtrlRestriccio {
     }
 
     public static void main(String[] args) throws Error {
+        System.out.println("Per crear restriccions, primer s'ha de crar torns al calendari de la plantilla");
+        DriverCtrlPlantilla.main(args);
+        DriverCtrlCalendari.main(args);
         boolean sortir = false;
         while (!sortir) {
             mostra_menu();
@@ -45,9 +44,22 @@ public class DriverCtrlRestriccio {
                     break;
                 case 1: //nova restriccio
                     System.out.println("Introdueix l'expressió que defineix la nova restricció que vols crear: ");
-                    scan = new Scanner(System.in);
-                    String expressio = scan.nextLine();
-                    CtrlRestriccio.nova_res(expressio);
+                    Plantilla plt = CtrlPlantilla.getPlantillaActual();
+                    Calendari c = CtrlCalendari.consultar_calendari(plt.getNomPlantilla());
+                    ArrayList<Torn> torns = c.getTorns();
+                    if (torns.isEmpty()) {
+                        System.out.println("No hi ha torns creats a la plantilla actual");
+                    } else {
+                        System.out.println("Per seleccionar un torn, introdueix la seva posició de la llista dins l'expressió\n");
+                        for (int i = 0; i < torns.size(); i++) {
+                            System.out.println("-------------TORN " + i + "-------------");
+                            System.out.println("desde " + torns.get(i).getData_inici().getTime());
+                            System.out.println("fins " + torns.get(i).getData_fi().getTime());
+                        }
+                        scan = new Scanner(System.in);
+                        String expressio = scan.nextLine();
+                        CtrlRestriccio.nova_res(expressio);
+                    }
                     break;
                 case 2: // elimina restriccio
                     System.out.println("Insereix la posició de la restricció que vols eliminar: ");
@@ -77,10 +89,10 @@ public class DriverCtrlRestriccio {
                     break;
                 case 7:
                     Object obj1 = CtrlRestriccio.selecciona_Fill1(restriccio);
-                    if (!obj1.getClass().equals(R_NOP.class) &&
-                            !obj1.getClass().equals(R_NOT.class) &&
-                            !obj1.getClass().equals(R_AND.class) &&
-                            !obj1.getClass().equals(R_XOR.class)) {
+                    if (!obj1.getClass().equals(R_NOP.class)
+                            && !obj1.getClass().equals(R_NOT.class)
+                            && !obj1.getClass().equals(R_AND.class)
+                            && !obj1.getClass().equals(R_XOR.class)) {
                         System.out.println("El fill esquerra no es una restricció");
                     } else {
                         restriccio = (Restriccio) obj1;
@@ -88,11 +100,11 @@ public class DriverCtrlRestriccio {
                     break;
                 case 8:
                     Object obj2 = CtrlRestriccio.selecciona_Fill2(restriccio);
-                    
-                    if (!obj2.getClass().equals(R_NOP.class) &&
-                            !obj2.getClass().equals(R_NOT.class) &&
-                            !obj2.getClass().equals(R_AND.class) &&
-                            !obj2.getClass().equals(R_XOR.class)) {
+
+                    if (!obj2.getClass().equals(R_NOP.class)
+                            && !obj2.getClass().equals(R_NOT.class)
+                            && !obj2.getClass().equals(R_AND.class)
+                            && !obj2.getClass().equals(R_XOR.class)) {
                         System.out.println("El fill dret no es una restricció");
                     } else {
                         restriccio = (Restriccio) obj2;
