@@ -10,7 +10,7 @@ public class CtrlRestriccio {
 
     private static ArrayList<Restriccio> restriccions = new ArrayList<Restriccio>();
 
-    public static void nova_res(String expressio) throws Error {
+    public static void nova_res(String expressio){
         Plantilla plt = CtrlPlantilla.getPlantillaActual();
         Calendari cldr = CtrlCalendari.consultar_calendari(plt.getNomPlantilla());
         expressio = transforma_expressio(expressio, cldr);
@@ -18,13 +18,14 @@ public class CtrlRestriccio {
         restriccions.add(r);
     }
 
-    public static void elimina_res(Restriccio r) throws Error {
+    public static void elimina_res(Restriccio r){
         int pos = consulta_pos(r);
         if (pos != -1) {
             restriccions.remove(pos);
-        } else {
-            throw new Error("No existeix la restricció que es vol eliminar");
-        }
+        } 
+//        else {
+//            throw new Error("No existeix la restricció que es vol eliminar");
+//        }
     }
 
     public static ArrayList<Restriccio> consulta_llista_res() {
@@ -41,13 +42,20 @@ public class CtrlRestriccio {
      *
      * @param s String amb la explresió lògica que determina la restricció
      * completa
-     * @return Restricció arrel de l'arbre
-     * @throws Error
+     * @return Restricció arrel de l'arbre. Null si hi ha hagut un error
      */
-    private static Restriccio crea_arbre(String s) throws Error {
+    private static Restriccio crea_arbre(String s) {
         String tipus = s.substring(0, 1); //agafam el tipus de restricció
-        s = s.substring(1);
-
+        
+       /* si s'introdueix un tipus correcte, es caclula l'arbre per la resta
+        * però si el tipus no es correcte, es marca com a null abans de continuar amb l'arbre
+        */
+        if (tipus.equals("D") || tipus.equals("S") || tipus.equals("H")){
+            s = s.substring(1);
+        }
+        else{
+            tipus = null;
+        }
         Restriccio r = null; // arrel de l'arbre de restriccions
         String c = s.substring(0, 1);
         s = s.substring(1);
@@ -68,9 +76,9 @@ public class CtrlRestriccio {
                 c = s.substring(0, 1);
                 s = s.substring(1);
             }
-            if (!c.equals("(")) {
-                throw new Error("Error a l'estructuració de les restriccions");
-            }
+//            if (!c.equals("(")) {
+//                throw new Error("Error a l'estructuració de les restriccions");
+//            }
             String sub_r2 = Restriccio.cerca_tancament(c + s);
             if (Restriccio.esRestriccio(sub_r1) && Restriccio.esRestriccio(sub_r2)) {
                 Restriccio r1 = crea_arbre(tipus + sub_r1);
@@ -82,8 +90,8 @@ public class CtrlRestriccio {
                     case "XOR":
                         r = new R_XOR(r1, r2);
                         break;
-                    default:
-                        throw new Error("El nom de l'operació logica no es correcte");
+//                    default:
+//                        throw new Error("El nom de l'operació logica no es correcte");
                 }
                 r.setNumVertex(r1.getNumVertex());
                 r.setNumVertex(r2.getNumVertex());
@@ -98,13 +106,14 @@ public class CtrlRestriccio {
                         r = new R_XOR(sub_r1, sub_r2);
                         //r = new R_XOR(t1,t2);
                         break;
-                    default:
-                        throw new Error("El nom de l'operació logica no es correcte");
+//                    default:
+//                        throw new Error("El nom de l'operació logica no es correcte");
                 }
                 r.setNumVertex(r.getNumVertex()); // si els fills no son restriccions i en te 2, en nombre de vertex del seu subarbre serà 3
-            } else {
-                throw new Error("Error a la deteccio dels parametres de les restriccions");
-            }
+            } 
+//            else {
+//                throw new Error("Error a la deteccio dels parametres de les restriccions");
+//            }
         } else if (c.equals("N")) { //es NOT o NOP
             s = c + s; // Afagim el caracter a l'inici de la cadena per treure l'operacio sencera
             String operacio = Restriccio.llegeix_op(s);
@@ -114,9 +123,9 @@ public class CtrlRestriccio {
             String sub_r1 = Restriccio.cerca_tancament(c + s);
             if (Restriccio.esRestriccio(sub_r1)) {
                 Restriccio r1 = crea_arbre(tipus + sub_r1);
-                if (!operacio.equals("NOT")) {
-                    throw new Error("L'operacio lògica no es pot aplicar sobre una restricció");
-                }
+//                if (!operacio.equals("NOT")) {
+//                    throw new Error("L'operacio lògica no es pot aplicar sobre una restricció");
+//                }
                 r = new R_NOT(r1);
                 r.setNumVertex(r1.getNumVertex());
                 r.setNumVertex(r.getNumVertex() + 1);
@@ -131,14 +140,15 @@ public class CtrlRestriccio {
                         //r = new R_NOP(t1);
                         r = new R_NOP(sub_r1);
                         break;
-                    default:
-                        throw new Error("El nom de l'operació logica no es correcte");
+//                    default:
+//                        throw new Error("El nom de l'operació logica no es correcte");
                 }
                 r.setNumVertex(r.getNumVertex() + 1);
             }
-        } else {
-            throw new Error("No s'ha detectat la restriccio correctament");
-        }
+       }
+//        else {
+//            throw new Error("No s'ha detectat la restriccio correctament");
+//        }
 
         r.setTipus(tipus);
         return r;
@@ -258,7 +268,7 @@ public class CtrlRestriccio {
      * @param e expressió amb identificador numèric de torn
      * @return
      */
-    private static String transforma_expressio(String e, Calendari cldr) throws Error {
+    private static String transforma_expressio(String e, Calendari cldr){
         String t = ""; 
         if (e.length() > 0) {
             String c = e.substring(0, 1);
@@ -279,11 +289,16 @@ public class CtrlRestriccio {
         }
         return t;
     }
-    
-    private static Torn troba_torn(int pos, Calendari c) throws Error{
+    /**
+     * Donada una posició del calendari i el calendari, retorna el torn al que correspon aquella posició
+     * @param pos Posició que es vol consultar 
+     * @param c Calendari al que es vol consultar la posició indicada
+     * @return Torn que correspon a aquella posició. Null si no existeix
+     */
+    private static Torn troba_torn(int pos, Calendari c){
         Torn torn = null;
         ArrayList<Torn> torns = c.getTorns();
-        if (pos >= torns.size()) throw new Error("No existeix el torn inserit"); 
+        if (pos >= torns.size()) return null;
         return torns.get(pos);
     }
 }

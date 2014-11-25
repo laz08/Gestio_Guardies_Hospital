@@ -84,14 +84,17 @@ public abstract class Restriccio {
     /**
      * Assigna un valor a la variable tipus que defineix si la restricció fa referència a dies, hores o setmanes
      * @param tipus 
+     * @return Retorna -1 si el tipus introduit no es correcte
      */
-    public void setTipus(String tipus) throws Error{
+    public int setTipus(String tipus){
+        int sortida = 0;
         if (tipus.equals("D") || tipus.equals("H") || tipus.equals("S")){
             t = tipus;
         }
         else{
-            throw new Error("El tipus de que s'ha assignat a la restricció no es el correcte");
+            sortida = -1;
         }
+        return sortida;
     }
     
     /**

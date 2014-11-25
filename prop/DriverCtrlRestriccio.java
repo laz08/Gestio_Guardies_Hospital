@@ -12,34 +12,35 @@ public class DriverCtrlRestriccio {
     private static Restriccio restriccio = new Restriccio() {
         @Override
         public String getOp() {
-            return "Aquesta es una restricció de prova, no te operació assignada";
+            return "Prova";
         }
     };
 
-    public static void main(String[] args) throws Error {
+    public static void main(String[] args) {
         System.out.println("Per crear restriccions, primer s'ha de crar torns al calendari de la plantilla");
         DriverCtrlPlantilla.main(args);
         DriverCtrlCalendari.main(args);
         boolean sortir = false;
+        Scanner scan = new Scanner(System.in);
         while (!sortir) {
             mostra_menu();
-            Scanner scan = new Scanner(System.in);
-            int op = scan.nextInt();
+            int op = Integer.parseInt(scan.next());
             switch (op) {
                 case 0:
                     sortir = true;
                     break;
                 case 1: //nova restriccio
+                    System.out.println("Respecte a què vols introduir les rectriccions? (H, D, S)");
+                    String tipus = scan.nextLine();
                     mostra_llista_torns();
-                    scan = new Scanner(System.in);
+                    System.out.println("Insereix la expresió que defineix la restricció que vols afagir: ");
                     String expressio = scan.nextLine();
-                    CtrlRestriccio.nova_res(expressio);
+                    CtrlRestriccio.nova_res(tipus + " " + expressio);
                     break;
                 case 2: // elimina restriccio
                     System.out.println("Insereix la posició de la restricció que vols eliminar: ");
                     llista_seleccio_restriccions();
                     ArrayList<Restriccio> llista_r = CtrlRestriccio.consulta_llista_res();
-                    scan = new Scanner(System.in);
                     Restriccio r = llista_r.get(scan.nextInt() - 1);
                     CtrlRestriccio.elimina_res(r);
                     break;
@@ -52,44 +53,54 @@ public class DriverCtrlRestriccio {
                     }
                     break;
                 case 4:
-                    scan = new Scanner(System.in);
                     restriccio = CtrlRestriccio.consulta_res(scan.nextInt());
                     break;
                 case 5:
-                    System.out.println(CtrlRestriccio.mostra_arbre(restriccio));
+                    if (restriccio.getOp().equals("Prova")) {
+                        System.out.println("Primer has de consultar una restricció");
+                    } else {
+                        System.out.println("L'arbre que es genera a partir de la restricció es: ");
+                        System.out.println(CtrlRestriccio.mostra_arbre(restriccio));
+                    }
                     break;
                 case 6:
-                    System.out.println(CtrlRestriccio.consulta_pos(restriccio));
+                    System.out.println("La restricció es troba a la posició " + CtrlRestriccio.consulta_pos(restriccio));
                     break;
                 case 7:
-                    Object obj1 = CtrlRestriccio.selecciona_Fill1(restriccio);
-                    if (!obj1.getClass().equals(R_NOP.class)
-                            && !obj1.getClass().equals(R_NOT.class)
-                            && !obj1.getClass().equals(R_AND.class)
-                            && !obj1.getClass().equals(R_XOR.class)) {
-                        System.out.println("El fill esquerra no es una restricció");
+                    if (restriccio.getOp().equals("Prova")) {
+                        System.out.println("Primer has de consultar una restricció");
                     } else {
-                        restriccio = (Restriccio) obj1;
+                        Object obj1 = CtrlRestriccio.selecciona_Fill1(restriccio);
+                        if (!obj1.getClass().equals(R_NOP.class)
+                                && !obj1.getClass().equals(R_NOT.class)
+                                && !obj1.getClass().equals(R_AND.class)
+                                && !obj1.getClass().equals(R_XOR.class)) {
+                            System.out.println("El fill esquerra no es una restricció");
+                        } else {
+                            restriccio = (Restriccio) obj1;
+                        }
                     }
                     break;
                 case 8:
-                    Object obj2 = CtrlRestriccio.selecciona_Fill2(restriccio);
-
-                    if (!obj2.getClass().equals(R_NOP.class)
-                            && !obj2.getClass().equals(R_NOT.class)
-                            && !obj2.getClass().equals(R_AND.class)
-                            && !obj2.getClass().equals(R_XOR.class)) {
-                        System.out.println("El fill dret no es una restricció");
+                    if (restriccio.getOp().equals("Prova")) {
+                        System.out.println("Primer has de consultar una restricció");
                     } else {
-                        restriccio = (Restriccio) obj2;
+                        Object obj2 = CtrlRestriccio.selecciona_Fill2(restriccio);
+
+                        if (!obj2.getClass().equals(R_NOP.class)
+                                && !obj2.getClass().equals(R_NOT.class)
+                                && !obj2.getClass().equals(R_AND.class)
+                                && !obj2.getClass().equals(R_XOR.class)) {
+                            System.out.println("El fill dret no es una restricció");
+                        } else {
+                            restriccio = (Restriccio) obj2;
+                        }
                     }
                     break;
             }
         }
     }
 
-    
-    
     public static void mostra_menu() {
         System.out.println("------- MENU -------");
         System.out.println("0 => Sortir");
@@ -102,7 +113,7 @@ public class DriverCtrlRestriccio {
         System.out.println("7 => Selecciona fill esquerra de una restricció");
         System.out.println("8 => Selecciona fill dret d'una restricció");
     }
-    
+
     public static void mostra_llista_torns() {
         System.out.println("Introdueix l'expressió que defineix la nova restricció que vols crear: ");
         Plantilla plt = CtrlPlantilla.getPlantillaActual();
@@ -119,7 +130,7 @@ public class DriverCtrlRestriccio {
             }
         }
     }
-    
+
     private static void llista_seleccio_restriccions() {
         ArrayList<Restriccio> llista_r = CtrlRestriccio.consulta_llista_res();
         for (int i = 0; i < llista_r.size(); i++) {
@@ -128,5 +139,4 @@ public class DriverCtrlRestriccio {
             System.out.println(CtrlRestriccio.mostra_arbre(restriccio));
         }
     }
-    
 }
