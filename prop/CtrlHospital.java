@@ -7,7 +7,17 @@ import java.util.Comparator;
 public class CtrlHospital {
 
 
-
+    /**
+     * Crea un nou doctor amb els atributs especificats a contunuació y en retorna l'objecte
+     * @param d DNI del doctor
+     * @param n Nom
+     * @param cg1 Primer Cognom 
+     * @param cg2 Segon Cognom
+     * @param s sou
+     * @param telf número de telefon
+     * @param mail correu electrònic
+     * @return Objecte Doctor que conté els atributs especificats
+     */
     public static Doctor crearDoctor(String d, String n, String cg1, String cg2, int s, int telf, String mail){
         Doctor doc = new Doctor();
         doc.setdni(d);
@@ -25,8 +35,14 @@ public class CtrlHospital {
 
 
     /**
-     * Pre: El doctor no existeix a l'hospital.
-     * Post: S'ha afegit el doctor a l'hospital en la posició alfabètica que li correspon
+     * Crea un nou doctor amb els atributs especificats a contunuació y l'afageix a l'hospital
+     * @param d DNI del doctor
+     * @param n Nom
+     * @param cg1 Primer Cognom 
+     * @param cg2 Segon Cognom
+     * @param s sou
+     * @param telf número de telefon
+     * @param mail correu electrònic
      */
     public static void creariAfegirDoctor(String d, String n, String cg1, String cg2, int s, int telf, String mail){
         Doctor doc = new Doctor();

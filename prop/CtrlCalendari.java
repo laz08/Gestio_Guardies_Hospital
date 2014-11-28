@@ -8,7 +8,7 @@ public class CtrlCalendari {
 
     private static ArrayList<Calendari> llcalendaris = new ArrayList<Calendari>();
 
-    public void afegir_calendari(Calendari c) {
+    public static void afegir_calendari(Calendari c) {
         if (llcalendaris.isEmpty()) {
             llcalendaris.add(c);
         } else {
@@ -26,7 +26,7 @@ public class CtrlCalendari {
         }
     }
 
-    public void eliminar_calendari(String id_plt) {
+    public static void eliminar_calendari(String id_plt) {
         if (llcalendaris.isEmpty()) {
             System.out.println("No existeix cap calendari per aquesta plantilla\n");
         } else {
@@ -78,7 +78,7 @@ public class CtrlCalendari {
         }
     }
 
-    public void afegir_torn_calendari(Torn t, Calendari cl) {
+    public static void afegir_torn_calendari(Torn t, Calendari cl) {
         ArrayList<Torn> lltorns = cl.getTorns();
         //comprovem que el torn que es vol afegir no es solapi amb els existents
         int pos = posicio_torn(t, lltorns);
@@ -88,7 +88,7 @@ public class CtrlCalendari {
         //else no es pot afegir
     }
 
-    public boolean existeix_torn(Torn t, String id_plt) {
+    public static boolean existeix_torn(Torn t, String id_plt) {
         int i = 0;
         while (llcalendaris.get(i).getId_plantilla().equals(id_plt)) {
             ++i;

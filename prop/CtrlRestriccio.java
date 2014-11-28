@@ -5,6 +5,7 @@
 package prop;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class CtrlRestriccio {
 
@@ -13,7 +14,8 @@ public class CtrlRestriccio {
     public static void nova_res(String expressio){
         Plantilla plt = CtrlPlantilla.getPlantillaActual();
         Calendari cldr = CtrlCalendari.consultar_calendari(plt.getNomPlantilla());
-        expressio = transforma_expressio(expressio, cldr);
+        String tipus_torn = expressio.substring(0,1);
+        expressio = transforma_expressio(tipus_torn, expressio, cldr);
         Restriccio r = crea_arbre(expressio);
         restriccions.add(r);
     }
@@ -268,7 +270,7 @@ public class CtrlRestriccio {
      * @param e expressió amb identificador numèric de torn
      * @return
      */
-    private static String transforma_expressio(String e, Calendari cldr){
+    private static String transforma_expressio(String tipus, String e, Calendari cldr){
         String t = ""; 
         if (e.length() > 0) {
             String c = e.substring(0, 1);
@@ -281,24 +283,68 @@ public class CtrlRestriccio {
                 s = s.substring(1);
             }
             if(!t.equals("")){
-               Torn torn = troba_torn(Integer.parseInt(t), cldr);
-               t = torn.toString();
+                ArrayList<Torn> torns = (ArrayList) cldr.getTorns().clone();
+                int numt = Integer.parseInt(t);
+               switch(tipus){
+                   case "D":
+                       for(int i=0; i<torns.size(); i++){
+                           Torn torn = torns.get(i);
+                           if(torn.getData_inici().get(Calendar.DAY_OF_YEAR)!=numt){
+                               torns.remove(i);
+                               i--; 
+                               // decrementam la i perque quan s'elimina un objecte de s'arraylist
+                               // un altre ocupa es seu lloc i s'ha de tornar a comprovar aquesta posició
+                           }
+                       }
+                       break;
+                   case "S":
+                       for(int i=0; i<torns.size(); i++){
+                           Torn torn = torns.get(i);
+                           if(torn.getData_inici().get(Calendar.WEEK_OF_YEAR)!=numt){
+                               torns.remove(i);
+                               i--; 
+                               // decrementam la i perque quan s'elimina un objecte de s'arraylist
+                               // un altre ocupa es seu lloc i s'ha de tornar a comprovar aquesta posició
+                           }
+                       }
+                       break;
+                   case "H":
+                       for(int i=0; i<torns.size(); i++){
+                           Torn torn = torns.get(i);
+                           if(torn.getData_inici().get(Calendar.HOUR_OF_DAY)!=numt){
+                               torns.remove(i);
+                               i--; 
+                               // decrementam la i perque quan s'elimina un objecte de s'arraylist
+                               // un altre ocupa es seu lloc i s'ha de tornar a comprovar aquesta posició
+                           }
+                       }
+                       break;
+               }
+               t = concat_trobats(torns); 
+//               Torn torn = troba_torn(Integer.parseInt(t), cldr);
+//               t = torn.toString();
             }
             t += c;
-            t += transforma_expressio(s, cldr);
+            t += transforma_expressio(tipus, s, cldr);
         }
         return t;
     }
-    /**
-     * Donada una posició del calendari i el calendari, retorna el torn al que correspon aquella posició
-     * @param pos Posició que es vol consultar 
-     * @param c Calendari al que es vol consultar la posició indicada
-     * @return Torn que correspon a aquella posició. Null si no existeix
-     */
-    private static Torn troba_torn(int pos, Calendari c){
-        Torn torn = null;
-        ArrayList<Torn> torns = c.getTorns();
-        if (pos >= torns.size()) return null;
-        return torns.get(pos);
+    
+    
+    private static String concat_trobats(ArrayList<Torn> torns){
+        String ret = "";
+        int num_trobats = torns.size();
+        if(num_trobats == 1){
+            ret = "NOP("+torns.get(0).toString()+")";
+        }
+        else if (num_trobats == 2){
+            ret = "("+torns.get(0).toString()+")AND("+torns.get(1).toString()+")";
+        }
+        else if(num_trobats>2){
+            String fragment = "NOP("+torns.get(torns.size()-1).toString()+")";
+            torns.remove(torns.size()-1);
+            ret = "("+concat_trobats(torns)+")AND("+fragment+")";
+        }
+        return ret;
     }
 }

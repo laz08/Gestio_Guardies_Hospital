@@ -27,6 +27,7 @@ public class Torn {
     * @param h_i hora d'inici del torn 
     * @param h_f hora de finalització del torn
     * @param min_d minim nombre de doctors per torn
+    * @param lldoc llista de doctors assignats al torn
     * @param p_sou percentatge de l'increment del sou
     */
 	public Torn(GregorianCalendar d_i, GregorianCalendar d_f, int min_d, ArrayList<String> lldoc, float p_sou){
