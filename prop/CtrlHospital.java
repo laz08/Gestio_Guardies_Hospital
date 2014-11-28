@@ -19,8 +19,7 @@ public class CtrlHospital {
      * @return Objecte Doctor que conté els atributs especificats
      */
     public static Doctor crearDoctor(String d, String n, String cg1, String cg2, int s, int telf, String mail){
-        Doctor doc = new Doctor();
-        doc.setdni(d);
+        Doctor doc = new Doctor(d);
         doc.setNom(n);
         doc.setCognom1(cg1);
         doc.setCognom2(cg2);
@@ -45,8 +44,7 @@ public class CtrlHospital {
      * @param mail correu electrònic
      */
     public static void creariAfegirDoctor(String d, String n, String cg1, String cg2, int s, int telf, String mail){
-        Doctor doc = new Doctor();
-        doc.setdni(d);
+        Doctor doc = new Doctor(d);
         doc.setNom(n);
         doc.setCognom1(cg1);
         doc.setCognom2(cg2);

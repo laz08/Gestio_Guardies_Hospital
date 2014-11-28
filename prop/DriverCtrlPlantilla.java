@@ -20,6 +20,7 @@ public class DriverCtrlPlantilla {
                     continue;
                 }
 
+            //FALTA CAS D'ÚS CONSULTAR DOCTORS A PLANTILLA
                 switch (cas) {
                     case 1: casCreaPlantilla(); break;
                     case 2: casEliminaPlantilla(); break;

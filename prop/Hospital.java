@@ -14,6 +14,8 @@ public class Hospital {
         return H;
     }
 
+
+    //LAURA: SetHospital fins ara no l'hem usat mai. Si és prescindible, l'esborraré.
     /*
     public static void setHospital(ArrayList<Doctor> L){
         H = L;

@@ -5,8 +5,6 @@
 package prop;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 
 
 public class CtrlPlantilla {
@@ -92,14 +90,27 @@ public class CtrlPlantilla {
         //Busquem plantilla on afegir doctor i afegim doctor
         for (int i = 0; i < Cjt_plantilles.size(); ++i){
             p = Cjt_plantilles.get(i);
-            if(p.getNomPlantilla().equals(id_plantilla)){
-                p.getLlistaDoctors().add(doc);
-                Collections.sort(p.getLlistaDoctors(), new Comparator<Doctor>() {
-                    @Override
-                    public int compare(Doctor doctor, Doctor doctor2) {
-                        return doctor.getdni().compareTo(doctor2.getdni());
+            if (p.getNomPlantilla().equals(id_plantilla)){
+                //Sabem a quina plantilla afegir. Inserir ordenant.
+                boolean trobat_lloc = false;
+                for (int j = 0; j < p.getLlistaDoctors().size() && !trobat_lloc; ++j){
+                    int v = p.getLlistaDoctors().get(i).getNom().compareTo(doc.getNom());
+                    //Doc a inserir és més gran
+                    if (v < 0){
+                        //Mirem si a la següent posició hi ha un valor més gran
+                        int v2 = p.getLlistaDoctors().get(i+1).getNom().compareTo(doc.getNom());
+                        if (v >= 0){
+                            //Hem trobat el seu lloc
+                            p.getLlistaDoctors().add(i, doc);
+                            trobat_lloc = true;
+                        }
                     }
-                });
+                    else if (v == 0){
+                        p.getLlistaDoctors().add(i, doc);
+                        trobat_lloc = true;
+                    }
+                }
+                if (!trobat_lloc) p.getLlistaDoctors().add(doc);
             }
         }
     }
