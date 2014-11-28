@@ -8,10 +8,12 @@ public class Plantilla {
     private ArrayList<Doctor> P;
     private int id_calendari_asoc;
 
-    public Plantilla(){
 
-    }
-
+    /**
+     * Constructor.
+     * Crea una nova instància del tipus Plantilla amb nom_p = nom.
+     * @param nom
+     */
     public Plantilla(String nom) {
         nom_p = nom;
         P = new ArrayList<Doctor>();
@@ -40,10 +42,18 @@ public class Plantilla {
         nom_p = nom;
     }
 
+    /**
+     * Assigna l'identificador del calendari associat a la plantilla
+     * @param idC
+     */
     public void setId_calendari_asoc(int idC){
         id_calendari_asoc = idC;
     }
 
+    /**
+     * Retorna l'identificador del calendari associat a la plantilla
+     * @return id_calendari_asoc
+     */
     public int getId_calendari_asoc(){
         return id_calendari_asoc;
     }

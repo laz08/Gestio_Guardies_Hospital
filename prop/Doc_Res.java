@@ -10,7 +10,7 @@ public class Doc_Res {
 
     private static ArrayList<ArrayList<String>> assig = new ArrayList<ArrayList<String>>();
 
-    public static void relaciona(String doc, int res) throws Error {
+    public static void relaciona(String doc, int res){
         if (res < assig.size()) {
             if (assig.get(res).contains(doc)) {
                 throw new Error(
@@ -25,7 +25,7 @@ public class Doc_Res {
         }
     }
 
-    public static void elimina(String doc, int res) throws Error {
+    public static void elimina(String doc, int res) {
         if(res < assig.size()){
             assig.get(res).remove(doc);
         }
