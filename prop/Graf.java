@@ -145,4 +145,109 @@ public class Graf {
             As.get(i).resetflow();
         }
     }
+    
+    /**
+     * Mostra el contingut del graf: relacio entre els vertex i el contingut de les arestes
+     */
+    public void mostra_graf() {
+        for (int i = 0; i < Vs.size(); i++) {
+            Vertex v = Vs.get(i);
+            String id ="";
+            switch(v.getClasse()){
+                    case Vertex.DOCTOR:
+                        id += "DOC"+i;
+                        break;
+                    case Vertex.RESTRICCIO:
+                        String op = v.getId();
+                        op = op.substring(5, 10);
+                        id += op+i;
+                        break;
+                    case Vertex.TORN:
+                        id += "T"+i;
+                        break;
+                    case Vertex.FONT_POU:
+                        id+=v.getId();
+                        break; 
+                    case Vertex.MAX:
+                        id += "MAX"+i;
+                        break;
+                }
+            System.out.print("Vertex: " + id + " relacionat amb  ");
+            ArrayList<Integer> adj = this.getAdjacents(i);
+            for (int e = 0; e < adj.size(); e++) {
+                Vertex v1 = Vs.get(adj.get(e));
+                id = "";
+                switch(v1.getClasse()){
+                    case Vertex.DOCTOR:
+                        id += "DOC"+adj.get(e);
+                        break;
+                    case Vertex.RESTRICCIO:
+                        String op = v1.getId();
+                        op = op.substring(5, 10);
+                        id += op+adj.get(e);
+                        break;
+                    case Vertex.TORN:
+                        id += "T"+adj.get(e);
+                        break;
+                    case Vertex.FONT_POU:
+                        id+=v1.getId();
+                        break;
+                    case Vertex.MAX:
+                        id += "MAX"+adj.get(e);
+                }
+                
+                System.out.print(id + ", ");
+            }
+            System.out.println();
+        }
+        
+            System.out.println("\nLa capacitat de les arestes es:");
+            for (int i=0; i<As.size(); i++){
+                Aresta a = As.get(i);
+                Vertex v = Vs.get(a.getv());
+                String idv="";
+                switch(v.getClasse()){
+                    case Vertex.DOCTOR:
+                        idv += "DOC"+a.getv();
+                        break;
+                    case Vertex.RESTRICCIO:
+                        String op = v.getId();
+                        op = op.substring(5, 10);
+                        idv += op+a.getv();
+                        break;
+                    case Vertex.TORN:
+                        idv += "T"+a.getv();
+                        break;
+                    case Vertex.FONT_POU:
+                        idv+=v.getId();
+                        break;
+                    case Vertex.MAX:
+                        idv+="MAX"+a.getv();
+                        break;
+                }
+                String idw="";
+                Vertex w = Vs.get(a.getw());
+                switch(w.getClasse()){
+                    case Vertex.DOCTOR:
+                        idw += "DOC"+a.getw();
+                        break;
+                    case Vertex.RESTRICCIO:
+                        String op = w.getId();
+                        op = op.substring(5, 10);
+                        idw += op+a.getw();
+                        break;
+                    case Vertex.TORN:
+                        idw += "T"+a.getw();
+                        break;
+                    case Vertex.FONT_POU:
+                        idw+=w.getId();
+                        break;
+                    case Vertex.MAX:
+                        idw+="MAX"+a.getw();
+                        break;
+                }
+                int cap = a.getcap();
+                System.out.println(idv+" ------ "+cap+" ------ "+idw);
+            }
+    }
 }
