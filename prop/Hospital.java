@@ -15,26 +15,20 @@ public class Hospital {
      * @return H
      */
     public static TreeSet<Doctor> getHospital_dni(){
-        return H_nom;
-    }
-    public static TreeSet<Doctor> getHospital_nom(){
         return H_dni;
     }
-
-
-    //LAURA: SetHospital fins ara no l'hem usat mai. Si és prescindible, l'esborraré.
-    /*
-    public static void setHospital(ArrayList<Doctor> L){
-        H = L;
+    public static TreeSet<Doctor> getHospital_nom(){
+        return H_nom;
     }
-    */
-
-
-
 }
+
+
  class compDni implements Comparator<Doctor> {
     @Override
     public int compare(Doctor doc1, Doctor doc2){
+        if(doc1 == doc2) return 0;
+        if(doc1.getdni() == null) return 1;
+        if(doc2.getdni() == null) return -1;
         return doc1.getdni().compareTo(doc2.getdni());
     }
 }
@@ -42,6 +36,9 @@ public class Hospital {
 class compNom implements Comparator<Doctor> {
     @Override
     public int compare(Doctor doc1, Doctor doc2){
+        if (doc1 == doc2) return 0;
+        if(doc1.getNom() == null) return 1;
+        if(doc2.getNom() == null) return -1;
         return doc1.getNom().compareTo(doc2.getNom());
     }
 }

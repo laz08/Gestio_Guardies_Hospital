@@ -94,10 +94,11 @@ public class DriverCtrlHospital {
             }
         }
         String correu = arg.next();
-        if (CtrlHospital.existeixDoctor(dni)) {
+        if (CtrlHospital.existeixDoctor(dni)){
             valid = false;
             missatgeErrorDni();
         }
+
         while(!valid) {
             dni = arg.next();
             if(CtrlHospital.existeixDoctor(dni)) valid = true;
@@ -105,6 +106,7 @@ public class DriverCtrlHospital {
                 missatgeErrorDni();
             }
         }
+
         CtrlHospital.creariAfegirDoctor(dni, nom, cg1, cg2, sou, telf, correu);
 
     }
