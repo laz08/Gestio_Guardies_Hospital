@@ -8,7 +8,7 @@ import java.lang.*;
 
 public class DriverDoctor {
 
-    static Doctor doc = new Doctor();
+    private static Doctor doc = new Doctor(null);
 
     public static void main(String[] args) throws Error {
 
