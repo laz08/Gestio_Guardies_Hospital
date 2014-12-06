@@ -94,19 +94,19 @@ public class CtrlPlantilla {
                 //Sabem a quina plantilla afegir. Inserir ordenant.
                 boolean trobat_lloc = false;
                 for (int j = 0; j < p.getLlistaDoctors().size() && !trobat_lloc; ++j){
-                    int v = p.getLlistaDoctors().get(i).getNom().compareTo(doc.getNom());
+                    int v = p.getLlistaDoctors().get(j).getNom().compareTo(doc.getNom());
                     //Doc a inserir és més gran
                     if (v < 0){
                         //Mirem si a la següent posició hi ha un valor més gran
-                        int v2 = p.getLlistaDoctors().get(i+1).getNom().compareTo(doc.getNom());
+                        int v2 = p.getLlistaDoctors().get(j+1).getNom().compareTo(doc.getNom());
                         if (v >= 0){
                             //Hem trobat el seu lloc
-                            p.getLlistaDoctors().add(i, doc);
+                            p.getLlistaDoctors().add(j, doc);
                             trobat_lloc = true;
                         }
                     }
                     else if (v == 0){
-                        p.getLlistaDoctors().add(i, doc);
+                        p.getLlistaDoctors().add(j, doc);
                         trobat_lloc = true;
                     }
                 }

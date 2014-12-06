@@ -1,6 +1,7 @@
 package prop;
 
 import java.util.Scanner;
+import java.util.TreeSet;
 
 public class DriverCtrlHospital {
 
@@ -47,23 +48,23 @@ public class DriverCtrlHospital {
         System.out.print(">> ");
     }
 
+    public static void missatgeErrorDni(){
+        System.out.println("Ja existeix un doctor amb aquest DNI.");
+        System.out.println("El llistat dels dni de doctors ja existents es el seguent: ");
+        TreeSet<Doctor> ll = CtrlHospital.getHospital_dni();
+        for (Doctor doc:ll)
+            System.out.println(doc);
+
+        System.out.println("Introdueix el DNI de nou d'aquest metge.");
+        System.out.println("(Les altres dades es mantindran)");
+        System.out.print(">>");
+
+    }
     public static void casCreaDoctor(){
 
         boolean valid = false;
-        String dni = null;
-        while(!valid) {
-            dni = arg.next();
-            if(CtrlHospital.existeixDoctor(dni) == -1) valid = true;
-            else{
-                System.out.println("Ja existeix un doctor amb aquest DNI.");
-                System.out.println("El llistat dels dni de doctors ja existents es el seguent: ");
-                for (int i = 0; i < CtrlHospital.numDocs(); ++i){
-                    System.out.println(CtrlHospital.getDoctor(i).getdni());
-                }
-                System.out.println("Introdueix DNI de nou.");
-            }
 
-        }
+        String dni = arg.next();
         String nom = arg.next();
         String cg1 = arg.next();
         String cg2 = arg.next();
@@ -87,12 +88,23 @@ public class DriverCtrlHospital {
                 telf = arg.nextInt();
                 valid = true;
             } catch (Exception e){
-                System.out.println("Telf ha de ser un enter");
+                System.out.println("Telefon ha de ser un enter");
                 arg.next();
                 continue;
             }
         }
         String correu = arg.next();
+        if (CtrlHospital.existeixDoctor(dni)) {
+            valid = false;
+            missatgeErrorDni();
+        }
+        while(!valid) {
+            dni = arg.next();
+            if(CtrlHospital.existeixDoctor(dni)) valid = true;
+            else{
+                missatgeErrorDni();
+            }
+        }
         CtrlHospital.creariAfegirDoctor(dni, nom, cg1, cg2, sou, telf, correu);
 
     }
@@ -100,16 +112,16 @@ public class DriverCtrlHospital {
     public static void casEliminaDoctor(){
         String dni = arg.next();
 
-        int pos = CtrlHospital.existeixDoctor(dni);
-        if (pos != -1){
-            CtrlHospital.eliminarDoctor(pos);
+        if(CtrlHospital.existeixDoctor(dni)){
+            CtrlHospital.eliminarDoctor(dni);
         }
+        else
+            System.out.println("No existeix cap doctor amb aquest DNI.");
     }
 
     public static void casExisteixDoctor(){
         String dni = arg.next();
-        int pos = CtrlHospital.existeixDoctor(dni);
-        if (pos != -1)
+        if(CtrlHospital.existeixDoctor(dni))
             System.out.println("true");
         else
             System.out.println("false");
@@ -117,28 +129,27 @@ public class DriverCtrlHospital {
 
     public static void casConsultaDoctor(){
         String dni = arg.next();
-        int pos = CtrlHospital.existeixDoctor(dni);
-        if (pos != -1){
-            Doctor doc = CtrlHospital.getDoctor(pos);
+        if (CtrlHospital.existeixDoctor(dni)){
+            Doctor doc = CtrlHospital.getDoctor(dni);
             System.out.println("dni: "+doc.getdni());
             System.out.println("nom i cognoms: "+doc.getNom()+" "+doc.getCognom1()+" "+doc.getCognom2());
             System.out.println("sou: "+doc.getSou());
             System.out.println("Telefon: "+doc.getTelefon());
             System.out.println("Correu: "+doc.getCorreu());
         }
+        else
+            System.out.println("No existeix cap doctor amb aquest DNI.");
     }
 
     public static void casLlistatDoctors(){
-        Doctor doc;
-        for (int i = 0; i < CtrlHospital.numDocs(); ++i){
-            doc = CtrlHospital.getDoctor(i);
+         TreeSet<Doctor> ll = CtrlHospital.getHospital_nom();
+        for(Doctor doc:ll) {
             System.out.println("\n\n");
-            System.out.println("Doctor num.: "+ i);
-            System.out.println("dni: "+doc.getdni());
-            System.out.println("nom i cognoms: "+doc.getNom()+" "+doc.getCognom1()+" "+doc.getCognom2());
-            System.out.println("sou: "+doc.getSou());
-            System.out.println("Telefon: "+doc.getTelefon());
-            System.out.println("Correu: "+doc.getCorreu());
+            System.out.println("DNI: " + doc.getdni());
+            System.out.println("nom i cognoms: " + doc.getNom() + " " + doc.getCognom1() + " " + doc.getCognom2());
+            System.out.println("sou: " + doc.getSou());
+            System.out.println("Telefon: " + doc.getTelefon());
+            System.out.println("Correu: " + doc.getCorreu());
         }
     }
 

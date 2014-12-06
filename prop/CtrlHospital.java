@@ -1,8 +1,7 @@
 
 package prop;
 
-import java.util.Collections;
-import java.util.Comparator;
+import java.util.TreeSet;
 
 public class CtrlHospital {
 
@@ -27,7 +26,6 @@ public class CtrlHospital {
         doc.setTelefon(telf);
         doc.setCorreu(mail);
         doc.setActiu(false); //Primer el posem com a inactiu
-
         return doc;
     }
 
@@ -53,52 +51,56 @@ public class CtrlHospital {
         doc.setCorreu(mail);
         doc.setActiu(false); //Primer el posem com a inactiu
 
-        Hospital.getHospital().add(doc);
-        Collections.sort(Hospital.getHospital(), new Comparator<Doctor>() {
-            @Override
-            public int compare(Doctor doctor, Doctor doctor2) {
-                return doctor.getdni().compareTo(doctor2.getdni());
-            }
-        });
+        //S'ordena sol
+        //Afegim a l'arbre de DNI
+        Hospital.getHospital_dni().add(doc);
+
+        //Afegim a l'arbre de Nom
+        Hospital.getHospital_nom().add(doc);
     }
 
 
     /**
-     * Pre: - Post:	Retorna posició positiva si existeix el doctor dins l'hospital.
-     * Altrament, retorna -1 per indicar que no existeix.
+     * Pre: - Post:	Retorna un boolea que indica si existeix el doctor o no
      */
-    public static int existeixDoctor(String dni) {
-        Doctor d;
-        for (int i = 0; i < Hospital.getHospital().size(); ++i) {
-            d = (Doctor) Hospital.getHospital().get(i);
-            if (d.getdni().equals(dni)) {
-                return i;
-            }
+    public static boolean existeixDoctor(String dni) {
+        Doctor d = new Doctor(dni);
+        //Creem un Dummy i comprovem si existeix.
+        return Hospital.getHospital_dni().contains(d);
+    }
+
+    /**
+     * Pre: -
+     * Post: S'ha eliminat el doctor de l'hospital.
+     */
+    public static void eliminarDoctor(String dni) {
+        Doctor doc = new Doctor(dni);
+        if (Hospital.getHospital_dni().contains(doc)){
+            //L'esborrem de l'arbre de DNIs
+            Doctor aux = CtrlHospital.getDoctor(dni);
+            Hospital.getHospital_dni().remove(aux);
+            Hospital.getHospital_nom().remove(aux);
         }
-        return -1;
     }
 
     /**
-     * Pre: "pos" és una posició vàlida
-     * Post: S'ha eliminat el doctor en la posició pos de l'hospital
-     */
-    public static void eliminarDoctor(int pos) {
-       Hospital.getHospital().remove(pos);
-    }
-
-
-
-
-    /**
-     * Pre: Doctor ha d'existir a l'hospital en la posició pos.
-     * Post: Retorna el doctor que està a la posició pos.
+     * Pre: Doctor ha d'existir a l'hospital
+     * Post: Retorna el doctor
      *
      */
-    public static Doctor getDoctor(int pos) {
-        return (Doctor) Hospital.getHospital().get(pos);
+    public static Doctor getDoctor(String dni){
+        return (Doctor) Hospital.getHospital_dni().ceiling(new Doctor(dni));
     }
 
-    public static int numDocs(){ return Hospital.getHospital().size();}
+    public static int numDocs(){ return Hospital.getHospital_dni().size();}
+
+    public static TreeSet<Doctor> getHospital_nom(){
+        return Hospital.getHospital_nom();
+    }
+
+    public static TreeSet<Doctor> getHospital_dni(){
+        return Hospital.getHospital_dni();
+    }
 
 
     // -------- Modificadors per a cada doctor ------------------
