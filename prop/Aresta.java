@@ -4,12 +4,11 @@ public class Aresta {
 	private int v, w;
 	private int flow, capacitat;
 	
-	public Aresta(int vertexv, int vertexw, int f, Integer cap) {
+	public Aresta(int vertexv, int vertexw, int f, int cap) {
 		v = vertexv;
 		w = vertexw;
 		flow = f;
-		if (cap.equals(null)) capacitat = cap;
-		else capacitat = 0;
+		capacitat = cap;
 	}
 	
 	public Aresta(Aresta a) {

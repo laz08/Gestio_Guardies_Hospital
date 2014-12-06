@@ -15,7 +15,7 @@ public class CtrlRestriccio {
         Plantilla plt = CtrlPlantilla.getPlantillaActual();
         Calendari cldr = CtrlCalendari.consultar_calendari(plt.getNomPlantilla());
         String tipus_torn = expressio.substring(0,1);
-        expressio = transforma_expressio(tipus_torn, expressio, cldr);
+        //expressio = transforma_expressio(tipus_torn, expressio, cldr);
         Restriccio r = crea_arbre(expressio);
         restriccions.add(r);
     }
@@ -24,10 +24,7 @@ public class CtrlRestriccio {
         int pos = consulta_pos(r);
         if (pos != -1) {
             restriccions.remove(pos);
-        } 
-//        else {
-//            throw new Error("No existeix la restricció que es vol eliminar");
-//        }
+        }
     }
 
     public static ArrayList<Restriccio> consulta_llista_res() {
@@ -78,9 +75,6 @@ public class CtrlRestriccio {
                 c = s.substring(0, 1);
                 s = s.substring(1);
             }
-//            if (!c.equals("(")) {
-//                throw new Error("Error a l'estructuració de les restriccions");
-//            }
             String sub_r2 = Restriccio.cerca_tancament(c + s);
             if (Restriccio.esRestriccio(sub_r1) && Restriccio.esRestriccio(sub_r2)) {
                 Restriccio r1 = crea_arbre(tipus + sub_r1);
@@ -92,8 +86,6 @@ public class CtrlRestriccio {
                     case "XOR":
                         r = new R_XOR(r1, r2);
                         break;
-//                    default:
-//                        throw new Error("El nom de l'operació logica no es correcte");
                 }
                 r.setNumVertex(r1.getNumVertex());
                 r.setNumVertex(r2.getNumVertex());
@@ -108,14 +100,9 @@ public class CtrlRestriccio {
                         r = new R_XOR(sub_r1, sub_r2);
                         //r = new R_XOR(t1,t2);
                         break;
-//                    default:
-//                        throw new Error("El nom de l'operació logica no es correcte");
                 }
                 r.setNumVertex(r.getNumVertex()); // si els fills no son restriccions i en te 2, en nombre de vertex del seu subarbre serà 3
-            } 
-//            else {
-//                throw new Error("Error a la deteccio dels parametres de les restriccions");
-//            }
+            }
         } else if (c.equals("N")) { //es NOT o NOP
             s = c + s; // Afagim el caracter a l'inici de la cadena per treure l'operacio sencera
             String operacio = Restriccio.llegeix_op(s);
@@ -125,9 +112,6 @@ public class CtrlRestriccio {
             String sub_r1 = Restriccio.cerca_tancament(c + s);
             if (Restriccio.esRestriccio(sub_r1)) {
                 Restriccio r1 = crea_arbre(tipus + sub_r1);
-//                if (!operacio.equals("NOT")) {
-//                    throw new Error("L'operacio lògica no es pot aplicar sobre una restricció");
-//                }
                 r = new R_NOT(r1);
                 r.setNumVertex(r1.getNumVertex());
                 r.setNumVertex(r.getNumVertex() + 1);
@@ -142,16 +126,10 @@ public class CtrlRestriccio {
                         //r = new R_NOP(t1);
                         r = new R_NOP(sub_r1);
                         break;
-//                    default:
-//                        throw new Error("El nom de l'operació logica no es correcte");
                 }
                 r.setNumVertex(r.getNumVertex() + 1);
             }
        }
-//        else {
-//            throw new Error("No s'ha detectat la restriccio correctament");
-//        }
-
         r.setTipus(tipus);
         return r;
     }
@@ -270,81 +248,79 @@ public class CtrlRestriccio {
      * @param e expressió amb identificador numèric de torn
      * @return
      */
-    private static String transforma_expressio(String tipus, String e, Calendari cldr){
-        String t = ""; 
-        if (e.length() > 0) {
-            String c = e.substring(0, 1);
-            String s = e.substring(1);
-            while ((c.equals("0") || c.equals("1") || c.equals("2") || c.equals("3")
-                    || c.equals("4") || c.equals("5") || c.equals("6") || c.equals("7")
-                    || c.equals("8") || c.equals("9")) && s.length() > 0) {
-                t += c;
-                c = s.substring(0, 1);
-                s = s.substring(1);
-            }
-            if(!t.equals("")){
-                ArrayList<Torn> torns = (ArrayList) cldr.getTorns().clone();
-                int numt = Integer.parseInt(t);
-               switch(tipus){
-                   case "D":
-                       for(int i=0; i<torns.size(); i++){
-                           Torn torn = torns.get(i);
-                           if(torn.getData_inici().get(Calendar.DAY_OF_YEAR)!=numt){
-                               torns.remove(i);
-                               i--; 
-                               // decrementam la i perque quan s'elimina un objecte de s'arraylist
-                               // un altre ocupa es seu lloc i s'ha de tornar a comprovar aquesta posició
-                           }
-                       }
-                       break;
-                   case "S":
-                       for(int i=0; i<torns.size(); i++){
-                           Torn torn = torns.get(i);
-                           if(torn.getData_inici().get(Calendar.WEEK_OF_YEAR)!=numt){
-                               torns.remove(i);
-                               i--; 
-                               // decrementam la i perque quan s'elimina un objecte de s'arraylist
-                               // un altre ocupa es seu lloc i s'ha de tornar a comprovar aquesta posició
-                           }
-                       }
-                       break;
-                   case "H":
-                       for(int i=0; i<torns.size(); i++){
-                           Torn torn = torns.get(i);
-                           if(torn.getData_inici().get(Calendar.HOUR_OF_DAY)!=numt){
-                               torns.remove(i);
-                               i--; 
-                               // decrementam la i perque quan s'elimina un objecte de s'arraylist
-                               // un altre ocupa es seu lloc i s'ha de tornar a comprovar aquesta posició
-                           }
-                       }
-                       break;
-               }
-               t = concat_trobats(torns); 
-//               Torn torn = troba_torn(Integer.parseInt(t), cldr);
-//               t = torn.toString();
-            }
-            t += c;
-            t += transforma_expressio(tipus, s, cldr);
-        }
-        return t;
-    }
+//    private static String transforma_expressio(String tipus, String e, Calendari cldr){
+//        String t = ""; 
+//        if (e.length() > 0) {
+//            String c = e.substring(0, 1);
+//            String s = e.substring(1);
+//            while ((c.equals("0") || c.equals("1") || c.equals("2") || c.equals("3")
+//                    || c.equals("4") || c.equals("5") || c.equals("6") || c.equals("7")
+//                    || c.equals("8") || c.equals("9")) && s.length() > 0) {
+//                t += c;
+//                c = s.substring(0, 1);
+//                s = s.substring(1);
+//            }
+//            if(!t.equals("")){
+//                ArrayList<Torn> torns = (ArrayList) cldr.getTorns().clone();
+//                int numt = Integer.parseInt(t);
+//               switch(tipus){
+//                   case "D":
+//                       for(int i=0; i<torns.size(); i++){
+//                           Torn torn = torns.get(i);
+//                           if(torn.getData_inici().get(Calendar.DAY_OF_YEAR)!=numt){
+//                               torns.remove(i);
+//                               i--; 
+//                               // decrementam la i perque quan s'elimina un objecte de s'arraylist
+//                               // un altre ocupa es seu lloc i s'ha de tornar a comprovar aquesta posició
+//                           }
+//                       }
+//                       break;
+//                   case "S":
+//                       for(int i=0; i<torns.size(); i++){
+//                           Torn torn = torns.get(i);
+//                           if(torn.getData_inici().get(Calendar.WEEK_OF_YEAR)!=numt){
+//                               torns.remove(i);
+//                               i--; 
+//                               // decrementam la i perque quan s'elimina un objecte de s'arraylist
+//                               // un altre ocupa es seu lloc i s'ha de tornar a comprovar aquesta posició
+//                           }
+//                       }
+//                       break;
+//                   case "H":
+//                       for(int i=0; i<torns.size(); i++){
+//                           Torn torn = torns.get(i);
+//                           if(torn.getData_inici().get(Calendar.HOUR_OF_DAY)!=numt){
+//                               torns.remove(i);
+//                               i--; 
+//                               // decrementam la i perque quan s'elimina un objecte de s'arraylist
+//                               // un altre ocupa es seu lloc i s'ha de tornar a comprovar aquesta posició
+//                           }
+//                       }
+//                       break;
+//               }
+//               t = concat_trobats(torns); 
+//            }
+//            t += c;
+//            t += transforma_expressio(tipus, s, cldr);
+//        }
+//        return t;
+//    }
     
     
-    private static String concat_trobats(ArrayList<Torn> torns){
-        String ret = "";
-        int num_trobats = torns.size();
-        if(num_trobats == 1){
-            ret = "NOP("+torns.get(0).toString()+")";
-        }
-        else if (num_trobats == 2){
-            ret = "("+torns.get(0).toString()+")AND("+torns.get(1).toString()+")";
-        }
-        else if(num_trobats>2){
-            String fragment = "NOP("+torns.get(torns.size()-1).toString()+")";
-            torns.remove(torns.size()-1);
-            ret = "("+concat_trobats(torns)+")AND("+fragment+")";
-        }
-        return ret;
-    }
+//    private static String concat_trobats(ArrayList<Torn> torns){
+//        String ret = "";
+//        int num_trobats = torns.size();
+//        if(num_trobats == 1){
+//            ret = "NOP("+torns.get(0).toString()+")";
+//        }
+//        else if (num_trobats == 2){
+//            ret = "("+torns.get(0).toString()+")AND("+torns.get(1).toString()+")";
+//        }
+//        else if(num_trobats>2){
+//            String fragment = "NOP("+torns.get(torns.size()-1).toString()+")";
+//            torns.remove(torns.size()-1);
+//            ret = "("+concat_trobats(torns)+")AND("+fragment+")";
+//        }
+//        return ret;
+//    }
 }

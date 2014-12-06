@@ -28,13 +28,31 @@ public class Graf {
     public void afegirAresta(Vertex v1, Vertex v2, int capacitat, int flow) {
         int a = Vs.indexOf(v1);
         int b = Vs.indexOf(v2);
-        Aresta ar = new Aresta(a, b, capacitat, flow);
-        As.add(ar);
+        Aresta ar = new Aresta(a, b, flow, capacitat);
+        if (!As.contains(ar)) As.add(ar);
         Vs.get(a).afegir_aresta(As.indexOf(ar));
         Vs.get(b).afegir_aresta(As.indexOf(ar));
         numa++;
     }
 
+    public void eliminaAresta(int pos){
+        if(pos<As.size()) As.remove(pos);
+        for(int i=0; i<Vs.size(); i++){
+            Vertex v = Vs.get(i);
+            ArrayList<Integer> arestes = v.getArestes();
+            int e=0;
+            boolean trobat = false;
+            while (e < arestes.size() && !trobat){
+                int numA = arestes.get(e);
+                if(numA == pos){
+                    v.emimina_aresta(e);
+                    trobat = true;
+                }
+                e++;
+            }
+        }
+    }
+    
     /**
      * afageix un nou vertex al graf
      * @param v Vertex que es vol afagir

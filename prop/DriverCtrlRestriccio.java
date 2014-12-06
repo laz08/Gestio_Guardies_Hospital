@@ -202,11 +202,9 @@ public class DriverCtrlRestriccio {
         }
 
         ArrayList<Torn> lt = new ArrayList<Torn>();
-        for (int i = 0; i < 62; i++) {
-            int dia = Math.round(i / 2);
-            int hora = (i % 2) * 12;
-            GregorianCalendar d_i = new GregorianCalendar(1000, 1, dia, hora, 00);
-            GregorianCalendar d_f = new GregorianCalendar(1000, 1, dia, hora + 11, 59);
+        for (int i = 1; i <= 4; i++) {
+            GregorianCalendar d_i = new GregorianCalendar(1000, 0, i, 00, 00);
+            GregorianCalendar d_f = new GregorianCalendar(1000, 0, i, 23, 59);
             ArrayList<String> ldoc = new ArrayList<String>();
             Torn t = new Torn(d_i, d_f, 1, ldoc, 10);
             lt.add(t);
