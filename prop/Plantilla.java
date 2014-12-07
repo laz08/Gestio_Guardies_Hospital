@@ -1,11 +1,14 @@
 package prop;
 
-import java.util.ArrayList;
+
+import java.util.TreeSet;
 
 public class Plantilla {
 
     private String nom_p;
-    private ArrayList<Doctor> P;
+    //private ArrayList<Doctor> P;
+    private TreeSet<Doctor> P_nom;
+    private TreeSet<Doctor> P_dni;
     private int id_calendari_asoc;
 
 
@@ -16,8 +19,9 @@ public class Plantilla {
      */
     public Plantilla(String nom) {
         nom_p = nom;
-        P = new ArrayList<Doctor>();
-        id_calendari_asoc = -1;
+        P_nom = new TreeSet<Doctor>(new compNom());
+        P_dni = new TreeSet<Doctor>(new compDni());
+        id_calendari_asoc = -1;     //-1 indica que no té cap calendari associat
     }
 
     /**
@@ -28,10 +32,14 @@ public class Plantilla {
     }
 
     /**
-     * Pre:	- Post:	Retorna el punter a l'array que conté tota la plantilla.
+     * Pre:	- Post:	Retorna el punter al TreeSet que conté tota la plantilla ordenada per DNI
      */
-    public ArrayList<Doctor> getLlistaDoctors() {
-        return P;
+    public TreeSet<Doctor> getLlistaDoctorsDNI() {
+        return P_dni;
+    }
+
+    public TreeSet<Doctor> getLlistaDoctorsNom(){
+        return P_nom;
     }
 
     /**
@@ -61,3 +69,5 @@ public class Plantilla {
 
 
 }
+
+

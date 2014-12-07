@@ -75,7 +75,7 @@ public class CtrlHospital {
      */
     public static void eliminarDoctor(String dni) {
         Doctor doc = new Doctor(dni);
-        if (Hospital.getHospital_dni().contains(doc)){
+        if (CtrlHospital.existeixDoctor(dni)){
             //L'esborrem de l'arbre de DNIs
             Doctor aux = CtrlHospital.getDoctor(dni);
             Hospital.getHospital_dni().remove(aux);

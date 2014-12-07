@@ -9,37 +9,37 @@ import java.util.ArrayList;
 
 public class CtrlPlantilla {
 
-    private static ArrayList<Plantilla> Cjt_plantilles = new ArrayList<Plantilla>();
+    //private static ArrayList<Plantilla> Cjt_plantilles = new ArrayList<Plantilla>();
     private static int plantillaActual = -1;
 
     // ------ PLANTILLES EN GENERAL ------
 
-        //Pre: No existeix una plantilla amb nom = nom_plantilla
-        //Post: Cjt_Plantilles ara té una nova plantilla amb el nom = nom_plantilla
-        public static void creariAfegirPlantilla(String nom_plantilla){
-            Plantilla p = new Plantilla(nom_plantilla);
-            Cjt_plantilles.add(p);
-        }
+    //Pre: No existeix una plantilla amb nom = nom_plantilla
+    //Post: Cjt_Plantilles ara té una nova plantilla amb el nom = nom_plantilla
+    public static void creariAfegirPlantilla(String nom_plantilla){
+        Plantilla p = new Plantilla(nom_plantilla);
+        Cjt_plantilles.add(p);
+    }
 
-        //Pre: Existeix una plantilla a la posició pos, i pos és una posició vàlida
-        //Post: S'ha esborrat del conjunt de plantilles la plantilla en la posició pos
-        public static void esborrarPlantilla(int pos){
-            Cjt_plantilles.remove(pos);
-        }
+    //Pre: Existeix una plantilla a la posició pos, i pos és una posició vàlida
+    //Post: S'ha esborrat del conjunt de plantilles la plantilla en la posició pos
+    public static void esborrarPlantilla(int pos){
+        Cjt_plantilles.remove(pos);
+    }
 
-        //Pre:
-        //Post: Si existeix una plantilla al conjunt de plantilles amb el nom = n, retorna la posició
-        //      en la que es troba dins el conjunt. Altrament, retorna -1 per indicar que no existeix.
-        public static int existeixPlantilla(String n){
-            Plantilla aux;
-            for (int i = 0; i < Cjt_plantilles.size(); ++i){
-                aux = (Plantilla) Cjt_plantilles.get(i);
-                if(aux.getNomPlantilla().equals(n)){
-                    return i;
-                }
+    //Pre:
+    //Post: Si existeix una plantilla al conjunt de plantilles amb el nom = n, retorna la posició
+    //      en la que es troba dins el conjunt. Altrament, retorna -1 per indicar que no existeix.
+    public static int existeixPlantilla(String n){
+        Plantilla aux;
+        for (int i = 0; i < Cjt_plantilles.size(); ++i){
+            aux = (Plantilla) Cjt_plantilles.get(i);
+            if(aux.getNomPlantilla().equals(n)){
+                return i;
             }
-            return -1;
         }
+        return -1;
+    }
 
 
     // ------ PLANTILLA EN CONCRET ------
@@ -166,3 +166,4 @@ public class CtrlPlantilla {
 
 
 }
+
