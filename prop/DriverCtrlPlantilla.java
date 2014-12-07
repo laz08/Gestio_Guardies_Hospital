@@ -1,6 +1,9 @@
 package prop;
 
+import sun.reflect.generics.tree.Tree;
+
 import java.util.Scanner;
+import java.util.TreeSet;
 
 public class DriverCtrlPlantilla {
 
@@ -14,18 +17,16 @@ public class DriverCtrlPlantilla {
                 try {
                     cas = arg.nextInt();
                 } catch (Exception e){
-                    System.out.println("S'esperava la introduccio d'un numero.");
+                    System.out.println("S'esperava la introducció d'un número.");
                     System.out.print(">> ");
                     arg.next();
                     continue;
                 }
-
-            //FALTA CAS D'ÚS CONSULTAR DOCTORS A PLANTILLA
-                switch (cas) {
+            switch (cas) {
                     case 1: casCreaPlantilla(); break;
                     case 2: casEliminaPlantilla(); break;
                     case 3: casExisteixPlantilla(); break;
-                    case 4: casConsultarPlantilla(); break;
+                    case 4: casConsultarDocsPlantilla(); break;
                     case 5: casConsultarnumPlantilles(); break;
                     case 6: casConsultarLlistatPlantilles(); break;
 
@@ -45,7 +46,7 @@ public class DriverCtrlPlantilla {
 
                     case 0: sortir = true; break;
                     default:
-                        System.out.println("El numero ha d'estar entre 0 i 15.");
+                        System.out.println("El numero ha d'estar entre 0 i 17.");
                         break;
                 }
 
@@ -83,32 +84,42 @@ public class DriverCtrlPlantilla {
 
     }
 
+    public static void missatgeErrorDni(){
+        System.out.println("Ja existeix un doctor amb aquest DNI.");
+        System.out.println("El llistat dels dni de doctors ja existents es el seguent: ");
+        TreeSet<Doctor> ll = CtrlHospital.getHospital_dni();
+        for (Doctor doc:ll)
+            System.out.println(doc.getdni());
+
+        System.out.println("Introdueix el DNI de nou d'aquest metge.");
+        System.out.println("(Les altres dades es mantindran)");
+        System.out.print(">>");
+
+    }
+
     public static void casCreaPlantilla(){
         String nom_p = arg.next();
         // Si no existeix una plantilla amb aquest nom...
-        if(CtrlPlantilla.existeixPlantilla(nom_p) == -1){
+        if(!CtrlPlantilla.existeixPlantilla(nom_p))
             CtrlPlantilla.creariAfegirPlantilla(nom_p);
-        }
-        else{
-            System.out.println("Ja existeix plantilla amb nom "+nom_p);
-        }
+        else
+            System.out.println("Ja existeix plantilla amb nom " + nom_p);
+
     }
 
     public static void casEliminaPlantilla(){
         String nom_p = arg.next();
-        int pos = CtrlPlantilla.existeixPlantilla(nom_p);
-        if(pos != -1){
-            CtrlPlantilla.esborrarPlantilla(pos);
-        }
-        else {
-            System.out.println("No existeix cap plantilla amb el nom "+nom_p);
-        }
+        //Si existeix una plantilla amb aquest nom
+        if(CtrlPlantilla.existeixPlantilla(nom_p))
+            CtrlPlantilla.esborrarPlantilla(nom_p);
+        else
+            System.out.println("No existeix cap plantilla amb el nom " + nom_p);
     }
+
 
     public static void casExisteixPlantilla(){
         String nom_p = arg.next();
-        int pos = CtrlPlantilla.existeixPlantilla(nom_p);
-        if(pos != -1){
+        if(CtrlPlantilla.existeixPlantilla(nom_p)){
             System.out.println("true");
         }
         else {
@@ -116,15 +127,13 @@ public class DriverCtrlPlantilla {
         }
     }
 
-    public static void casConsultarPlantilla(){
+    public static void casConsultarDocsPlantilla(){
         String nom_p = arg.next();
-        int pos = CtrlPlantilla.existeixPlantilla(nom_p);
-        if(pos != -1){
-           Plantilla p = CtrlPlantilla.consultarPlantilla(pos);
-            System.out.println("Doctors de la plantilla "+nom_p);
-            Doctor doc = null;
-            for (int i = 0; i < p.getLlistaDoctors().size(); ++i) {
-                doc = p.getLlistaDoctors().get(i);
+        if(CtrlPlantilla.existeixPlantilla(nom_p)){
+            Plantilla p = CtrlPlantilla.consultarPlantilla(nom_p);
+            TreeSet<Doctor> ll = p.getLlistaDoctorsNom();
+            System.out.println("Doctors de la plantilla "+nom_p+":");
+            for (Doctor doc:ll){
                 System.out.println("dni: " + doc.getdni());
                 System.out.println("nom i cognoms: " + doc.getNom() + " " + doc.getCognom1() + " " + doc.getCognom2());
                 System.out.println("sou: " + doc.getSou());
@@ -134,7 +143,7 @@ public class DriverCtrlPlantilla {
 
         }
         else {
-            System.out.println("No existeix cap plantilla amb el nom "+nom_p);
+            System.out.println("No existeix cap plantilla amb el nom "+nom_p+".");
         }
     }
 
@@ -146,52 +155,49 @@ public class DriverCtrlPlantilla {
         String dni = arg.next();
         String nom_p = arg.next();
 
-        if(CtrlHospital.existeixDoctor(dni) != -1){
+        if(CtrlHospital.existeixDoctor(dni)){
             if(!CtrlPlantilla.docTePlantilla(dni)){
-                if (CtrlPlantilla.existeixPlantilla(nom_p) != -1) {
+                if(CtrlPlantilla.existeixPlantilla(nom_p)){
                     CtrlPlantilla.afegirDoctorAPlantilla(dni, nom_p);
                 }
                 else
-                    System.out.println("No existeix cap plantilla amb el nom "+nom_p);
+                    System.out.println("No existeix cap plantilla amb el nom "+nom_p+".");
             }
-            else {
-                System.out.println("El doctor ja està assignat a una plantilla");
-            }
+            else System.out.println("El doctor ja està assignat a una plantilla.");
         }
-        else{
-            System.out.println("No existeix el doctor amb dni "+dni+" a l'hospital");
-        }
+        else System.out.println("No existeix el doctor amb dni "+dni+" a l'hospital.");
     }
 
     public static void casEsborrarDocdePlantilla() {
         String dni = arg.next();
         String nom_p = arg.next();
 
-        if(CtrlHospital.existeixDoctor(dni) != -1) {
-            if (!CtrlPlantilla.docTePlantilla(dni)) {
-                if (CtrlPlantilla.existeixPlantilla(nom_p) != -1)
+        if(CtrlHospital.existeixDoctor(dni)){
+            if(CtrlPlantilla.docTePlantilla(dni)){
+                if(CtrlPlantilla.existeixPlantilla(nom_p)){
                     CtrlPlantilla.esborrarDoctordePlantilla(dni, nom_p);
+                }
                 else
-                    System.out.println("No existeix cap plantilla amb el nom " + nom_p);
-            } else {
-                System.out.println("El doctor ja està assignat a una plantilla");
+                    System.out.println("No existeix cap plantilla amb el nom "+nom_p+".");
             }
+            else
+                System.out.println("El doctor no està assignat a cap plantilla.");
         }
-        else
+         else
             System.out.println("No existeix el doctor amb dni "+dni);
     }
 
     public static void casDoctorTePlantilla(){
         String dni = arg.next();
-        if (CtrlHospital.existeixDoctor(dni) != -1) {
+        if (CtrlHospital.existeixDoctor(dni)) {
             if (!CtrlPlantilla.docTePlantilla(dni)) {
-                System.out.println("El doctor no té cap plantilla");
+                System.out.println("El doctor no té cap plantilla.");
             } else {
-                System.out.println("El doctor ja està assignat a una plantilla");
+                System.out.println("El doctor ja està assignat a una plantilla.");
             }
         }
         else {
-            System.out.println("No existeix cap doctor amb dni "+dni);
+            System.out.println("No existeix cap doctor amb dni "+dni+".");
         }
     }
 
@@ -199,9 +205,9 @@ public class DriverCtrlPlantilla {
         String dni = arg.next();
         String nom_p = arg.next();
 
-        if(CtrlHospital.existeixDoctor(dni) != -1){
+        if(CtrlHospital.existeixDoctor(dni)){
             if(CtrlPlantilla.docTePlantilla(dni)){
-                if (CtrlPlantilla.existeixPlantilla(nom_p) != -1) {
+                if (CtrlPlantilla.existeixPlantilla(nom_p)) {
                     if (CtrlPlantilla.docEnPlantilla(dni, nom_p)) {
                         System.out.println("true");
                     }
@@ -222,29 +228,14 @@ public class DriverCtrlPlantilla {
 
 
     public static void casCreaDoctor(){
-
-        boolean valid = false;
-        String dni = null;
-        while(!valid) {
-            dni = arg.next();
-            if(CtrlHospital.existeixDoctor(dni) == -1) valid = true;
-            else{
-                System.out.println("Ja existeix un doctor amb aquest DNI.");
-                System.out.println("El llistat dels dni de doctors ja existents es el seguent: ");
-                for (int i = 0; i < CtrlHospital.numDocs(); ++i){
-                    System.out.println(CtrlHospital.getDoctor(i).getdni());
-                }
-                System.out.println("Introdueix DNI de nou.");
-            }
-
-        }
+        String dni = arg.next();
         String nom = arg.next();
         String cg1 = arg.next();
         String cg2 = arg.next();
         int sou = 0;
         int telf = 0;
 
-        valid = false;
+        boolean valid = false;
         while(!valid) {
             try {
                 sou = arg.nextInt();
@@ -261,12 +252,28 @@ public class DriverCtrlPlantilla {
                 telf = arg.nextInt();
                 valid = true;
             } catch (Exception e){
-                System.out.println("Telf ha de ser un enter");
+                System.out.println("Telefon ha de ser un enter");
                 arg.next();
                 continue;
             }
         }
         String correu = arg.next();
+
+
+        /*
+        Comprovem si existeix doctor amb aquest DNI
+         */
+        if (CtrlHospital.existeixDoctor(dni)){
+            valid = false;
+        }
+
+        while(!valid){
+            missatgeErrorDni();
+            dni = arg.next();
+            if(!CtrlHospital.existeixDoctor(dni)) valid = true;
+        }
+
+
         CtrlHospital.creariAfegirDoctor(dni, nom, cg1, cg2, sou, telf, correu);
 
     }
@@ -274,16 +281,16 @@ public class DriverCtrlPlantilla {
     public static void casEliminaDoctor(){
         String dni = arg.next();
 
-        int pos = CtrlHospital.existeixDoctor(dni);
-        if (pos != -1){
-            CtrlHospital.eliminarDoctor(pos);
+        if(CtrlHospital.existeixDoctor(dni)){
+            CtrlHospital.eliminarDoctor(dni);
         }
+        else
+            System.out.println("No existeix cap doctor amb aquest DNI.");
     }
 
     public static void casExisteixDoctor(){
         String dni = arg.next();
-        int pos = CtrlHospital.existeixDoctor(dni);
-        if (pos != -1)
+        if(CtrlHospital.existeixDoctor(dni))
             System.out.println("true");
         else
             System.out.println("false");
@@ -291,47 +298,43 @@ public class DriverCtrlPlantilla {
 
     public static void casConsultaDoctor(){
         String dni = arg.next();
-        int pos = CtrlHospital.existeixDoctor(dni);
-        if (pos != -1){
-            Doctor doc = CtrlHospital.getDoctor(pos);
+        if (CtrlHospital.existeixDoctor(dni)){
+            Doctor doc = CtrlHospital.getDoctor(dni);
             System.out.println("dni: "+doc.getdni());
             System.out.println("nom i cognoms: "+doc.getNom()+" "+doc.getCognom1()+" "+doc.getCognom2());
             System.out.println("sou: "+doc.getSou());
             System.out.println("Telefon: "+doc.getTelefon());
             System.out.println("Correu: "+doc.getCorreu());
         }
-        else {
-            System.out.println("El doctor amb dni "+dni+" no existeix.");
-        }
+        else
+            System.out.println("No existeix cap doctor amb aquest DNI.");
     }
 
     public static void casLlistatDoctors(){
-        Doctor doc;
-        for (int i = 0; i < CtrlHospital.numDocs(); ++i){
-            doc = CtrlHospital.getDoctor(i);
-            System.out.println("\n\n");
-            System.out.println("Doctor num.: "+ i);
-            System.out.println("dni: "+doc.getdni());
-            System.out.println("nom i cognoms: "+doc.getNom()+" "+doc.getCognom1()+" "+doc.getCognom2());
-            System.out.println("sou: "+doc.getSou());
-            System.out.println("Telefon: "+doc.getTelefon());
-            System.out.println("Correu: "+doc.getCorreu());
+        TreeSet<Doctor> ll = CtrlHospital.getHospital_nom();
+        for(Doctor doc:ll) {
+            System.out.println("\n");
+            System.out.println("DNI: " + doc.getdni());
+            System.out.println("nom i cognoms: " + doc.getNom() + " " + doc.getCognom1() + " " + doc.getCognom2());
+            System.out.println("sou: " + doc.getSou());
+            System.out.println("Telefon: " + doc.getTelefon());
+            System.out.println("Correu: " + doc.getCorreu());
         }
     }
 
     public static void casConsultarLlistatPlantilles(){
-        for (int i = 0; i < CtrlPlantilla.num_plantilles(); ++i){
-            System.out.println(CtrlPlantilla.consultarPlantilla(i).getNomPlantilla());
-        }
+        TreeSet<Plantilla> Cjt = CtrlPlantilla.getCjt_plantilles();
+        for(Plantilla p:Cjt)
+            System.out.println(p.getNomPlantilla());
     }
 
     public static void casEscollirPlantillaActual(){
         String nom_p = arg.next();
-        int pos = CtrlPlantilla.existeixPlantilla(nom_p);
-        if (pos != -1)
-            CtrlPlantilla.setPlantillaActual(pos);
+        if(CtrlPlantilla.existeixPlantilla(nom_p)){
+            CtrlPlantilla.setPlantillaActual(nom_p);
+        }
         else
-            System.out.println("No existeix cap plantilla amb nom "+nom_p);
+            System.out.println("No existeix cap plantilla amb nom "+nom_p+".");
     }
 
     public static void casConsultarPlantillaActual(){

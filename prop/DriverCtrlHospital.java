@@ -26,9 +26,10 @@ public class DriverCtrlHospital {
                     case 3: casExisteixDoctor(); break;
                     case 4: casConsultaDoctor(); break;
                     case 5: casLlistatDoctors(); break;
+                    case 6: casNumDoctors(); break;
                     case 0: sortir = true; break;
                     default:
-                        System.out.println("El numero ha d'estar entre 0 i 5.");
+                        System.out.println("El numero ha d'estar entre 0 i 6.");
                         break;
                 }
 
@@ -44,6 +45,7 @@ public class DriverCtrlHospital {
         System.out.println("3.- Existeix Doctor(dni: String)");
         System.out.println("4.- Consultar Doctor(dni: String)");
         System.out.println("5.- Consultar llistat doctors()");
+        System.out.println("6.- Consultar num. doctors()");
         System.out.println("0.- Exit");
         System.out.print(">> ");
     }
@@ -61,9 +63,6 @@ public class DriverCtrlHospital {
 
     }
     public static void casCreaDoctor(){
-
-        boolean valid = false;
-
         String dni = arg.next();
         String nom = arg.next();
         String cg1 = arg.next();
@@ -71,7 +70,7 @@ public class DriverCtrlHospital {
         int sou = 0;
         int telf = 0;
 
-        valid = false;
+        boolean valid = false;
         while(!valid) {
             try {
                 sou = arg.nextInt();
@@ -156,6 +155,10 @@ public class DriverCtrlHospital {
             System.out.println("Telefon: " + doc.getTelefon());
             System.out.println("Correu: " + doc.getCorreu());
         }
+    }
+
+    public static void casNumDoctors(){
+        System.out.println("L'hospital té "+CtrlHospital.numDocs()+" doctors");
     }
 
 
