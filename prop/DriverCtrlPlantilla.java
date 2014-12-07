@@ -1,6 +1,5 @@
 package prop;
 
-import sun.reflect.generics.tree.Tree;
 
 import java.util.Scanner;
 import java.util.TreeSet;
@@ -338,7 +337,9 @@ public class DriverCtrlPlantilla {
     }
 
     public static void casConsultarPlantillaActual(){
+        if (CtrlPlantilla.getPlantillaActual() != null)
             System.out.println(CtrlPlantilla.getPlantillaActual().getNomPlantilla());
+        else System.out.println("Ara mateix no tenim cap plantilla seleccionada.");
     }
 
 }
