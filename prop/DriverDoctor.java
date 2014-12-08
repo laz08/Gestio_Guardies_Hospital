@@ -13,9 +13,7 @@ public class DriverDoctor {
 
     public static void main(String[] args){
 
-
         int cas;
-
         boolean sortir = false;
         escriuMenu();
 
