@@ -27,6 +27,8 @@ public class DriverCtrlHospital {
                     case 4: casConsultaDoctor(); break;
                     case 5: casLlistatDoctors(); break;
                     case 6: casNumDoctors(); break;
+                    case 7: casGuardarDoctors(); break;
+                    case 8: casCarregarDoctors(); break;
                     case 0: sortir = true; break;
                     default:
                         System.out.println("El numero ha d'estar entre 0 i 6.");
@@ -46,6 +48,8 @@ public class DriverCtrlHospital {
         System.out.println("4.- Consultar Doctor(dni: String)");
         System.out.println("5.- Consultar llistat doctors()");
         System.out.println("6.- Consultar num. doctors()");
+        System.out.println("7.- Guardar doctors per dni");
+        System.out.println("8.- Carregar doctors per dni");
         System.out.println("0.- Exit");
         System.out.print(">> ");
     }
@@ -146,7 +150,7 @@ public class DriverCtrlHospital {
     }
 
     public static void casLlistatDoctors(){
-         TreeSet<Doctor> ll = CtrlHospital.getHospital_nom();
+        TreeSet<Doctor> ll = CtrlHospital.getHospital_nom();
         for(Doctor doc:ll) {
             System.out.println("\n");
             System.out.println("DNI: " + doc.getdni());
@@ -159,6 +163,14 @@ public class DriverCtrlHospital {
 
     public static void casNumDoctors(){
         System.out.println("L'hospital té "+CtrlHospital.numDocs()+" doctors");
+    }
+
+    public static void casGuardarDoctors() {
+        CtrlHospital.guardar();
+    }
+
+    public static void casCarregarDoctors() {
+        CtrlHospital.carregar();
     }
 
 

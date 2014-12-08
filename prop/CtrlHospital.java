@@ -1,7 +1,7 @@
 
 package prop;
 
-import java.util.TreeSet;
+import java.util.*;
 
 public class CtrlHospital {
 
@@ -166,6 +166,27 @@ public class CtrlHospital {
 
     public static boolean consultarActivitat(Doctor doc){
         return doc.isActiu();
+    }	
+
+    public static void guardar() {
+    	String content = "";
+    	int cont = 0; 
+    	TreeSet<Doctor> ll = CtrlHospital.getHospital_dni();
+    	for (Doctor doc:ll) {
+    		content = content + doc.getdni() + " " + doc.getNom() + " " + doc.getCognom1() + " "
+    				+ doc.getCognom2() + " " + doc.getSou() + " " + doc.getTelefon() + " " + doc.getCorreu() + "\n";
+    		++cont;
+    	}
+    	CtrlPersistencia.guardar(content, "hospital_dni");
+    }
+
+    public static void carregar() {
+    	String content = CtrlPersistencia.carregar("hospital_dni");
+    	String separadors = "[ \n]";
+    	String[] separat = content.split(separadors);
+    	for (int i = 0; i < separat.length; i += 7) {
+    		creariAfegirDoctor(separat[i],separat[i+1],separat[i+2],separat[i+3],Integer.parseInt(separat[i+4]), Integer.parseInt(separat[i+5]), separat[i+6]);
+    	}
     }
 
 }

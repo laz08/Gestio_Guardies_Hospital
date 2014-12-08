@@ -6,7 +6,7 @@ package prop;
 
 import java.util.ArrayList;
 
-public class Doc_Res {
+public class Doc_Res throws Error{
 
     private static ArrayList<ArrayList<String>> assig = new ArrayList<ArrayList<String>>();
 
