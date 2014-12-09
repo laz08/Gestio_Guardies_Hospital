@@ -9,7 +9,7 @@ public class Plantilla {
     //private ArrayList<Doctor> P;
     private TreeSet<Doctor> P_nom;
     private TreeSet<Doctor> P_dni;
-    private int id_calendari_asoc;
+    private Calendari C;
 
 
     /**
@@ -21,7 +21,7 @@ public class Plantilla {
         nom_p = nom;
         P_nom = new TreeSet<Doctor>(new compNom());
         P_dni = new TreeSet<Doctor>(new compDni());
-        id_calendari_asoc = -1;     //-1 indica que no té cap calendari associat
+        C = null;
     }
 
     /**
@@ -52,18 +52,18 @@ public class Plantilla {
 
     /**
      * Assigna l'identificador del calendari associat a la plantilla
-     * @param idC
+     * @param calendari_asoc
      */
-    public void setId_calendari_asoc(int idC){
-        id_calendari_asoc = idC;
+    public void set_calendari_asoc(Calendari calendari_asoc){
+      C = calendari_asoc;
     }
 
     /**
      * Retorna l'identificador del calendari associat a la plantilla
      * @return id_calendari_asoc
      */
-    public int getId_calendari_asoc(){
-        return id_calendari_asoc;
+    public Calendari get_calendari_asoc(){
+        return C;
     }
 
 
