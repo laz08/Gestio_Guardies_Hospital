@@ -22,7 +22,6 @@ public class CtrlPersistencia {
 			FileWriter fw = new FileWriter(file.getAbsoluteFile());
 			BufferedWriter bw = new BufferedWriter(fw);
 			bw.write(content);
-			System.out.println("Fet");
 			bw.close();
 		}
 
@@ -44,7 +43,6 @@ public class CtrlPersistencia {
 				total += line + " ";
 			}
 			total += "\n";
- 			System.out.println(total);
 		} catch (IOException e) {
 			e.printStackTrace();
 		} finally {
