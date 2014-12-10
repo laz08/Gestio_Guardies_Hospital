@@ -170,7 +170,7 @@ public class DriverCtrlRestriccio {
         Dia[] any = c.getCalendari();
         for (int i = 1; i <= any.length; i++) {
             for(int e=0; e<3; e++){
-                Torn t = new Torn(0+i*8, 8+i*8-1, 10, 2);
+                Torn t = new Torn(0+e*8, 8+e*8-1, 10, 2);
                 any[i].setTornConcret(t,e);
             }
         }

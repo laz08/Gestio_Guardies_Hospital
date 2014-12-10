@@ -24,23 +24,21 @@ public class DriverCtrlEntrada {
         CtrlPlantilla.creariAfegirPlantilla("Prova");
         CtrlPlantilla.setPlantillaActual("Prova");
 
+        Calendari c = new Calendari("Prova",1000, 1001);
+        CtrlPlantilla.consultarPlantilla("Prova").set_calendari_asoc(c);
         //Cream un conjunt de doctors de prova i els afagim a la plantilla
         for (int i = 0; i < 4; i++) {
             CtrlHospital.creariAfegirDoctor(i + "", "Doc" + i, "...", "...", 0, 0, "prova");
             CtrlPlantilla.afegirDoctorAPlantilla(i + "", "Prova");
         }
 
-        ArrayList<Torn> lt = new ArrayList<Torn>();
-        for (int i = 1; i <= 5; i++) {
-            GregorianCalendar d_i = new GregorianCalendar(1000, 0, i, 00, 00);
-            GregorianCalendar d_f = new GregorianCalendar(1000, 0, i, 23, 59);
-            ArrayList<String> ldoc = new ArrayList<String>();
-            Torn t = new Torn(d_i, d_f, 1, ldoc, 10);
-            lt.add(t);
+        Dia[] any = c.getCalendari();
+        for (int i = 0; i < 5; i++) {
+            for(int e=0; e<3; e++){
+                Torn t = new Torn(0+e*8, 8+e*8-1, 10, 2);
+                any[i].setTornConcret(t, e);
+            }
         }
-
-        Calendari clnd = new Calendari(1, "Prova", lt);
-        CtrlCalendari.afegir_calendari(clnd);
 
         CtrlRestriccio.nova_res("D NOT(1-0)");
         CtrlRestriccio.nova_res("D (NOP(2-0))XOR((3-0)AND(4-0))");
