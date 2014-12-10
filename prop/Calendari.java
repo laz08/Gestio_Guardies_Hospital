@@ -20,7 +20,7 @@ public class Calendari {
 		GregorianCalendar diaf = new GregorianCalendar(any_fi+1,0,0);
 		long dies = diaf.getTimeInMillis() - dia.getTimeInMillis();
 		dies = dies/1000/60/60/24;
-		cal = Dia[(int) dies];
+		cal = new Dia[(int) dies];
 		setPlantillaAssociada(plt);
 		id = Integer.parseInt(plt);
 	}
@@ -38,7 +38,8 @@ public class Calendari {
 	}
 	
 	public void setPlantillaAssociada(String nom) {
-		p = CtrlPlantilla.getPlantillaNom(nom);
+		//p = CtrlPlantilla.getPlantillaNom(nom);
+		p =  CtrlPlantilla.consultarPlantilla(nom);
 	}
 	
 	public String getPlantillaAssociada() {

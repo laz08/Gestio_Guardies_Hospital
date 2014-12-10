@@ -105,6 +105,12 @@ public class CtrlPlantilla {
             return p.getLlistaDoctorsDNI().contains(new Doctor(dni));
     }
 
+    public static void crearCalendariAssociataPlantillaActual(){
+        // !!!!!!!!!! ================= !!!!!!!!!!!!!!!!!!!!!
+        Calendari C = CtrlCalendari.CrearIAfegirCalendari(); //Hauria de retornar punter a aquest Calendari
+        CtrlPlantilla.getPlantillaActual().set_calendari_asoc(C);
+    }
+
 
 
 }
