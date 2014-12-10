@@ -6,6 +6,7 @@ package prop;
 
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
+import java.util.Iterator;
 
 public class DriverCtrlEntrada {
 
@@ -21,8 +22,7 @@ public class DriverCtrlEntrada {
     private static void prepara_prova() throws Error {
         //Cream una plantilla de prova
         CtrlPlantilla.creariAfegirPlantilla("Prova");
-        int plantilla = CtrlPlantilla.existeixPlantilla("Prova");
-        CtrlPlantilla.setPlantillaActual(plantilla);
+        CtrlPlantilla.setPlantillaActual("Prova");
 
         //Cream un conjunt de doctors de prova i els afagim a la plantilla
         for (int i = 0; i < 4; i++) {
@@ -47,11 +47,14 @@ public class DriverCtrlEntrada {
         ArrayList<Restriccio> llista_res = CtrlRestriccio.consulta_llista_res();
 
         Plantilla p = CtrlPlantilla.getPlantillaActual();
-        ArrayList<Doctor> llista_doc = p.getLlistaDoctors();
-        if (llista_doc.size() > 0) {
-            Doctor d = llista_doc.get(0);
+        Iterator<Doctor> it_doc= p.getLlistaDoctorsDNI().iterator();
+        // afagim la restriccio al primer i darrer doctor
+        if(it_doc.hasNext()){
+            Doctor d = it_doc.next();
             d.afegir_res(llista_res.get(0));
-            d = llista_doc.get(llista_doc.size() - 1);
+            while(it_doc.hasNext()){
+                d = it_doc.next();
+            }
             d.afegir_res(llista_res.get(1));
         }
     }

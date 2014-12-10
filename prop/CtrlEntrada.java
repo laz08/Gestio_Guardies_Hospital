@@ -7,6 +7,7 @@ package prop;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.Iterator;
 
 public class CtrlEntrada {
 
@@ -29,9 +30,9 @@ public class CtrlEntrada {
     }
 
     private static void posaVertexDoctor(Graf g, Plantilla p) throws Error {
-        int ndoctors = p.getLlistaDoctors().size();
-        for (int i = 0; i < ndoctors; i++) { // cream nodes de tipus doctor i els afagim al graf
-            Doctor d = p.getLlistaDoctors().get(i);
+        Iterator<Doctor> it = p.getLlistaDoctorsDNI().iterator();
+        while(it.hasNext()) { // cream nodes de tipus doctor i els afagim al graf
+            Doctor d = it.next();
             Vertex v = new Vertex(d.getdni(), Vertex.DOCTOR);
             Vertex font = g.getVertex("FONT", Vertex.FONT_POU);
             g.afegirVertex(v);
@@ -40,8 +41,8 @@ public class CtrlEntrada {
     }
 
     private static void posaVertexTorn(Graf g) throws Error {
-        String nomp = CtrlPlantilla.getidPlantillaActual();
-        ArrayList<Torn> llistaTorns = CtrlCalendari.consultar_calendari(nomp).getTorns();
+        Plantilla plantilla = CtrlPlantilla.getPlantillaActual();
+        ArrayList<Torn> llistaTorns = plantilla.get_calendari_asoc().getTorns();
         int ntorns = llistaTorns.size();
         for (int i = 0; i < ntorns; i++) { // cream nodes de tipus torn i els afagim al graf
             Torn t = llistaTorns.get(i);
@@ -110,7 +111,8 @@ public class CtrlEntrada {
         Vertex pou = graf.getVertex("POU", Vertex.FONT_POU);
         Vertex font = graf.getVertex("FONT", Vertex.FONT_POU);
         Plantilla p = CtrlPlantilla.getPlantillaActual();
-        ArrayList<Doctor> llista_doc = p.getLlistaDoctors();
+        //ArrayList<Doctor> llista_doc = p.getLlistaDoctors();
+        Iterator<Doctor> it_doc = p.getLlistaDoctorsDNI().iterator();
         ArrayList<Torn> llistaTorns = CtrlCalendari.consultar_calendari(p.getNomPlantilla()).getTorns();
         for (int i = 0; i < graf.numV(); i++) {
             Vertex v = graf.getVertex(i);
@@ -131,8 +133,9 @@ public class CtrlEntrada {
                 graf.afegirAresta(pou, v, capacitat, 0);
             } else if (v.getClasse() == Vertex.MAX) {
                 ArrayList<String> doc_rel = v.getDoctorsRel();
-                for (int e = 0; e < llista_doc.size(); e++) {
-                    if (doc_rel.contains(llista_doc.get(e).getdni())) {
+                while(it_doc.hasNext()){
+                    Doctor doc = it_doc.next();
+                    if (doc_rel.contains(doc.getdni())) {
                         ArrayList<Integer> a = v.getArestes();
                         for (int it = 0; it < a.size(); it++) {
                             int posAresta = a.get(it);
@@ -143,16 +146,16 @@ public class CtrlEntrada {
                                 vRelacionat = graf.getVertex(aresta.getw());
                             }
                             //comprovam que es la aresta de cercam
-                            if (vRelacionat.getDoctorsRel().contains(llista_doc.get(e).getdni())) {
+                            if (vRelacionat.getDoctorsRel().contains(doc.getdni())) {
                                 if (aresta.getflow() > 0) {
                                     graf.eliminaAresta(posAresta);
-                                    v.rmDoctorRel(llista_doc.get(e).getdni());
+                                    v.rmDoctorRel(doc.getdni());
                                 }
                             }
                         }
                     } else {
-                        v.addDoctorRel(llista_doc.get(e).getdni());
-                        String dni = llista_doc.get(e).getdni();
+                        v.addDoctorRel(doc.getdni());
+                        String dni = doc.getdni();
                         graf.afegirAresta(v, graf.getVertex(dni, Vertex.DOCTOR), 1, 0);
                     }
                 }
@@ -318,8 +321,9 @@ public class CtrlEntrada {
 
     private static ArrayList<Vertex> consulta_torns_afectats(String t, String tipus_r, Graf g) throws Error {
         ArrayList<Vertex> v_torns = new ArrayList<Vertex>();
-        String nomp = CtrlPlantilla.getidPlantillaActual();
-        ArrayList<Torn> llistaTorns = CtrlCalendari.consultar_calendari(nomp).getTorns();
+        Plantilla plantilla = CtrlPlantilla.getPlantillaActual();
+        //String nomp = plantilla.getNomPlantilla();
+        ArrayList<Torn> llistaTorns = plantilla.get_calendari_asoc().getTorns();
         switch (tipus_r) {
             case "D":
                 String[] data = t.split("-");// separa per -
@@ -327,6 +331,7 @@ public class CtrlEntrada {
                 int mes = Integer.parseInt(data[1]);
                 for (int i = 0; i < llistaTorns.size(); i++) {
                     Torn torn = llistaTorns.get(i);
+                    // Agafar dia de calendari i la hora de torn ;)
                     GregorianCalendar d_i = torn.getData_inici();
                     GregorianCalendar d_f = torn.getData_fi();
                     if (d_i.get(Calendar.MONTH) <= mes && d_f.get(Calendar.MONTH) >= mes
