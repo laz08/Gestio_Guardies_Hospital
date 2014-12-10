@@ -45,7 +45,7 @@ public class Graf {
             while (e < arestes.size() && !trobat){
                 int numA = arestes.get(e);
                 if(numA == pos){
-                    v.emimina_aresta(e);
+                    v.elimina_aresta(e);
                     trobat = true;
                 }
                 e++;

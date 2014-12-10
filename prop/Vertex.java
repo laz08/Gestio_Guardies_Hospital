@@ -33,7 +33,7 @@ public class Vertex {
         return arestes; 
     }
     
-    public void emimina_aresta(int aresta){
+    public void elimina_aresta(int aresta){
         arestes.remove(aresta);
     }
     

@@ -4,7 +4,7 @@ import java.util.*;
 
 public class FordFulkersonAdaptat extends Algorisme {
 	Graf G;
-	Vertex[] cami;
+	int[] cami;
 	int INF = Integer.MAX_VALUE;
 
 	public FordFulkersonAdaptat(Graf GG) {
