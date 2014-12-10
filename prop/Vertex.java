@@ -6,7 +6,6 @@ public class Vertex {
     private String id;
     private int classe;
     public static final int DOCTOR = 0, RESTRICCIO = 1, TORN = 2, FONT_POU=3, MAX = 4;
-    private int capacitat_acumulada = 0; // capacitat total que ha d'entrar al vertex
     private ArrayList<Integer> arestes;
     private ArrayList<String> doctors_rel = new ArrayList<String>();
     
@@ -39,14 +38,6 @@ public class Vertex {
     
     public String getId(){
         return id;
-    }
-    
-    public void setCapacitatAcumulada(int ca){
-        capacitat_acumulada = ca;
-    }
- 
-    public int getCapacitatAcumulada(){
-        return capacitat_acumulada;
     }
     
     public int getNumDocRelacionats(){

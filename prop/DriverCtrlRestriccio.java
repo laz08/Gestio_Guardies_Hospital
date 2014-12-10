@@ -113,34 +113,21 @@ public class DriverCtrlRestriccio {
 
     private static void mostra_llista_torns(String tipus) {
         Plantilla plt = CtrlPlantilla.getPlantillaActual();
-        Calendari c = CtrlCalendari.consultar_calendari(plt.getNomPlantilla());
-        ArrayList<Torn> torns = c.getTorns();
-        if (torns.isEmpty()) {
-            System.out.println("No hi ha torns creats a la plantilla actual");
-        } else {
+        Calendari c = plt.get_calendari_asoc();
+        //ArrayList<Torn> torns = c.getTorns();
+        Dia[] any = c.getCalendari();
             System.out.println("Per seleccionar un torn, introdueix la seva posició de la llista dins l'expressió\n");
             switch (tipus) {
                 case "D":
                     System.out.println("ATENCIÓ heu seleccionat elecció de torns per dia d'inici, es possible"
                             + " que un torn comenci un dia i acabi un altre.");
-                    for (int i = 0; i < torns.size(); i++) {
-                        int d_i = torns.get(i).getData_inici().get(Calendar.DAY_OF_YEAR);
-                        int d_f = torns.get(i).getData_fi().get(Calendar.DAY_OF_YEAR);
-
-                        System.out.println("-------------DIA " + d_i + "-------------");
-                        System.out.println("desde " + torns.get(i).getData_inici().getTime());
-                        if (d_i == d_f) {
-                            int d_i2 = d_f;
-                            int seguent = i;
-                            while (d_i == d_i2 && seguent+1 < torns.size()) {
-                                seguent++;
-                                i = seguent - 1;
-                                d_i2 = torns.get(seguent).getData_inici().get((Calendar.DAY_OF_YEAR));
+                    for (int i = 0; i < any.length; i++) {
+                        System.out.println("-------------DIA " + i + "-------------");
+                        for(int e = 0; e<3; e++){
+                            Torn torn = any[i].getTorn_concret(e);
+                            if(torn != null){
+                                System.out.println("Torn de "+torn.getHora_inici()+"h fins "+torn.getHora_fi());
                             }
-                            if (d_i == d_i2) {
-                                i = seguent;
-                            }
-                            System.out.println("fins " + torns.get(i).getData_fi().getTime());
                         }
                     }
                     break;
@@ -150,35 +137,13 @@ public class DriverCtrlRestriccio {
                     System.out.println("Les hores venen determinades per valors unicament numerics de 00 a 23");
                     break;
                 case "S":
-                    System.out.println("ATENCIÓ heu seleccionat elecció de torns per setmana d'inici, es possible"
-                            + " que un torn comenci una setmana i acabi una altra.");
-                    for (int i = 0; i < torns.size(); i++) {
-                        int s_i = torns.get(i).getData_inici().get(Calendar.WEEK_OF_YEAR);
-                        int s_f = torns.get(i).getData_fi().get(Calendar.WEEK_OF_YEAR);
-
-                        System.out.println("-------------SETMANA " + s_i + "-------------");
-                        System.out.println("desde " + torns.get(i).getData_inici().getTime());
-                        if (s_i == s_f) {
-                            int s_i2 = s_f;
-                            int seguent = i;
-                            while (s_i == s_i2 && seguent + 1 < torns.size()) {
-                                seguent++;
-                                i = seguent - 1;
-                                s_i2 = torns.get(seguent).getData_inici().get((Calendar.WEEK_OF_YEAR));
-                            }
-                            if (s_i == s_i2) {
-                                i = seguent;
-                            }
-                        }
-                        System.out.println("fins " + torns.get(i).getData_fi().getTime());
-                    }
-                    break;
+                    System.out.println("ATENCIÓ heu seleccionat elecció de torns per setmana");
+                    System.out.println("Les setmanes disponibles van de 1 a 53");
 
                 default:
                     System.out.println("NO ES RECONEIX EL TIPUS DE RESTRICCIÓ");
             }
         }
-    }
 
     private static void llista_seleccio_restriccions() {
         ArrayList<Restriccio> llista_r = CtrlRestriccio.consulta_llista_res();
@@ -192,25 +157,22 @@ public class DriverCtrlRestriccio {
     private static void prepara_plantilla_prova() {
         //Cream una plantilla de prova
         CtrlPlantilla.creariAfegirPlantilla("Prova_Driver_Restriccions");
-        int plantilla = CtrlPlantilla.existeixPlantilla("Prova_Driver_Restriccions");
-        CtrlPlantilla.setPlantillaActual(plantilla);
+        CtrlPlantilla.setPlantillaActual("Prova_Driver_Restriccions");
 
         //Cream un conjunt de doctors de prova i els afagim a la plantilla
         for (int i = 0; i < 10; i++) {
             CtrlHospital.creariAfegirDoctor(i + "", "Doc" + i, "...", "...", 0, 0, "prova");
             CtrlPlantilla.afegirDoctorAPlantilla(i + "", "Prova_Driver_Restriccions");
         }
-
-        ArrayList<Torn> lt = new ArrayList<Torn>();
-        for (int i = 1; i <= 4; i++) {
-            GregorianCalendar d_i = new GregorianCalendar(1000, 0, i, 00, 00);
-            GregorianCalendar d_f = new GregorianCalendar(1000, 0, i, 23, 59);
-            ArrayList<String> ldoc = new ArrayList<String>();
-            Torn t = new Torn(d_i, d_f, 1, ldoc, 10);
-            lt.add(t);
+        
+        Calendari c = new Calendari("Prova_Driver_Restriccions", 1000, 1001);
+        CtrlPlantilla.getPlantillaActual().set_calendari_asoc(c);
+        Dia[] any = c.getCalendari();
+        for (int i = 1; i <= any.length; i++) {
+            for(int e=0; e<3; e++){
+                Torn t = new Torn(0+i*8, 8+i*8-1, 10, 2);
+                any[i].setTornConcret(t,e);
+            }
         }
-
-        Calendari clnd = new Calendari(1, "Prova_Driver_Restriccions", lt);
-        CtrlCalendari.afegir_calendari(clnd);
     }
 }

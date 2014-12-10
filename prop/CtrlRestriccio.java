@@ -13,7 +13,7 @@ public class CtrlRestriccio {
 
     public static void nova_res(String expressio){
         Plantilla plt = CtrlPlantilla.getPlantillaActual();
-        Calendari cldr = CtrlCalendari.consultar_calendari(plt.getNomPlantilla());
+        Calendari cldr = plt.get_calendari_asoc();
         String tipus_torn = expressio.substring(0,1);
         //expressio = transforma_expressio(tipus_torn, expressio, cldr);
         Restriccio r = crea_arbre(expressio);
