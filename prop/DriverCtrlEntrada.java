@@ -36,7 +36,8 @@ public class DriverCtrlEntrada {
         for (int i = 0; i < 5; i++) {
             for(int e=0; e<3; e++){
                 Torn t = new Torn(0+e*8, 8+e*8-1, 10, 2);
-                any[i].setTornConcret(t, e);
+                Dia d = any[i];
+                if(d!=null) d.setTornConcret(t, e);
             }
         }
 

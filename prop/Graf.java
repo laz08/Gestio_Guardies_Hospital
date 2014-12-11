@@ -247,7 +247,8 @@ public class Graf {
                         break;
                 }
                 int cap = a.getcap();
-                System.out.println(idv+" ------ "+cap+" ------ "+idw);
+                int flow = a.getflow();
+                System.out.println(idv+" ------ "+"c:"+cap+" f:"+flow+" ------ "+idw);
             }
     }
 }
