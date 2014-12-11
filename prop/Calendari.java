@@ -42,6 +42,10 @@ public class Calendari {
 		p =  CtrlPlantilla.consultarPlantilla(nom);
 	}
 	
+	public int getId() {
+		return id;
+	}
+	
 	public String getPlantillaAssociada() {
 		return p.getNomPlantilla();
 	}
