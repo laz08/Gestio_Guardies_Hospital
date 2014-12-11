@@ -17,12 +17,12 @@ public class Doctor {
         dni = d;
     }
 
-    public void afegir_res(Restriccio r){
+    public void afegir_res(Restriccio r) throws Error{
         int pos = CtrlRestriccio.consulta_pos(r);
         if (pos != -1) Doc_Res.relaciona(dni, pos);
      }
     
-    public void eliminar_res(Restriccio r){
+    public void eliminar_res(Restriccio r) throws Error{
         int pos = CtrlRestriccio.consulta_pos(r);
         if (pos != -1) Doc_Res.elimina(dni, pos);
     }
