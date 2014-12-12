@@ -27,6 +27,12 @@ public class Calendari {
 	}
 	
 	//Pre: -
+	//Post: Retorna l'any d'inici del calendari
+	public int getAny() {
+		return any;
+	}
+	
+	//Pre: -
 	//Post: Retornem el calendari en el que ens trobem
 	public Dia[] getCalendari() {
 		return cal;
@@ -51,6 +57,7 @@ public class Calendari {
 		p =  CtrlPlantilla.consultarPlantilla(nom);
 	}
 	
+	/*
 	//Pre: -
 	//Post: Borrem tota la informació del calendari
 	public void borrar() {
@@ -62,40 +69,50 @@ public class Calendari {
 
 	//--------FUNCIONS PER DIES--------
 	
+	//Pre: dia pertany al calendari 
+	//Post: Retorna tota la informació del dia que ens passen
 	public Dia consultarDiaConcret(GregorianCalendar dia) {
 		int i = calcularPosicioDia(dia);
 		return cal[i];
 	}
 	
+	//Pre: dia pertany al calendari
+	//Post: borrem tota la informació que tenim a dia
 	public void borrarDiaConcret(GregorianCalendar dia) {
 		int i = calcularPosicioDia(dia);
 		cal[i].borrar();
 	}
 	
 	//--------FUNCIONS PER TORNS CONCRETS------
+	//Pre: dia pertany a calendari
+	//Post: afegeix el torn al dia 
 	public void afegirTornDia(Torn t, GregorianCalendar dia) {
 		int posicio = calcularPosicioDia(dia);
 		cal[posicio].setTorn(t);
 	}
 	
+	//Pre: dia pertany al calendari i tipus es un enter entre 0 i 2
+	//Post: borrem el torn del dia en concret
 	public void eliminarTornDia(int tipus, GregorianCalendar dia) {
 		int posicio = calcularPosicioDia(dia);
 		cal[posicio].borrarTorn(tipus);
 	}
 	
+	//Pre: dia pertany al calendari i tipus es un enter entre 0 i 2
+	//Post: retorna el torn que volem del dia en concret
 	public Torn consultarTornDia(int tipus, GregorianCalendar dia) {
 		int posicio = calcularPosicioDia(dia);
 		return cal[posicio].getTorn_concret(tipus);
 	}
 	
+	//Pre: dia pertany al calendari
+	//Post: modificar el torn del dia concret
 	public void modificarTornDia(Torn t, GregorianCalendar dia) {
 		int posicio = calcularPosicioDia(dia);
 		cal[posicio].setTorn(t);
 	}
-	
-	/**public void setIdentificador(int ident) {
-		id = ident;
-	}*/
+	*/
+
 	
 
 
@@ -137,5 +154,6 @@ public class Calendari {
 		primerdia.add(Calendar.DAY_OF_YEAR,i);
 		return primerdia;		
 	}
+	
 	
 }
