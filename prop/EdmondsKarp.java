@@ -4,10 +4,7 @@
  */
 package prop;
 
-import java.util.AbstractQueue;
 import java.util.ArrayList;
-import java.util.Queue;
-import static prop.Algorisme.graf;
 
 /**
  *
@@ -15,7 +12,7 @@ import static prop.Algorisme.graf;
  */
 public class EdmondsKarp extends Algorisme {
     private static ArrayList<Vertex> cua;
-    // L'algorisme de Ford-Fulkerson no es mes que un recorregut en amplada per trobar tots els possibles
+    // L'algorisme de Edmond's Karp no es mes que un recorregut en amplada per trobar tots els possibles
     // camins dins un graf, per tant, fem el recorregut en amplada pero no ens aturarem en trobar un cami
     // que arribi al vertex POU, sino que seguirem comprovant els altres possibles.
     // De manera que quan es troba el POU es fara un recorregut invers (cami que trobaria l'algorisme) 

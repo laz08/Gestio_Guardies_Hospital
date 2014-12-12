@@ -1,13 +1,15 @@
 package prop;
 
 import java.util.*;
+import java.math.*;
+import java.io.*;
 
-public class FordFulkersonAdaptat extends Algorisme {
+public class FordFulkersonBackUp extends Algorisme {
 	Graf G;
 	int[] cami;
 	int INF = Integer.MAX_VALUE;
-
-	public FordFulkersonAdaptat(Graf GG) {
+	
+	public FordFulkersonBackUp(Graf GG) {
 		G = GG;
 	}
 	
@@ -61,7 +63,45 @@ public class FordFulkersonAdaptat extends Algorisme {
 			int increment = augment(s, t);
 			flow += increment;
 			actualitzar(s, t, increment);
+			/*
+			ArrayList<Integer> c = way(s, t);
+			System.out.println(c.size());
+			for(int i = 0; i < c.size(); ++i) {
+				System.out.println(c.get(i));
+			}
+			*/
+			
+
 		}
 		return flow;
 	}
+	/*
+	public int[] MinCut(int s, int t) {
+		maxFlow(s, t);
+		Queue<Integer> sol = new LinkedList<Integer>();
+		int total = 0;
+		
+		int m = G.getNumA();
+		
+		for (int i = 0; i < m; ++i) {
+			Aresta a = G.getA(i);
+			int u = a.getcap();
+			int v = a.getw();
+			if (cami[u] != - 1 && cami[v] == -1) {
+				++total;
+				sol.add(i);
+			}
+		}
+		
+		int[] ans = new int[2*total];
+		
+		for (int i = 0; i < 2*total; i += 2) {
+			int e = (Integer) sol.remove();
+			ans[i] = G.getA(e).getv();
+			ans[i + 1] = G.getA(e).getw();
+		}
+
+		return ans;
+	}
+	*/
 }
