@@ -16,7 +16,13 @@ public class DriverCtrlEntrada {
         prepara_prova();
         graf = CtrlEntrada.crea_graf();
         graf.mostra_graf();
-        System.out.println("---------------------------------");
+        System.out.println("---------------------------------\n");
+        /// PROVA DE ALGORISME 
+        System.out.println("-----------POSAM FLOW------------");
+        Algorisme algo = new EdmondsKarp();
+        algo.setGraf(graf);
+        algo.maxFlow();
+        graf.mostra_graf();
     }
 
     private static void prepara_prova() throws Error {
@@ -33,7 +39,7 @@ public class DriverCtrlEntrada {
         }
 
         Dia[] any = c.getCalendari();
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 2; i++) {
             for(int e=0; e<3; e++){
                 Torn t = new Torn(0+e*8, 8+e*8-1, 10, 2);
                 Dia d = any[i];
@@ -41,8 +47,8 @@ public class DriverCtrlEntrada {
             }
         }
 
-        CtrlRestriccio.nova_res("D NOT(1-0)");
-        CtrlRestriccio.nova_res("D (NOP(2-0))XOR((3-0)AND(4-0))");
+        CtrlRestriccio.nova_res("D NOT(1-1)");
+        CtrlRestriccio.nova_res("H (NOP(3))XOR((10)AND(20))");
         ArrayList<Restriccio> llista_res = CtrlRestriccio.consulta_llista_res();
 
         Plantilla p = CtrlPlantilla.getPlantillaActual();

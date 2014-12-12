@@ -31,6 +31,7 @@ public class EdmondsKarp extends Algorisme {
         cua.add(s);
         while (!cua.isEmpty()) {
             Vertex v = cua.get(0);
+            
             cua.remove(0);
             ArrayList<Integer> adj = v.getArestes();
             for (int i = 0; i < adj.size(); i++) {
@@ -69,22 +70,20 @@ public class EdmondsKarp extends Algorisme {
 
         if (vp.getClasse() == Vertex.RESTRICCIO) {
             int maxRest = v.getNumMaxRestr();
-            ArrayList<Integer> la = v.getArestes();
-            Vertex vt = null;
+            Vertex vt = graf.getVertex(v.getId(), Vertex.TORN);
             Aresta aresta = null;
+            ArrayList<Integer> la = vt.getArestes();
             boolean trobat = false;
             int pos = 0;
-            while (pos < la.size() && !trobat) {
-                aresta = graf.getA(pos);
-                if (!graf.getVertex(aresta.getv()).equals(v)) { // si el vertex desti de l'aresta no es el mateix vertex MAX, es que es el torn
-                    vt = graf.getVertex(aresta.getv());
-                    trobat = true;
-                }
-                pos++;
+            while(!trobat && pos<la.size()){
+                aresta = graf.getA(la.get(pos));
+                if(graf.getVertex(aresta.getw()).equals(vt)) trobat = true;
+                pos ++;
             }
-            if (vt != null && maxRest > vt.getNumDocRelacionats()) {
+            
+            if (vt != null && maxRest > vt.getNumDocRelacionats()) { //<-----------------
                 String doc_r = vp.getDoctorsRel().get(0);
-                if (!vt.getDoctorsRel().contains(doc_r)) {
+                if (!vt.getDoctorsRel().contains(doc_r)) {// <---------------
                     int cap = aresta.getcap();
                     aresta.setCap(cap - 1);
                     puja_flow(v, a);
@@ -102,6 +101,7 @@ public class EdmondsKarp extends Algorisme {
     private static void puja_flow(Vertex v, Aresta a) {
         if (v.getClasse() != Vertex.FONT_POU) {
             a.addFlow(1);
+            
             Vertex vp = graf.getVertex(a.getv());
             boolean trobat = false;
             int pos = 0;
@@ -112,6 +112,7 @@ public class EdmondsKarp extends Algorisme {
                 if (!graf.getVertex(aresta.getv()).equals(vp)) {
                     trobat = true;
                 }
+                pos ++;
             }
             if(vp.getClasse() == Vertex.RESTRICCIO){
                 ArrayList<Restriccio> lr = CtrlRestriccio.consulta_llista_res();

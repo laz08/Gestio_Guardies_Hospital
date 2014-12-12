@@ -201,9 +201,10 @@ public class CtrlEntrada {
                     }
                 }
                 Vertex vtorn = g.getVertex(v.getId(), Vertex.TORN);
-                Plantilla p = CtrlPlantilla.getPlantillaActual();
-                int nDoc = p.getLlistaDoctorsDNI().size();
-                g.afegirAresta(v, vtorn, nDoc, 0); // la capacitat es modificara segons les assignacions dels algorismes
+                ArrayList<Integer> llista_a = vtorn.getArestes();
+                Aresta a = g.getA(llista_a.get(0)); // la seva capacitat es el num min de doctors per torn
+                v.setNumMaxRestr(numDoc-a.getcap());
+                g.afegirAresta(v, vtorn, numDoc, 0); // la capacitat es modificara segons les assignacions dels algorismes
             }
         }
     }
@@ -234,6 +235,7 @@ public class CtrlEntrada {
                     String t2 = (String) of2_and;
                     ArrayList<Vertex> torns1 = consulta_torns_afectats(t1, r.getTipus(), g);
                     ArrayList<Vertex> torns2 = consulta_torns_afectats(t2, r.getTipus(), g);
+                    
                     for (int i = 0; i < torns1.size(); i++) {
                         Vertex vertex = torns1.get(i);
                         g.afegirAresta(v, vertex, /*1*/ Graf.INFINIT, 0);
@@ -279,14 +281,21 @@ public class CtrlEntrada {
                 if (of_not.getClass().equals(String.class)) {
                     String t = (String) of_not;
                     ArrayList<Vertex> torns = consulta_torns_afectats(t, r.getTipus(), g);
+                    for(int i=0; i<torns.size(); i++){
+                        g.afegirAresta(v, torns.get(i), Graf.INFINIT, 0);
+                    }
                 } else {
                     Vertex v1 = recorregut_restriccio((Restriccio) of_not, idDoc, g);
+                    g.afegirAresta(v, v1, Graf.INFINIT, 0);
                 }
                 break;
             case "NOP":
                 R_NOP nop = (R_NOP) r;
                 String t = nop.getTorn();
                 ArrayList<Vertex> torns = consulta_torns_afectats(t, r.getTipus(), g);
+                for(int i=0; i<torns.size(); i++){
+                    g.afegirAresta(v, torns.get(i), Graf.INFINIT, 0);
+                }
                 break;
         }
         return v;
@@ -295,8 +304,10 @@ public class CtrlEntrada {
     private static ArrayList<Vertex> consulta_torns_afectats(String t, String tipus_r, Graf g) throws Error {
         ArrayList<Vertex> v_torns = new ArrayList<Vertex>();
         Plantilla plantilla = CtrlPlantilla.getPlantillaActual();
-        //String nomp = plantilla.getNomPlantilla();
-        Dia[] any = plantilla.get_calendari_asoc().getCalendari();
+        Calendari c = plantilla.get_calendari_asoc();
+        
+        Dia[] any = c.getCalendari();
+        
         switch (tipus_r) {
             case "D":
                 String[] data = t.split("-");// separa per -
@@ -306,6 +317,7 @@ public class CtrlEntrada {
 
                 for (int i = 0; i < 3; i++) {
                     Torn torn = any[numDiesAnteriors + dia - 1].getTorn_concret(i);
+                    
                     if (torn != null) {
                         v_torns.add(g.getVertex(torn.toString(), Vertex.MAX));
                     }
