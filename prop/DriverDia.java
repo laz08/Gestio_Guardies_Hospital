@@ -27,14 +27,17 @@ public class DriverDia {
 				case 0: sortir = true; break;
 				case 1: crearDia(); break;
 				case 2: modificarDiaFestiu(); break;
-				case 3: modificarTorn(); break;
-				case 4: consultarDiaFestiu(); break;
-				case 5: consultarTorns(); break;
-				case 6: consultarTornConcret(); break;
-				case 7: borrarTornConcret(); break;
-				case 8: borrarDia(); break;
+				case 3: modificarTorns(); break;
+				case 4: modificarTornMati(); break;
+				case 5: modificarTornTarda(); break;
+				case 6: modificarTornNit(); break;
+				case 7: consultarDiaFestiu(); break;
+				case 8: consultarTorns(); break;
+				case 9: consultarTornMati(); break;
+				case 10: consultarTornTarda(); break;
+				case 11: consultarTornNit(); break;
 				default:
-					System.out.println("El numero ha d'estar entre 0 i 6.");
+					System.out.println("El numero ha d'estar entre 0 i 11.");
 					break;
 			}
 			escriureMenu();
@@ -48,14 +51,16 @@ public class DriverDia {
 				+ "Per cada torn: (hora inici: int, hora fi: int, percentatge sou: float, numero minim doctors: int)"
 				+ "--------------------------\n"
 				+ "2.- Modificar dia festiu o no(festiu: boolean)\n"
-				+ "3.- Modificar torn (quin: int(mati=0, tarda=1, nit=2), nou torn)\n"
+				+ "3.- Modificar torns (Introduir tres torns)\n"
+				+ "4.- Modificar torn mati(nou torn)\n"
+				+ "5.- Modificar torn tarda(nou torn)\n"
+				+ "6.- Modificar torn nit(nou torn)\n"
 				+ "--------------------------\n"
-				+ "4.- Consultar si es festiu el dia\n"
-				+ "5.- Consultar torns\n"
-				+ "6.- Consultar torn concret(quin: int(mati=0, tarda=1, nit=2))\n"
-				+ "---------------------------\n"
-				+ "7.- Borrar torn concret(quin: int(mati=0, tarda=1, nit=2))\n"
-				+ "8.- Borrar tot el dia\n"
+				+ "7.- Consultar si es festiu el dia\n"
+				+ "8.- Consultar torns\n"
+				+ "9.- Consultar torn mati\n"
+				+ "10.- Consultar torn tarda\n"
+				+ "11.- Consultar torn nit\n"
 				+ "---------------------------\n"
 				+ "0.- Exit\n\n");
 	}
@@ -69,7 +74,9 @@ public class DriverDia {
 			float percent = arg.nextFloat();
 			int minim = arg.nextInt();
 			Torn t = new Torn(hora_i,hora_f,percent,minim);
-			d.setTorn(t);
+			if(i==0) d.setTornMati(t);
+			else if(i==1) d.setTornTarda(t);
+			else d.setTornNit(t);
 		}
 		d.setFestiu(b);
 	}
@@ -79,15 +86,44 @@ public class DriverDia {
 		d.setFestiu(b);
 	}
 	
-	public static void modificarTorn() {
-		consultarTorns();
-		int i = arg.nextInt();
+	public static void modificarTorns() {
+		Torn[] ts = new Torn[3];
+		for(int i=0; i<3; ++i) {
+			int hora_i = arg.nextInt();
+			int hora_f = arg.nextInt();
+			float percent = arg.nextFloat();
+			int minim = arg.nextInt();
+			Torn t = new Torn(hora_i,hora_f,percent,minim);
+			ts[i] = t;
+		}
+		d.setTorns(ts);
+	}
+	
+	public static void modificarTornMati() {
 		int hora_i = arg.nextInt();
 		int hora_f = arg.nextInt();
 		float percent = arg.nextFloat();
 		int minim = arg.nextInt();
 		Torn t = new Torn(hora_i,hora_f,percent,minim);
-		d.setTornConcret(t,i);
+		d.setTornMati(t);
+	}
+	
+	public static void modificarTornTarda() {
+		int hora_i = arg.nextInt();
+		int hora_f = arg.nextInt();
+		float percent = arg.nextFloat();
+		int minim = arg.nextInt();
+		Torn t = new Torn(hora_i,hora_f,percent,minim);
+		d.setTornTarda(t);
+	}
+	
+	public static void modificarTornNit() {
+		int hora_i = arg.nextInt();
+		int hora_f = arg.nextInt();
+		float percent = arg.nextFloat();
+		int minim = arg.nextInt();
+		Torn t = new Torn(hora_i,hora_f,percent,minim);
+		d.setTornNit(t);
 	}
 	
 	public static void consultarDiaFestiu() {
@@ -98,10 +134,18 @@ public class DriverDia {
 		Torn t;
 		String s;
 		for(int i=0; i<3; ++i) {
-			t = d.getTorn_concret(i);
-			if(i==0) s="Mati";
-			else if(i==1) s="Tarda";
-			else s="Nit";
+			if(i==0) {
+				s="Mati"; 
+				t= d.getTornMati();
+			}
+			else if(i==1) {
+				s="Tarda"; 
+				t = d.getTornTarda();
+			}
+			else {
+				s="Nit"; 
+				t=d.getTornNit();
+			}
 			System.out.println("Torn de "+s+":\n"
 					+ "Hora inici: "+t.getHora_inici()+"\n"
 					+ "Hora fi: "+t.getHora_fi()+"\n"
@@ -110,26 +154,33 @@ public class DriverDia {
 		}
 	}
 	
-	public static void consultarTornConcret() {
-		int i = arg.nextInt();
-		String s;
-		Torn t=d.getTorn_concret(i);
-		if(i==0) s="Mati";
-		else if(i==1) s="Tarda";
-		else s="Nit";
-		System.out.println("Torn de "+s+":\n"
+	public static void consultarTornMati() {
+		Torn t = d.getTornMati();
+		System.out.println("Torn de Mati:\n"
 				+ "Hora inici: "+t.getHora_inici()+"\n"
 				+ "Hora fi: "+t.getHora_fi()+"\n"
 				+ "Percentatge de sou: "+t.getPercent_sou()+"\n"
 				+ "Numero minim de doctors: "+t.getMin_num_doctors()+"\n\n");
 	}
 	
-	public static void borrarTornConcret() {
-		int i = arg.nextInt();
-		d.borrarTorn(i);
+	public static void consultarTornTarda() {
+		Torn t = d.getTornTarda();
+		System.out.println("Torn de Tarda:\n"
+				+ "Hora inici: "+t.getHora_inici()+"\n"
+				+ "Hora fi: "+t.getHora_fi()+"\n"
+				+ "Percentatge de sou: "+t.getPercent_sou()+"\n"
+				+ "Numero minim de doctors: "+t.getMin_num_doctors()+"\n\n");
 	}
 	
-	public static void borrarDia() {
-		d.borrar();
+	public static void consultarTornNit() {
+		Torn t = d.getTornNit();
+		System.out.println("Torn de Nit:\n"
+				+ "Hora inici: "+t.getHora_inici()+"\n"
+				+ "Hora fi: "+t.getHora_fi()+"\n"
+				+ "Percentatge de sou: "+t.getPercent_sou()+"\n"
+				+ "Numero minim de doctors: "+t.getMin_num_doctors()+"\n\n");
 	}
+
+	
+
 }

@@ -27,6 +27,54 @@ public class Dia {
 	}
 	
 	//Pre: -
+	//Post: Retornem els torns del dia
+	public Torn[] getTorns(){
+		return torns;
+	}
+	
+	//Pre: ts tres torns
+	//Post: Modifica els torns pels torns que li arriben
+	public void setTorns(Torn[] ts) {
+		torns = ts;
+	}
+	
+	//Pre: -
+	//Post: retorna el primer torn del dia
+	public Torn getTornMati() {
+		return torns[0];
+	}
+	
+	//Pre: -
+	//Post: Modifica el torn de mati
+	public void setTornMati(Torn tm) {
+		torns[0]=tm;
+	}
+	
+	//Pre: -
+	//Post: retorna el segon torn del dia
+	public Torn getTornTarda() {
+		return torns[1];
+	}
+	
+	//Pre: -
+	//Post: Modifica el torn de mati
+	public void setTornTarda(Torn tm) {
+		torns[1]=tm;
+	}
+	
+	//Pre: -
+	//Post: retorna el tercer torn del dia
+	public Torn getTornNit() {
+		return torns[2];
+	}
+	
+	//Pre: -
+	//Post: Modifica el torn de mati
+	public void setTornNit(Torn tm) {
+		torns[2]=tm;
+	}
+	
+	/*//Pre: -
 	//Post: Modifiquem un dels torns pel torn nou que ens arriba, segons els parametres modifiquem un o altre
 	public void setTorn(Torn t) {
 		if(t.getHora_inici()<9) torns[0]=t;
@@ -41,31 +89,27 @@ public class Dia {
 		torns[i]=t;
 	}
 	
-	//Pre: -
-	//Post: Retornem els torns del dia
-	public Torn[] getTorns(){
-		return torns;
-	}
+
 	
 	//Pre: El parametre i ha d'estar entre 0 i 2.
 	//Post: Retornem el torn que es troba a la posició i.
 	public Torn getTorn_concret(int i) {
 		return torns[i];
-	}
+	}*/
 	
-	//Pre: -
+	/*//Pre: -
 	//Post: Borrem tota la informacio del torn i
 	public void borrarTorn(int i) {
 		//torns[i].borrar();
 		torns = null;
-	}
+	}*/
 	
-	//Pre: -
+	/*//Pre: -
 	//Post: Borrem tota la informació del dia
 	public void borrar() {
 		festiu = false;
 		torns = null;
 		//for(int i=0; i<3; ++i) torns[i].borrar();
-	}
+	}*/
 	
 }
