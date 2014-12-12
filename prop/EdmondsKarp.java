@@ -81,9 +81,9 @@ public class EdmondsKarp extends Algorisme {
                 pos ++;
             }
             
-            if (vt != null && maxRest > vt.getNumDocRelacionats()) { //<-----------------
+            if (vt != null && maxRest > vt.getNumDocRelacionats()) {
                 String doc_r = vp.getDoctorsRel().get(0);
-                if (!vt.getDoctorsRel().contains(doc_r)) {// <---------------
+                if (!vt.getDoctorsRel().contains(doc_r)) {
                     int cap = aresta.getcap();
                     aresta.setCap(cap - 1);
                     puja_flow(v, a);
@@ -115,25 +115,32 @@ public class EdmondsKarp extends Algorisme {
                 pos ++;
             }
             if(vp.getClasse() == Vertex.RESTRICCIO){
-                ArrayList<Restriccio> lr = CtrlRestriccio.consulta_llista_res();
-                Restriccio r = null;
-                boolean tro = false;
-                int p = 0;
-                while (!tro && p<lr.size()){
-                    r  = lr.get(p);
-                    String rid = r.toString();
-                    if(rid.equals(vp.getId())) tro = true;
-                    p++;
-                }
-                if(tro){
-                    String op = r.getOp();
-                    if (op.equals("XOR")){
-                        if(cua.contains(vp)) cua.remove(vp);
-                        else{
-                            elimina_fills(vp);
-                        }
+                String idvp = vp.getId();
+                if(idvp.contains("XOR")){
+                    if(cua.contains(vp)) cua.remove(vp);
+                    else{
+                        elimina_fills(vp);
                     }
                 }
+//                ArrayList<Restriccio> lr = CtrlRestriccio.consulta_llista_res();
+//                Restriccio r = null;
+//                boolean tro = false;
+//                int p = 0;
+//                while (!tro && p<lr.size()){
+//                    r  = lr.get(p);
+//                    String rid = r.toString();
+//                    if(rid.equals(vp.getId())) tro = true;
+//                    p++;
+//                }
+//                if(tro){
+//                    String op = r.getOp();
+//                    if (op.equals("XOR")){
+//                        if(cua.contains(vp)) cua.remove(vp);
+//                        else{
+//                            elimina_fills(vp);
+//                        }
+//                    }
+//                }
             }
             puja_flow(vp, aresta);
         }

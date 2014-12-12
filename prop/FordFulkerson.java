@@ -3,105 +3,116 @@ package prop;
 import java.util.*;
 import java.math.*;
 import java.io.*;
+import static prop.Algorisme.graf;
 
 public class FordFulkerson extends Algorisme {
-	Graf G;
-	int[] cami;
-	int INF = Integer.MAX_VALUE;
-	
-	public FordFulkerson(Graf GG) {
-		G = GG;
-	}
-	
-	public int min(int a, int b) {
-		if (a > b) return b;
-		return a;
-	}
-	
-	public Boolean BFS(int s, int t, int[] cami) {
-		int N = G.numV();
-		Queue<Integer> q = new LinkedList<Integer>();
-		for (int i = 0; i < N; ++i) cami[i] = -1;
-		cami[s] = s;
-		q.add(s);
-		while (!q.isEmpty()) {
-			int u = (Integer)q.remove();
-			List<Integer> L = G.getAdjacents(u);
-			Iterator<Integer> it = L.iterator();
-			while (it.hasNext()) {
-				int e = (Integer) it.next();
-				Aresta a = G.getA(e);
-				int v = a.contrari(u);
-				if (a.capres(u)> 0 && cami[v] == -1) {
-					cami[v] = e;
-					q.add(v);
-					if (v == t) return true;
-				}
-			}
-		}
-		return false;
-	}
-	
-	public int augment(int s, int t) {
-		if (s == t) return INF;
-		Aresta a = G.getA(cami[t]);
-		return min(a.capres(a.contrari(t)) , augment(s, a.contrari(t)) );
-	}
-	
-	public void actualitzar(int s, int t, int increment) {
-		if (s == t) return;
-		Aresta a = G.getA(cami[t]);
-		a.addresflow(t, increment);
-		actualitzar(s, a.contrari(t), increment);
-	}
-	@Override
-	public int maxFlow(int s, int t) {
-		G.resetFlow();
-		int flow = 0;
-		cami = new int[G.numV()];
-		while (BFS(s, t, cami)) {
-			int increment = augment(s, t);
-			flow += increment;
-			actualitzar(s, t, increment);
-			/*
-			ArrayList<Integer> c = way(s, t);
-			System.out.println(c.size());
-			for(int i = 0; i < c.size(); ++i) {
-				System.out.println(c.get(i));
-			}
-			*/
-			
 
-		}
-		return flow;
-	}
-	/*
-	public int[] MinCut(int s, int t) {
-		maxFlow(s, t);
-		Queue<Integer> sol = new LinkedList<Integer>();
-		int total = 0;
-		
-		int m = G.getNumA();
-		
-		for (int i = 0; i < m; ++i) {
-			Aresta a = G.getA(i);
-			int u = a.getcap();
-			int v = a.getw();
-			if (cami[u] != - 1 && cami[v] == -1) {
-				++total;
-				sol.add(i);
-			}
-		}
-		
-		int[] ans = new int[2*total];
-		
-		for (int i = 0; i < 2*total; i += 2) {
-			int e = (Integer) sol.remove();
-			ans[i] = G.getA(e).getv();
-			ans[i + 1] = G.getA(e).getw();
-		}
+    @Override
+    public void maxFlow() {
+        graf.resetFlow();
+        DFS(graf.getVertex("FONT", Vertex.FONT_POU));
+    }
 
-		return ans;
-	}
-	*/
+    private static boolean DFS(Vertex s) {
+        boolean arriba_a_torn = false;
+        switch (s.getClasse()) {
+            case Vertex.DOCTOR:
+                arriba_a_torn = seguent(s);
+                break;
+            case Vertex.RESTRICCIO:
+                comprovaRestriccio(s);
+                arriba_a_torn = seguent(s);
+                if (!arriba_a_torn) {
+                   redireccionaRestriccio(s);
+                   arriba_a_torn = seguent(s);
+                }
+                break;
+            case Vertex.MAX:
+                arriba_a_torn = seguentMax(s);
+                break;
+        }
+        return arriba_a_torn;
+    }
+
+    private static boolean seguent(Vertex s) {
+        boolean arriba_a_torn = false;
+        ArrayList<Integer> la = s.getArestes();
+        for (int i = 0; i < la.size(); i++) {
+            Aresta a = graf.getA(la.get(i));
+            Vertex v = graf.getVertex(a.getw());
+            if (!v.equals(s) && !v.getVisitat()) {
+                a.addFlow(1);
+                arriba_a_torn = DFS(v);
+            }
+        }
+        return arriba_a_torn;
+    }
+
+    private static void comprovaRestriccio(Vertex s) {
+        if (s.getId().contains("XOR")) { // si l'indentificador es de la classe XOR
+            boolean canviat = false;
+            int pos = 0;
+            ArrayList<Integer> la = s.getArestes();
+            while (!canviat && pos < la.size()) {
+                Aresta a = graf.getA(la.get(pos));
+                Vertex v1 = graf.getVertex(a.getv());
+                if (v1.equals(s)) {
+                    graf.getVertex(a.getw()).setVisitat(true);
+                    canviat = true;
+                }
+                pos++;
+            }
+        }
+    }
+    
+    public static void redireccionaRestriccio(Vertex s){
+        if (s.getId().contains("XOR")) { // si l'indentificador es de la classe XOR
+            boolean canviat = false;
+            int pos = 0;
+            ArrayList<Integer> la = s.getArestes();
+            while (!canviat && pos < la.size()) {
+                Aresta a = graf.getA(la.get(pos));
+                Vertex v1 = graf.getVertex(a.getv());
+                if (v1.equals(s)) {
+                    Vertex v = graf.getVertex(a.getw());
+                    v.setVisitat(!v.getVisitat()); // canviam el cami
+                }
+                pos++;
+            }
+        }
+    }
+
+    private static boolean seguentMax(Vertex vm) {
+        boolean arriba_a_torn = false;
+        ArrayList<Integer> la = vm.getArestes();
+        Vertex vt = null, vr = null;
+        String doc = null;
+        Aresta ar = null, at = null;
+        for (int i = 0; i < la.size() && !vm.getVisitat(); i++) {
+            Aresta a = graf.getA(la.get(i));
+            Vertex v = graf.getVertex(a.getw());
+            if (!v.equals(vm)) {
+                ar = a;
+                vr = graf.getVertex(a.getw());
+                doc = vr.getDoctorsRel().get(0); // agafam el doctor al que fa referència la restricció
+                a.addFlow(1);
+                if (a.getflow() >= vm.getNumMaxRestr()) {
+                    vm.setVisitat(true); // si ja s'han assignat el maxim de restriccions, es bloqueja el vertex
+                }
+            } else {
+                vt = v; // es guarda el vertex torn relacionat amb el max
+                at = a;
+            }
+        }
+
+        if (!vt.getDoctorsRel().contains(doc)) {
+            vt.addDoctorRel(doc);
+            at.setCap(at.getcap() - 1);
+            arriba_a_torn = true;
+        } else { // si ja s'havia relacionat aquest doctor amb el torn s'elimina la relacio
+            ar.addFlow(-1);
+            vr.setVisitat(true);
+        }
+        return arriba_a_torn;
+    }
 }
