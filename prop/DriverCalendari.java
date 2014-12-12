@@ -1,5 +1,6 @@
 package prop;
 
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Scanner;
 
@@ -102,7 +103,7 @@ public class DriverCalendari {
 			else if(i==1) d.setTornTarda(t);
 			else d.setTornNit(t);
 		}		
-		int pos = c.calcularPosicioDia(data);
+		int pos = calcularPosicioDia(data,c.getAny());
 		c.getCalendari()[pos]= d;
 	}
 	
@@ -116,7 +117,7 @@ public class DriverCalendari {
 		float percent = arg.nextFloat();
 		int minim = arg.nextInt();
 		Torn t = new Torn(hora_i,hora_f,percent,minim);
-		int pos = c.calcularPosicioDia(data);
+		int pos = calcularPosicioDia(data,c.getAny());
 		c.getCalendari()[pos].setTornMati(t);
 	}
 	
@@ -130,7 +131,7 @@ public class DriverCalendari {
 		float percent = arg.nextFloat();
 		int minim = arg.nextInt();
 		Torn t = new Torn(hora_i,hora_f,percent,minim);
-		int pos = c.calcularPosicioDia(data);
+		int pos = calcularPosicioDia(data,c.getAny());
 		c.getCalendari()[pos].setTornTarda(t);
 	}
 	
@@ -144,14 +145,14 @@ public class DriverCalendari {
 		float percent = arg.nextFloat();
 		int minim = arg.nextInt();
 		Torn t = new Torn(hora_i,hora_f,percent,minim);
-		int pos = c.calcularPosicioDia(data);
+		int pos = calcularPosicioDia(data,c.getAny());
 		c.getCalendari()[pos].setTornNit(t);
 	}
 	
 	public static void consultarCalendari() {
 		for(int i=0; i<c.getCalendari().length; ++i){
 			Dia d = c.getCalendari()[i];
-			GregorianCalendar data = c.quinDia(i);
+			GregorianCalendar data = quinDia(i,c.getAny());
 			System.out.println("El dia "+data.getTime().toString());
 			if(d.getFestiu())System.out.println("Es festiu");
 			else System.out.println("No es festiu");
@@ -188,7 +189,7 @@ public class DriverCalendari {
 		int mes = arg.nextInt();
 		int dia = arg.nextInt();
 		GregorianCalendar data = new GregorianCalendar(any,mes,dia);
-		int pos = c.calcularPosicioDia(data);
+		int pos = calcularPosicioDia(data,c.getAny());
 		Dia d = c.getCalendari()[pos];
 		System.out.println("El dia "+dia+"/"+mes+"/"+any);
 		if(d.getFestiu())System.out.println("Es festiu");
@@ -221,7 +222,7 @@ public class DriverCalendari {
 		int mes = arg.nextInt();
 		int dia = arg.nextInt();
 		GregorianCalendar data = new GregorianCalendar(any,mes,dia);
-		int pos = c.calcularPosicioDia(data);
+		int pos = calcularPosicioDia(data,c.getAny());
 		Torn t = c.getCalendari()[pos].getTornMati();
 		System.out.println("Torn de mati:\n"
 				+ "Hora inici: "+t.getHora_inici()+"\n"
@@ -235,7 +236,7 @@ public class DriverCalendari {
 		int mes = arg.nextInt();
 		int dia = arg.nextInt();
 		GregorianCalendar data = new GregorianCalendar(any,mes,dia);
-		int pos = c.calcularPosicioDia(data);
+		int pos = calcularPosicioDia(data,c.getAny());
 		Torn t = c.getCalendari()[pos].getTornTarda();
 		System.out.println("Torn de tarda:\n"
 				+ "Hora inici: "+t.getHora_inici()+"\n"
@@ -249,13 +250,31 @@ public class DriverCalendari {
 		int mes = arg.nextInt();
 		int dia = arg.nextInt();
 		GregorianCalendar data = new GregorianCalendar(any,mes,dia);
-		int pos = c.calcularPosicioDia(data);
+		int pos = calcularPosicioDia(data,c.getAny());
 		Torn t = c.getCalendari()[pos].getTornNit();
 		System.out.println("Torn de mati:\n"
 				+ "Hora inici: "+t.getHora_inici()+"\n"
 				+ "Hora fi: "+t.getHora_fi()+"\n"
 				+ "Percentatge de sou: "+t.getPercent_sou()+"\n"
 				+ "Numero minim de doctors: "+t.getMin_num_doctors()+"\n\n");
+	}
+	
+	//Pre: dia pertany a l'any
+	//Post: Ens retorna la posició on es troba el dia en qüestió en el nostre calendari
+	public static int calcularPosicioDia(GregorianCalendar dia, int any) {
+		GregorianCalendar primerdia = new GregorianCalendar(any,1,1);
+		long dif = primerdia.getTimeInMillis() - dia.getTimeInMillis();
+		dif = dif/1000/60/60/24;
+		return (int) dif;
+		
+	}
+	
+	//Pre: i pertany a una posicio del vector
+	//Post: Retorna la data que te la posicio i al vector.
+	public static GregorianCalendar quinDia(int i, int any) {
+		GregorianCalendar primerdia = new GregorianCalendar(any,1,1);
+		primerdia.add(Calendar.DAY_OF_YEAR,i);
+		return primerdia;		
 	}
 	
 }
