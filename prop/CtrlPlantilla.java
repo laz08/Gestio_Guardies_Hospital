@@ -105,12 +105,49 @@ public class CtrlPlantilla {
             return p.getLlistaDoctorsDNI().contains(new Doctor(dni));
     }
 
-    public static void crearCalendariAssociataPlantillaActual(){
+    /*public static void crearCalendariAssociataPlantillaActual(){
         // !!!!!!!!!! ================= !!!!!!!!!!!!!!!!!!!!!
         Calendari C = CtrlCalendari.CrearIAfegirCalendari(); //Hauria de retornar punter a aquest Calendari
         CtrlPlantilla.getPlantillaActual().set_calendari_asoc(C);
+    }*/
+
+    public static void guardar() {
+    	String content = "";
+    	String fi = "Fi";
+    	int cont = 0; 
+  		for (Plantilla p: Cjt_plantilles) {
+  			content += p.getNomPlantilla() + "\n"; //+ p.get_calendari_asoc().getId() + "\n";
+
+  			for (Doctor doc: p.getLlistaDoctorsDNI()) {
+    			content = content + doc.getdni() + " " + doc.getNom() + " " + doc.getCognom1() + " "
+    				+ doc.getCognom2() + " " + doc.getSou() + " " + doc.getTelefon() + " " + doc.getCorreu() + "\n";
+    		}
+  			content += (fi +"\n");
+  		}
+    	CtrlPersistencia.guardar(content, "Plantilles");
     }
 
+    public static void carregar() {
+    	String content = CtrlPersistencia.carregar("Plantilles");
+    	String separadors = "[ \n]";
+    	String[] separat = content.split(separadors);
+    	int i = 0;
+    	String np = "";
+    	String fi = "Fi";
+    	while (i < separat.length) {
+    		np = separat[i];
+    		creariAfegirPlantilla(np);
+    		++i;
+    		String dnid = "";
+    		while (!separat[i].equals(fi)) {
+    			dnid = separat[i];
+    			CtrlHospital.creariAfegirDoctor(separat[i],separat[++i],separat[++i],separat[++i],Integer.parseInt(separat[++i]), Integer.parseInt(separat[++i]), separat[++i]);
+    			afegirDoctorAPlantilla(dnid, np);
+    			++i;
+    		}
+    		++i;
+    	}
+    }
 
 
 }

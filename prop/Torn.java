@@ -8,9 +8,9 @@ public class Torn {
 	private float percent_sou;
 	private int min_num_doctors;
 	
-	/**
-	 * Creadora
-	 */
+
+	//Pre: -
+	//Post: Creem un torn amb tots els parametres que ens arriben
 	public Torn(int h_i, int h_f, float percentatge, int minim) {
 		if(h_i>=0 && h_i<24 && h_f>=0 && h_f<24 && h_i<h_f) {
 			hora_inici = h_i;
@@ -20,66 +20,59 @@ public class Torn {
 		}
 	}
 	
-	/**
-	 * Consultora de l'hora d'inici del torn
-	 * @return
-	 */
+	//Pre: -
+	//Post: Reinicialitzem torn, posant tot a 0
+	public void borrar() {
+		hora_inici = 0;
+		hora_fi = 0;
+		percent_sou = 0;
+		min_num_doctors = 0;
+	}
+	
+	//Pre: -
+	//Post: Retornem l'hora d'inici del torn
 	public int getHora_inici() {
 		return hora_inici;
 	}
 	
-	/**
-	 * Modifica la hora d'inici del torn
-	 * @param h_i
-	 */
+	//Pre: -
+	//Post: modifiquem hora d'inici del torn per la que ens passen si compleix les condicions que sigui menor que la hora fi i que sigui un enter entre 0 i 23, sino no es modificat.
 	public void setHora_inici(int h_i) {
 		if(h_i<hora_fi && h_i>=0 && h_i<24) hora_inici = h_i;
 	}
 	
-	/**
-	 * Consultora de l'hora fi del torn
-	 * @return
-	 */
+	//Pre: -
+	//Post: Retornem l'hora fi del torn
 	public int getHora_fi() {
 		return hora_fi;
 	}
 	
-	/**
-	 * Modifica l'hora d'inici del torn
-	 * @param h_f
-	 */
+	//Pre: -
+	//Post: modifiquem hora d'inici del torn per la que ens passen si compleix les condicions que sigui major que la hora inici i que sigui un enter entre 0 i 23, sino no es modificat.
 	public void setHora_fi(int h_f) {
 		if(h_f>hora_inici && h_f>=0 && h_f<24) hora_fi = h_f;
 	}
 	
-	/**
-	 * Consultora del percentatge de sou del torn
-	 * @return
-	 */
+	//Pre: -
+	//Post: Retornem el percentatge de sou del torn
 	public float getPercent_sou() {
 		return percent_sou;
 	}
 	
-	/**
-	 * Modifica el percentatge de sou del torn
-	 * @param percentatge
-	 */
+	//Pre: -
+	//Post: Modifiquem el percentatge de sou del torn pel que ens arriba
 	public void setPercent_sou(float percentatge) {
 		percent_sou = percentatge;
 	}
 	
-	/**
-	 * Consultora del numero minim de doctors del torn
-	 * @return
-	 */
+	//Pre: -
+	//Post: Retornem el nombre minim de doctors que han d'assistir al torn
 	public int getMin_num_doctors() {
 		return min_num_doctors;
 	}
 	
-	/**
-	 * Modifica el numero minim de doctors del torn
-	 * @param minim
-	 */
+	//Pre: -
+	//Post: Modifiquem el numero minim de doctors si compleix la condició que el numero que arribi sigui positiu
 	public void setMin_num_doctors(int minim) {
 		if(minim>=0) min_num_doctors = minim;
 	}
