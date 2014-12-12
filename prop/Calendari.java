@@ -20,6 +20,9 @@ public class Calendari {
 		long dies = diaf.getTimeInMillis() - dia.getTimeInMillis();
 		dies = dies/1000/60/60/24;
 		cal = new Dia[(int) dies];
+		for (int i = 0; i < dies; ++i) {
+			cal[i] = new Dia(false); // S'inicialitza el dia com a no festiu es pot canviar
+		}
 		any =  any_inici;
 		afegirFestius(); //Afegim a tots els diumenges de l'any el boolea festiu true
 		setPlantillaAssociada(plt);
