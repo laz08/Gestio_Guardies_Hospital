@@ -55,7 +55,7 @@ public class DriverCtrlEntrada {
                         break;
                 }
             }
-
+        }
             CtrlRestriccio.nova_res("D NOT(1-1)");
             CtrlRestriccio.nova_res("H (NOP(3))XOR((10)AND(20))");
             ArrayList<Restriccio> llista_res = CtrlRestriccio.consulta_llista_res();
@@ -73,4 +73,3 @@ public class DriverCtrlEntrada {
             }
         }
     }
-}
