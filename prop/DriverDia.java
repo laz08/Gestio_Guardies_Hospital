@@ -31,6 +31,8 @@ public class DriverDia {
 				case 4: consultarDiaFestiu(); break;
 				case 5: consultarTorns(); break;
 				case 6: consultarTornConcret(); break;
+				case 7: borrarTornConcret(); break;
+				case 8: borrarDia(); break;
 				default:
 					System.out.println("El numero ha d'estar entre 0 i 6.");
 					break;
@@ -51,6 +53,9 @@ public class DriverDia {
 				+ "4.- Consultar si es festiu el dia\n"
 				+ "5.- Consultar torns\n"
 				+ "6.- Consultar torn concret(quin: int(mati=0, tarda=1, nit=2))\n"
+				+ "---------------------------\n"
+				+ "7.- Borrar torn concret(quin: int(mati=0, tarda=1, nit=2))\n"
+				+ "8.- Borrar tot el dia\n"
 				+ "---------------------------\n"
 				+ "0.- Exit\n\n");
 	}
@@ -117,5 +122,14 @@ public class DriverDia {
 				+ "Hora fi: "+t.getHora_fi()+"\n"
 				+ "Percentatge de sou: "+t.getPercent_sou()+"\n"
 				+ "Numero minim de doctors: "+t.getMin_num_doctors()+"\n\n");
+	}
+	
+	public static void borrarTornConcret() {
+		int i = arg.nextInt();
+		d.borrarTorn(i);
+	}
+	
+	public static void borrarDia() {
+		d.borrar();
 	}
 }

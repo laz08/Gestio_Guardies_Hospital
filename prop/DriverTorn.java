@@ -36,8 +36,9 @@ public class DriverTorn {
 				case 7: consultarHoraFi(); break;
 				case 8: consultarPercentatge(); break;
 				case 9: consultarMinimDoctors(); break;
+				case 10: borrarTorn(); break;
 				default: 
-					System.out.println("El numero ha d'estar entre 0 i 9.");
+					System.out.println("El numero ha d'estar entre 0 i 10.");
 					break;
 			
 			}
@@ -59,6 +60,8 @@ public class DriverTorn {
 				+ "7.- Consultar hora fi\n"
 				+ "8.- Consultar percentatge sou\n"
 				+ "9.- Consultar numero minim de doctors\n"
+				+ "---------------------------\n"
+				+ "10.- Borrar torn\n"
 				+ "---------------------------\n"
 				+ "0.- Exit\n\n"
 				+ "---------------------------\n"
@@ -132,6 +135,10 @@ public class DriverTorn {
 	public static void consultarMinimDoctors() {
 		if(primer) System.out.println("Primer hem de crear un torn(opció 1)");
 		else System.out.println(t.getMin_num_doctors());
+	}
+	
+	public static void borrarTorn() {
+		t.borrar();
 	}
 	
 }
