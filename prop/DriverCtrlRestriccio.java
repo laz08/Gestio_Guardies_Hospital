@@ -124,7 +124,18 @@ public class DriverCtrlRestriccio {
                     for (int i = 0; i < any.length; i++) {
                         System.out.println("-------------DIA " + i + "-------------");
                         for(int e = 0; e<3; e++){
-                            Torn torn = any[i].getTorn_concret(e);
+                            Torn torn = null;
+                            switch(e){
+                                case 0:
+                                    torn = any[i].getTornMati();
+                                    break;
+                                case 1:
+                                    torn = any[i].getTornTarda();
+                                    break;
+                                case 2:
+                                    torn = any[i].getTornNit();
+                                    break;
+                            }
                             if(torn != null){
                                 System.out.println("Torn de "+torn.getHora_inici()+"h fins "+torn.getHora_fi());
                             }
@@ -171,7 +182,17 @@ public class DriverCtrlRestriccio {
         for (int i = 1; i <= any.length; i++) {
             for(int e=0; e<3; e++){
                 Torn t = new Torn(0+e*8, 8+e*8-1, 10, 2);
-                any[i].setTornConcret(t,e);
+                    switch(e){
+                        case 0:
+                            any[i].setTornMati(t);
+                            break;
+                        case 1:
+                            any[i].setTornTarda(t);
+                            break;
+                        case 2:
+                            any[i].setTornNit(t);
+                            break;
+                    }
             }
         }
     }

@@ -46,7 +46,18 @@ public class CtrlEntrada {
         Dia[] dia = plantilla.get_calendari_asoc().getCalendari();
         for (int i = 0; i < dia.length; i++) { // cream nodes de tipus torn i els afagim al graf
             for (int t = 0; t < 3; t++) {
-                Torn torn = dia[i].getTorn_concret(t);
+                Torn torn = null;
+                switch(t){
+                    case 0:
+                        torn = dia[i].getTornMati();
+                        break;
+                    case 1:
+                        torn = dia[i].getTornTarda();
+                        break;
+                    case 2:
+                        torn = dia[i].getTornNit();
+                        break;
+                }
                 Dia d = dia[i];
                 if (torn != null) {
                     Vertex vmax = new Vertex(torn.toString(), Vertex.MAX);
@@ -127,11 +138,23 @@ public class CtrlEntrada {
                 while (!trobat && nDia < any.length) {
                     int ntorn = 0;
                     while (!trobat && ntorn < 3) {
-                        Torn torn = any[nDia].getTorn_concret(i);
+                        Torn torn = null;
+                        switch(ntorn){
+                            case 0:
+                                torn = any[nDia].getTornMati();
+                                break;
+                            case 1:
+                                torn = any[nDia].getTornTarda();
+                                break;
+                            case 2:
+                                torn = any[nDia].getTornNit();
+                                break;
+                        }
                         if (torn != null && torn.toString().equals(v.getId())) {
                             capacitat = torn.getMin_num_doctors();
                             trobat = true;
                         }
+                        ntorn ++;
                     }
                     nDia++;
                 }
@@ -316,8 +339,18 @@ public class CtrlEntrada {
                 int numDiesAnteriors = calculaDiesAnteriors(mes);
 
                 for (int i = 0; i < 3; i++) {
-                    Torn torn = any[numDiesAnteriors + dia - 1].getTorn_concret(i);
-                    
+                    Torn torn = null;
+                    switch(i){
+                        case 0:
+                            torn = any[numDiesAnteriors + dia - 1].getTornMati();
+                            break;
+                        case 1:
+                            torn = any[numDiesAnteriors + dia - 1].getTornTarda();
+                            break;
+                        case 2:
+                            torn = any[numDiesAnteriors + dia - 1].getTornNit();
+                            break;
+                    }
                     if (torn != null) {
                         v_torns.add(g.getVertex(torn.toString(), Vertex.MAX));
                     }
@@ -327,10 +360,21 @@ public class CtrlEntrada {
                 int hora = Integer.parseInt(t);
                 for (int i = 0; i < any.length; i++) {
                     for (int e = 0; e < 3; e++) {
-                        Torn torn = any[i].getTorn_concret(e);
+                        Torn torn = null;
+                        switch(e){
+                            case 0:
+                                torn = any[i].getTornMati();
+                                break;
+                            case 1:
+                                torn = any[i].getTornTarda();
+                                break;
+                            case 2:
+                                torn = any[i].getTornNit();
+                                break;
+                        }
                         if (torn != null && torn.getHora_inici() <= hora && torn.getHora_fi() > hora) {
                             v_torns.add(g.getVertex(torn.toString(), Vertex.MAX));
-                        }
+                       }
                     }
                 }
                 break;
@@ -340,7 +384,18 @@ public class CtrlEntrada {
                 for (int i = diesAnteriors; i < 7; i++) {
                     if (i < any.length) {
                         for (int e = 0; e < 3; e++) {
-                            Torn torn = any[i].getTorn_concret(e);
+                            Torn torn = null;
+                            switch(e){
+                                case 0:
+                                    torn = any[i].getTornMati();
+                                    break;
+                                case 1:
+                                    torn = any[i].getTornTarda();
+                                    break;
+                                case 2:
+                                    torn = any[i].getTornNit();
+                                    break;
+                            }
                             if (torn != null) {
                                 v_torns.add(g.getVertex(torn.toString(), Vertex.MAX));
                             }

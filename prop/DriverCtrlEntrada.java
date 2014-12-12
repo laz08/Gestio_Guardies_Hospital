@@ -30,7 +30,7 @@ public class DriverCtrlEntrada {
         CtrlPlantilla.creariAfegirPlantilla("Prova");
         CtrlPlantilla.setPlantillaActual("Prova");
 
-        Calendari c = new Calendari("Prova",1000, 1001);
+        Calendari c = new Calendari("Prova", 1000, 1001);
         CtrlPlantilla.consultarPlantilla("Prova").set_calendari_asoc(c);
         //Cream un conjunt de doctors de prova i els afagim a la plantilla
         for (int i = 0; i < 4; i++) {
@@ -40,27 +40,37 @@ public class DriverCtrlEntrada {
 
         Dia[] any = c.getCalendari();
         for (int i = 0; i < 2; i++) {
-            for(int e=0; e<3; e++){
-                Torn t = new Torn(0+e*8, 8+e*8-1, 10, 2);
+            for (int e = 0; e < 3; e++) {
+                Torn t = new Torn(0 + e * 8, 8 + e * 8 - 1, 10, 2);
                 Dia d = any[i];
-                if(d!=null) d.setTornConcret(t, e);
+                switch (e) {
+                    case 0:
+                        d.setTornMati(t);
+                        break;
+                    case 1:
+                        d.setTornTarda(t);
+                        break;
+                    case 2:
+                        d.setTornNit(t);
+                        break;
+                }
             }
-        }
 
-        CtrlRestriccio.nova_res("D NOT(1-1)");
-        CtrlRestriccio.nova_res("H (NOP(3))XOR((10)AND(20))");
-        ArrayList<Restriccio> llista_res = CtrlRestriccio.consulta_llista_res();
+            CtrlRestriccio.nova_res("D NOT(1-1)");
+            CtrlRestriccio.nova_res("H (NOP(3))XOR((10)AND(20))");
+            ArrayList<Restriccio> llista_res = CtrlRestriccio.consulta_llista_res();
 
-        Plantilla p = CtrlPlantilla.getPlantillaActual();
-        Iterator<Doctor> it_doc= p.getLlistaDoctorsDNI().iterator();
-        // afagim la restriccio al primer i darrer doctor
-        if(it_doc.hasNext()){
-            Doctor d = it_doc.next();
-            d.afegir_res(llista_res.get(0));
-            while(it_doc.hasNext()){
-                d = it_doc.next();
+            Plantilla p = CtrlPlantilla.getPlantillaActual();
+            Iterator<Doctor> it_doc = p.getLlistaDoctorsDNI().iterator();
+            // afagim la restriccio al primer i darrer doctor
+            if (it_doc.hasNext()) {
+                Doctor d = it_doc.next();
+                d.afegir_res(llista_res.get(0));
+                while (it_doc.hasNext()) {
+                    d = it_doc.next();
+                }
+                d.afegir_res(llista_res.get(1));
             }
-            d.afegir_res(llista_res.get(1));
         }
     }
 }
