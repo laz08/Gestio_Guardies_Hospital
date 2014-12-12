@@ -42,6 +42,8 @@ public class DriverCtrlPlantilla {
 
                     case 16: casEscollirPlantillaActual(); break;
                     case 17: casConsultarPlantillaActual(); break;
+                    case 18: casGuardarPlantilles(); break;
+                    case 19: casCarregarPlantilles(); break;
 
                     case 0: sortir = true; break;
                     default:
@@ -63,6 +65,8 @@ public class DriverCtrlPlantilla {
         System.out.println("4.- Consultar Plantilla(Nom_plantilla: String)");
         System.out.println("5.- Consultar num de plantilles()");
         System.out.println("6.- Consultar llistat plantilles existents()");
+        System.out.println("18.- Guardar plantilles()");
+        System.out.println("19.- Carregar plantilles()");
         System.out.println("\nPlantilles i els seus doctors");
         System.out.println("7.- Afegir doctor a plantilla (dni: String, nom_Plantilla: string)");
         System.out.println("8.- Esborrar doctor de plantilla (dni: String, nom_Plantilla: string)");
@@ -340,6 +344,14 @@ public class DriverCtrlPlantilla {
         if (CtrlPlantilla.getPlantillaActual() != null)
             System.out.println(CtrlPlantilla.getPlantillaActual().getNomPlantilla());
         else System.out.println("Ara mateix no tenim cap plantilla seleccionada.");
+    }
+
+    public static void casGuardarPlantilles() {
+    	CtrlPlantilla.guardar();
+    }
+
+    public static void casCarregarPlantilles() {
+    	CtrlPlantilla.carregar();
     }
 
 }

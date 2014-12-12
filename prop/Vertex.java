@@ -3,12 +3,14 @@ package prop;
 import java.util.ArrayList;
 
 public class Vertex {
+    public static final int DOCTOR = 0, RESTRICCIO = 1, TORN = 2, FONT_POU=3, MAX = 4;
+    
     private String id;
     private int classe;
-    public static final int DOCTOR = 0, RESTRICCIO = 1, TORN = 2, FONT_POU=3, MAX = 4;
-    private int capacitat_acumulada = 0; // capacitat total que ha d'entrar al vertex
     private ArrayList<Integer> arestes;
     private ArrayList<String> doctors_rel = new ArrayList<String>();
+    private int numMaxRestr = -1; // nomes serveix en el cas del vertex MAX
+    private boolean visitat = false; // s'utilitzara per el recorregut del graf
     
     public Vertex(String identif, int c) throws Error{
         id = identif;
@@ -33,20 +35,12 @@ public class Vertex {
         return arestes; 
     }
     
-    public void emimina_aresta(int aresta){
+    public void elimina_aresta(int aresta){
         arestes.remove(aresta);
     }
     
     public String getId(){
         return id;
-    }
-    
-    public void setCapacitatAcumulada(int ca){
-        capacitat_acumulada = ca;
-    }
- 
-    public int getCapacitatAcumulada(){
-        return capacitat_acumulada;
     }
     
     public int getNumDocRelacionats(){
@@ -63,5 +57,21 @@ public class Vertex {
     
     public void rmDoctorRel(String idDoc){
         if(doctors_rel.contains(idDoc)) doctors_rel.remove(idDoc);
+    }
+    
+    public void setNumMaxRestr(int n){
+        numMaxRestr = n; 
+    }
+    
+    public int getNumMaxRestr(){
+        return numMaxRestr;
+    }
+    
+    public boolean getVisitat(){
+        return visitat;
+    }
+    
+    public void setVisitat(boolean v){
+        visitat = v;
     }
 }

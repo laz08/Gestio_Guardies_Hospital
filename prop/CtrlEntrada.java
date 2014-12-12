@@ -7,6 +7,8 @@ package prop;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.Iterator;
+import java.util.TreeSet;
 
 public class CtrlEntrada {
 
@@ -20,8 +22,8 @@ public class CtrlEntrada {
             g.afegirVertex(font);
             posaVertexDoctor(g, p);
             posaVertexTorn(g);
-            posaRestriccions(p.getLlistaDoctors(), g);
-            posaArestesMax(g, p.getLlistaDoctors().size());
+            posaRestriccions(p.getLlistaDoctorsDNI(), g);
+            posaArestesMax(g, p.getLlistaDoctorsDNI().size());
         } catch (Error e) {
             System.err.println("Hi ha hagut problemes a l'hora de crear el graf\n" + e);
         }
@@ -29,9 +31,9 @@ public class CtrlEntrada {
     }
 
     private static void posaVertexDoctor(Graf g, Plantilla p) throws Error {
-        int ndoctors = p.getLlistaDoctors().size();
-        for (int i = 0; i < ndoctors; i++) { // cream nodes de tipus doctor i els afagim al graf
-            Doctor d = p.getLlistaDoctors().get(i);
+        Iterator<Doctor> it = p.getLlistaDoctorsDNI().iterator();
+        while (it.hasNext()) { // cream nodes de tipus doctor i els afagim al graf
+            Doctor d = it.next();
             Vertex v = new Vertex(d.getdni(), Vertex.DOCTOR);
             Vertex font = g.getVertex("FONT", Vertex.FONT_POU);
             g.afegirVertex(v);
@@ -40,47 +42,37 @@ public class CtrlEntrada {
     }
 
     private static void posaVertexTorn(Graf g) throws Error {
-        String nomp = CtrlPlantilla.getidPlantillaActual();
-        ArrayList<Torn> llistaTorns = CtrlCalendari.consultar_calendari(nomp).getTorns();
-        int ntorns = llistaTorns.size();
-        for (int i = 0; i < ntorns; i++) { // cream nodes de tipus torn i els afagim al graf
-            Torn t = llistaTorns.get(i);
-            Vertex vmax = new Vertex(t.toString(), Vertex.MAX);
-            g.afegirVertex(vmax);
-            Vertex v = new Vertex(t.toString(), Vertex.TORN);
-            Vertex pou = g.getVertex("POU", Vertex.FONT_POU);
-            g.afegirVertex(v);
-            g.afegirAresta(v, pou, t.getN_min_doc(), 0);
+        Plantilla plantilla = CtrlPlantilla.getPlantillaActual();
+        Dia[] dia = plantilla.get_calendari_asoc().getCalendari();
+        for (int i = 0; i < dia.length; i++) { // cream nodes de tipus torn i els afagim al graf
+            for (int t = 0; t < 3; t++) {
+                Torn torn = dia[i].getTorn_concret(t);
+                Dia d = dia[i];
+                if (torn != null) {
+                    Vertex vmax = new Vertex(torn.toString(), Vertex.MAX);
+                    g.afegirVertex(vmax);
+                    Vertex v = new Vertex(torn.toString(), Vertex.TORN);
+                    Vertex pou = g.getVertex("POU", Vertex.FONT_POU);
+                    g.afegirVertex(v);
+                    g.afegirAresta(v, pou, torn.getMin_num_doctors(), 0);
+                }
+            }
         }
     }
 
-    private static void posaRestriccions(ArrayList<Doctor> doc, Graf g) throws Error {
+    private static void posaRestriccions(TreeSet<Doctor> t_doc, Graf g) throws Error {
+        Iterator<Doctor> it_doc = t_doc.iterator();
         Doctor d;
         Restriccio r;
-        for (int i = 0; i < doc.size(); i++) {
-            d = doc.get(i);
-            ArrayList<Vertex> v_max_torn = new ArrayList<Vertex>(); // guarda els vertex consultats per restriccions
+        while (it_doc.hasNext()) {
+            d = it_doc.next();
             ArrayList<Integer> llista_r = d.getRestriccions();
             Vertex vd = g.getVertex(d.getdni(), Vertex.DOCTOR);
             for (int e = 0; e < llista_r.size(); e++) {
                 r = CtrlRestriccio.consulta_res(llista_r.get(e));
-                Vertex vr = recorregut_restriccio(r, d.getdni(), g, v_max_torn);
+                Vertex vr = recorregut_restriccio(r, d.getdni(), g);
                 g.afegirAresta(vd, vr, /*vr.getCapacitatAcumulada()*/ Graf.INFINIT, 0);
             }
-            // NO HAURIA DE FER FALTA JA QUE LES RESTRICCIONS SON NEGATIVES
-//            String nomp = CtrlPlantilla.getidPlantillaActual();
-//            ArrayList<Torn> llistaTorns = CtrlCalendari.consultar_calendari(nomp).getTorns();
-//            for (int x=0; x<llistaTorns.size(); x++){
-//                Torn t = llistaTorns.get(x);
-//                boolean trobat = false;
-//                for(int y=0; y<v_max_torn.size(); y++){
-//                    if (v_max_torn.get(y).getId().equals(t.toString()))trobat=true;
-//                }
-//                if(!trobat){
-//                    Vertex v = g.getVertex(t.toString(), Vertex.TORN);
-//                    g.afegirAresta(vd, v, 1, 0);
-//                }
-//            }
         }
     }
 
@@ -103,36 +95,52 @@ public class CtrlEntrada {
             Vertex v = graf.getVertex(i);
             ArrayList<Integer> arestes = v.getArestes();
             for (int e = 0; e < arestes.size(); e++) {
-                graf.eliminaAresta(arestes.get(e));
+                if (v.getClasse() != Vertex.TORN) {
+                    graf.eliminaAresta(arestes.get(e));
+                } else {
+                    int posa = arestes.get(e);
+                    Aresta aresta = g.getA(posa);
+                    Vertex vp = g.getVertex(aresta.getv());
+                    String id_vp = vp.getId();
+                    if (id_vp.equals(v.getId()) && vp.getClasse() == Vertex.MAX) {// si el vertex origen de l'aresta no es el propi torn, es perque es el vertex Max
+                        graf.afegirAresta(vp, v, aresta.getcap(), 0);
+                    }
+                }
             }
         }
         //relacionam la font amb els doctors y el pou amb els torns
         Vertex pou = graf.getVertex("POU", Vertex.FONT_POU);
         Vertex font = graf.getVertex("FONT", Vertex.FONT_POU);
         Plantilla p = CtrlPlantilla.getPlantillaActual();
-        ArrayList<Doctor> llista_doc = p.getLlistaDoctors();
-        ArrayList<Torn> llistaTorns = CtrlCalendari.consultar_calendari(p.getNomPlantilla()).getTorns();
+
+        Iterator<Doctor> it_doc = p.getLlistaDoctorsDNI().iterator();
+        Dia[] any = p.get_calendari_asoc().getCalendari();
+
         for (int i = 0; i < graf.numV(); i++) {
             Vertex v = graf.getVertex(i);
             if (v.getClasse() == Vertex.DOCTOR) {
                 graf.afegirAresta(font, v, Graf.INFINIT, 0);
             } else if (v.getClasse() == Vertex.TORN) {
                 boolean trobat = false;
-                int posTorn = 0;
+                int nDia = 0;
                 int capacitat = 0;
-                while (!trobat && posTorn < llistaTorns.size()) {
-                    Torn torn = llistaTorns.get(posTorn);
-                    if (torn.toString().equals(v.getId())) {
-                        capacitat = torn.getN_min_doc();
-                        trobat = true;
+                while (!trobat && nDia < any.length) {
+                    int ntorn = 0;
+                    while (!trobat && ntorn < 3) {
+                        Torn torn = any[nDia].getTorn_concret(i);
+                        if (torn != null && torn.toString().equals(v.getId())) {
+                            capacitat = torn.getMin_num_doctors();
+                            trobat = true;
+                        }
                     }
-                    posTorn ++;
+                    nDia++;
                 }
                 graf.afegirAresta(pou, v, capacitat, 0);
             } else if (v.getClasse() == Vertex.MAX) {
                 ArrayList<String> doc_rel = v.getDoctorsRel();
-                for (int e = 0; e < llista_doc.size(); e++) {
-                    if (doc_rel.contains(llista_doc.get(e).getdni())) {
+                while (it_doc.hasNext()) {
+                    Doctor doc = it_doc.next();
+                    if (doc_rel.contains(doc.getdni())) {
                         ArrayList<Integer> a = v.getArestes();
                         for (int it = 0; it < a.size(); it++) {
                             int posAresta = a.get(it);
@@ -143,16 +151,17 @@ public class CtrlEntrada {
                                 vRelacionat = graf.getVertex(aresta.getw());
                             }
                             //comprovam que es la aresta de cercam
-                            if (vRelacionat.getDoctorsRel().contains(llista_doc.get(e).getdni())) {
+                            if (vRelacionat.getDoctorsRel().contains(doc.getdni())) {
                                 if (aresta.getflow() > 0) {
                                     graf.eliminaAresta(posAresta);
-                                    v.rmDoctorRel(llista_doc.get(e).getdni());
+                                    v.rmDoctorRel(doc.getdni());
                                 }
+
                             }
                         }
                     } else {
-                        v.addDoctorRel(llista_doc.get(e).getdni());
-                        String dni = llista_doc.get(e).getdni();
+                        v.addDoctorRel(doc.getdni());
+                        String dni = doc.getdni();
                         graf.afegirAresta(v, graf.getVertex(dni, Vertex.DOCTOR), 1, 0);
                     }
                 }
@@ -174,9 +183,27 @@ public class CtrlEntrada {
         for (int i = 0; i < g.numV(); i++) {
             Vertex v = g.getVertex(i);
             if (v.getClasse() == Vertex.MAX) {
+                ArrayList<Integer> la = v.getArestes();
+                for (int e = 0; e < la.size(); e++) {
+                    Aresta a = g.getA(la.get(e));
+                    Vertex vp = g.getVertex(a.getv()); // agafam el vertex anterior al vertex MAX (sempre sera una Restriccio) 
+                    ArrayList<String> doc_relacionats = v.getDoctorsRel();
+                    boolean existeix = false;
+                    int pos = 0;
+                    while (!existeix && pos < doc_relacionats.size()) {
+                        if (doc_relacionats.get(pos).equals(vp.getDoctorsRel().get(0))) {
+                            existeix = true;
+                        }
+                        pos++;
+                    }
+                    if (!existeix) {
+                        v.addDoctorRel(vp.getDoctorsRel().get(0));
+                    }
+                }
                 Vertex vtorn = g.getVertex(v.getId(), Vertex.TORN);
-                int arestes = v.getArestes().size(); // agafam les entrades que té
-                g.afegirAresta(v, vtorn, numDoc - arestes, 0);
+                Plantilla p = CtrlPlantilla.getPlantillaActual();
+                int nDoc = p.getLlistaDoctorsDNI().size();
+                g.afegirAresta(v, vtorn, nDoc, 0); // la capacitat es modificara segons les assignacions dels algorismes
             }
         }
     }
@@ -192,7 +219,7 @@ public class CtrlEntrada {
      * @return
      * @throws Error
      */
-    private static Vertex recorregut_restriccio(Restriccio r, String idDoc, Graf g, ArrayList<Vertex> vertex_torn) throws Error {
+    private static Vertex recorregut_restriccio(Restriccio r, String idDoc, Graf g) throws Error {
         Vertex v = new Vertex(r.toString(), Vertex.RESTRICCIO);
         v.addDoctorRel(idDoc);
         g.afegirVertex(v); // afagim el vertex al graf
@@ -207,26 +234,17 @@ public class CtrlEntrada {
                     String t2 = (String) of2_and;
                     ArrayList<Vertex> torns1 = consulta_torns_afectats(t1, r.getTipus(), g);
                     ArrayList<Vertex> torns2 = consulta_torns_afectats(t2, r.getTipus(), g);
-                    int capacitat = 0;
                     for (int i = 0; i < torns1.size(); i++) {
                         Vertex vertex = torns1.get(i);
-                        vertex_torn.add(vertex);
                         g.afegirAresta(v, vertex, /*1*/ Graf.INFINIT, 0);
-                        capacitat++;
                     }
                     for (int i = 0; i < torns2.size(); i++) {
                         Vertex vertex = torns2.get(i);
-                        vertex_torn.add(vertex);
                         g.afegirAresta(v, vertex, /*1*/ Graf.INFINIT, 0);
-                        capacitat++;
                     }
-                    v.setCapacitatAcumulada(capacitat);
                 } else {
-                    Vertex v1 = recorregut_restriccio((Restriccio) of1_and, idDoc, g, vertex_torn);
-                    Vertex v2 = recorregut_restriccio((Restriccio) of2_and, idDoc, g, vertex_torn);
-                    int cv1 = v1.getCapacitatAcumulada();
-                    int cv2 = v2.getCapacitatAcumulada();
-                    v.setCapacitatAcumulada(cv1 + cv2);
+                    Vertex v1 = recorregut_restriccio((Restriccio) of1_and, idDoc, g);
+                    Vertex v2 = recorregut_restriccio((Restriccio) of2_and, idDoc, g);
                     g.afegirAresta(v, v1, /*cv1*/ Graf.INFINIT, 0);
                     g.afegirAresta(v, v2, /*cv2*/ Graf.INFINIT, 0);
                 }
@@ -240,37 +258,17 @@ public class CtrlEntrada {
                     String t2 = (String) of2_xor;
                     ArrayList<Vertex> torns1 = consulta_torns_afectats(t1, r.getTipus(), g);
                     ArrayList<Vertex> torns2 = consulta_torns_afectats(t2, r.getTipus(), g);
-                    int capacitat1 = 0, capacitat2 = 0;
                     for (int i = 0; i < torns1.size(); i++) {
                         Vertex vertex = torns1.get(i);
-                        vertex_torn.add(vertex);
                         g.afegirAresta(v, vertex, /*1*/ Graf.INFINIT, 0);
-                        capacitat1++;
                     }
                     for (int i = 0; i < torns2.size(); i++) {
                         Vertex vertex = torns2.get(i);
-                        vertex_torn.add(vertex);
                         g.afegirAresta(v, vertex, /*1*/ Graf.INFINIT, 0);
-                        capacitat2++;
-                    }
-
-                    if (capacitat1 > capacitat2) {
-                        v.setCapacitatAcumulada(capacitat1);
-                    } else {
-                        v.setCapacitatAcumulada(capacitat2);
                     }
                 } else {
-                    Vertex v1 = recorregut_restriccio((Restriccio) of1_xor, idDoc, g, vertex_torn);
-                    Vertex v2 = recorregut_restriccio((Restriccio) of2_xor, idDoc, g, vertex_torn);
-                    int cv1 = v1.getCapacitatAcumulada();
-                    int cv2 = v2.getCapacitatAcumulada();
-                    int cap = 0;
-                    if (cv1 > cv2) {
-                        cap = cv1;
-                    } else {
-                        cap = cv2;
-                    }
-                    v.setCapacitatAcumulada(cv1 + cv2);
+                    Vertex v1 = recorregut_restriccio((Restriccio) of1_xor, idDoc, g);
+                    Vertex v2 = recorregut_restriccio((Restriccio) of2_xor, idDoc, g);
                     g.afegirAresta(v, v1, /*cv1*/ Graf.INFINIT, 0);
                     g.afegirAresta(v, v2, /*cv2*/ Graf.INFINIT, 0);
                 }
@@ -281,36 +279,14 @@ public class CtrlEntrada {
                 if (of_not.getClass().equals(String.class)) {
                     String t = (String) of_not;
                     ArrayList<Vertex> torns = consulta_torns_afectats(t, r.getTipus(), g);
-                    int capacitat = 0;
-                    for (int i = 0; i < torns.size(); i++) {
-                        Vertex vertex = torns.get(i);
-                        vertex_torn.add(vertex);
-                        // EN COMPTES DE POSAR UNA ARESTA, DIRECTAMENT NO POSAM RES
-                        //g.afegirAresta(v, vertex, 0, 0);
-                        capacitat++;
-                    }
-                    v.setCapacitatAcumulada(capacitat);
-
                 } else {
-                    Vertex v1 = recorregut_restriccio((Restriccio) of_not, idDoc, g, vertex_torn);
-                    v.setCapacitatAcumulada(1);
-                    // EN COMPTES DE POSAR UNA ARESTA, DIRECTAMENT NO POSAM RES
-                    //g.afegirAresta(v, v1, 0, 0);
+                    Vertex v1 = recorregut_restriccio((Restriccio) of_not, idDoc, g);
                 }
                 break;
             case "NOP":
                 R_NOP nop = (R_NOP) r;
                 String t = nop.getTorn();
                 ArrayList<Vertex> torns = consulta_torns_afectats(t, r.getTipus(), g);
-                int capacitat = 0;
-                for (int i = 0; i < torns.size(); i++) {
-                    Vertex vertex = torns.get(i);
-                    vertex_torn.add(vertex);
-                    g.afegirAresta(v, vertex, /*1*/ Graf.INFINIT, 0);
-                    capacitat++;
-                }
-                v.setCapacitatAcumulada(capacitat);
-
                 break;
         }
         return v;
@@ -318,47 +294,45 @@ public class CtrlEntrada {
 
     private static ArrayList<Vertex> consulta_torns_afectats(String t, String tipus_r, Graf g) throws Error {
         ArrayList<Vertex> v_torns = new ArrayList<Vertex>();
-        String nomp = CtrlPlantilla.getidPlantillaActual();
-        ArrayList<Torn> llistaTorns = CtrlCalendari.consultar_calendari(nomp).getTorns();
+        Plantilla plantilla = CtrlPlantilla.getPlantillaActual();
+        //String nomp = plantilla.getNomPlantilla();
+        Dia[] any = plantilla.get_calendari_asoc().getCalendari();
         switch (tipus_r) {
             case "D":
                 String[] data = t.split("-");// separa per -
                 int dia = Integer.parseInt(data[0]);
                 int mes = Integer.parseInt(data[1]);
-                for (int i = 0; i < llistaTorns.size(); i++) {
-                    Torn torn = llistaTorns.get(i);
-                    GregorianCalendar d_i = torn.getData_inici();
-                    GregorianCalendar d_f = torn.getData_fi();
-                    if (d_i.get(Calendar.MONTH) <= mes && d_f.get(Calendar.MONTH) >= mes
-                            && d_i.get(Calendar.DAY_OF_MONTH) <= dia && d_f.get(Calendar.DAY_OF_MONTH) >= dia) {
+                int numDiesAnteriors = calculaDiesAnteriors(mes);
+
+                for (int i = 0; i < 3; i++) {
+                    Torn torn = any[numDiesAnteriors + dia - 1].getTorn_concret(i);
+                    if (torn != null) {
                         v_torns.add(g.getVertex(torn.toString(), Vertex.MAX));
                     }
                 }
                 break;
             case "H":
-                String[] h = t.split(":");
-                int hora = Integer.parseInt(h[0]);
-                int min = Integer.parseInt(h[1]);
-                int sec = Integer.parseInt(h[2]);
-                for (int i = 0; i < llistaTorns.size(); i++) {
-                    Torn torn = llistaTorns.get(i);
-                    GregorianCalendar d_i = torn.getData_inici();
-                    GregorianCalendar d_f = torn.getData_fi();
-                    if (d_i.get(Calendar.HOUR_OF_DAY) <= hora && d_f.get(Calendar.HOUR_OF_DAY) >= hora
-                            && d_i.get(Calendar.MINUTE) <= min && d_f.get(Calendar.MINUTE) >= min
-                            && d_i.get(Calendar.SECOND) <= sec && d_f.get(Calendar.SECOND) >= sec) {
-                        v_torns.add(g.getVertex(torn.toString(), Vertex.MAX));
+                int hora = Integer.parseInt(t);
+                for (int i = 0; i < any.length; i++) {
+                    for (int e = 0; e < 3; e++) {
+                        Torn torn = any[i].getTorn_concret(e);
+                        if (torn != null && torn.getHora_inici() <= hora && torn.getHora_fi() > hora) {
+                            v_torns.add(g.getVertex(torn.toString(), Vertex.MAX));
+                        }
                     }
                 }
                 break;
             case "S":
                 int numSetmana = Integer.parseInt(t);
-                for (int i = 0; i < llistaTorns.size(); i++) {
-                    Torn torn = llistaTorns.get(i);
-                    GregorianCalendar d_i = torn.getData_inici();
-                    GregorianCalendar d_f = torn.getData_fi();
-                    if (d_i.get(Calendar.WEEK_OF_YEAR) <= numSetmana && d_f.get(Calendar.WEEK_OF_YEAR) >= numSetmana) {
-                        v_torns.add(g.getVertex(torn.toString(), Vertex.MAX));
+                int diesAnteriors = (numSetmana - 1) * 7;
+                for (int i = diesAnteriors; i < 7; i++) {
+                    if (i < any.length) {
+                        for (int e = 0; e < 3; e++) {
+                            Torn torn = any[i].getTorn_concret(e);
+                            if (torn != null) {
+                                v_torns.add(g.getVertex(torn.toString(), Vertex.MAX));
+                            }
+                        }
                     }
                 }
                 break;
@@ -366,5 +340,34 @@ public class CtrlEntrada {
                 throw new Error("No es reconeix el tipus de la restricció");
         }
         return v_torns;
+    }
+
+    private static int calculaDiesAnteriors(int mes) {
+        switch (mes) {
+            case 2:
+                return 31;
+            case 3:
+                return (31 + 28);
+            case 4:
+                return (31 * 2 + 28);
+            case 5:
+                return (31 * 2 + 30 + 28);
+            case 6:
+                return (31 * 3 + 30 + 28);
+            case 7:
+                return (31 * 3 + 30 * 2 + 28);
+            case 8:
+                return (31 * 4 + 30 * 2 + 28);
+            case 9:
+                return (31 * 4 + 30 * 3 + 28);
+            case 10:
+                return (31 * 5 + 30 * 3 + 28);
+            case 11:
+                return (31 * 5 + 31 * 4 + 28);
+            case 12:
+                return (31 * 6 + 31 * 4 + 28);
+            default:
+                return 0;
+        }
     }
 }

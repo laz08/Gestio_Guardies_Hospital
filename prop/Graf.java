@@ -45,7 +45,7 @@ public class Graf {
             while (e < arestes.size() && !trobat){
                 int numA = arestes.get(e);
                 if(numA == pos){
-                    v.emimina_aresta(e);
+                    v.elimina_aresta(e);
                     trobat = true;
                 }
                 e++;
@@ -247,7 +247,8 @@ public class Graf {
                         break;
                 }
                 int cap = a.getcap();
-                System.out.println(idv+" ------ "+cap+" ------ "+idw);
+                int flow = a.getflow();
+                System.out.println(idv+" ------ "+"c:"+cap+" f:"+flow+" ------ "+idw);
             }
     }
 }
