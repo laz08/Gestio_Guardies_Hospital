@@ -47,7 +47,7 @@ public class DriverCtrlPlantilla {
 
                     case 0: sortir = true; break;
                     default:
-                        System.out.println("El numero ha d'estar entre 0 i 17.");
+                        System.out.println("El numero ha d'estar entre 0 i 19.");
                         break;
                 }
 

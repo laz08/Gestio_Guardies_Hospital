@@ -20,6 +20,9 @@ public class Calendari {
 		long dies = diaf.getTimeInMillis() - dia.getTimeInMillis();
 		dies = dies/1000/60/60/24;
 		cal = new Dia[(int) dies];
+		for (int i = 0; i < dies; ++i) {
+			cal[i] = new Dia(false); // S'inicialitza el dia com a no festiu es pot canviar
+		}
 		any =  any_inici;
 		afegirFestius(); //Afegim a tots els diumenges de l'any el boolea festiu true
 		setPlantillaAssociada(plt);
@@ -137,7 +140,7 @@ public class Calendari {
 		}
 	}
 	
-	//Pre: dia pertany a l'any
+	/*//Pre: dia pertany a l'any
 	//Post: Ens retorna la posició on es troba el dia en qüestió en el nostre calendari
 	public int calcularPosicioDia(GregorianCalendar dia) {
 		GregorianCalendar primerdia = new GregorianCalendar(any,1,1);
@@ -153,7 +156,7 @@ public class Calendari {
 		GregorianCalendar primerdia = new GregorianCalendar(any,1,1);
 		primerdia.add(Calendar.DAY_OF_YEAR,i);
 		return primerdia;		
-	}
+	}*/
 	
 	
 }
