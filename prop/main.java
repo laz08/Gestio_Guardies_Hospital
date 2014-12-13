@@ -51,6 +51,7 @@ public class main {
         System.out.println("4.- Escollir algorisme a aplicar");
         System.out.println("5.- Guardar");
         System.out.println("6.- Carregar");
+        System.out.println("0.- Sortir");
         System.out.println("---------------------------------");
         System.out.print(">> ");
     }
@@ -212,7 +213,46 @@ public class main {
             if (menu != 0) escriuMenuModificaDoctors(dni);
         }
     }
-
+    private static void casConsultaDoctor(){
+        String dni = arg.next();
+        if(CtrlDomini.existeixDoctoraHospital(dni)){
+            Doctor doc = CtrlDomini.consultaDoctor(dni);
+            System.out.println("DNI: "+doc.getdni());
+            System.out.println("Nom i cognoms: "+doc.getNom()+" "+doc.getCognom1()+" "+doc.getCognom2());
+            System.out.println("Sou: "+doc.getSou());
+            System.out.println("Telefon: "+doc.getTelefon());
+            System.out.println("Correu: "+doc.getCorreu());
+        }
+        else
+            System.out.println("No existeix cap doctor amb aquest DNI.");
+    }
+    private static void casEliminaDoctor(){
+        String dni = arg.next();
+        if(CtrlDomini.existeixDoctoraHospital(dni)){
+                CtrlDomini.eliminaDoctorHospital(dni);
+        }
+        else
+            System.out.println("No existeix cap doctor amb aquest DNI.");
+    }
+    private static void casCarregarDoctors(){
+        CtrlDomini.carregarDoctors();
+    }
+    private static void casGuardarDoctors(){
+        CtrlDomini.guardarDoctors();
+    }
+    private static void casConsultaLlistatDoctors(){
+        //Els traiem per pantalla per ordre alfabètic
+        TreeSet<Doctor> ll = CtrlDomini.consultaHospital_nom();
+        System.out.println("Núm. de doctors en total: "+ ll.size());
+        for(Doctor doc:ll) {
+            System.out.println("DNI: " + doc.getdni());
+            System.out.println("Cognoms, Nom: " + doc.getCognom1() + " " + doc.getCognom2() + ", " + doc.getNom());
+            System.out.println("Sou: " + doc.getSou());
+            System.out.println("Telefon: " + doc.getTelefon());
+            System.out.println("Correu: " + doc.getCorreu());
+            System.out.println("\n");
+        }
+    }
 
     private static void escriuMenuModificaDoctors(String dni){
         System.out.println("----------Modificar doctor amb dni "+dni+"----------");
@@ -251,8 +291,8 @@ public class main {
                 case 2: casModificaDoctor(); break;
                 case 3: casConsultaDoctor();  break;
                 case 4: casEliminaDoctor(); break;
-                case 5: casCarregarDoctor(); break;
-                case 6: casGuardarDoctor(); break;
+                case 5: casCarregarDoctors(); break;
+                case 6: casGuardarDoctors(); break;
                 case 7: casConsultaLlistatDoctors(); break;
                 case 0: sortir = true; break;
                 default:
