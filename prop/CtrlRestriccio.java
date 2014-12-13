@@ -239,6 +239,14 @@ public class CtrlRestriccio {
         }
         return fill;
     }
+    
+    public static void guardar() {
+    	String content = "";
+    	for (Restriccio r: restriccions) {
+    		content += mostra_arbre(r) + "\n";
+    	}
+    	CtrlPersistencia.guardar(content, "Restriccions");
+    }
 
     /**
      * Donada una expressió que defineix una restricció, canvia els valors
