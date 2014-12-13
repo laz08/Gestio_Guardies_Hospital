@@ -6,12 +6,8 @@ import java.util.*;
 public class CtrlHospital {
 
 
-    public CtrlHospital(){
-
-    }
-
     /**
-     * Crea un nou doctor amb els atributs especificats a contunuació y en retorna l'objecte
+     * Crea un nou doctor amb els atributs especificats a contunuació i en retorna l'objecte
      * @param d DNI del doctor
      * @param n Nom
      * @param cg1 Primer Cognom 
@@ -36,7 +32,7 @@ public class CtrlHospital {
 
 
     /**
-     * Crea un nou doctor amb els atributs especificats a contunuació y l'afageix a l'hospital
+     * Crea un nou doctor amb els atributs especificats a contunuació i l'afegeix a l'hospital
      * @param d DNI del doctor
      * @param n Nom
      * @param cg1 Primer Cognom 
