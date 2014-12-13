@@ -76,5 +76,14 @@ public class main {
         escriuMenuGestioRestriccions();
     }
 
-    
+    private static void casAplicarAlgorisme(){
+
+    }
+
+    private static void casGuardar(){
+
+    }
+    private static void casCarregar(){
+
+    }
 }
