@@ -42,6 +42,31 @@ public class main {
         }
     }
 
+    private static void lecturaTeclatGestioDoctors(){
+
+    }
+
+    private static void lecturaTeclatGestioPlantilles(){
+
+    }
+
+    private static void lecturaTeclatGestioRestriccions(){
+
+    }
+
+    private static void lecturaTeclatAplicarAlgorisme(){
+
+    }
+
+    private static void lecturaTeclatGuardar(){
+
+    }
+
+    private static void lecturaTeclatCarregar(){
+
+    }
+
+
     private static void escriuMenu(){
         System.out.println("----------MENU PRINCIPAL----------");
         System.out.println("1.- Gestió de doctors (Hospital)");
@@ -56,10 +81,20 @@ public class main {
 
 
     private static void escriuMenuGestioDoctors(){
-
+        System.out.println("----------GESTIÓ DE DOCTORS DE L'HOSPITAL----------");
+        System.out.println("1.- Donar d'alta Doctor(dni: String, nom: String, cognom1: String, cognom2: String, sou: int, telf: int, correu: String)");
+        System.out.println("2.- Eliminar Doctor(dni: String)");
+        System.out.println("3.- Existeix Doctor(dni: String)");
+        System.out.println("4.- Consultar Doctor(dni: String)");
+        System.out.println("5.- Consultar llistat doctors()");
+        System.out.println("0.- Tornar a Menu Principal");
+        System.out.println("---------------------------------");
+        System.out.print(">> ");
     }
     private static void casGestioDoctors(){
         escriuMenuGestioDoctors();
+        lecturaTeclatGestioDoctors();
+        //Crida a CtrlDomini pel cas d'us escollit
     }
 
     private static void escriuMenuGestioPlantilles(){
@@ -76,14 +111,24 @@ public class main {
         escriuMenuGestioRestriccions();
     }
 
-    private static void casAplicarAlgorisme(){
+    private static void escriuMenuAplicarAlgorisme(){
 
     }
+    private static void casAplicarAlgorisme(){
+        escriuMenuAplicarAlgorisme();
+    }
 
+    private static void escriuMenuGuardar(){
+
+    }
     private static void casGuardar(){
+        escriuMenuGuardar();
+    }
+
+    private static void escriuMenuCarregar(){
 
     }
     private static void casCarregar(){
-
+        escriuMenuCarregar();
     }
 }

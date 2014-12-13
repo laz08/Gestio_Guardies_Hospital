@@ -6,6 +6,10 @@ import java.util.*;
 public class CtrlHospital {
 
 
+    public CtrlHospital(){
+
+    }
+
     /**
      * Crea un nou doctor amb els atributs especificats a contunuació y en retorna l'objecte
      * @param d DNI del doctor
@@ -166,11 +170,11 @@ public class CtrlHospital {
 
     public static boolean consultarActivitat(Doctor doc){
         return doc.isActiu();
-    }	
+    }
 
     public static void guardar() {
     	String content = "";
-    	int cont = 0; 
+    	int cont = 0;
     	TreeSet<Doctor> ll = CtrlHospital.getHospital_dni();
     	for (Doctor doc:ll) {
     		content = content + doc.getdni() + " " + doc.getNom() + " " + doc.getCognom1() + " "
