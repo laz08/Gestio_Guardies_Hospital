@@ -59,6 +59,7 @@ public class CtrlCalendari {
 	
 	public static void guardar() {
 		String content = "";
+		String fi = "Fi";
 		for(Calendari c: llcalendaris) {
 			content += c.getPlantillaAssociada() + "\n" + c.getAny() + "\n";
 			for (Dia d: c.getCalendari()) {
@@ -68,12 +69,51 @@ public class CtrlCalendari {
 					+ t.getPercent_sou() + " " + t.getMin_num_doctors() + "\n";
 				}
 			}
+			content += (fi + "\n");
 		}
 		CtrlPersistencia.guardar(content, "Calendaris");
 	}
 	
 	public static void carregar() {
-		
+		String content = CtrlPersistencia.carregar("Calendaris");
+		String separadors = "[ \n]";
+    	String[] separat = content.split(separadors);
+    	int i = 0;
+    	while (i < separat.length && separat[i].compareTo("Fi")!= 0) {
+    		System.out.println("SEPARAT "+ i);
+    		if(!CtrlPlantilla.existeixPlantilla(separat[i])) CtrlPlantilla.creariAfegirPlantilla(separat[i]);
+    		Calendari c = new Calendari(separat[i], Integer.parseInt(separat[i+1]), Integer.parseInt(separat[i+1]));
+    		i += 2;
+    		Dia[] any = c.getCalendari();
+    		int j = 0;
+    		for (j = 0; j < any.length && separat[i].compareTo("Fi")!= 0; j++) {
+    			System.out.println("BOOL " +j +" "+ separat[i]);
+    			any[j].setFestiu(Boolean.parseBoolean(separat[i]));
+    			i++;
+                for(int e=0; e<3; e++){
+                	System.out.println(j + " " + e +" "+ separat[i]);
+                	System.out.println(j + " " + e +" "+ separat[i+1]);
+                	System.out.println(j + " " + e +" "+ separat[i+2]);
+                	System.out.println(j + " " + e +" "+ separat[i+3]);
+                    Torn t = new Torn(Integer.parseInt(separat[i]),Integer.parseInt(separat[i+1]),Float.parseFloat(separat[i+2]), Integer.parseInt(separat[i+3]));
+                        i+=4;
+                    	switch(e){
+                            case 0:
+                                any[j].setTornMati(t);
+                                break;
+                            case 1:
+                                any[j].setTornTarda(t);
+                                break;
+                            case 2:
+                                any[j].setTornNit(t);
+                                break;
+                        }
+                }
+            }
+    		c.setCalendari(any);
+            CtrlCalendari.afegirCalendarif(c);
+    	}
+    	
 	}
 	
 	

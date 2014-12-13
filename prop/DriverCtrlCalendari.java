@@ -56,6 +56,7 @@ public class DriverCtrlCalendari {
 				case 27: modificarTorn(); break;
 				case 28: modificarPercentatgeTorn(); break;
 				case 29: CtrlCalendari.guardar(); break;
+				case 30: CtrlCalendari.carregar(); break;
 				default:
 					System.out.println("El numero ha d'estar entre 0 i 6.");
 					break;
@@ -113,7 +114,7 @@ public class DriverCtrlCalendari {
 		String plt = arg.next();
 		int any_i = arg.nextInt();
 		if(!CtrlPlantilla.existeixPlantilla(plt)) CtrlPlantilla.creariAfegirPlantilla(plt);
-		Calendari c = new Calendari(plt, 1000, 1001);
+		Calendari c = new Calendari(plt, any_i, any_i);
 		Dia[] any = c.getCalendari();
         for (int i = 0; i < any.length; i++) {
             for(int e=0; e<3; e++){
@@ -151,6 +152,7 @@ public class DriverCtrlCalendari {
 		Calendari c = CtrlCalendari.consultarCalendari(plt);
 		for(int i=0; i<c.getCalendari().length; ++i){
 			Dia d = c.getCalendari()[i];
+			System.out.println(i);
 			escriureDia(d,CtrlCalendari.quinDia(i,c.getAny()));
 		}
 	}
