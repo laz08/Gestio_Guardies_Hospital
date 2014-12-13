@@ -56,7 +56,12 @@ public class CtrlDomini {
 
     //-------------PLANTILLA-------------
 
-
+    public static boolean existeixPlantilla(String nom_p){
+        return CtrlPlantilla.existeixPlantilla(nom_p);
+    }
+    public static void crearPlantilla(String nom_p){
+        CtrlPlantilla.creariAfegirPlantilla(nom_p);
+    }
 
 
     //-------------RESTRICCIONS-------------

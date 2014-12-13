@@ -14,7 +14,7 @@ public class main {
     public static void main(String[] args){
         int cas = 0;
         boolean sortir = false;
-        escriuMenu();
+        escriuMenuPrincipal();
 
         while (!sortir && arg.hasNext()){
             try {
@@ -39,11 +39,11 @@ public class main {
                     break;
             }
 
-            if (cas != 0) escriuMenu();
+            if (cas != 0) escriuMenuPrincipal();
         }
     }
 
-    private static void escriuMenu(){
+    private static void escriuMenuPrincipal(){
         System.out.println("----------MENU PRINCIPAL----------");
         System.out.println("1.- Gestió de doctors (Hospital)");
         System.out.println("2.- Gestió de plantilles");
@@ -69,12 +69,13 @@ public class main {
         return menu;
     }
 
-
+    //-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
+    //----------------------------------------------------
     //-----------------------HOSPITAL---------------------
+    //----------------------------------------------------
 
-    /**
-     * A editar
-     */
+    //-----------------------Auxiliars--------------------
+
     public static void missatgeErrorDni(){
         System.out.println("Ja existeix un doctor amb aquest DNI.");
         System.out.println("El llistat dels dni de doctors ja existents es el seguent: ");
@@ -87,7 +88,6 @@ public class main {
         System.out.print(">>");
 
     }
-
     private static void casCrearDoctor(){
         String dni = arg.next();
         String nom = arg.next();
@@ -136,7 +136,6 @@ public class main {
 
         CtrlDomini.creaDoctor(dni, nom, cg1, cg2, sou, telf, correu);
     }
-
     private static void modificarNom(Doctor doc){
         String nom = arg.next();
         doc.setNom(nom);
@@ -190,30 +189,52 @@ public class main {
 
     private static void casModificaDoctor(){
         String dni = arg.next();
-        Doctor doc = CtrlDomini.consultaDoctor(dni);
-        //Es pot modificar qualsevol cosa menys el DNI!
-        escriuMenuModificaDoctors(dni);
-        boolean sortir = false;
-        while (!sortir) {
-            int menu = lecturaTeclat();
-            switch (menu) {
-                case 1: modificarNom(doc); break;
-                case 2: modificarCognom1(doc); break;
-                case 3: modificarCognom2(doc); break;
-                case 4: modificarTelefon(doc); break;
-                case 5: modificarSou(doc); break;
-                case 6: modificarCorreu(doc); break;
-                case 7: afegirRestriccions(doc); break;
-                case 8: esborrarRestriccions(doc); break;
-                case 0: sortir = true; break;
-                default:
-                    System.out.println("El numero ha d'estar entre 0 i 8.");
-                    break;
+        if(CtrlDomini.existeixDoctoraHospital(dni)) {
+            Doctor doc = CtrlDomini.consultaDoctor(dni);
+            //Es pot modificar qualsevol cosa menys el DNI!
+            escriuMenuModificaDoctors(dni);
+            boolean sortir = false;
+            while (!sortir) {
+                int menu = lecturaTeclat();
+                switch (menu) {
+                    case 1:
+                        modificarNom(doc);
+                        break;
+                    case 2:
+                        modificarCognom1(doc);
+                        break;
+                    case 3:
+                        modificarCognom2(doc);
+                        break;
+                    case 4:
+                        modificarTelefon(doc);
+                        break;
+                    case 5:
+                        modificarSou(doc);
+                        break;
+                    case 6:
+                        modificarCorreu(doc);
+                        break;
+                    case 7:
+                        afegirRestriccions(doc);
+                        break;
+                    case 8:
+                        esborrarRestriccions(doc);
+                        break;
+                    case 0:
+                        sortir = true;
+                        break;
+                    default:
+                        System.out.println("El numero ha d'estar entre 0 i 8.");
+                        break;
+                }
+                if (menu != 0) escriuMenuModificaDoctors(dni);
             }
-            if (menu != 0) escriuMenuModificaDoctors(dni);
         }
+        else
+            System.out.println("No existeix cap doctor amb aquest DNI");
     }
-    private static void casConsultaDoctor(){
+    private static void casConsultaDoctorHospital(){
         String dni = arg.next();
         if(CtrlDomini.existeixDoctoraHospital(dni)){
             Doctor doc = CtrlDomini.consultaDoctor(dni);
@@ -254,6 +275,7 @@ public class main {
         }
     }
 
+    //-----------------------Principal--------------------
     private static void escriuMenuModificaDoctors(String dni){
         System.out.println("----------Modificar doctor amb dni "+dni+"----------");
         System.out.println("1.- Modificar nom (nom: String)");
@@ -289,7 +311,7 @@ public class main {
             switch (menu) {
                 case 1: casCrearDoctor(); break;
                 case 2: casModificaDoctor(); break;
-                case 3: casConsultaDoctor();  break;
+                case 3: casConsultaDoctorHospital();  break;
                 case 4: casEliminaDoctor(); break;
                 case 5: casCarregarDoctors(); break;
                 case 6: casGuardarDoctors(); break;
@@ -304,8 +326,30 @@ public class main {
     }
 
 
+    //-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
+    //----------------------------------------------------
     //-----------------------PLANTILLA---------------------
+    //----------------------------------------------------
 
+    //-----------------------Auxiliars--------------------
+    public static void casCreaPlantilla(){
+        String nom_p = arg.next();
+        if(!CtrlDomini.existeixPlantilla(nom_p)){
+            CtrlDomini.crearPlantilla(nom_p);
+        }
+        else
+            System.out.println("Ja existeix plantilla amb nom " + nom_p);
+
+    }
+    public static void casModificaPlantilla(){
+
+    }
+
+
+    //-----------------------Principal--------------------
+    private static void escriuMenuModificaPlantilla(){
+
+    }
     private static void escriuMenuGestioPlantilles(){
         System.out.println("----------GESTIÓ DE PLANTILLES----------");
         System.out.println("1.- Crear plantilla(Nom_plantilla: String)");
@@ -321,9 +365,28 @@ public class main {
     }
     private static void casGestioPlantilles(){
         escriuMenuGestioPlantilles();
-        int menu = lecturaTeclat();
-        //Crida a CtrlDomini pel cas d'ús escollit (O a un altre menú)
+        boolean sortir = false;
+        while (!sortir){
+            int menu = lecturaTeclat();
+            switch(menu){
+                case 1: casCreaPlantilla(); break;
+                case 2: casModificaPlantilla(); break;
+                default:
+                    System.out.println("El numero ha d'estar entre 0 i 7.");
+                    break;
+            }
+
+        }
     }
+
+
+
+
+    //-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
+    //----------------------------------------------------
+    //-----------------------RESTRICCIONS---------------------
+    //----------------------------------------------------
+
 
     private static void escriuMenuGestioRestriccions(){
         System.out.println("----------GESTIÓ DE RESTRICCIONS----------");
@@ -344,8 +407,11 @@ public class main {
 
     }
 
-
+    //-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
+    //----------------------------------------------------
     //-----------------------ALGORISMES---------------------
+    //----------------------------------------------------
+
 
     private static void escriuMenuAplicarAlgorisme(){
         System.out.println("----------APLICAR ALGORISME----------");
@@ -360,8 +426,10 @@ public class main {
         int menu = lecturaTeclat();
     }
 
-
+    //-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
+    //----------------------------------------------------
     //-----------------------GUARDAR---------------------
+    //----------------------------------------------------
 
     private static void escriuMenuGuardar(){
 
@@ -370,8 +438,10 @@ public class main {
         escriuMenuGuardar();
         int menu = lecturaTeclat();
     }
-
+    //-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
+    //----------------------------------------------------
     //-----------------------CARREGAR---------------------
+    //----------------------------------------------------
 
     private static void escriuMenuCarregar(){
     }

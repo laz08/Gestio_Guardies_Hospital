@@ -12,8 +12,11 @@ public class CtrlPlantilla {
 
     // ------ PLANTILLES EN GENERAL ------
 
-    //Pre: No existeix una plantilla amb nom = nom_plantilla
-    //Post: Cjt_Plantilles ara té una nova plantilla amb el nom = nom_plantilla
+    /**
+     * Pre: No existeix una plantilla amb nom = nom_plantilla
+     * Post: Cjt_Plantilles ara té una nova plantilla amb el nom = nom_plantilla
+     * @param nom_plantilla
+     */
     public static void creariAfegirPlantilla(String nom_plantilla){
         Plantilla p = new Plantilla(nom_plantilla);
         Cjt_plantilles.add(p);
