@@ -25,6 +25,10 @@ public class CtrlCalendari {
 		llcalendaris.add(c);
 	}
 	
+	public static void afegirCalendarif(Calendari c) {
+		llcalendaris.add(c);
+	}
+	
 	//Pre: -
 	//Post: S'ha esborrat el calendari associat 
 	public static void eliminarCalendari(String plt) {
@@ -53,6 +57,24 @@ public class CtrlCalendari {
 		return llcalendaris.ceiling(c);
 	}
 	
+	public static void guardar() {
+		String content = "";
+		for(Calendari c: llcalendaris) {
+			content += c.getPlantillaAssociada() + "\n" + c.getAny() + "\n";
+			for (Dia d: c.getCalendari()) {
+				content += d.getFestiu() + "\n";
+				for (Torn t: d.getTorns()) {
+					content += t.getHora_inici() + " " + t.getHora_fi() + " " 
+					+ t.getPercent_sou() + " " + t.getMin_num_doctors() + "\n";
+				}
+			}
+		}
+		CtrlPersistencia.guardar(content, "Calendaris");
+	}
+	
+	public static void carregar() {
+		
+	}
 	
 	
 	//--------- FUNCIONS PER UN CALENDARI CONCRET ----------
