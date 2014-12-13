@@ -97,4 +97,19 @@ public class CtrlDomini {
 
     //-------------CALENDARI-------------
 
+    //-------------CARREGAR-------------
+    public static void carregarGeneral(){
+        CtrlPlantilla.carregar();
+        CtrlHospital.carregar();
+        CtrlCalendari.carregar();
+
+    }
+
+    //-------------GUARDAR-------------
+    public static void guardarGeneral(){
+        CtrlPlantilla.guardar();
+        CtrlHospital.guardar();
+        CtrlCalendari.guardar();
+        CtrlRestriccio.guardar();
+    }
 }

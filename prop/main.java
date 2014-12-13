@@ -557,23 +557,16 @@ public class main {
     //-----------------------GUARDAR---------------------
     //----------------------------------------------------
 
-    private static void escriuMenuGuardar(){
-
-    }
     private static void casGuardar(){
-        escriuMenuGuardar();
-        int menu = lecturaTeclat();
+       CtrlDomini.guardarGeneral();
     }
     //-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
     //----------------------------------------------------
     //-----------------------CARREGAR---------------------
     //----------------------------------------------------
 
-    private static void escriuMenuCarregar(){
-    }
     private static void casCarregar(){
-        escriuMenuCarregar();
-        int menu = lecturaTeclat();
+        CtrlDomini.carregarGeneral();
     }
 
 
@@ -588,6 +581,6 @@ public class main {
     private static void casGestioCalendaris(){
         escriuMenuGestioCalendaris();
         int menu = lecturaTeclat();
-        
+
     }
 }
