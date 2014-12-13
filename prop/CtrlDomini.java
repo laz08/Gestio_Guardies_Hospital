@@ -62,9 +62,34 @@ public class CtrlDomini {
     public static void crearPlantilla(String nom_p){
         CtrlPlantilla.creariAfegirPlantilla(nom_p);
     }
+    public static void esborraPlantilla(String nom_p){
+        CtrlPlantilla.esborrarPlantilla(nom_p);
+    }
 
     public static Plantilla consultaPlantilla(String nom_p){
         return CtrlPlantilla.consultarPlantilla(nom_p);
+    }
+    public static void afegirDoctorAPlantilla(Doctor doc, Plantilla plantilla){
+        CtrlPlantilla.afegirDoctorAPlantilla(doc, plantilla);
+    }
+    public static void esborrarDoctorDePlantilla(Doctor doc, Plantilla plantilla){
+        CtrlPlantilla.esborrarDoctorDePlantilla(doc, plantilla);
+    }
+
+    public static void associaCalendariPlantilla(Plantilla p, int any){
+        CtrlPlantilla.crearCalendariAssociatAPlantilla(p, any);
+    }
+    public static void desassociaCalendariIEsborra(Plantilla p){
+        CtrlPlantilla.desassociarDeCalendari(p);
+    }
+    public static void guardarPlantilles(){
+        CtrlPlantilla.guardar();
+    }
+    public static void carregarPlantilles(){
+        CtrlPlantilla.carregar();
+    }
+    public static TreeSet<Plantilla> llistarPlantilles(){
+        return CtrlPlantilla.getCjt_plantilles();
     }
 
 

@@ -84,6 +84,18 @@ public class CtrlPlantilla {
         p.getLlistaDoctorsNom().add(doc);
     }
 
+    /**
+     * PRE: Doctor no està actiu (no pertany a cap plantilla)
+     * POST: Doctor ara està actiu i pertany a la plantilla p
+     * @param doc
+     * @param p
+     */
+    public static void afegirDoctorAPlantilla(Doctor doc, Plantilla p){
+        doc.setActiu(true);
+        p.getLlistaDoctorsDNI().add(doc);
+        p.getLlistaDoctorsNom().add(doc);
+    }
+
 
     //Pre: Doctor existeix i plantilla també, i doc està en la plantilla
     //Post: S'ha esborrat doctor de la plantilla indicada.
@@ -93,6 +105,18 @@ public class CtrlPlantilla {
         Plantilla p = Cjt_plantilles.ceiling(new Plantilla(id_plantilla));
         p.getLlistaDoctorsNom().remove(p);
         p.getLlistaDoctorsDNI().remove(p);
+    }
+
+    /**
+     * PRE: Doctor doc pertany a la plantilla
+     * POST: Doctor ja no pertany a cap plantilla i està inactiu
+     * @param doc
+     * @param plantilla
+     */
+    public static void esborrarDoctorDePlantilla(Doctor doc, Plantilla plantilla){
+        doc.setActiu(false);
+        plantilla.getLlistaDoctorsDNI().remove(doc);
+        plantilla.getLlistaDoctorsNom().remove(doc);
     }
 
     //Retorna si el doctor està assignat a una plantilla
@@ -108,11 +132,17 @@ public class CtrlPlantilla {
             return p.getLlistaDoctorsDNI().contains(new Doctor(dni));
     }
 
-    /*public static void crearCalendariAssociataPlantillaActual(){
+    public static void crearCalendariAssociatAPlantilla(Plantilla p, int any){
         // !!!!!!!!!! ================= !!!!!!!!!!!!!!!!!!!!!
-        Calendari C = CtrlCalendari.CrearIAfegirCalendari(); //Hauria de retornar punter a aquest Calendari
-        CtrlPlantilla.getPlantillaActual().set_calendari_asoc(C);
-    }*/
+        Calendari C = CtrlCalendari.CrearIAfegirCalendari(p.getNomPlantilla(), any);
+        p.set_calendari_asoc(C);
+    }
+
+    public static void desassociarDeCalendari(Plantilla p){
+        Calendari C = p.get_calendari_asoc();
+        C = null;
+        p.set_calendari_asoc(null);
+    }
 
     public static void guardar() {
     	String content = "";
