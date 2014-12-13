@@ -341,13 +341,55 @@ public class main {
             System.out.println("Ja existeix plantilla amb nom " + nom_p);
 
     }
-    public static void casModificaPlantilla(){
+    public static void modificaNomPlantilla(Plantilla p){
+        String nom = arg.next();
+        p.setNomPlantilla(nom);
+    }
 
+    public static void afegirDoctorAPlantilla(Plantilla p){
+        String dni = arg.next();
+    }
+
+
+
+
+    public static void casModificaPlantilla(){
+        String nom_p = arg.next();
+        if(CtrlDomini.existeixPlantilla(nom_p)){
+            Plantilla p = CtrlDomini.consultaPlantilla(nom_p);
+            escriuMenuModificaPlantilla(p.getNomPlantilla());
+            boolean sortir = false;
+            while(!sortir){
+                int menu = lecturaTeclat();
+                switch(menu){
+                    case 1: modificaNomPlantilla(p); break;
+                    case 2: afegirDoctorAPlantilla(p); break;
+                    default:
+                        System.out.println("El numero ha d'estar entre 0 i 5.");
+                        break;
+
+
+                }
+            }
+        }
+        else
+            System.out.println("No existeix cap plantilla amb nom "+nom_p);
     }
 
 
     //-----------------------Principal--------------------
-    private static void escriuMenuModificaPlantilla(){
+    private static void escriuMenuModificaPlantilla(String nom_p){
+        //Permetem canvi del nom de la plantilla
+        //Pero no és gaire adequat
+        System.out.println("----------Modificar plantilla "+nom_p+"----------");
+        System.out.println("1.- Canviar nom(Nom_plantilla: String)");
+        System.out.println("2.- Afegir doctor a plantilla (dni: String)"); //Llistem doctors de l'hospital a afegir que no tenen plantilla
+        System.out.println("3.- Treure doctor de plantilla (dni: String)");
+        System.out.println("4.- Crear i associar amb calendari");
+        System.out.println("5.- Desassocia i esborra calendari");
+        System.out.println("0.- Tornar a Menu Principal");
+        System.out.println("---------------------------------");
+        System.out.print(">> ");
 
     }
     private static void escriuMenuGestioPlantilles(){
@@ -375,7 +417,7 @@ public class main {
                     System.out.println("El numero ha d'estar entre 0 i 7.");
                     break;
             }
-
+            if(menu != 0) escriuMenuGestioPlantilles();
         }
     }
 

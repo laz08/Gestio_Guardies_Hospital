@@ -63,6 +63,10 @@ public class CtrlDomini {
         CtrlPlantilla.creariAfegirPlantilla(nom_p);
     }
 
+    public static Plantilla consultaPlantilla(String nom_p){
+        return CtrlPlantilla.consultarPlantilla(nom_p);
+    }
+
 
     //-------------RESTRICCIONS-------------
 
