@@ -25,6 +25,8 @@ public class CtrlCalendari {
 		llcalendaris.add(c);
 	}
 	
+	//Pre:-
+	//Post: s'afegeix calendari al treeset llcalendaris
 	public static void afegirCalendarif(Calendari c) {
 		llcalendaris.add(c);
 	}
@@ -57,6 +59,8 @@ public class CtrlCalendari {
 		return llcalendaris.ceiling(c);
 	}
 	
+	//Pre: -
+	//Post: Guardem llcalendaris calendari
 	public static void guardar() {
 		String content = "";
 		String fi = "Fi";
@@ -74,6 +78,8 @@ public class CtrlCalendari {
 		CtrlPersistencia.guardar(content, "Calendaris");
 	}
 	
+	//Pre: -
+	//Post: Carreguem la llcalendaris
 	public static void carregar() {
 		String content = CtrlPersistencia.carregar("Calendaris");
 		String separadors = "[ \n]";
@@ -116,68 +122,130 @@ public class CtrlCalendari {
     	
 	}
 	
+	//------------ FUNCIONS PER UN CALENDARI CONCRET ----------
 	
-	//--------- FUNCIONS PER UN CALENDARI CONCRET ----------
-	
+	//Pre: -
+	//Post: Es canvia la plantilla associada al calendari de la plantilla plt per la plantilla pltnova
 	public static void modificarPlt(String plt, String pltnova) {
 		if(! existeixCalendari(pltnova)) consultarCalendari(plt).setPlantillaAssociada(pltnova);	
 	}
 	
+	//---------- FUNCIONS PER UN DIA CONCRET D'UN CALENDARI -----------
+	
+	//Pre: Dia pertany a una data del calendari de la plantilla plt
+	//Post: Borra la informació que hi ha al dia (dia)
 	public static void borrarDia(String plt, GregorianCalendar dia) {
 		int pos = calcularPosicioDia(dia,consultarCalendari(plt).getAny());
 		consultarCalendari(plt).getCalendari()[pos] = null;
 	}
-
-	public static void borrarTornHorari(String plt, GregorianCalendar dia, int horari) {
-		int pos = calcularPosicioDia(dia,consultarCalendari(plt).getAny());
-		consultarCalendari(plt).getCalendari()[pos].getTorns()[horari]=null;
-	}
 	
+	//Pre: Dia pertany a una data del calendari de la plantilla plt 
+	//Post: Retorna tota la informació del dia (dia) del calendari associat a la plantilla plt
 	public static Dia consultarDia(String plt, GregorianCalendar dia) {
 		int pos = calcularPosicioDia(dia,consultarCalendari(plt).getAny());
 		return consultarCalendari(plt).getCalendari()[pos];
 	}
 	
+	//Pre: Dia pertany a una data del calendari de la plantilla plt
+	//Post: Retorna un boolea dient si el dia(dia) és festiu o no
 	public static boolean consultarDiaFestiu(String plt, GregorianCalendar dia) {
 		int pos = calcularPosicioDia(dia,consultarCalendari(plt).getAny());
 		return(consultarCalendari(plt).getCalendari()[pos].getFestiu());
 	}
 	
+	//Pre: Dia pertany a una data del calendari de la plantilla plt
+	//Post: Retorna els tres torns que hi ha al dia(dia) del calendari associat a la plantilla plt
 	public static Torn[] consultarTornsDia(String plt, GregorianCalendar dia) {
 		int pos = calcularPosicioDia(dia,consultarCalendari(plt).getAny());
 		return consultarCalendari(plt).getCalendari()[pos].getTorns();
 	}
 	
-	public static Torn consultarTorn(int tipustorn, GregorianCalendar dia, String plt) {
-		int pos = calcularPosicioDia(dia,consultarCalendari(plt).getAny());
-		if(tipustorn==0) return consultarCalendari(plt).getCalendari()[pos].getTornMati();
-		else if(tipustorn==1) return consultarCalendari(plt).getCalendari()[pos].getTornTarda();
-		else return consultarCalendari(plt).getCalendari()[pos].getTornNit();
-	}
-	
+	//Pre: Dia pertany a una data del calendari de la plantilla plt
+	//Post: Es modifica tota la informació del dia(dia) del calendari de plt per el nou dia d
 	public static void modificarDia(String plt, GregorianCalendar dia, Dia d) {
 		int pos = calcularPosicioDia(dia,consultarCalendari(plt).getAny());
 		consultarCalendari(plt).getCalendari()[pos]=d;
 	}
 	
+	//Pre: Dia pertany a una data del calendari de la plantilla plt
+	//Post: Es modifica el boolea de festiu del dia(dia) del calendari de plt pel boolea que li arriba
 	public static void modificarDiaFestiu(String plt, GregorianCalendar dia, boolean b) {
 		int pos = calcularPosicioDia(dia,consultarCalendari(plt).getAny());
 		consultarCalendari(plt).getCalendari()[pos].setFestiu(b);
 	}
 	
+	//Pre: Dia pertany a una data del calendari de la plantilla plt, ts vector de 3 torns
+	//Post: Modificar els torns del dia (dia) del calendari de la plantilla plt pels torns ts
 	public static void modificarTornsDia(String plt, GregorianCalendar dia, Torn[] ts) {
 		int pos = calcularPosicioDia(dia,consultarCalendari(plt).getAny());
 		consultarCalendari(plt).getCalendari()[pos].setTorns(ts);
 	}
+
 	
-	public static void borrarTorn(String plt, GregorianCalendar dia, int horari) {
+	//-------- FUNCIONS PER UN TORN EN CONCRET D'UN DIA I UN CALENDARI -----
+	
+	/*public static void borrarTorn(String plt, GregorianCalendar dia, int horari) {
 		int pos = calcularPosicioDia(dia,consultarCalendari(plt).getAny());
 		if(horari==0) consultarCalendari(plt).getCalendari()[pos].setTornMati(null);
 		else if(horari==1) consultarCalendari(plt).getCalendari()[pos].setTornTarda(null);
 		else if(horari==2) consultarCalendari(plt).getCalendari()[pos].setTornNit(null);
 
+	}*/
+	
+	//Pre: Dia pertany a una data del calendari i horari es un enter entre 0 i 2
+	//Post: Borra la informació del torn d'horari(mati=0, tarda=1 o nit=2) del dia (dia) del calendari de la plantilla plt
+	public static void borrarTornHorari(String plt, GregorianCalendar dia, int horari) {
+		int pos = calcularPosicioDia(dia,consultarCalendari(plt).getAny());
+		consultarCalendari(plt).getCalendari()[pos].getTorns()[horari]=null;
+	}
+	
+	//Pre: tipustorn es un enter entre 0 i 2, i dia es una data que pertany al calendari associat de plt
+	//Post: Retorna tota la informació del torn d'horari(mati=0, tarda=1 o nit=2) del dia (dia) del calendari de la plantilla plt
+	public static Torn consultarTorn(GregorianCalendar dia, String plt, int horari) {
+		int pos = calcularPosicioDia(dia,consultarCalendari(plt).getAny());
+		if(horari==0) return consultarCalendari(plt).getCalendari()[pos].getTornMati();
+		else if(horari==1) return consultarCalendari(plt).getCalendari()[pos].getTornTarda();
+		else return consultarCalendari(plt).getCalendari()[pos].getTornNit();
 	}
 
+	//Pre: tipustorn es un enter entre 0 i 2, i dia es una data que pertany al calendari associat de plt
+	//Post: Retorna l'hora d'inici del torn d'horari(mati=0, tarda=1 o nit=2) del dia (dia) del calendari de la plantilla plt
+	public static int consultarHoraIniciTorn(GregorianCalendar dia, String plt, int horari) {
+		int pos = calcularPosicioDia(dia,consultarCalendari(plt).getAny());
+		if(horari==0) return consultarCalendari(plt).getCalendari()[pos].getTornMati().getHora_inici();
+		else if(horari==1) return consultarCalendari(plt).getCalendari()[pos].getTornTarda().getHora_inici();
+		else return consultarCalendari(plt).getCalendari()[pos].getTornNit().getHora_inici();
+	}
+	
+	//Pre: tipustorn es un enter entre 0 i 2, i dia es una data que pertany al calendari associat de plt
+	//Post: Retorna l'hora d'inici del torn d'horari(mati=0, tarda=1 o nit=2) del dia (dia) del calendari de la plantilla plt
+	public static int consultarHoraFiTorn(GregorianCalendar dia, String plt, int horari) {
+		int pos = calcularPosicioDia(dia,consultarCalendari(plt).getAny());
+		if(horari==0) return consultarCalendari(plt).getCalendari()[pos].getTornMati().getHora_fi();
+		else if(horari==1) return consultarCalendari(plt).getCalendari()[pos].getTornTarda().getHora_fi();
+		else return consultarCalendari(plt).getCalendari()[pos].getTornNit().getHora_fi();
+	}
+	
+	//Pre: tipustorn es un enter entre 0 i 2, i dia es una data que pertany al calendari associat de plt
+	//Post: Retorna el percentatge de sou del torn d'horari(mati=0, tarda=1 o nit=2) del dia (dia) del calendari de la plantilla plt
+	public static float consultarPercentatgeTorn(GregorianCalendar dia, String plt, int horari) {
+		int pos = calcularPosicioDia(dia,consultarCalendari(plt).getAny());
+		if(horari==0) return consultarCalendari(plt).getCalendari()[pos].getTornMati().getPercent_sou();
+		else if(horari==1) return consultarCalendari(plt).getCalendari()[pos].getTornTarda().getPercent_sou();
+		else return consultarCalendari(plt).getCalendari()[pos].getTornNit().getPercent_sou();
+	}
+	
+	//Pre: tipustorn es un enter entre 0 i 2, i dia es una data que pertany al calendari associat de plt
+	//Post: Retorna el numero minim de doctors del torn d'horari(mati=0, tarda=1 o nit=2) del dia (dia) del calendari de la plantilla plt
+	public static int consultarMinimTorn(GregorianCalendar dia, String plt, int horari) {
+		int pos = calcularPosicioDia(dia,consultarCalendari(plt).getAny());
+		if(horari==0) return consultarCalendari(plt).getCalendari()[pos].getTornMati().getMin_num_doctors();
+		else if(horari==1) return consultarCalendari(plt).getCalendari()[pos].getTornTarda().getMin_num_doctors();
+		else return consultarCalendari(plt).getCalendari()[pos].getTornNit().getMin_num_doctors();
+	}
+	
+	//Pre: Dia pertany a una data del calendari i horari es un enter entre 0 i 2
+	//Post: Modifica tota la informació del torn d'horari(mati=0, tarda=1 o nit=2) del dia (dia) del calendari de la plantilla plt pel torn t
 	public static void modificarTorn(Torn t, GregorianCalendar dia, String plt, int horari) {
 		int pos = calcularPosicioDia(dia,consultarCalendari(plt).getAny());
 		if(horari==0) consultarCalendari(plt).getCalendari()[pos].setTornMati(t);
@@ -185,7 +253,9 @@ public class CtrlCalendari {
 		else if(horari==2) consultarCalendari(plt).getCalendari()[pos].setTornNit(t);
 
 	}
-	
+
+	//Pre: Dia pertany a una data del calendari i horari es un enter entre 0 i 2
+	//Post: Modifica el percentatge de sou del torn d'horari(mati=0, tarda=1 o nit=2) del dia (dia) del calendari de la plantilla plt pel percentatge p
 	public static void modificarPercentatgeTorn(float p, GregorianCalendar dia, String plt, int horari) {
 		int pos = calcularPosicioDia(dia,consultarCalendari(plt).getAny());
 		if(horari==0) consultarCalendari(plt).getCalendari()[pos].getTornMati().setPercent_sou(p);
@@ -194,6 +264,8 @@ public class CtrlCalendari {
 
 	}
 	
+	//Pre: Dia pertany a una data del calendari i horari es un enter entre 0 i 2
+	//Post: Modifica el numero minim de doctors del torn d'horari(mati=0, tarda=1 o nit=2) del dia (dia) del calendari de la plantilla plt pel nou minim m
 	public static void modificarMinimTorn(int m, GregorianCalendar dia, String plt, int horari) {
 		int pos = calcularPosicioDia(dia,consultarCalendari(plt).getAny());
 		if(horari==0) consultarCalendari(plt).getCalendari()[pos].getTornMati().setMin_num_doctors(m);
@@ -201,13 +273,11 @@ public class CtrlCalendari {
 		else if(horari==2) consultarCalendari(plt).getCalendari()[pos].getTornNit().setMin_num_doctors(m);
 
 	}
-	
-
 
 	
 
 	
-	//2. ------FUNCIONS SOBRE DIES--------
+	// ----------- FUNCIONS AUXILIARS -------------
 
 	
 	//Pre: dia pertany a l'any

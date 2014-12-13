@@ -182,9 +182,10 @@ public class main {
         }
         doc.setSou(sou);
     }
+    //------------FALTA!!!!---------------
     private static void afegirRestriccions(Doctor doc){}
     private static void esborrarRestriccions(Doctor doc){}
-
+    //------------!!!!!!!!!---------------
 
     private static void casModificaDoctor(){
         String dni = arg.next();

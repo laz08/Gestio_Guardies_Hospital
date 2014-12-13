@@ -49,16 +49,21 @@ public class DriverCtrlCalendari {
 				case 17: consultarTornNit(); break;
 				case 18: modificarDia(); break;
 				case 19: modificarDiaFestiu(); break;
+				
 				case 20: modificarTornsDia(); break;
 				case 21: borrarTorn(); break;
 				case 22: consultarTorn(); break;
-				case 23: 
+				case 23: consultarHoraIniciTorn(); break;
+				case 24: consultarHoraFiTorn(); break;
+				case 25: consultarPercentatgeTorn(); break;
+				case 26: consultarMinimTorn(); break;
 				case 27: modificarTorn(); break;
 				case 28: modificarPercentatgeTorn(); break;
-				case 29: CtrlCalendari.guardar(); break;
-				case 30: CtrlCalendari.carregar(); break;
+				case 29: modificarMinimTorn(); break;
+				case 30: guardar(); break;
+				case 31: carregar(); break;
 				default:
-					System.out.println("El numero ha d'estar entre 0 i 6.");
+					System.out.println("El numero ha d'estar entre 0 i 31.");
 					break;
 			}
 			escriureMenu();
@@ -101,6 +106,8 @@ public class DriverCtrlCalendari {
 				+ "28.- Modificar percentatge sou del Torn(id plantilla: String, data(any,mes,dia), horari(mati=0, tarda=1, nit=2), nou percentatge)\n"
 				+ "29.- Modificar numero mínim de doctors(id plantilla: String, data(any,mes,dia), horari(mati=0, tarda=1, nit=2), nou mínim de doctors)\n"
 				+ "--------------------------\n"
+				+ "30.- Guardar\n"
+				+ "31.- Carregar\n"
 				+ "0.- Exit\n\n");		
 	}
 	
@@ -113,27 +120,7 @@ public class DriverCtrlCalendari {
 	public static void crearCalendari() {
 		String plt = arg.next();
 		int any_i = arg.nextInt();
-		if(!CtrlPlantilla.existeixPlantilla(plt)) CtrlPlantilla.creariAfegirPlantilla(plt);
-		Calendari c = new Calendari(plt, any_i, any_i);
-		Dia[] any = c.getCalendari();
-        for (int i = 0; i < any.length; i++) {
-            for(int e=0; e<3; e++){
-                Torn t = new Torn(0+e*8, 8+e*8-1, 10, 2);
-                    switch(e){
-                        case 0:
-                            any[i].setTornMati(t);
-                            break;
-                        case 1:
-                            any[i].setTornTarda(t);
-                            break;
-                        case 2:
-                            any[i].setTornNit(t);
-                            break;
-                    }
-            }
-        }
-        c.setCalendari(any);
-        CtrlCalendari.afegirCalendarif(c);
+		CtrlCalendari.afegirCalendari(plt,any_i);
 	}
 	
 	public static void eliminarCalendari() {
@@ -152,7 +139,6 @@ public class DriverCtrlCalendari {
 		Calendari c = CtrlCalendari.consultarCalendari(plt);
 		for(int i=0; i<c.getCalendari().length; ++i){
 			Dia d = c.getCalendari()[i];
-			System.out.println(i);
 			escriureDia(d,CtrlCalendari.quinDia(i,c.getAny()));
 		}
 	}
@@ -240,7 +226,7 @@ public class DriverCtrlCalendari {
 		int mes = arg.nextInt();
 		int dia = arg.nextInt();
 		GregorianCalendar data = new GregorianCalendar(any,mes,dia);
-		Torn t = CtrlCalendari.consultarTorn(0, data, plt);
+		Torn t = CtrlCalendari.consultarTorn(data, plt, 0);
 		escriureTorn(t,0);
 	}
 	
@@ -250,7 +236,7 @@ public class DriverCtrlCalendari {
 		int mes = arg.nextInt();
 		int dia = arg.nextInt();
 		GregorianCalendar data = new GregorianCalendar(any,mes,dia);
-		Torn t = CtrlCalendari.consultarTorn(1, data, plt);
+		Torn t = CtrlCalendari.consultarTorn(data, plt, 1);
 		escriureTorn(t,1);
 	}
 	
@@ -260,7 +246,7 @@ public class DriverCtrlCalendari {
 		int mes = arg.nextInt();
 		int dia = arg.nextInt();
 		GregorianCalendar data = new GregorianCalendar(any,mes,dia);
-		Torn t = CtrlCalendari.consultarTorn(2, data, plt);
+		Torn t = CtrlCalendari.consultarTorn(data, plt, 2);
 		escriureTorn(t,2);
 	}
 	
@@ -321,7 +307,7 @@ public class DriverCtrlCalendari {
 		int dia = arg.nextInt();
 		GregorianCalendar data = new GregorianCalendar(any,mes,dia);
 		int horari = arg.nextInt();
-		CtrlCalendari.borrarTorn(plt,data,horari);
+		CtrlCalendari.borrarTornHorari(plt,data,horari);
 	}
 	
 	public static void consultarTorn() {
@@ -331,13 +317,53 @@ public class DriverCtrlCalendari {
 		int dia = arg.nextInt();
 		GregorianCalendar data = new GregorianCalendar(any,mes,dia);
 		int horari = arg.nextInt();
-		Torn t = CtrlCalendari.consultarTorn(horari, data, plt);
+		Torn t = CtrlCalendari.consultarTorn(data, plt, horari);
 		escriureTorn(t,horari);
 	}
 	
+	public static void consultarHoraIniciTorn() {
+		String plt = arg.next();
+		int any = arg.nextInt();
+		int mes = arg.nextInt();
+		int dia = arg.nextInt();
+		GregorianCalendar data = new GregorianCalendar(any,mes,dia);
+		int horari = arg.nextInt();
+		int hora = CtrlCalendari.consultarHoraIniciTorn(data, plt, horari);
+		System.out.println(hora);
+	}
 	
+	public static void consultarHoraFiTorn() {
+		String plt = arg.next();
+		int any = arg.nextInt();
+		int mes = arg.nextInt();
+		int dia = arg.nextInt();
+		GregorianCalendar data = new GregorianCalendar(any,mes,dia);
+		int horari = arg.nextInt();
+		int hora = CtrlCalendari.consultarHoraFiTorn(data, plt, horari);
+		System.out.println(hora);
+	}
 	
+	public static void consultarPercentatgeTorn() {
+		String plt = arg.next();
+		int any = arg.nextInt();
+		int mes = arg.nextInt();
+		int dia = arg.nextInt();
+		GregorianCalendar data = new GregorianCalendar(any,mes,dia);
+		int horari = arg.nextInt();
+		float percent = CtrlCalendari.consultarPercentatgeTorn(data, plt, horari);
+		System.out.println(percent);
+	}
 	
+	public static void consultarMinimTorn() {
+		String plt = arg.next();
+		int any = arg.nextInt();
+		int mes = arg.nextInt();
+		int dia = arg.nextInt();
+		GregorianCalendar data = new GregorianCalendar(any,mes,dia);
+		int horari = arg.nextInt();
+		int minim = CtrlCalendari.consultarMinimTorn(data, plt, horari);
+		System.out.println(minim);
+	}
 	
 	public static void modificarTorn() {
 		String plt = arg.next();
@@ -376,6 +402,14 @@ public class DriverCtrlCalendari {
 		CtrlCalendari.modificarMinimTorn(minim, data, plt, horari);
 	}
 	
+	public static void guardar() {
+		CtrlCalendari.guardar();
+	}
+	
+	public static void carregar() {
+		CtrlCalendari.carregar();
+	}
+	
 	public static void escriureTorn(Torn t, int i) {
 		String s;
 		if(i==0) s="Mati";
@@ -396,8 +430,8 @@ public class DriverCtrlCalendari {
 		if(d.getFestiu())System.out.println("Es festiu");
 		else System.out.println("No es festiu");
 		Torn t;
-		String s = "";
-		for(int i=0; i<3; i++) {
+		String s;
+		for(int i=0; i<3; ++i) {
 			if(i==0) {
 				s="Mati";
 				t = d.getTornMati();
@@ -413,6 +447,7 @@ public class DriverCtrlCalendari {
 			System.out.println("Torn de "+s+":\n"
 					+ "Hora inici: "+t.getHora_inici()+"\n"
 					+ "Hora fi: "+t.getHora_fi()+"\n"
+					+ "Percentatge de sou: "+t.getPercent_sou()+"\n"
 					+ "Numero minim de doctors: "+t.getMin_num_doctors()+"\n\n");
 		}
 	}
