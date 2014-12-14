@@ -8,7 +8,6 @@ public class CtrlPresentacio {
 
     public CtrlPresentacio(){
         vistaPrincipal = new VistaPrincipal(this);
-        controlDomini = new CtrlDomini();
     }
 
     public static void inicialitzaPresentacio(){
