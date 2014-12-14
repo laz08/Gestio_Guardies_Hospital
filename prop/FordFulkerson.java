@@ -17,19 +17,21 @@ public class FordFulkerson extends Algorisme {
         boolean arriba_a_torn = false;
         switch (s.getClasse()) {
             case Vertex.DOCTOR:
+            case Vertex.FONT_POU: // Tots els doctors i el font
                 arriba_a_torn = seguent(s);
                 break;
-            case Vertex.RESTRICCIO:
+            case Vertex.RESTRICCIO: // restriccions
                 comprovaRestriccio(s);
                 arriba_a_torn = seguent(s);
                 if (!arriba_a_torn) {
-                   redireccionaRestriccio(s);
-                   arriba_a_torn = seguent(s);
+                    redireccionaRestriccio(s);
+                    arriba_a_torn = seguent(s);
                 }
                 break;
-            case Vertex.MAX:
+            case Vertex.MAX: //max 
                 arriba_a_torn = seguentMax(s);
                 break;
+            // torns i pou es tracten quan es troba el vertex max
         }
         return arriba_a_torn;
     }
@@ -64,8 +66,8 @@ public class FordFulkerson extends Algorisme {
             }
         }
     }
-    
-    public static void redireccionaRestriccio(Vertex s){
+
+    public static void redireccionaRestriccio(Vertex s) {
         if (s.getId().contains("XOR")) { // si l'indentificador es de la classe XOR
             boolean canviat = false;
             int pos = 0;
@@ -88,24 +90,28 @@ public class FordFulkerson extends Algorisme {
         Vertex vt = null, vr = null;
         String doc = null;
         Aresta ar = null, at = null;
-        for (int i = 0; i < la.size() && !vm.getVisitat(); i++) {
-            Aresta a = graf.getA(la.get(i));
-            Vertex v = graf.getVertex(a.getw());
-            if (!v.equals(vm)) {
-                ar = a;
-                vr = graf.getVertex(a.getw());
-                doc = vr.getDoctorsRel().get(0); // agafam el doctor al que fa referència la restricció
-                a.addFlow(1);
-                if (a.getflow() >= vm.getNumMaxRestr()) {
-                    vm.setVisitat(true); // si ja s'han assignat el maxim de restriccions, es bloqueja el vertex
+        if (!vm.getVisitat()) {
+            for (int i = 0; i < la.size(); i++) {
+                Aresta a = graf.getA(la.get(i));
+                Vertex v = graf.getVertex(a.getw());
+                System.out.println(" id ---- Vertex: " + v.getId()+"Max "+vm.getId());
+                System.out.println("classe ---- Vertex: " + v.getClasse()+"Max "+vm.getClasse());
+                if (v.equals(vm)) {
+                    ar = a;
+                    vr = graf.getVertex(a.getw());
+                    doc = vr.getDoctorsRel().get(0); // agafam el doctor al que fa referència la restricció
+                    a.addFlow(1);
+                    if (a.getflow() >= vm.getNumMaxRestr()) {
+                        vm.setVisitat(true); // si ja s'han assignat el maxim de restriccions, es bloqueja el vertex
+                    }
+                } else if (v.getClasse() != vm.getClasse()) {
+                    vt = v; // es guarda el vertex torn relacionat amb el max
+                    at = a;
                 }
-            } else {
-                vt = v; // es guarda el vertex torn relacionat amb el max
-                at = a;
             }
         }
-
-        if (!vt.getDoctorsRel().contains(doc)) {
+        
+        if (vt.getDoctorsRel().isEmpty() || !vt.getDoctorsRel().contains(doc)) {
             vt.addDoctorRel(doc);
             at.setCap(at.getcap() - 1);
             arriba_a_torn = true;

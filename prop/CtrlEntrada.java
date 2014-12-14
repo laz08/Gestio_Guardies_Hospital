@@ -34,7 +34,7 @@ public class CtrlEntrada {
         Iterator<Doctor> it = p.getLlistaDoctorsDNI().iterator();
         while (it.hasNext()) { // cream nodes de tipus doctor i els afagim al graf
             Doctor d = it.next();
-            Vertex v = new Vertex(d.getdni(), Vertex.DOCTOR);
+            Vertex v = new Vertex(d.getdni(), Vertex.DOCTOR, d);
             Vertex font = g.getVertex("FONT", Vertex.FONT_POU);
             g.afegirVertex(v);
             g.afegirAresta(font, v, Graf.INFINIT, 0);
@@ -62,7 +62,7 @@ public class CtrlEntrada {
                 if (torn != null) {
                     Vertex vmax = new Vertex(torn.toString(), Vertex.MAX);
                     g.afegirVertex(vmax);
-                    Vertex v = new Vertex(torn.toString(), Vertex.TORN);
+                    Vertex v = new Vertex(torn.toString(), Vertex.TORN, t);
                     Vertex pou = g.getVertex("POU", Vertex.FONT_POU);
                     g.afegirVertex(v);
                     g.afegirAresta(v, pou, torn.getMin_num_doctors(), 0);
@@ -244,7 +244,7 @@ public class CtrlEntrada {
      * @throws Error
      */
     private static Vertex recorregut_restriccio(Restriccio r, String idDoc, Graf g) throws Error {
-        Vertex v = new Vertex(r.toString(), Vertex.RESTRICCIO);
+        Vertex v = new Vertex(r.toString(), Vertex.RESTRICCIO, r);
         v.addDoctorRel(idDoc);
         g.afegirVertex(v); // afagim el vertex al graf
         switch (r.getOp()) { //comprovam l'operació que representa

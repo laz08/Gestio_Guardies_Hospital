@@ -5,6 +5,7 @@
 package prop;
 
 import java.util.ArrayList;
+import static prop.Algorisme.graf;
 
 /**
  *
@@ -116,28 +117,9 @@ public class EdmondsKarp extends Algorisme {
                 if(idvp.contains("XOR")){
                     if(cua.contains(vp)) cua.remove(vp);
                     else{
-                        elimina_fills(vp);
+                        elimina_fills_xor(vp, v);
                     }
                 }
-//                ArrayList<Restriccio> lr = CtrlRestriccio.consulta_llista_res();
-//                Restriccio r = null;
-//                boolean tro = false;
-//                int p = 0;
-//                while (!tro && p<lr.size()){
-//                    r  = lr.get(p);
-//                    String rid = r.toString();
-//                    if(rid.equals(vp.getId())) tro = true;
-//                    p++;
-//                }
-//                if(tro){
-//                    String op = r.getOp();
-//                    if (op.equals("XOR")){
-//                        if(cua.contains(vp)) cua.remove(vp);
-//                        else{
-//                            elimina_fills(vp);
-//                        }
-//                    }
-//                }
             }
             puja_flow(vp, aresta);
         }
@@ -158,6 +140,39 @@ public class EdmondsKarp extends Algorisme {
                 }
             }
             puja_flow(vp, aresta);
+        }
+    }
+    
+    private static void elimina_fills_xor(Vertex v, Vertex vActiu){
+        ArrayList<Integer> la = v.getArestes();
+        String tipusR = ((R_XOR) v.getObjecte()).getTipus();
+        boolean trobat = false;
+        Aresta aresta = null;
+        Vertex vf = null;
+        for(int i=0; i<la.size() && !trobat; i++){
+            aresta = graf.getA(la.get(i));
+            vf = graf.getVertex(aresta.getw());
+            if(aresta.getflow() == 0 && !vf.equals(v)){
+                if(cua.contains(vf)) cua.remove(vf);
+                else {
+                    if(vf.getClasse() == Vertex.MAX){
+                        Vertex vtorn = graf.getVertex(vf.getId(), Vertex.TORN);
+                        Torn t = (Torn) vtorn.getObjecte();
+                        switch(tipusR){
+                            case "H":
+                                
+                            break;
+                            case "D":
+                                // comprovar dies
+                                break;
+                            case "S":
+                                // comprovar setmana
+                                break;
+                        }
+                    }
+                    else elimina_fills(vf);
+                }
+            }
         }
     }
     
