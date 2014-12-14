@@ -579,8 +579,33 @@ public class main {
     
     public static void casCreaCalendari(){
         String nom_p = arg.next();
-        int any_i = arg.nextInt();
-        int any_f = arg.nextInt();
+        boolean valid = false;
+        int any_i = 0;
+        while(!valid){
+            try {
+                any_i = arg.nextInt();
+                valid = true;
+            } catch (Exception e){
+                System.out.println("Any d'inici ha de ser un enter.");
+                System.out.print("Torna a introduir any d'inici: ");
+                arg.next();
+                continue;
+            }
+        }
+        int any_f = 0;
+        valid = false;
+        while(!valid){
+            try {
+                any_f = arg.nextInt();
+                valid = true;
+            } catch (Exception e){
+                System.out.println("Any final ha de ser un enter.");
+                System.out.print("Torna a introduir any final: ");
+                arg.next();
+                continue;
+            }
+        }
+
         if(!CtrlDomini.existeixCalendari(nom_p)){
             CtrlDomini.crearCalendari(nom_p,any_i,any_f);
         }
@@ -588,50 +613,237 @@ public class main {
             System.out.println("Ja existeix calendari per a la plantilla " + nom_p);
 
     }
-    
+    public static boolean esAnyDeTraspas(int any){
+        //Retorna true si l'any és múltiple de 4
+        //i no és multiple de cent pero si que es multiple de 400
+
+        return (any % 4 == 0) && !(any % 100 == 0 && any % 400 != 0);
+    }
+    public static int lecturaAny(){
+        boolean valid = false;
+        int any = 0;
+        while(!valid){
+            try{
+                any = arg.nextInt();
+                if (any > 0) valid = true;
+                else {
+                    System.out.println("Any ha de tenir un valor positiu.");
+                    System.out.print("Torna a introduir any: ");
+                    arg.next();
+                }
+            } catch (Exception e){
+                System.out.println("Any ha de ser un enter.");
+                System.out.print("Torna a introduir any: ");
+                arg.next();
+                continue;
+            }
+        }
+        return any;
+    }
+    public static int lecturaMes(){
+        boolean valid = false;
+        int mes = 0;
+        while(!valid){
+            try{
+                mes = arg.nextInt();
+                if(mes > 0 && mes < 13) valid = true;
+                else{
+                    System.out.println("Mes ha de tenir un valor entre 1 i 12.");
+                    System.out.print("Torna a introduir mes: ");
+                    arg.next();
+                }
+            } catch(Exception e){
+                System.out.println("Mes ha de ser un enter.");
+                System.out.print("Torna a introduir mes: ");
+                arg.next();
+                continue;
+            }
+        }
+        return mes;
+    }
+    public static int lecturaDia(int any, int mes){
+        boolean valid = false;
+        int dia = 0;
+        while(!valid){
+            try{
+                dia = arg.nextInt();
+                //Mesos de 31 dies
+                if (mes == 1 || mes == 3 || mes == 5 || mes == 7 || mes == 8 || mes == 10 || mes == 12){
+                    if (dia > 0 && dia < 32) valid = true;
+                    else{
+                        System.out.println("El mes "+mes+" té un rang de dies de l'1 fins al 31");
+                        System.out.print("Torna a introduir dia: ");
+                        arg.next();
+                    }
+                }
+                //Mes de febrer
+                else if (mes == 2){
+                    if(esAnyDeTraspas(any)){
+                        // 1 =< Dia =< 29
+                        if(dia > 0 && dia < 30) valid = true;
+                        else {
+                            System.out.println("El mes "+mes+" en l'any "+any+" té un rang de dies de l'1 fins al 29");
+                            System.out.print("Torna a introduir dia: ");
+                            arg.next();
+                        }
+                    }
+                    //No és any de traspàs
+                    else{
+                        //28 dies
+                        if(dia > 0 && dia < 29) valid = true;
+                        else {
+                            System.out.println("El mes "+mes+" en l'any "+any+" té un rang de dies de l'1 fins al 28");
+                            System.out.print("Torna a introduir dia: ");
+                            arg.next();
+                        }
+                    }
+                }
+                //Mesos de 30 dies
+                else{
+                    if (dia > 0 && dia < 31) valid = true;
+                    else{
+                        System.out.println("El mes "+mes+" té un rang de dies de l'1 fins al 30");
+                        System.out.print("Torna a introduir dia: ");
+                        arg.next();
+                    }
+                }
+            } catch (Exception e){
+                System.out.println("Dia ha de ser un enter.");
+                System.out.print("Torna a introduir dia: ");
+                arg.next();
+                continue;
+            }
+        }
+        return dia;
+    }
+    public static boolean lecturaFestiu(){
+        boolean valid = false;
+        boolean b = false;
+        while(!valid){
+            try{
+                b = arg.nextBoolean();
+                valid = true;
+            } catch (Exception e){
+                System.out.println("Festiu ha de ser un boolea.");
+                System.out.print("Torna a introduir festiu (true o false)");
+                arg.next();
+                continue;
+            }
+        }
+        return b;
+    }
+    public static int lecturaHorari(){
+        boolean valid = false;
+        int h = 0;
+        while(!valid){
+            try{
+                h = arg.nextInt();
+                if(h < 3 && h >= 0) valid = true;
+                else{
+                    System.out.println("Horari ha de tenir un valor entre 0 i 2.");
+                    System.out.println("Matí = 0  //  Tarda = 1  //  Nit = 2");
+                    System.out.println("Torna a introduir horari: ");
+                    arg.next();
+                }
+                valid = true;
+            } catch (Exception e){
+                System.out.println("Horari ha de ser un enter.");
+                System.out.print("Torna a introduir horari: ");
+                arg.next();
+                continue;
+
+            }
+        }
+        return h;
+    }
+    public static float lecturaPercentatge(){
+        boolean valid = false;
+        float per = 0;
+        while(!valid){
+            try{
+                per = arg.nextFloat();
+                if(per >= 0) valid = true;
+                else{
+                    System.out.println("Percentatge ha de ser positiu.");
+                    System.out.print("Torna a introduir el percentatge: ");
+                    arg.next();
+                }
+            } catch (Exception e){
+                System.out.println("Percentatge ha de ser un núm.");
+                System.out.print("Torna a introduir el percentatge: ");
+                arg.next();
+                continue;
+            }
+        }
+        return per;
+    }
+    public static int lecturaNumMinimDocs(){
+        boolean valid = false;
+        int num_min = 0;
+        while(!valid){
+            try{
+                num_min = arg.nextInt();
+                if (num_min >= 0) valid = true;
+                else{
+                    System.out.println("Número mínim de doctors ha de ser un nombre positiu.");
+                    System.out.print("Torna a introduir el numero minim de docs: ");
+                    arg.next();
+                }
+            } catch (Exception e){
+                System.out.println("Numero mínim de docs ha de ser un enter.");
+                System.out.print("Torna a introduir el numero minim de docs: ");
+                arg.next();
+                continue;
+            }
+        }
+        return num_min;
+    }
+
+
+
     public static void modificarDiaFestiu(String nom) {
-    	int any = arg.nextInt();
-    	int mes = arg.nextInt();
-    	int dia = arg.nextInt();
+        int any = lecturaAny();
+        int mes = lecturaMes();
+        int dia = lecturaDia(any, mes);
     	GregorianCalendar d = new GregorianCalendar(any,mes,dia);
-    	boolean b = arg.hasNextBoolean();
+        boolean b = lecturaFestiu();
     	CtrlDomini.modificarDiaFestiu(nom,d,b);
     }
     
     public static void modificarPercentatge(String nom) {
-    	int any = arg.nextInt();
-    	int mes = arg.nextInt();
-    	int dia = arg.nextInt();
+    	int any = lecturaAny();
+        int mes = lecturaMes();
+        int dia = lecturaDia(any, mes);
     	GregorianCalendar d = new GregorianCalendar(any,mes,dia);
-    	int horari = arg.nextInt();
-    	float p = arg.nextFloat();
+    	int horari = lecturaHorari();
+    	float p = lecturaPercentatge();
     	CtrlDomini.modificarPercentatge(nom,d,horari,p);
     }
 
     public static void modificarMinim(String nom) {
-    	int any = arg.nextInt();
-    	int mes = arg.nextInt();
-    	int dia = arg.nextInt();
+    	int any = lecturaAny();
+        int mes = lecturaMes();
+    	int dia = lecturaDia(any, mes);
     	GregorianCalendar d = new GregorianCalendar(any,mes,dia);
-    	int horari = arg.nextInt();
-    	int p = arg.nextInt();
+    	int horari = lecturaHorari();
+    	int p = lecturaNumMinimDocs();
     	CtrlDomini.modificarMinim(nom,d,horari,p);
     }
     
     public static void borrarDia(String nom) {
-    	int any = arg.nextInt();
-    	int mes = arg.nextInt();
-    	int dia = arg.nextInt();
+        int any = lecturaAny();
+        int mes = lecturaMes();
+        int dia = lecturaDia(any, mes);
     	GregorianCalendar d = new GregorianCalendar(any,mes,dia);
     	CtrlDomini.borrarDia(nom,d);
     }
     
     public static void borrarTorn(String nom) {
-    	int any = arg.nextInt();
-    	int mes = arg.nextInt();
-    	int dia = arg.nextInt();
+        int any = lecturaAny();
+        int mes = lecturaMes();
+        int dia = lecturaDia(any, mes);
     	GregorianCalendar d = new GregorianCalendar(any,mes,dia);
-    	int h = arg.nextInt();
+    	int h = lecturaHorari();
     	CtrlDomini.borrarTorn(nom,d,h);
     }
     
