@@ -20,10 +20,8 @@ public class Calendari {
 		long dies = diaf.getTimeInMillis() - dia.getTimeInMillis();
 		dies = dies/1000/60/60/24;
 		cal = new Dia[(int) dies];
-		for (int i = 0; i < dies; ++i) {
-			cal[i] = new Dia(false); // S'inicialitza el dia com a no festiu es pot canviar
-		}
 		any =  any_inici;
+		afegirPosicio();
 		afegirFestius(); //Afegim a tots els diumenges de l'any el boolea festiu true
 		setPlantillaAssociada(plt);
 		//id = Integer.parseInt(plt);
@@ -137,6 +135,14 @@ public class Calendari {
 		else --diaset;
 		for(int i=diaset; i<cal.length; i=i+7){
 			cal[i].getFestiu();
+		}
+	}
+	
+	//Pre: -
+	//Post: Afegim la posicio de calendari a la qual pertany el torn
+	public void afegirPosicio() {
+		for(int i=0; i<cal.length; ++i){
+			for(int j=0; j<3; ++j) cal[i].getTorns()[j].setPosicio(i);
 		}
 	}
 	

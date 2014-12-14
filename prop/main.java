@@ -14,7 +14,7 @@ public class main {
     public static void main(String[] args){
         int cas = 0;
         boolean sortir = false;
-        escriuMenu();
+        escriuMenuPrincipal();
 
         while (!sortir && arg.hasNext()){
             try {
@@ -29,28 +29,31 @@ public class main {
             switch(cas){
                 case 1: casGestioDoctors(); break;
                 case 2: casGestioPlantilles(); break;
-                case 3: casGestioRestriccions(); break;
-                case 4: casAplicarAlgorisme(); break;
-                case 5: casGuardar(); break;
-                case 6: casCarregar(); break;
+                case 3: casGestioCalendaris(); break;
+                case 4: casGestioRestriccions(); break;
+                case 5: casAplicarAlgorisme(); break;
+                case 6: casGuardar(); break;
+                case 7: casCarregar(); break;
                 case 0: sortir = true; break;
                 default:
                     System.out.println("El numero ha d'estar entre 0 i 6.");
                     break;
             }
 
-            if (cas != 0) escriuMenu();
+            if (cas != 0) escriuMenuPrincipal();
         }
     }
 
-    private static void escriuMenu(){
+    private static void escriuMenuPrincipal(){
         System.out.println("----------MENU PRINCIPAL----------");
         System.out.println("1.- Gestió de doctors (Hospital)");
         System.out.println("2.- Gestió de plantilles");
-        System.out.println("3.- Gestió de Restriccions");
-        System.out.println("4.- Escollir algorisme a aplicar");
-        System.out.println("5.- Guardar");
-        System.out.println("6.- Carregar");
+        System.out.println("3.- Gestió de Calendaris");
+        System.out.println("4.- Gestió de Restriccions");
+        System.out.println("5.- Escollir algorisme a aplicar");
+        System.out.println("6.- Guardar");
+        System.out.println("7.- Carregar");
+        System.out.println("0.- Sortir");
         System.out.println("---------------------------------");
         System.out.print(">> ");
     }
@@ -68,12 +71,13 @@ public class main {
         return menu;
     }
 
-
+    //-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
+    //----------------------------------------------------
     //-----------------------HOSPITAL---------------------
+    //----------------------------------------------------
 
-    /**
-     * A editar
-     */
+    //-----------------------Auxiliars--------------------
+
     public static void missatgeErrorDni(){
         System.out.println("Ja existeix un doctor amb aquest DNI.");
         System.out.println("El llistat dels dni de doctors ja existents es el seguent: ");
@@ -86,7 +90,6 @@ public class main {
         System.out.print(">>");
 
     }
-
     private static void casCrearDoctor(){
         String dni = arg.next();
         String nom = arg.next();
@@ -135,7 +138,6 @@ public class main {
 
         CtrlDomini.creaDoctor(dni, nom, cg1, cg2, sou, telf, correu);
     }
-
     private static void modificarNom(Doctor doc){
         String nom = arg.next();
         doc.setNom(nom);
@@ -189,31 +191,93 @@ public class main {
 
     private static void casModificaDoctor(){
         String dni = arg.next();
-        Doctor doc = CtrlDomini.consultaDoctor(dni);
-        //Es pot modificar qualsevol cosa menys el DNI!
-        escriuMenuModificaDoctors(dni);
-        boolean sortir = false;
-        while (!sortir) {
-            int menu = lecturaTeclat();
-            switch (menu) {
-                case 1: modificarNom(doc); break;
-                case 2: modificarCognom1(doc); break;
-                case 3: modificarCognom2(doc); break;
-                case 4: modificarTelefon(doc); break;
-                case 5: modificarSou(doc); break;
-                case 6: modificarCorreu(doc); break;
-                case 7: afegirRestriccions(doc); break;
-                case 8: esborrarRestriccions(doc); break;
-                case 0: sortir = true; break;
-                default:
-                    System.out.println("El numero ha d'estar entre 0 i 8.");
-                    break;
+        if(CtrlDomini.existeixDoctoraHospital(dni)) {
+            Doctor doc = CtrlDomini.consultaDoctor(dni);
+            //Es pot modificar qualsevol cosa menys el DNI!
+            escriuMenuModificaDoctors(dni);
+            boolean sortir = false;
+            while (!sortir) {
+                int menu = lecturaTeclat();
+                switch (menu) {
+                    case 1:
+                        modificarNom(doc);
+                        break;
+                    case 2:
+                        modificarCognom1(doc);
+                        break;
+                    case 3:
+                        modificarCognom2(doc);
+                        break;
+                    case 4:
+                        modificarTelefon(doc);
+                        break;
+                    case 5:
+                        modificarSou(doc);
+                        break;
+                    case 6:
+                        modificarCorreu(doc);
+                        break;
+                    case 7:
+                        afegirRestriccions(doc);
+                        break;
+                    case 8:
+                        esborrarRestriccions(doc);
+                        break;
+                    case 0:
+                        sortir = true;
+                        break;
+                    default:
+                        System.out.println("El numero ha d'estar entre 0 i 8.");
+                        break;
+                }
+                if (menu != 0) escriuMenuModificaDoctors(dni);
             }
-            if (menu != 0) escriuMenuModificaDoctors(dni);
+        }
+        else
+            System.out.println("No existeix cap doctor amb aquest DNI");
+    }
+    private static void casConsultaDoctorHospital(){
+        String dni = arg.next();
+        if(CtrlDomini.existeixDoctoraHospital(dni)){
+            Doctor doc = CtrlDomini.consultaDoctor(dni);
+            System.out.println("DNI: "+doc.getdni());
+            System.out.println("Nom i cognoms: "+doc.getNom()+" "+doc.getCognom1()+" "+doc.getCognom2());
+            System.out.println("Sou: "+doc.getSou());
+            System.out.println("Telefon: "+doc.getTelefon());
+            System.out.println("Correu: "+doc.getCorreu());
+        }
+        else
+            System.out.println("No existeix cap doctor amb aquest DNI.");
+    }
+    private static void casEliminaDoctor(){
+        String dni = arg.next();
+        if(CtrlDomini.existeixDoctoraHospital(dni)){
+                CtrlDomini.eliminaDoctorHospital(dni);
+        }
+        else
+            System.out.println("No existeix cap doctor amb aquest DNI.");
+    }
+    private static void casCarregarDoctors(){
+        CtrlDomini.carregarDoctors();
+    }
+    private static void casGuardarDoctors(){
+        CtrlDomini.guardarDoctors();
+    }
+    private static void casConsultaLlistatDoctors(){
+        //Els traiem per pantalla per ordre alfabètic
+        TreeSet<Doctor> ll = CtrlDomini.consultaHospital_nom();
+        System.out.println("Núm. de doctors en total: "+ ll.size());
+        for(Doctor doc:ll) {
+            System.out.println("DNI: " + doc.getdni());
+            System.out.println("Cognoms, Nom: " + doc.getCognom1() + " " + doc.getCognom2() + ", " + doc.getNom());
+            System.out.println("Sou: " + doc.getSou());
+            System.out.println("Telefon: " + doc.getTelefon());
+            System.out.println("Correu: " + doc.getCorreu());
+            System.out.println("\n");
         }
     }
 
-
+    //-----------------------Principal--------------------
     private static void escriuMenuModificaDoctors(String dni){
         System.out.println("----------Modificar doctor amb dni "+dni+"----------");
         System.out.println("1.- Modificar nom (nom: String)");
@@ -249,10 +313,10 @@ public class main {
             switch (menu) {
                 case 1: casCrearDoctor(); break;
                 case 2: casModificaDoctor(); break;
-                case 3: casConsultaDoctor();  break;
+                case 3: casConsultaDoctorHospital();  break;
                 case 4: casEliminaDoctor(); break;
-                case 5: casCarregarDoctor(); break;
-                case 6: casGuardarDoctor(); break;
+                case 5: casCarregarDoctors(); break;
+                case 6: casGuardarDoctors(); break;
                 case 7: casConsultaLlistatDoctors(); break;
                 case 0: sortir = true; break;
                 default:
@@ -264,8 +328,148 @@ public class main {
     }
 
 
+    //-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
+    //----------------------------------------------------
     //-----------------------PLANTILLA---------------------
+    //----------------------------------------------------
 
+    //-----------------------Auxiliars--------------------
+    public static void casCreaPlantilla(){
+        String nom_p = arg.next();
+        if(!CtrlDomini.existeixPlantilla(nom_p)){
+            CtrlDomini.crearPlantilla(nom_p);
+        }
+        else
+            System.out.println("Ja existeix plantilla amb nom " + nom_p);
+
+    }
+    public static void modificaNomPlantilla(Plantilla p){
+        String nom = arg.next();
+        p.setNomPlantilla(nom);
+    }
+    public static void afegirDoctorAPlantilla(Plantilla p){
+        String dni = arg.next();
+        //Si existeix doctor
+        if (CtrlDomini.existeixDoctoraHospital(dni)){
+            //Si no té cap plantilla
+            Doctor doc = CtrlDomini.consultaDoctor(dni);
+            if(!doc.isActiu()){
+                CtrlDomini.afegirDoctorAPlantilla(doc, p);
+            }
+            else
+                System.out.println("Doctor ja està associat a una plantilla");
+        }
+        else
+            System.out.println("No existeix cap doctor amb dni "+dni);
+    }
+    public static void treureDoctorDePlantilla(Plantilla p){
+        String dni = arg.next();
+        if(CtrlDomini.existeixDoctoraHospital(dni)){
+            Doctor doc = CtrlDomini.consultaDoctor(dni);
+            CtrlDomini.esborrarDoctorDePlantilla(doc, p);
+        }
+        else
+            System.out.println("No existeix cap doctor amb dni "+dni);
+    }
+    public static void crearIAssociarAmbCalendari(Plantilla p){
+        boolean valid = false;
+        int any = 0;
+        while(!valid) {
+            try {
+                any = arg.nextInt();
+                valid = true;
+            } catch (Exception e) {
+                System.out.println("Any ha de ser un enter");
+                arg.next();
+                continue;
+            }
+        }
+        CtrlDomini.associaCalendariPlantilla(p, any);
+    }
+    public static void desassociaIEsborraCalendari(Plantilla p){
+        CtrlDomini.desassociaCalendariIEsborra(p);
+    }
+
+    public static void casModificaPlantilla(){
+        String nom_p = arg.next();
+        if(CtrlDomini.existeixPlantilla(nom_p)){
+            Plantilla p = CtrlDomini.consultaPlantilla(nom_p);
+            escriuMenuModificaPlantilla(p.getNomPlantilla());
+            boolean sortir = false;
+            while(!sortir){
+                int menu = lecturaTeclat();
+                switch(menu){
+                    case 1: modificaNomPlantilla(p); break;
+                    case 2: afegirDoctorAPlantilla(p); break;
+                    case 3: treureDoctorDePlantilla(p); break;
+                    case 4: crearIAssociarAmbCalendari(p); break;
+                    case 5: desassociaIEsborraCalendari(p); break;
+                    case 0: sortir = true; break;
+                    default:
+                        System.out.println("El numero ha d'estar entre 0 i 5.");
+                        break;
+                }
+                if (menu != 0) escriuMenuModificaPlantilla(p.getNomPlantilla());
+            }
+        }
+        else
+            System.out.println("No existeix cap plantilla amb nom "+nom_p);
+    }
+    public static void casConsultaPlantilla(){
+        String nom_p = arg.next();
+        if(CtrlDomini.existeixPlantilla(nom_p)){
+            Plantilla p = CtrlDomini.consultaPlantilla(nom_p);
+            TreeSet<Doctor> ll = p.getLlistaDoctorsNom();System.out.println("Doctors de la plantilla "+nom_p+":");
+            for (Doctor doc:ll){
+                System.out.println("DNI: " + doc.getdni());
+                System.out.println("Cognoms, Nom: " + " " + doc.getCognom1() + " " + doc.getCognom2() + ", " + doc.getNom());
+                System.out.println("Sou: " + doc.getSou());
+                System.out.println("Telefon: " + doc.getTelefon());
+                System.out.println("Correu: " + doc.getCorreu() + "\n");
+            }
+        }
+        else {
+            System.out.println("No existeix cap plantilla amb el nom "+nom_p+".");
+        }
+    }
+    public static void casEliminaPlantilla(){
+        String nom_p = arg.next();
+        if(CtrlDomini.existeixPlantilla(nom_p)){
+            CtrlDomini.esborraPlantilla(nom_p);
+        }else {
+            System.out.println("No existeix cap plantilla amb el nom " + nom_p + ".");
+        }
+
+    }
+    public static void casGuardarPlantilles(){
+        CtrlDomini.guardarPlantilles();
+    }
+    public static void casCarregarPlantilles(){
+        CtrlDomini.carregarPlantilles();
+    }
+
+    public static void casLlistarPlantilles(){
+        TreeSet<Plantilla> Cjt = CtrlDomini.llistarPlantilles();
+        System.out.println("Núm. de plantilles: "+Cjt.size());
+        for(Plantilla p:Cjt)
+            System.out.println(p.getNomPlantilla());
+    }
+
+    //-----------------------Principal--------------------
+    private static void escriuMenuModificaPlantilla(String nom_p){
+        //Permetem canvi del nom de la plantilla
+        //Pero no és gaire adequat
+        System.out.println("----------Modificar plantilla "+nom_p+"----------");
+        System.out.println("1.- Canviar nom(Nom_plantilla: String)");
+        System.out.println("2.- Afegir doctor a plantilla (dni: String)"); //Llistem doctors de l'hospital a afegir que no tenen plantilla
+        System.out.println("3.- Treure doctor de plantilla (dni: String)");
+        System.out.println("4.- Crear i associar amb calendari (any: int)");
+        System.out.println("5.- Desassocia i esborra calendari");
+        System.out.println("0.- Tornar a Menu Principal");
+        System.out.println("---------------------------------");
+        System.out.print(">> ");
+
+    }
     private static void escriuMenuGestioPlantilles(){
         System.out.println("----------GESTIÓ DE PLANTILLES----------");
         System.out.println("1.- Crear plantilla(Nom_plantilla: String)");
@@ -281,9 +485,34 @@ public class main {
     }
     private static void casGestioPlantilles(){
         escriuMenuGestioPlantilles();
-        int menu = lecturaTeclat();
-        //Crida a CtrlDomini pel cas d'ús escollit (O a un altre menú)
+        boolean sortir = false;
+        while (!sortir){
+            int menu = lecturaTeclat();
+            switch(menu){
+                case 1: casCreaPlantilla(); break;
+                case 2: casModificaPlantilla(); break;
+                case 3: casConsultaPlantilla(); break;
+                case 4: casEliminaPlantilla(); break;
+                case 5: casGuardarPlantilles(); break;
+                case 6: casCarregarPlantilles(); break;
+                case 7: casLlistarPlantilles(); break;
+                case 0: sortir = true; break;
+                default:
+                    System.out.println("El numero ha d'estar entre 0 i 7.");
+                    break;
+            }
+            if(menu != 0) escriuMenuGestioPlantilles();
+        }
     }
+
+
+
+
+    //-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
+    //----------------------------------------------------
+    //-----------------------RESTRICCIONS---------------------
+    //----------------------------------------------------
+
 
     private static void escriuMenuGestioRestriccions(){
         System.out.println("----------GESTIÓ DE RESTRICCIONS----------");
@@ -304,8 +533,11 @@ public class main {
 
     }
 
-
+    //-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
+    //----------------------------------------------------
     //-----------------------ALGORISMES---------------------
+    //----------------------------------------------------
+
 
     private static void escriuMenuAplicarAlgorisme(){
         System.out.println("----------APLICAR ALGORISME----------");
@@ -320,23 +552,35 @@ public class main {
         int menu = lecturaTeclat();
     }
 
-
+    //-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
+    //----------------------------------------------------
     //-----------------------GUARDAR---------------------
+    //----------------------------------------------------
 
-    private static void escriuMenuGuardar(){
-
-    }
     private static void casGuardar(){
-        escriuMenuGuardar();
-        int menu = lecturaTeclat();
+       CtrlDomini.guardarGeneral();
     }
-
+    //-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
+    //----------------------------------------------------
     //-----------------------CARREGAR---------------------
+    //----------------------------------------------------
 
-    private static void escriuMenuCarregar(){
-    }
     private static void casCarregar(){
-        escriuMenuCarregar();
+        CtrlDomini.carregarGeneral();
+    }
+
+
+
+    //-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
+    //----------------------------------------------------
+    //-----------------------CALENDARIS---------------------
+    //----------------------------------------------------
+    private static void escriuMenuGestioCalendaris(){
+
+    }
+    private static void casGestioCalendaris(){
+        escriuMenuGestioCalendaris();
         int menu = lecturaTeclat();
+
     }
 }

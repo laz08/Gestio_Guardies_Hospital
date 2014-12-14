@@ -7,6 +7,7 @@ public class Torn {
 	private int hora_fi;
 	private float percent_sou;
 	private int min_num_doctors;
+	private int posicio_dia;
 	
 
 	//Pre: -
@@ -75,5 +76,17 @@ public class Torn {
 	//Post: Modifiquem el numero minim de doctors si compleix la condició que el numero que arribi sigui positiu
 	public void setMin_num_doctors(int minim) {
 		if(minim>=0) min_num_doctors = minim;
+	}
+	
+	//Pre: -
+	//Post: Retornem la posició del dia a la que pertany el torn
+	public int getPosicio() {
+		return posicio_dia;
+	}
+	
+	//Pre: -
+	//Post: Modifiquem el numero minim de doctors si compleix la condició que el numero que arribi sigui positiu
+	public void setPosicio(int pos) {
+		if(pos>=0) posicio_dia = pos;
 	}
 }
