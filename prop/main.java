@@ -1,5 +1,6 @@
 package prop;
 
+import java.util.GregorianCalendar;
 import java.util.Scanner;
 import java.util.TreeSet;
 
@@ -575,12 +576,202 @@ public class main {
     //----------------------------------------------------
     //-----------------------CALENDARIS---------------------
     //----------------------------------------------------
-    private static void escriuMenuGestioCalendaris(){
+    
+    public static void casCreaCalendari(){
+        String nom_p = arg.next();
+        int any_i = arg.nextInt();
+        int any_f = arg.nextInt();
+        if(!CtrlDomini.existeixCalendari(nom_p)){
+            CtrlDomini.crearCalendari(nom_p,any_i,any_f);
+        }
+        else
+            System.out.println("Ja existeix calendari per a la plantilla " + nom_p);
 
+    }
+    
+    public static void modificarDiaFestiu(String nom) {
+    	int any = arg.nextInt();
+    	int mes = arg.nextInt();
+    	int dia = arg.nextInt();
+    	GregorianCalendar d = new GregorianCalendar(any,mes,dia);
+    	boolean b = arg.hasNextBoolean();
+    	CtrlDomini.modificarDiaFestiu(nom,d,b);
+    }
+    
+    public static void modificarPercentatge(String nom) {
+    	int any = arg.nextInt();
+    	int mes = arg.nextInt();
+    	int dia = arg.nextInt();
+    	GregorianCalendar d = new GregorianCalendar(any,mes,dia);
+    	int horari = arg.nextInt();
+    	float p = arg.nextFloat();
+    	CtrlDomini.modificarPercentatge(nom,d,horari,p);
+    }
+
+    public static void modificarMinim(String nom) {
+    	int any = arg.nextInt();
+    	int mes = arg.nextInt();
+    	int dia = arg.nextInt();
+    	GregorianCalendar d = new GregorianCalendar(any,mes,dia);
+    	int horari = arg.nextInt();
+    	int p = arg.nextInt();
+    	CtrlDomini.modificarMinim(nom,d,horari,p);
+    }
+    
+    public static void borrarDia(String nom) {
+    	int any = arg.nextInt();
+    	int mes = arg.nextInt();
+    	int dia = arg.nextInt();
+    	GregorianCalendar d = new GregorianCalendar(any,mes,dia);
+    	CtrlDomini.borrarDia(nom,d);
+    }
+    
+    public static void borrarTorn(String nom) {
+    	int any = arg.nextInt();
+    	int mes = arg.nextInt();
+    	int dia = arg.nextInt();
+    	GregorianCalendar d = new GregorianCalendar(any,mes,dia);
+    	int h = arg.nextInt();
+    	CtrlDomini.borrarTorn(nom,d,h);
+    }
+    
+    public static void casModificarCalendari() {
+        String nom_p = arg.next();
+        if(CtrlDomini.existeixCalendari(nom_p)){
+            escriuMenuModificaCalendari(nom_p);
+            boolean sortir = false;
+            while(!sortir){
+                int menu = lecturaTeclat();
+                switch(menu){
+                    case 1: modificarDiaFestiu(nom_p); break;
+                    case 2: modificarPercentatge(nom_p); break;
+                    case 3: modificarMinim(nom_p); break;
+                    case 4: borrarDia(nom_p); break;
+                    case 5: borrarTorn(nom_p); break;
+                    case 0: sortir = true; break;
+                    default:
+                        System.out.println("El numero ha d'estar entre 0 i 5.");
+                        break;
+                }
+                if (menu != 0) escriuMenuModificaCalendari(nom_p);
+            }
+        }
+        else
+            System.out.println("No existeix cap plantilla amb nom "+nom_p);
+    
+    }
+    
+    public static void escriureDia(Dia d, GregorianCalendar data) {
+		String da = data.getTime().toString();
+		System.out.println("El dia "+da);
+		if(d.getFestiu())System.out.println("Es festiu");
+		else System.out.println("No es festiu");
+		Torn t;
+		String s;
+		for(int i=0; i<3; ++i) {
+			if(i==0) {
+				s="Mati";
+				t = d.getTornMati();
+			}
+			else if(i==1) {
+				s="Tarda";
+				t = d.getTornTarda();
+			}
+			else {
+				s="Nit";
+				t = d.getTornNit();
+			}
+			System.out.println("Torn de "+s+":\n"
+					+ "Hora inici: "+t.getHora_inici()+"\n"
+					+ "Hora fi: "+t.getHora_fi()+"\n"
+					+ "Percentatge de sou: "+t.getPercent_sou()+"\n"
+					+ "Numero minim de doctors: "+t.getMin_num_doctors()+"\n\n");
+		}
+	}
+    
+    public static void casConsultarCalendari() {
+		String plt = arg.next();
+		Calendari c = CtrlDomini.consultaCalendari(plt);
+		for(int i=0; i<c.getCalendari().length; ++i){
+			Dia d = c.getCalendari()[i];
+			escriureDia(d,CtrlCalendari.quinDia(i,c.getAny()));
+		}
+    }
+    
+    public static void casEliminaCalendari(){
+        String nom_p = arg.next();
+        if(CtrlDomini.existeixCalendari(nom_p)){
+            CtrlDomini.esborrarCalendari(nom_p);
+        }else {
+            System.out.println("No existeix cap calendari per la plantilla " + nom_p + ".");
+        }
+    }
+    
+    public static void casGuardarCalendaris(){
+        CtrlDomini.guardarCalendaris();
+    }
+    
+    public static void casCarregarCalendaris(){
+        CtrlDomini.carregarCalendaris();
+    }
+
+    public static void casLlistarCalendaris(){
+        TreeSet<Calendari> Cjt = CtrlDomini.llistarCalendaris();
+        System.out.println("Núm. de plantilles: "+Cjt.size());
+        for(Calendari c:Cjt)
+            System.out.println(c.getPlantillaAssociada());
+    }
+    
+    private static void escriuMenuModificaCalendari(String nom_p){
+        //Permetem canvi del nom de la plantilla
+        //Pero no és gaire adequat
+        System.out.println("----------Modificar calendari associat a la plantilla: "+nom_p+"----------");
+        System.out.println("1.- Canviar plantilla associada al calendari(Nom_plantilla: String)");
+        System.out.println("2.- Modificar Dia Festiu(Data(any: int, mes: int, dia: int), Festiu?: boolea)"); //Llistem doctors de l'hospital a afegir que no tenen plantilla
+        System.out.println("3.- Modificar percentatge de sou d'un Torn(Data (any: int, mes: int, dia: int), Torn: (mati=0, tarda=1 o nit=2), nou percentatge: Float)");
+        System.out.println("4.- Modificar número mínim de doctors d'un Torn(Data (any: int, mes: int, dia: int), Torn: (mati=0, tarda=1 o nit=2), nou minim: int)");
+        System.out.println("5.- Borrar informació d'un dia(Data (any: int, mes: int, dia: int))");
+        System.out.println("6.- Borrar informació d'un torn(Data (any: int, mes: int, dia: int), Torn(mati=0, tarda=1, nit=2)");
+        System.out.println("0.- Tornar a Menu Principal");
+        System.out.println("---------------------------------");
+        System.out.print(">> ");
+
+    }
+    
+    private static void escriuMenuGestioCalendaris(){
+        System.out.println("----------GESTIÓ DE CALENDARIS----------");
+        System.out.println("1.- Crear Calendari(Nom_plantilla: String, any_inici: int, any_fi: int)");
+        System.out.println("2.- Modificar Calendari(Nom_plantilla: String)"); //Crida a menúModificaCalendari
+        System.out.println("3.- Consultar Calendari(Nom_plantilla: String)");  
+        System.out.println("4.- Eliminar Calendari(Nom_plantilla: String)");
+        System.out.println("5.- Guardar calendaris()");
+        System.out.println("6.- Carregar calendari()");
+        System.out.println("7.- Consultar llistat de plantilles associades a calendaris()");
+        System.out.println("0.- Tornar a Menu Principal");
+        System.out.println("---------------------------------");
+        System.out.print(">> ");
     }
     private static void casGestioCalendaris(){
         escriuMenuGestioCalendaris();
-        int menu = lecturaTeclat();
+        boolean sortir = false;
+        while (!sortir){
+            int menu = lecturaTeclat();
+            switch(menu){
+                case 1: casCreaCalendari(); break;
+                case 2: casModificarCalendari(); break;
+                case 3: casConsultarCalendari(); break;
+                case 4: casEliminaCalendari(); break;
+                case 5: casGuardarCalendaris(); break;
+                case 6: casCarregarCalendaris(); break;
+                case 7: casLlistarCalendaris(); break;
+                case 0: sortir = true; break;
+                default:
+                    System.out.println("El numero ha d'estar entre 0 i 7.");
+                    break;
+            }
+            if(menu != 0) escriuMenuGestioPlantilles();
+        }
 
     }
+
 }

@@ -1,5 +1,6 @@
 package prop;
 
+import java.util.GregorianCalendar;
 import java.util.TreeSet;
 
 public class CtrlDomini {
@@ -97,6 +98,51 @@ public class CtrlDomini {
 
     //-------------CALENDARI-------------
 
+    public static boolean existeixCalendari(String nom_p){
+        return CtrlCalendari.existeixCalendari(nom_p);
+    }
+    
+    public static void crearCalendari(String nom_p, int any_i, int any_f){
+        CtrlCalendari.crearIafegirCalendari(nom_p, any_i, any_f);
+    }
+    
+    public static Calendari consultaCalendari(String nom_p){
+        return CtrlCalendari.consultarCalendari(nom_p);
+    }
+    
+    public static void modificarDiaFestiu(String nom, GregorianCalendar d, boolean b) {
+    	CtrlCalendari.modificarDiaFestiu(nom, d, b);
+    }
+    
+    public static void modificarPercentatge(String nom, GregorianCalendar d, int horari, float p) {
+    	CtrlCalendari.modificarPercentatgeTorn(p, d, nom, horari);
+    }
+    
+    public static void modificarMinim(String nom, GregorianCalendar d, int horari, int p) {
+    	CtrlCalendari.modificarMinimTorn(p, d, nom, horari);
+    }
+    
+    public static void borrarDia(String nom, GregorianCalendar d) {
+    	CtrlCalendari.borrarDia(nom, d);
+    }
+    
+    public static void borrarTorn(String nom, GregorianCalendar d, int horari) {
+    	CtrlCalendari.borrarTornHorari(nom, d, horari);
+    }
+    
+    public static void esborrarCalendari(String nom_p){
+        CtrlCalendari.eliminarCalendari(nom_p);
+    }
+    
+    public static void guardarCalendaris(){
+        CtrlCalendari.guardar();
+    }
+    public static void carregarCalendaris(){
+        CtrlCalendari.carregar();
+    }
+    public static TreeSet<Calendari> llistarCalendaris(){
+        return CtrlCalendari.getLlcalendaris();
+    }
     //-------------CARREGAR-------------
     public static void carregarGeneral(){
         CtrlPlantilla.carregar();
