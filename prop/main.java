@@ -542,15 +542,32 @@ public class main {
 
     private static void escriuMenuAplicarAlgorisme(){
         System.out.println("----------APLICAR ALGORISME----------");
-        System.out.println("1.- Escull algorisme a aplicar");   //Crida a menuEscullAlgorisme (FF o EK)
-        System.out.println("2.- Compara resultats d'algorismes");   //Si no s'han aplicat, mostrar missatge d'error
+        System.out.println("1.- Aplica algorisme de Ford Fulkerson");
+        System.out.println("2.- Aplica algorisme de Edmond's Karp");
+        System.out.println("3.- Consulta resultat algorisme de Ford Fulkerson");
+        System.out.println("4.- Consulta resultat algorisme d'Edmond's Karp");
+        System.out.println("5.- Compara resultats d'algorismes");   //Si no s'han aplicat, mostrar missatge d'error
         System.out.println("0.- Tornar a Menu Principal");
         System.out.println("---------------------------------");
         System.out.print(">> ");
     }
     private static void casAplicarAlgorisme(){
         escriuMenuAplicarAlgorisme();
-        int menu = lecturaTeclat();
+        boolean sortir = false;
+        while(!sortir) {
+            int menu = lecturaTeclat();
+            switch(menu){
+                case 1: casAplicarFF(); break;
+                case 2: casAplicarEK(); break;
+                case 3: casConsultaResultatFF(); break;
+                case 4: casConsultaResultatEK(); break;
+                case 5: casComparaResultatsAlg(); break;
+                case 0: sortir = true; break;
+                default:
+                    System.out.println("El numero ha d'estar entre 0 i 5.");
+                    break;
+            }
+        }
     }
 
     //-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
