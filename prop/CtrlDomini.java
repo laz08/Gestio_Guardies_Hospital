@@ -92,7 +92,15 @@ public class CtrlDomini {
     public static TreeSet<Plantilla> llistarPlantilles(){
         return CtrlPlantilla.getCjt_plantilles();
     }
-
+    public static void setPlantillaActual(String nom_p){
+        CtrlPlantilla.setPlantillaActual(nom_p);
+    }
+    public static Plantilla getPlantillaActual(){
+        return CtrlPlantilla.getPlantillaActual();
+    }
+    public static void plantillaActualANull(){
+        CtrlPlantilla.plantillaActualANull();
+    }
 
     //-------------RESTRICCIONS-------------
 
@@ -158,4 +166,22 @@ public class CtrlDomini {
         CtrlCalendari.guardar();
         CtrlRestriccio.guardar();
     }
+
+
+    //----------ALGORISMES-------------
+    public static Graf crear_graf(){
+        return CtrlEntrada.crea_graf();
+    }
+    public static void aplicaEdmondsKarp(Graf graf){
+        Algorisme alg = new EdmondsKarp();
+        alg.setGraf(graf);
+        alg.maxFlow();
+    }
+
+    public static void aplicaFordFulkerson(Graf graf){
+        Algorisme alg = new FordFulkerson();
+        alg.setGraf(graf);
+        alg.maxFlow();
+    }
+
 }

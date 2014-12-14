@@ -55,6 +55,9 @@ public class CtrlPlantilla {
         return plantillaActual;
     }
 
+    public static void plantillaActualANull(){
+        plantillaActual = null;
+    }
 
     public static Plantilla consultarPlantilla(String nom_p){
         Plantilla p = new Plantilla(nom_p);

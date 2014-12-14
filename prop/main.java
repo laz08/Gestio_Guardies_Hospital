@@ -540,28 +540,87 @@ public class main {
     //----------------------------------------------------
 
 
+    //--------Auxiliars--------
+    private static void escollirPlantillaActual(){
+        System.out.println("Llistat de plantilles: ");
+        casLlistarPlantilles();
+        System.out.print(">> ");
+        String nom_p = arg.next();
+        if (CtrlDomini.existeixPlantilla(nom_p)) {
+            CtrlDomini.setPlantillaActual(nom_p);
+        }
+        else {
+            System.out.println("No existeix cap plantilla amb nom "+nom_p+".");
+        }
+    }
+    private static void casAplicarFF(){
+        if (CtrlDomini.getPlantillaActual() != null){
+            if(CtrlDomini.getPlantillaActual().getLlistaDoctorsDNI().size() > 0){
+                Graf graf = CtrlEntrada.crea_graf();
+                CtrlDomini.aplicaFordFulkerson(graf);
+                graf.mostra_graf();
+            }
+            else System.out.println("No hi ha Doctors a la plantilla per poder aplicar l'Algorisme");
+        }
+        else
+            System.out.println("Primer has d'escollir una plantilla a la qual aplicar l'Algorisme.");
+    }
+    private static void casAplicarEK(){
+        if (CtrlDomini.getPlantillaActual() != null){
+            if(CtrlDomini.getPlantillaActual().getLlistaDoctorsDNI().size() > 0) {
+                Graf graf = CtrlEntrada.crea_graf();
+                CtrlDomini.aplicaEdmondsKarp(graf);
+                graf.mostra_graf();
+            }
+            else System.out.println("No hi ha Doctors a la plantilla per poder aplicar l'Algorisme");
+        }
+        else
+            System.out.println("Primer has d'escollir una plantilla a la qual aplicar l'Algorisme.");
+    }
+    private static void casComparaResultatsAlg(){
+        if (CtrlDomini.getPlantillaActual() != null){
+            if(CtrlDomini.getPlantillaActual().getLlistaDoctorsDNI().size() > 0) {
+                Graf GFF = CtrlEntrada.crea_graf();
+                Graf GEK = CtrlEntrada.crea_graf();
+
+                CtrlDomini.aplicaFordFulkerson(GFF);
+                CtrlDomini.aplicaEdmondsKarp(GEK);
+
+                System.out.println("Resultat de Ford Fulkerson:");
+                GFF.mostra_graf();
+                System.out.println("\n----------------");
+                System.out.println("Resultat de Edmond's Karp:");
+                GEK.mostra_graf();
+
+            }
+            else System.out.println("No hi ha Doctors a la plantilla per poder aplicar l'Algorisme");
+        }
+        else
+            System.out.println("Primer has d'escollir una plantilla a la qual aplicar l'Algorisme.");
+    }
+
     private static void escriuMenuAplicarAlgorisme(){
         System.out.println("----------APLICAR ALGORISME----------");
-        System.out.println("1.- Aplica algorisme de Ford Fulkerson");
-        System.out.println("2.- Aplica algorisme de Edmond's Karp");
-        System.out.println("3.- Consulta resultat algorisme de Ford Fulkerson");
-        System.out.println("4.- Consulta resultat algorisme d'Edmond's Karp");
-        System.out.println("5.- Compara resultats d'algorismes");   //Si no s'han aplicat, mostrar missatge d'error
+        System.out.println("1.- Escollir plantilla a la que aplicar algorisme (nom_plantilla: String)");
+        System.out.println("2.- Aplica algorisme de Ford Fulkerson");
+        System.out.println("3.- Aplica algorisme de Edmond's Karp");
+        System.out.println("4.- Compara els dos algorismes");   //Si no s'han aplicat, mostrar missatge d'error
         System.out.println("0.- Tornar a Menu Principal");
         System.out.println("---------------------------------");
         System.out.print(">> ");
     }
     private static void casAplicarAlgorisme(){
+        //Abans de res, per si de cas, fem que no hi hagi plantilla actual escollida
+        CtrlDomini.plantillaActualANull();
         escriuMenuAplicarAlgorisme();
         boolean sortir = false;
         while(!sortir) {
             int menu = lecturaTeclat();
             switch(menu){
-                case 1: casAplicarFF(); break;
-                case 2: casAplicarEK(); break;
-                case 3: casConsultaResultatFF(); break;
-                case 4: casConsultaResultatEK(); break;
-                case 5: casComparaResultatsAlg(); break;
+                case 1: escollirPlantillaActual(); break;
+                case 2: casAplicarFF(); break;
+                case 3: casAplicarEK(); break;
+                case 6: casComparaResultatsAlg(); break;
                 case 0: sortir = true; break;
                 default:
                     System.out.println("El numero ha d'estar entre 0 i 5.");
