@@ -158,9 +158,7 @@ public class Graf {
                         id += "DOC"+i;
                         break;
                     case Vertex.RESTRICCIO:
-                        String op = v.getId();
-                        op = op.substring(5, 10);
-                        id += op+i;
+                        id += v.getId();
                         break;
                     case Vertex.TORN:
                         id += "T"+i;
@@ -182,9 +180,7 @@ public class Graf {
                         id += "DOC"+adj.get(e);
                         break;
                     case Vertex.RESTRICCIO:
-                        String op = v1.getId();
-                        op = op.substring(5, 10);
-                        id += op+adj.get(e);
+                        id += v1.getId();
                         break;
                     case Vertex.TORN:
                         id += "T"+adj.get(e);
@@ -211,9 +207,7 @@ public class Graf {
                         idv += "DOC"+a.getv();
                         break;
                     case Vertex.RESTRICCIO:
-                        String op = v.getId();
-                        op = op.substring(5, 10);
-                        idv += op+a.getv();
+                        idv += v.getId();
                         break;
                     case Vertex.TORN:
                         idv += "T"+a.getv();
@@ -232,9 +226,7 @@ public class Graf {
                         idw += "DOC"+a.getw();
                         break;
                     case Vertex.RESTRICCIO:
-                        String op = w.getId();
-                        op = op.substring(5, 10);
-                        idw += op+a.getw();
+                        idw += w.getId();
                         break;
                     case Vertex.TORN:
                         idw += "T"+a.getw();

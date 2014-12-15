@@ -8,8 +8,9 @@ public class R_NOP extends Restriccio{
      * La restriccio NOP "converteix" un torn a restricció per poder operar amb ell 
      * @param t Torn al que fa referència la restricció
      */
-    public R_NOP(String t) {
+    public R_NOP(String t, String ident) {
         fill = t;
+        id = "NOP"+ident;
     }
     
     /**
@@ -23,6 +24,11 @@ public class R_NOP extends Restriccio{
     @Override
     public String getOp() {
         return "NOP";
+    }
+
+    @Override
+    public String getId() {
+        return id;
     }
     
 }

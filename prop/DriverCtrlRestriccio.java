@@ -16,6 +16,11 @@ public class DriverCtrlRestriccio {
         public String getOp() {
             return "Prova";
         }
+
+        @Override
+        public String getId() {
+            return "id restriccio";
+        }
     };
 
     public static void main(String[] args) {
@@ -69,7 +74,6 @@ public class DriverCtrlRestriccio {
                     } else {
                         Object obj1 = CtrlRestriccio.selecciona_Fill1(restriccio);
                         if (!obj1.getClass().equals(R_NOP.class)
-                                && !obj1.getClass().equals(R_NOT.class)
                                 && !obj1.getClass().equals(R_AND.class)
                                 && !obj1.getClass().equals(R_XOR.class)) {
                             System.out.println("El fill esquerra no es una restricció");
@@ -85,7 +89,6 @@ public class DriverCtrlRestriccio {
                         Object obj2 = CtrlRestriccio.selecciona_Fill2(restriccio);
 
                         if (!obj2.getClass().equals(R_NOP.class)
-                                && !obj2.getClass().equals(R_NOT.class)
                                 && !obj2.getClass().equals(R_AND.class)
                                 && !obj2.getClass().equals(R_XOR.class)) {
                             System.out.println("El fill dret no es una restricció");
@@ -179,7 +182,7 @@ public class DriverCtrlRestriccio {
         Calendari c = new Calendari("Prova_Driver_Restriccions", 1000, 1001);
         CtrlPlantilla.getPlantillaActual().set_calendari_asoc(c);
         Dia[] any = c.getCalendari();
-        for (int i = 1; i <= any.length; i++) {
+        for (int i = 0; i < any.length; i++) {
             for(int e=0; e<3; e++){
                 Torn t = new Torn(0+e*8, 8+e*8-1, 10, 2);
                     switch(e){

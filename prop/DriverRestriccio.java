@@ -18,6 +18,11 @@ public class DriverRestriccio {
             public String getOp() {
                 return "no Conté una operació definida ja que és una restriccio de prova";
             }
+
+            @Override
+            public String getId() {
+                return "id de prova";
+            }
         };
         
         Scanner scan;

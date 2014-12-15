@@ -14,9 +14,10 @@ public class R_AND extends Restriccio{
      * @param r1 Primera restricció
      * @param r2 Sengona restricció
      */
-    public R_AND(Restriccio r1, Restriccio r2){
+    public R_AND(Restriccio r1, Restriccio r2, String ident){
         restriccio1 = r1;
         restriccio2 = r2;
+        id = "AND"+ident;
     }
     
     /**
@@ -24,9 +25,10 @@ public class R_AND extends Restriccio{
      * @param f1 Primer torn
      * @param f2 Segon torn
      */
-    public R_AND(String f1, String f2){
+    public R_AND(String f1, String f2, String ident){
         fill1 = f1;
         fill2 = f2;
+        id = "AND"+ident;
     }
     
     /**
@@ -51,6 +53,11 @@ public class R_AND extends Restriccio{
     @Override
     public String getOp() {
         return "AND";
+    }
+
+    @Override
+    public String getId() {
+        return id;
     }
     
 }

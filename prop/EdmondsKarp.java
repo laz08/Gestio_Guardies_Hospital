@@ -12,12 +12,14 @@ import static prop.Algorisme.graf;
  * @author Xisco
  */
 public class EdmondsKarp extends Algorisme {
+
     private static ArrayList<Vertex> cua;
     // L'algorisme de Edmond's Karp no es mes que un recorregut en amplada per trobar tots els possibles
     // camins dins un graf, per tant, fem el recorregut en amplada pero no ens aturarem en trobar un cami
     // que arribi al vertex POU, sino que seguirem comprovant els altres possibles.
     // De manera que quan es troba el POU es fara un recorregut invers (cami que trobaria l'algorisme) 
     // per assignar flow a les branques
+
     @Override
     public void maxFlow() {
         graf.resetFlow();
@@ -29,35 +31,47 @@ public class EdmondsKarp extends Algorisme {
         cua.add(s);
         while (!cua.isEmpty()) {
             Vertex v = cua.get(0);
-            
             cua.remove(0);
-            ArrayList<Integer> adj = v.getArestes();
-            for (int i = 0; i < adj.size(); i++) {
-                Aresta a = graf.getA(adj.get(i));
-                Vertex v1 = graf.getVertex(a.getw());
-                if (!v1.equals(v)) {
-                    switch (v1.getClasse()) {
-                        case Vertex.DOCTOR:
-                            cua.add(v1);
-                            break;
-                        case Vertex.RESTRICCIO:
-                            if (!v1.getVisitat()) {
+            if (v.getClasse() == Vertex.MAX) {
+                boolean trobat = false;
+                Aresta a = null;
+                int pos = 0;
+                Vertex vp = null;
+                while(!trobat && pos < v.getArestes().size()){
+                    a = graf.getA(v.getArestes().get(pos));
+                    vp = graf.getVertex(a.getv());
+                    if(!vp.equals(v) && a.getflow()==0 && !vp.getVisitat()){
+                        trobat = true;
+                    }
+                    pos++; 
+                }
+                
+                
+                //System.out.println("Seguiment 1: "+v.getClasse());
+                
+                
+                tractaVertexMax(vp,v,a);
+            } else {
+                ArrayList<Integer> adj = v.getArestes();
+                for (int i = 0; i < adj.size(); i++) {
+                    Aresta a = graf.getA(adj.get(i));
+                    Vertex v1 = graf.getVertex(a.getw());
+                    if (!v1.equals(v)) {
+                        switch (v1.getClasse()) {
+                            case Vertex.DOCTOR:
                                 cua.add(v1);
-                            }
-                            break;
-                        case Vertex.TORN:
-                            if (v1.getVisitat()) {
-                                v.setVisitat(true);
-                            } else {
+                                break;
+                            case Vertex.RESTRICCIO:
+                                if (!v1.getVisitat()) {
+                                    cua.add(v1);
+                                }
+                                break;
+                            case Vertex.MAX:
                                 cua.add(v1);
-                            }
-                            break;
-                        case Vertex.MAX:
-                            cua.add(v1);
-                            tractaVertexMax(v, v1, a);
-                            break;
-                        case Vertex.FONT_POU:
-                            break;
+                                break;
+                            case Vertex.FONT_POU:
+                                break;
+                        }
                     }
                 }
             }
@@ -65,25 +79,31 @@ public class EdmondsKarp extends Algorisme {
     }
 
     private static void tractaVertexMax(Vertex vp, Vertex v, Aresta a) {
-
         if (vp.getClasse() == Vertex.RESTRICCIO) {
+            
+            //System.out.println("Seguiment 2: "+ v.getClasse() +"----> MAX: "+Vertex.MAX);
+            
             int maxRest = v.getNumMaxRestr();
             Vertex vt = graf.getVertex(v.getId(), Vertex.TORN);
             Aresta aresta = null;
             ArrayList<Integer> la = vt.getArestes();
             boolean trobat = false;
             int pos = 0;
-            while(!trobat && pos<la.size()){
+            while (!trobat && pos < la.size()) {
                 aresta = graf.getA(la.get(pos));
-                if(graf.getVertex(aresta.getw()).equals(vt)) trobat = true;
-                pos ++;
+                if (graf.getVertex(aresta.getw()).equals(vt)) {
+                    trobat = true;
+                }
+                pos++;
             }
-            
-            if (vt != null && maxRest > vt.getNumDocRelacionats()) {
+            // tenim (vp)----a----(v)---aresta---(vt)
+            //    Restriccio      Max            Torn
+            if (maxRest > vt.getNumDocRelacionats()) {
                 String doc_r = vp.getDoctorsRel().get(0);
                 if (!vt.getDoctorsRel().contains(doc_r)) {
                     int cap = aresta.getcap();
                     aresta.setCap(cap - 1);
+                    vt.addDoctorRel(doc_r);
                     puja_flow(v, a);
                     // si es troba una restriccio XOR, s'ha de cercar l'altre fill i eliminar-lo de la cua igual que cualsevol vertex que hagui pogut sortir d'aquest
                 } else {
@@ -99,7 +119,6 @@ public class EdmondsKarp extends Algorisme {
     private static void puja_flow(Vertex v, Aresta a) {
         if (v.getClasse() != Vertex.FONT_POU) {
             a.addFlow(1);
-            
             Vertex vp = graf.getVertex(a.getv());
             boolean trobat = false;
             int pos = 0;
@@ -110,14 +129,24 @@ public class EdmondsKarp extends Algorisme {
                 if (!graf.getVertex(aresta.getv()).equals(vp)) {
                     trobat = true;
                 }
-                pos ++;
+                pos++;
             }
-            if(vp.getClasse() == Vertex.RESTRICCIO){
-                String idvp = vp.getId();
-                if(idvp.contains("XOR")){
-                    if(cua.contains(vp)) cua.remove(vp);
-                    else{
-                        elimina_fills_xor(vp, v);
+            if (vp.getClasse() == Vertex.RESTRICCIO) {
+                String opvp = ((Restriccio) vp.getObjecte()).getOp();
+                
+                
+                if (opvp.equals("XOR")) {
+                    elimina_fills_xor(vp, v);
+                }
+                else if(opvp.equals("AND")){
+                    for(int i=0; i<la.size(); i++){
+                        Aresta ar = graf.getA(la.get(i));
+                        if(ar.getflow()==0 && graf.getVertex(ar.getv()).equals(vp)){
+                            Vertex vf = graf.getVertex(ar.getw());
+                            if(!vf.equals(v)){
+                                tractaVertexMax(vp, vf, ar);
+                            }
+                        }
                     }
                 }
             }
@@ -142,51 +171,86 @@ public class EdmondsKarp extends Algorisme {
             puja_flow(vp, aresta);
         }
     }
-    
-    private static void elimina_fills_xor(Vertex v, Vertex vActiu){
-        ArrayList<Integer> la = v.getArestes();
-        String tipusR = ((R_XOR) v.getObjecte()).getTipus();
+
+    private static void elimina_fills_xor(Vertex vp, Vertex v) {
+        ArrayList<Integer> la = vp.getArestes();
+        String tipusR = ((R_XOR) vp.getObjecte()).getTipus();
         boolean trobat = false;
         Aresta aresta = null;
         Vertex vf = null;
-        for(int i=0; i<la.size() && !trobat; i++){
+        for (int i = 0; i < la.size() && !trobat; i++) {
             aresta = graf.getA(la.get(i));
             vf = graf.getVertex(aresta.getw());
-            if(aresta.getflow() == 0 && !vf.equals(v)){
-                if(cua.contains(vf)) cua.remove(vf);
-                else {
-                    if(vf.getClasse() == Vertex.MAX){
-                        Vertex vtorn = graf.getVertex(vf.getId(), Vertex.TORN);
-                        Torn t = (Torn) vtorn.getObjecte();
-                        switch(tipusR){
-                            case "H":
-                                
+            if (aresta.getflow() == 0 && graf.getVertex(aresta.getv()).equals(vp)) {
+                
+                if (vf.getClasse() == Vertex.MAX) {
+                    
+                    Vertex vtorn = graf.getVertex(vf.getId(), Vertex.TORN);
+                    Vertex vtact = graf.getVertex(v.getId(), Vertex.TORN); // agafam el torn relacionat amb MAX
+                    Torn t = (Torn) vtorn.getObjecte();
+                    Torn tact = (Torn) vtact.getObjecte();
+                    switch (tipusR) {
+                        case "H":
+                            int ht = t.getHora_inici();
+                            int ha = tact.getHora_inici();
+                            
+                            if (ht != ha) {
+                                if (cua.contains(vf)) {
+                                    cua.remove(cua.lastIndexOf(vf)); // elimina l'element nomes un cop en el cas que surti mes d'una vegada
+                                } else {
+                                    elimina_fills(vf);
+                                }
+                            }
+                            else{
+                                tractaVertexMax(vp, vf, aresta);
+                            }
                             break;
-                            case "D":
-                                // comprovar dies
-                                break;
-                            case "S":
-                                // comprovar setmana
-                                break;
-                        }
+                        case "D":
+                            int dt = t.getPosicio();
+                            int da = tact.getPosicio();
+                            
+                            if (da != dt) {
+                                if (cua.contains(vf)) {
+                                    cua.remove(cua.lastIndexOf(vf));
+                                } else {
+                                    elimina_fills(vf);
+                                }
+                            }
+                            else{
+                                tractaVertexMax(vp, vf, aresta);
+                            }
+                            break;
                     }
-                    else elimina_fills(vf);
+                } else {
+                    
+                    
+                    System.out.println(vf.getId());
+                    vf.setVisitat(true);
+                    
+                    if (cua.contains(vf)) {
+                        cua.remove(vf);
+                    } else {
+                        elimina_fills(vf);
+                    }
                 }
             }
         }
     }
-    
-    private static void elimina_fills(Vertex v){
+
+    private static void elimina_fills(Vertex v) {
         ArrayList<Integer> la = v.getArestes();
         boolean trobat = false;
         Aresta aresta = null;
         Vertex vf = null;
-        for(int i=0; i<la.size() && !trobat; i++){
+        for (int i = 0; i < la.size() && !trobat; i++) {
             aresta = graf.getA(la.get(i));
             vf = graf.getVertex(aresta.getw());
-            if(aresta.getflow() == 0 && !vf.equals(v)){
-                if(cua.contains(vf)) cua.remove(vf);
-                else elimina_fills(vf);
+            if (aresta.getflow() == 0 && !vf.equals(v)) {
+                if (cua.contains(vf)) {
+                    cua.remove(vf);
+                } else {
+                    elimina_fills(vf);
+                }
             }
         }
     }

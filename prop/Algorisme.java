@@ -11,5 +11,5 @@ public abstract class Algorisme {
         return graf;
     }
     
-    public abstract void maxFlow();
+    public abstract void maxFlow() throws Error;
 }

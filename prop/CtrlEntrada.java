@@ -62,7 +62,7 @@ public class CtrlEntrada {
                 if (torn != null) {
                     Vertex vmax = new Vertex(torn.toString(), Vertex.MAX);
                     g.afegirVertex(vmax);
-                    Vertex v = new Vertex(torn.toString(), Vertex.TORN, t);
+                    Vertex v = new Vertex(torn.toString(), Vertex.TORN, torn);
                     Vertex pou = g.getVertex("POU", Vertex.FONT_POU);
                     g.afegirVertex(v);
                     g.afegirAresta(v, pou, torn.getMin_num_doctors(), 0);
@@ -244,7 +244,7 @@ public class CtrlEntrada {
      * @throws Error
      */
     private static Vertex recorregut_restriccio(Restriccio r, String idDoc, Graf g) throws Error {
-        Vertex v = new Vertex(r.toString(), Vertex.RESTRICCIO, r);
+        Vertex v = new Vertex(r.getId(), Vertex.RESTRICCIO, r);
         v.addDoctorRel(idDoc);
         g.afegirVertex(v); // afagim el vertex al graf
         switch (r.getOp()) { //comprovam l'operació que representa
@@ -296,20 +296,6 @@ public class CtrlEntrada {
                     Vertex v2 = recorregut_restriccio((Restriccio) of2_xor, idDoc, g);
                     g.afegirAresta(v, v1, /*cv1*/ Graf.INFINIT, 0);
                     g.afegirAresta(v, v2, /*cv2*/ Graf.INFINIT, 0);
-                }
-                break;
-            case "NOT": // POSSIBLEMENT S'ELIMINI
-                R_NOT not = (R_NOT) r;
-                Object of_not = not.getFill();
-                if (of_not.getClass().equals(String.class)) {
-                    String t = (String) of_not;
-                    ArrayList<Vertex> torns = consulta_torns_afectats(t, r.getTipus(), g);
-                    for(int i=0; i<torns.size(); i++){
-                        g.afegirAresta(v, torns.get(i), Graf.INFINIT, 0);
-                    }
-                } else {
-                    Vertex v1 = recorregut_restriccio((Restriccio) of_not, idDoc, g);
-                    g.afegirAresta(v, v1, Graf.INFINIT, 0);
                 }
                 break;
             case "NOP":

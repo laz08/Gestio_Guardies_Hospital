@@ -10,17 +10,14 @@ import java.util.Calendar;
 public class CtrlRestriccio {
 
     private static ArrayList<Restriccio> restriccions = new ArrayList<Restriccio>();
+    private static int idcount = 0;
 
-    public static void nova_res(String expressio){
-        Plantilla plt = CtrlPlantilla.getPlantillaActual();
-        Calendari cldr = plt.get_calendari_asoc();
-        String tipus_torn = expressio.substring(0,1);
-        //expressio = transforma_expressio(tipus_torn, expressio, cldr);
+    public static void nova_res(String expressio) {
         Restriccio r = crea_arbre(expressio);
         restriccions.add(r);
     }
 
-    public static void elimina_res(Restriccio r){
+    public static void elimina_res(Restriccio r) {
         int pos = consulta_pos(r);
         if (pos != -1) {
             restriccions.remove(pos);
@@ -44,15 +41,16 @@ public class CtrlRestriccio {
      * @return Restricció arrel de l'arbre. Null si hi ha hagut un error
      */
     private static Restriccio crea_arbre(String s) {
+        int id = idcount++; // guardam l'id que tocaria a questa restriccio i incrementam el contador per el proxim
+
         String tipus = s.substring(0, 1); //agafam el tipus de restricció
-        
-       /* si s'introdueix un tipus correcte, es caclula l'arbre per la resta
-        * però si el tipus no es correcte, es marca com a null abans de continuar amb l'arbre
-        */
-        if (tipus.equals("D") || tipus.equals("S") || tipus.equals("H")){
+
+        /* si s'introdueix un tipus correcte, es caclula l'arbre per la resta
+         * però si el tipus no es correcte, es marca com a null abans de continuar amb l'arbre
+         */
+        if (tipus.equals("D") || tipus.equals("H")) {
             s = s.substring(1);
-        }
-        else{
+        } else {
             tipus = null;
         }
         Restriccio r = null; // arrel de l'arbre de restriccions
@@ -81,10 +79,10 @@ public class CtrlRestriccio {
                 Restriccio r2 = crea_arbre(tipus + sub_r2);
                 switch (operacio) {
                     case "AND":
-                        r = new R_AND(r1, r2);
+                        r = new R_AND(r1, r2, "R" + id);
                         break;
                     case "XOR":
-                        r = new R_XOR(r1, r2);
+                        r = new R_XOR(r1, r2, "R" + id);
                         break;
                 }
                 r.setNumVertex(r1.getNumVertex());
@@ -94,10 +92,10 @@ public class CtrlRestriccio {
 
                 switch (operacio) {
                     case "AND":
-                        r = new R_AND(sub_r1, sub_r2);
+                        r = new R_AND(sub_r1, sub_r2, "R" + id);
                         break;
                     case "XOR":
-                        r = new R_XOR(sub_r1, sub_r2);
+                        r = new R_XOR(sub_r1, sub_r2, "R" + id);
                         //r = new R_XOR(t1,t2);
                         break;
                 }
@@ -110,26 +108,10 @@ public class CtrlRestriccio {
             c = s.substring(0, 1);
             s = s.substring(1);
             String sub_r1 = Restriccio.cerca_tancament(c + s);
-            if (Restriccio.esRestriccio(sub_r1)) {
-                Restriccio r1 = crea_arbre(tipus + sub_r1);
-                r = new R_NOT(r1);
-                r.setNumVertex(r1.getNumVertex());
-                r.setNumVertex(r.getNumVertex() + 1);
-            } else {
+            r = new R_NOP(sub_r1, "R" + id);
+            r.setNumVertex(r.getNumVertex() + 1);
 
-                switch (operacio) {
-                    case "NOT":
-                        r = new R_NOT(sub_r1);
-                        //r = new R_NOT(t1);
-                        break;
-                    case "NOP":
-                        //r = new R_NOP(t1);
-                        r = new R_NOP(sub_r1);
-                        break;
-                }
-                r.setNumVertex(r.getNumVertex() + 1);
-            }
-       }
+        }
         r.setTipus(tipus);
         return r;
     }
@@ -138,14 +120,14 @@ public class CtrlRestriccio {
         String sortida = "";
         if (R_AND.class.equals(o.getClass())
                 || R_XOR.class.equals(o.getClass())
-                || R_NOT.class.equals(o.getClass())
                 || R_NOP.class.equals(o.getClass())) {
             Restriccio r = (Restriccio) o;
             String op = r.getOp();
             switch (op) {
                 case "AND":
                     R_AND and = (R_AND) r;
-                    sortida += "AND ( ";
+                    //sortida += "AND ( ";
+                    sortida += r.getId() + "( ";
                     sortida += mostra_arbre(and.getFill1());
                     sortida += " || ";
                     sortida += mostra_arbre(and.getFill2());
@@ -153,21 +135,17 @@ public class CtrlRestriccio {
                     break;
                 case "XOR":
                     R_XOR xor = (R_XOR) r;
-                    sortida += "XOR ( ";
+                    //sortida += "XOR ( ";
+                    sortida += r.getId() + "( ";
                     sortida += mostra_arbre(xor.getFill1());
                     sortida += " || ";
                     sortida += mostra_arbre(xor.getFill2());
                     sortida += " )";
                     break;
-                case "NOT":
-                    R_NOT not = (R_NOT) r;
-                    sortida += "NOT ( ";
-                    sortida += mostra_arbre(not.getFill());
-                    sortida += " )";
-                    break;
                 case "NOP":
                     R_NOP nop = (R_NOP) r;
-                    sortida += "NOP ( ";
+                    //sortida += "NOP ( ";
+                    sortida += r.getId() + "( ";
                     sortida += mostra_arbre(nop.getTorn());
                     sortida += " )";
                     break;
@@ -212,10 +190,6 @@ public class CtrlRestriccio {
                 R_XOR xor = (R_XOR) r;
                 fill = xor.getFill1();
                 break;
-            case "NOT":
-                R_NOT not = (R_NOT) r;
-                fill = not.getFill();
-                break;
             case "NOP":
                 R_NOP nop = (R_NOP) r;
                 fill = nop.getTorn();
@@ -239,15 +213,14 @@ public class CtrlRestriccio {
         }
         return fill;
     }
-    
-    public static void guardar() {
-    	String content = "";
-    	for (Restriccio r: restriccions) {
-    		content += mostra_arbre(r) + "\n";
-    	}
-    	CtrlPersistencia.guardar(content, "Restriccions");
-    }
 
+    public static void guardar() {
+        String content = "";
+        for (Restriccio r : restriccions) {
+            content += mostra_arbre(r) + "\n";
+        }
+        CtrlPersistencia.guardar(content, "Restriccions");
+    }
     /**
      * Donada una expressió que defineix una restricció, canvia els valors
      * numèrics que fan referència als torns per l'identificador de torn
@@ -313,8 +286,6 @@ public class CtrlRestriccio {
 //        }
 //        return t;
 //    }
-    
-    
 //    private static String concat_trobats(ArrayList<Torn> torns){
 //        String ret = "";
 //        int num_trobats = torns.size();

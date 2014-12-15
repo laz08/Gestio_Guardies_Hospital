@@ -19,7 +19,7 @@ public class DriverCtrlEntrada {
         System.out.println("---------------------------------\n");
         /// PROVA DE ALGORISME 
         System.out.println("-----------POSAM FLOW------------");
-        Algorisme algo = new EdmondsKarp();
+        Algorisme algo = new FordFulkerson();
         algo.setGraf(graf);
         algo.maxFlow();
         graf.mostra_graf();
@@ -30,7 +30,7 @@ public class DriverCtrlEntrada {
         CtrlPlantilla.creariAfegirPlantilla("Prova");
         CtrlPlantilla.setPlantillaActual("Prova");
 
-        Calendari c = new Calendari("Prova", 1000, 1001);
+        Calendari c = new Calendari("Prova", 1000, 1000);
         CtrlPlantilla.consultarPlantilla("Prova").set_calendari_asoc(c);
         //Cream un conjunt de doctors de prova i els afagim a la plantilla
         for (int i = 0; i < 6; i++) {
@@ -45,21 +45,24 @@ public class DriverCtrlEntrada {
                 Dia d = any[i];
                 switch (e) {
                     case 0:
+                        t.setPosicio(i);
                         d.setTornMati(t);
                         break;
                     case 1:
+                        t.setPosicio(i);
                         d.setTornTarda(t);
                         break;
                     case 2:
+                        t.setPosicio(i);
                         d.setTornNit(t);
                         break;
                 }
             }
         }
-        CtrlRestriccio.nova_res("H NOT(6)");
-        CtrlRestriccio.nova_res("H (NOP(6))XOR((10)AND(20))");
-        CtrlRestriccio.nova_res("D (1-1)XOR(2-1)");
-        CtrlRestriccio.nova_res("H (NOP(10))AND(NOP(20))");
+        CtrlRestriccio.nova_res("H NOP(6)");
+        CtrlRestriccio.nova_res("H (NOP(6))AND((10)XOR(20))");
+        CtrlRestriccio.nova_res("D (1-1)AND(2-1)");
+        CtrlRestriccio.nova_res("H (NOP(10))XOR(NOP(20))");
         ArrayList<Restriccio> llista_res = CtrlRestriccio.consulta_llista_res();
 
         Plantilla p = CtrlPlantilla.getPlantillaActual();
