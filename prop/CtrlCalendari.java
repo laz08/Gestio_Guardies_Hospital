@@ -12,24 +12,31 @@ public class CtrlCalendari {
 	
 	//Pre: La plantilla plt no té calendari associat
 	//Post: llcalendaris ara té un nou calendari que pertany a la plantilla plt
-	public static Calendari CrearIAfegirCalendari(String plt, int any) {
-		Calendari c = new Calendari(plt,any,any);
-		llcalendaris.add(c);
-		return c;
+	public static Calendari CrearIAfegirCalendari(String plt, int anyi, int anyf) {
+		if(CtrlPlantilla.existeixPlantilla(plt)) {
+			Calendari c = new Calendari(plt,anyi,anyf);
+			llcalendaris.add(c);
+			return c;
+		}
+		return null;
 	}
 	
 	//Pre: La plantilla plt no té calendari associat
 	//Post: llcalendaris ara té un nou calendari que pertany a la plantilla plt
 	public static void crearIafegirCalendari(String plt, int any, int anyf) {
-		Calendari c = new Calendari(plt,any,anyf);
-		llcalendaris.add(c);
+		if(CtrlPlantilla.existeixPlantilla(plt)) {
+			Calendari c = new Calendari(plt,any,anyf);
+			llcalendaris.add(c);
+		}
 	}
 	
 	//Pre: La plantilla plt no té calendari associat
 	//Post: llcalendaris ara té un nou calendari que pertany a la plantilla plt
-	public static void afegirCalendari(String plt, int any) {
-		Calendari c = new Calendari(plt,any,any);
-		llcalendaris.add(c);
+	public static void afegirCalendari(String plt, int anyi, int anyf) {
+		if(CtrlPlantilla.existeixPlantilla(plt)) {
+			Calendari c = new Calendari(plt,anyi,anyf);
+			llcalendaris.add(c);
+		}
 	}
 	
 	//Pre:-
@@ -108,7 +115,16 @@ public class CtrlCalendari {
                 	System.out.println(j + " " + e +" "+ separat[i+1]);
                 	System.out.println(j + " " + e +" "+ separat[i+2]);
                 	System.out.println(j + " " + e +" "+ separat[i+3]);
-                    Torn t = new Torn(Integer.parseInt(separat[i]),Integer.parseInt(separat[i+1]),Float.parseFloat(separat[i+2]), Integer.parseInt(separat[i+3]));
+                	Torn t;
+                    if(Integer.parseInt(separat[i])==0) {
+                    	t = new Torn(0,Float.parseFloat(separat[i+2]), Integer.parseInt(separat[i+3]));
+                    }
+                    else if(Integer.parseInt(separat[i])==1){
+                    	t = new Torn(1,Float.parseFloat(separat[i+2]), Integer.parseInt(separat[i+3]));
+                    }
+                    else {
+                    	t = new Torn(2,Float.parseFloat(separat[i+2]), Integer.parseInt(separat[i+3]));
+                    }
                         i+=4;
                     	switch(e){
                             case 0:

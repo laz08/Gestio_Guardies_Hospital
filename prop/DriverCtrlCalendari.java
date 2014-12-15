@@ -6,8 +6,8 @@ import java.util.TreeSet;
 
 public class DriverCtrlCalendari {
 	
-	//private static CtrlCalendari ctr = new CtrlCalendari();
 	static Scanner arg = new Scanner(System.in);
+	static boolean primer = true;
 	
 	public static void main(String[] args) throws Error {
 		
@@ -72,16 +72,16 @@ public class DriverCtrlCalendari {
 	
 	public static void escriureMenu() {
 		System.out.println("\n\n----------Menú----------\n"
-				+ "CONJUNT CALENDARIS\n"
+				+ "--------------CONJUNT CALENDARIS-----------\n"
 				+ "1.- Consultar llista de plantilles que tenen calendari\n"
-				+ "CALENDARI\n"
+				+ "------------------CALENDARI----------------\n"
 				+ "2.- Crear Calendari(identificador plantilla: String, any inici: int, any fi: int)\n"
 				+ "3.- Eliminar Calendari(id plantilla: String)\n"
 				+ "4.- Existeix Calendari?(id plantilla: String)\n"
 				+ "5.- Consultar Calendari(id plantilla: String)\n"
 				+ "6.- Consultar any inici Calendari(id plantilla: String)"
 				+ "7.- Modificar Calendari-> canviem plantilla associada(id plantilla: String, id plantilla nova: String)\n"
-				+ "DIA\n"
+				+ "---------------------DIA---------------------\n"
 				+ "8.- Borrar(informació) Dia(id plantilla: String, data(any,mes,dia))\n"
 				+ "9.- Borrar(informació) torn mati(id plantilla: String, data(any,mes,dia))\n"
 				+ "10.- Borrar(informació) torn tarda(id plantilla: String, data(any,mes,dia))\n"
@@ -95,7 +95,7 @@ public class DriverCtrlCalendari {
 				+ "18.- Modificar Dia(id plantilla: String, data(any,mes,dia), nou Dia(festiu? i 3 torns)\n"
 				+ "19.- Modificar Dia festiu(id plantilla: String, data(any,mes,dia), boolea festiu)\n"
 				+ "20.- Modificar torns del Dia(id plantilla: String, data(any,mes,dia), 3 Torns)\n"
-				+ "TORN\n"
+				+ "----------------------TORN-------------------\n"
 				+ "21.- Borrar(informació) Torn(id plantilla: String, data(any,mes,dia), horari(mati=0, tarda=1, nit=2))\n"
 				+ "22.- Consultar Torn(id plantilla: String, data(any,mes,dia), horari(mati=0, tarda=1, nit=2))\n"
 				+ "23.- Consultar hora inici Torn(id plantilla: String, data(any,mes,dia), horari(mati=0, tarda=1, nit=2))\n"
@@ -111,295 +111,614 @@ public class DriverCtrlCalendari {
 				+ "0.- Exit\n\n");		
 	}
 	
+	public static boolean esAnyDeTraspas(int any){
+        //Retorna true si l'any és múltiple de 4
+        //i no és multiple de cent pero si que es multiple de 400
+
+        return (any % 4 == 0) && !(any % 100 == 0 && any % 400 != 0);
+    }
+    public static int lecturaAny(){
+        boolean valid = false;
+        int any = 0;
+        while(!valid){
+            try{
+                any = arg.nextInt();
+                if (any > 0) valid = true;
+                else {
+                    System.out.println("Any ha de tenir un valor positiu.");
+                    System.out.print("Torna a introduir any: ");
+                }
+            } catch (Exception e){
+                System.out.println("Any ha de ser un enter.");
+                System.out.print("Torna a introduir any: ");
+                arg.next();
+                continue;
+            }
+        }
+        return any;
+    }
+    public static int lecturaMes(){
+        boolean valid = false;
+        int mes = 0;
+        while(!valid){
+            try{
+                mes = arg.nextInt();
+                if(mes > 0 && mes < 13) valid = true;
+                else{
+                    System.out.println("Mes ha de tenir un valor entre 1 i 12.");
+                    System.out.print("Torna a introduir mes: ");
+                }
+            } catch(Exception e){
+                System.out.println("Mes ha de ser un enter.");
+                System.out.print("Torna a introduir mes: ");
+                arg.next();
+                continue;
+            }
+        }
+        return mes;
+    }
+    public static int lecturaDia(int any, int mes){
+        boolean valid = false;
+        int dia = 0;
+        while(!valid){
+            try{
+                dia = arg.nextInt();
+                //Mesos de 31 dies
+                if (mes == 1 || mes == 3 || mes == 5 || mes == 7 || mes == 8 || mes == 10 || mes == 12){
+                    if (dia > 0 && dia < 32) valid = true;
+                    else{
+                        System.out.println("El mes "+mes+" té un rang de dies de l'1 fins al 31");
+                        System.out.print("Torna a introduir dia: ");
+                    }
+                }
+                //Mes de febrer
+                else if (mes == 2){
+                    if(esAnyDeTraspas(any)){
+                        // 1 =< Dia =< 29
+                        if(dia > 0 && dia < 30) valid = true;
+                        else {
+                            System.out.println("El mes "+mes+" en l'any "+any+" té un rang de dies de l'1 fins al 29");
+                            System.out.print("Torna a introduir dia: ");
+                        }
+                    }
+                    //No és any de traspàs
+                    else{
+                        //28 dies
+                        if(dia > 0 && dia < 29) valid = true;
+                        else {
+                            System.out.println("El mes "+mes+" en l'any "+any+" té un rang de dies de l'1 fins al 28");
+                            System.out.print("Torna a introduir dia: ");
+                        }
+                    }
+                }
+                //Mesos de 30 dies
+                else{
+                    if (dia > 0 && dia < 31) valid = true;
+                    else{
+                        System.out.println("El mes "+mes+" té un rang de dies de l'1 fins al 30");
+                        System.out.print("Torna a introduir dia: ");
+                    }
+                }
+            } catch (Exception e){
+                System.out.println("Dia ha de ser un enter.");
+                System.out.print("Torna a introduir dia: ");
+                arg.next();
+                continue;
+            }
+        }
+        return dia;
+    }
+    public static boolean lecturaFestiu(){
+        boolean valid = false;
+        boolean b = false;
+        while(!valid){
+            try{
+                b = arg.nextBoolean();
+                valid = true;
+            } catch (Exception e){
+                System.out.println("Festiu ha de ser un boolea.");
+                System.out.print("Torna a introduir festiu (true o false)");
+                arg.next();
+                continue;
+            }
+        }
+        return b;
+    }
+    public static int lecturaHorari(){
+        boolean valid = false;
+        int h = 0;
+        while(!valid){
+            try{
+                h = arg.nextInt();
+                if(h < 3 && h >= 0) valid = true;
+                else{
+                    System.out.println("Horari ha de tenir un valor entre 0 i 2.");
+                    System.out.println("Matí = 0  //  Tarda = 1  //  Nit = 2");
+                    System.out.println("Torna a introduir horari: ");
+                }
+                valid = true;
+            } catch (Exception e){
+                System.out.println("Horari ha de ser un enter.");
+                System.out.print("Torna a introduir horari: ");
+                arg.next();
+                continue;
+
+            }
+        }
+        return h;
+    }
+    public static float lecturaPercentatge(){
+        boolean valid = false;
+        float per = 0;
+        while(!valid){
+            try{
+                per = arg.nextFloat();
+                if(per >= 0) valid = true;
+                else{
+                    System.out.println("Percentatge ha de ser positiu.");
+                    System.out.print("Torna a introduir el percentatge: ");
+                }
+            } catch (Exception e){
+                System.out.println("Percentatge ha de ser un núm.");
+                System.out.print("Torna a introduir el percentatge: ");
+                arg.next();
+                continue;
+            }
+        }
+        return per;
+    }
+    public static int lecturaNumMinimDocs(){
+        boolean valid = false;
+        int num_min = 0;
+        while(!valid){
+            try{
+                num_min = arg.nextInt();
+                if (num_min >= 0) valid = true;
+                else{
+                    System.out.println("Número mínim de doctors ha de ser un nombre positiu.");
+                    System.out.print("Torna a introduir el numero minim de docs: ");
+                }
+            } catch (Exception e){
+                System.out.println("Numero mínim de docs ha de ser un enter.");
+                System.out.print("Torna a introduir el numero minim de docs: ");
+                arg.next();
+                continue;
+            }
+        }
+        return num_min;
+    }
+
+    public static int lecturaNumTorns() {
+        boolean valid = false;
+        int h = 0;
+        while(!valid){
+            try{
+                h = arg.nextInt();
+                if(h < 3 && h >= 0) valid = true;
+                else{
+                    System.out.println("Només pots introduir de 0 a 3 torns");
+                    System.out.println("Torna a introduir quants torns vols introduir: ");
+                }
+                valid = true;
+            } catch (Exception e){
+                System.out.println("Número de torns ha de ser un enter.");
+                System.out.print("Torna a introduir quants torns vols: ");
+                arg.next();
+                continue;
+
+            }
+        }
+        return h;
+    }
+
+    public static void crearCalendari(){
+        String nom_p = arg.next();
+        boolean valid = false;
+        int any_i = 0;
+        while(!valid){
+            try {
+                any_i = arg.nextInt();
+                valid = true;
+            } catch (Exception e){
+                System.out.println("Any d'inici ha de ser un enter.");
+                System.out.print("Torna a introduir any d'inici: ");
+                arg.next();
+                continue;
+            }
+        }
+        int any_f = 0;
+        valid = false;
+        while(!valid){
+            try {
+                any_f = arg.nextInt();
+                if (any_f>=any_i && any_f >= 0) valid = true;
+                else{
+                    System.out.println("Any final ha de ser un enter i major que any d'inici.");
+                    System.out.print("Torna a introduir any final: ");
+                }
+            } catch (Exception e){
+                System.out.println("Any final ha de ser un enter y superior a any inici.");
+                System.out.print("Torna a introduir any final: ");
+                arg.next();
+                continue;
+            }
+        }
+
+        if(!CtrlPlantilla.existeixPlantilla(nom_p)) CtrlPlantilla.creariAfegirPlantilla(nom_p);
+        
+        if(!CtrlCalendari.existeixCalendari(nom_p)){
+            CtrlCalendari.crearIafegirCalendari(nom_p,any_i,any_f);
+        }
+        else System.out.println("Ja existeix calendari per a la plantilla " + nom_p);
+        
+        if(primer) primer=false;
+
+    }
+	
 	public static void consultarLlistaCalendaris() {
-        TreeSet<Calendari> Cjt = CtrlCalendari.getLlcalendaris();
-        for(Calendari c:Cjt)
-            System.out.println("La plantilla: "+c.getPlantillaAssociada()+" té un calendari de l'any "+c.getAny());
+		if(primer) System.out.println("Has de crear primer algun calendari(opció2)");
+		else {
+	        TreeSet<Calendari> Cjt = CtrlCalendari.getLlcalendaris();
+	        for(Calendari c:Cjt)
+	            System.out.println("La plantilla: "+c.getPlantillaAssociada()+" té un calendari de l'any "+c.getAny());
+		}
 	}
 	
-	public static void crearCalendari() {
-		String plt = arg.next();
-		int any_i = arg.nextInt();
-		CtrlCalendari.afegirCalendari(plt,any_i);
-	}
 	
 	public static void eliminarCalendari() {
-		String plt = arg.next();
-		CtrlCalendari.eliminarCalendari(plt);
+		if(primer) System.out.println("Has de crear primer algun calendari(opció2)");
+		else {
+			String plt = arg.next();
+			CtrlCalendari.eliminarCalendari(plt);
+		}
 	}
 	
 	public static void existeixCalendari() {
-		String plt = arg.next();
-		if(CtrlCalendari.existeixCalendari(plt)) System.out.println("La plantilla plt té calendari");
-		else System.out.println("La plantilla plt no té calendari associat");
+		if(primer) System.out.println("Has de crear primer algun calendari(opció2)");
+		else {
+			String plt = arg.next();
+			if(CtrlCalendari.existeixCalendari(plt)) System.out.println("La plantilla plt té calendari");
+			else System.out.println("La plantilla plt no té calendari associat");
+		}
 	}
 	
 	public static void consultarCalendari() {
-		String plt = arg.next();
-		Calendari c = CtrlCalendari.consultarCalendari(plt);
-		for(int i=0; i<c.getCalendari().length; ++i){
-			Dia d = c.getCalendari()[i];
-			escriureDia(d,CtrlCalendari.quinDia(i,c.getAny()));
+		if(primer) System.out.println("Has de crear primer algun calendari(opció2)");
+		else {
+			String plt = arg.next();
+			Calendari c = CtrlCalendari.consultarCalendari(plt);
+			for(int i=0; i<c.getCalendari().length; ++i){
+				Dia d = c.getCalendari()[i];
+				escriureDia(d,CtrlCalendari.quinDia(i,c.getAny()));
+			}
 		}
 	}
 	
 	public static void consultarAnyCalendari() {
-		String plt = arg.next();
-		System.out.println(CtrlCalendari.consultarCalendari(plt).getAny());
+		if(primer) System.out.println("Has de crear primer algun calendari(opció2)");
+		else {
+			String plt = arg.next();
+			System.out.println(CtrlCalendari.consultarCalendari(plt).getAny());
+		}
 	}
 	
 	public static void modificarPltCalendari() {
-		String plt = arg.next();
-		String pltnova = arg.next();
-		CtrlCalendari.modificarPlt(plt,pltnova);
+		if(primer) System.out.println("Has de crear primer algun calendari(opció2)");
+		else {
+			String plt = arg.next();
+			String pltnova = arg.next();
+			if(!CtrlCalendari.existeixCalendari(pltnova)) CtrlCalendari.modificarPlt(plt,pltnova);
+			else System.out.println("La plantilla nova ja té calendari associat");
+		}
 	}
 	
 	public static void borrarDia() {
-		String plt = arg.next();
-		int any = arg.nextInt();
-		int mes = arg.nextInt();
-		int dia = arg.nextInt();
-		GregorianCalendar data = new GregorianCalendar(any,mes,dia);
-		CtrlCalendari.borrarDia(plt,data);
+		if(primer) System.out.println("Has de crear primer algun calendari(opció2)");
+		else {
+			String plt = arg.next();
+			int any = lecturaAny();
+			int mes = lecturaMes();
+			int dia = lecturaDia(any,mes);
+			GregorianCalendar data = new GregorianCalendar(any,mes,dia);
+			CtrlCalendari.borrarDia(plt,data);
+		}
 	}
 	
 	public static void borrarTornMati() {
-		String plt = arg.next();
-		int any = arg.nextInt();
-		int mes = arg.nextInt();
-		int dia = arg.nextInt();
-		GregorianCalendar data = new GregorianCalendar(any,mes,dia);
-		CtrlCalendari.borrarTornHorari(plt,data,0);
+		if(primer) System.out.println("Has de crear primer algun calendari(opció2)");
+		else {
+			String plt = arg.next();
+			int any = lecturaAny();
+			int mes = lecturaMes();
+			int dia = lecturaDia(any,mes);
+			GregorianCalendar data = new GregorianCalendar(any,mes,dia);
+			CtrlCalendari.borrarTornHorari(plt,data,0);
+		}
 	}
 	
 	public static void borrarTornTarda() {
-		String plt = arg.next();
-		int any = arg.nextInt();
-		int mes = arg.nextInt();
-		int dia = arg.nextInt();
-		GregorianCalendar data = new GregorianCalendar(any,mes,dia);
-		CtrlCalendari.borrarTornHorari(plt,data,1);
+		if(primer) System.out.println("Has de crear primer algun calendari(opció2)");
+		else {
+			String plt = arg.next();
+			int any = lecturaAny();
+			int mes = lecturaMes();
+			int dia = lecturaDia(any,mes);
+			GregorianCalendar data = new GregorianCalendar(any,mes,dia);
+			CtrlCalendari.borrarTornHorari(plt,data,1);
+		}
 	}
 	
 	public static void borrarTornNit() {
-		String plt = arg.next();
-		int any = arg.nextInt();
-		int mes = arg.nextInt();
-		int dia = arg.nextInt();
-		GregorianCalendar data = new GregorianCalendar(any,mes,dia);
-		CtrlCalendari.borrarTornHorari(plt,data,2);
+		if(primer) System.out.println("Has de crear primer algun calendari(opció2)");
+		else {
+			String plt = arg.next();
+			int any = lecturaAny();
+			int mes = lecturaMes();
+			int dia = lecturaDia(any,mes);
+			GregorianCalendar data = new GregorianCalendar(any,mes,dia);
+			CtrlCalendari.borrarTornHorari(plt,data,2);
+		}
 	}
 	
 	public static void consultarDia() {
-		String plt = arg.next();
-		int any = arg.nextInt();
-		int mes = arg.nextInt();
-		int dia = arg.nextInt();
-		GregorianCalendar data = new GregorianCalendar(any,mes,dia);
-		Dia d = CtrlCalendari.consultarDia(plt,data);
-		escriureDia(d,data);
+		if(primer) System.out.println("Has de crear primer algun calendari(opció2)");
+		else {
+			String plt = arg.next();
+			int any = lecturaAny();
+			int mes = lecturaMes();
+			int dia = lecturaDia(any,mes);
+			GregorianCalendar data = new GregorianCalendar(any,mes,dia);
+			Dia d = CtrlCalendari.consultarDia(plt,data);
+			escriureDia(d,data);
+		}
 	}
 	
 	public static void consultarDiaFestiu() {
-		String plt = arg.next();
-		int any = arg.nextInt();
-		int mes = arg.nextInt();
-		int dia = arg.nextInt();
-		GregorianCalendar data = new GregorianCalendar(any,mes,dia);
-		if(CtrlCalendari.consultarDiaFestiu(plt,data)) System.out.println("El dia "+data.getTime().toString()+"és festiu");
-		else System.out.println("El dia "+data.getTime().toString()+" no és festiu");
+		if(primer) System.out.println("Has de crear primer algun calendari(opció2)");
+		else {
+			String plt = arg.next();
+			int any = lecturaAny();
+			int mes = lecturaMes();
+			int dia = lecturaDia(any,mes);
+			GregorianCalendar data = new GregorianCalendar(any,mes,dia);
+			if(CtrlCalendari.consultarDiaFestiu(plt,data)) System.out.println("El dia "+data.getTime().toString()+"és festiu");
+			else System.out.println("El dia "+data.getTime().toString()+" no és festiu");
+		}
 	}
 	
 	public static void consultarTornsDia() {
-		String plt = arg.next();
-		int any = arg.nextInt();
-		int mes = arg.nextInt();
-		int dia = arg.nextInt();
-		GregorianCalendar data = new GregorianCalendar(any,mes,dia);
-		Torn[] ts = CtrlCalendari.consultarTornsDia(plt,data);
-		for(int i=0; i<3; ++i) escriureTorn(ts[i],i);
+		if(primer) System.out.println("Has de crear primer algun calendari(opció2)");
+		else {
+			String plt = arg.next();
+			int any = lecturaAny();
+			int mes = lecturaMes();
+			int dia = lecturaDia(any,mes);
+			GregorianCalendar data = new GregorianCalendar(any,mes,dia);
+			Torn[] ts = CtrlCalendari.consultarTornsDia(plt,data);
+			for(int i=0; i<3; ++i) escriureTorn(ts[i],i);
+		}
 	}
 	
 	public static void consultarTornMati() {
-		String plt = arg.next();
-		int any = arg.nextInt();
-		int mes = arg.nextInt();
-		int dia = arg.nextInt();
-		GregorianCalendar data = new GregorianCalendar(any,mes,dia);
-		Torn t = CtrlCalendari.consultarTorn(data, plt, 0);
-		escriureTorn(t,0);
+		if(primer) System.out.println("Has de crear primer algun calendari(opció2)");
+		else {
+			String plt = arg.next();
+			int any = lecturaAny();
+			int mes = lecturaMes();
+			int dia = lecturaDia(any,mes);
+			GregorianCalendar data = new GregorianCalendar(any,mes,dia);
+			Torn t = CtrlCalendari.consultarTorn(data, plt, 0);
+			escriureTorn(t,0);
+		}
 	}
 	
 	public static void consultarTornTarda() {
-		String plt = arg.next();
-		int any = arg.nextInt();
-		int mes = arg.nextInt();
-		int dia = arg.nextInt();
-		GregorianCalendar data = new GregorianCalendar(any,mes,dia);
-		Torn t = CtrlCalendari.consultarTorn(data, plt, 1);
-		escriureTorn(t,1);
+		if(primer) System.out.println("Has de crear primer algun calendari(opció2)");
+		else {
+			String plt = arg.next();
+			int any = lecturaAny();
+			int mes = lecturaMes();
+			int dia = lecturaDia(any,mes);
+			GregorianCalendar data = new GregorianCalendar(any,mes,dia);
+			Torn t = CtrlCalendari.consultarTorn(data, plt, 1);
+			escriureTorn(t,1);
+		}
 	}
 	
 	public static void consultarTornNit() {
-		String plt = arg.next();
-		int any = arg.nextInt();
-		int mes = arg.nextInt();
-		int dia = arg.nextInt();
-		GregorianCalendar data = new GregorianCalendar(any,mes,dia);
-		Torn t = CtrlCalendari.consultarTorn(data, plt, 2);
-		escriureTorn(t,2);
+		if(primer) System.out.println("Has de crear primer algun calendari(opció2)");
+		else {
+			String plt = arg.next();
+			int any = lecturaAny();
+			int mes = lecturaMes();
+			int dia = lecturaDia(any,mes);
+			GregorianCalendar data = new GregorianCalendar(any,mes,dia);
+			Torn t = CtrlCalendari.consultarTorn(data, plt, 2);
+			escriureTorn(t,2);
+		}
 	}
 	
 	public static void modificarDia() {
-		String plt = arg.next();
-		int any = arg.nextInt();
-		int mes = arg.nextInt();
-		int dia = arg.nextInt();
-		GregorianCalendar data = new GregorianCalendar(any,mes,dia);
-		boolean b = arg.nextBoolean();
-		int n = arg.nextInt();
-		Dia d = new Dia(b);
-		for(int i=0; i<n; ++i) {
-			int hora_i = arg.nextInt();
-			int hora_f = arg.nextInt();
-			float percent = arg.nextFloat();
-			int minim = arg.nextInt();
-			Torn t = new Torn(hora_i,hora_f,percent,minim);
-			if(i==0) d.setTornMati(t);
-			else if(i==1) d.setTornTarda(t);
-			else d.setTornNit(t);
+		if(primer) System.out.println("Has de crear primer algun calendari(opció2)");
+		else {
+			String plt = arg.next();
+			int any = lecturaAny();
+			int mes = lecturaMes();
+			int dia = lecturaDia(any,mes);
+			GregorianCalendar data = new GregorianCalendar(any,mes,dia);
+			boolean b = lecturaFestiu();
+			int n = lecturaNumTorns();
+			Dia d = new Dia(b);
+			for(int i=0; i<n; ++i) {
+				int horari = lecturaHorari();
+				float percent = lecturaPercentatge();
+				int minim = lecturaNumMinimDocs();
+				Torn t = new Torn(horari,percent,minim);
+				if(horari==0) d.setTornMati(t);
+				else if(horari==1) d.setTornTarda(t);
+				else d.setTornNit(t);
+			}
+			CtrlCalendari.modificarDia(plt,data,d);
 		}
-		CtrlCalendari.modificarDia(plt,data,d);
 	}
 	
 	public static void modificarDiaFestiu() {
-		String plt = arg.next();
-		int any = arg.nextInt();
-		int mes = arg.nextInt();
-		int dia = arg.nextInt();
-		GregorianCalendar data = new GregorianCalendar(any,mes,dia);
-		boolean b = arg.nextBoolean();
-		CtrlCalendari.modificarDiaFestiu(plt,data,b);
+		if(primer) System.out.println("Has de crear primer algun calendari(opció2)");
+		else {
+			String plt = arg.next();
+			int any = lecturaAny();
+			int mes = lecturaMes();
+			int dia = lecturaDia(any,mes);
+			GregorianCalendar data = new GregorianCalendar(any,mes,dia);
+			boolean b = lecturaFestiu();
+			CtrlCalendari.modificarDiaFestiu(plt,data,b);
+		}
 	}
 	
 	public static void modificarTornsDia() {
-		String plt = arg.next();
-		int any = arg.nextInt();
-		int mes = arg.nextInt();
-		int dia = arg.nextInt();
-		GregorianCalendar data = new GregorianCalendar(any,mes,dia);
-		Torn[] ts = new Torn[3];
-		for(int i=0; i<3; ++i) {
-			int hora_i = arg.nextInt();
-			int hora_f = arg.nextInt();
-			float percent = arg.nextFloat();
-			int minim = arg.nextInt();
-			Torn t = new Torn(hora_i,hora_f,percent,minim);
-			ts[i] = t;
+		if(primer) System.out.println("Has de crear primer algun calendari(opció2)");
+		else {
+			String plt = arg.next();
+			int any = lecturaAny();
+			int mes = lecturaMes();
+			int dia = lecturaDia(any,mes);
+			GregorianCalendar data = new GregorianCalendar(any,mes,dia);
+			Torn[] ts = new Torn[3];
+			for(int i=0; i<3; ++i) {
+				float percent = arg.nextFloat();
+				int minim = arg.nextInt();
+				Torn t = new Torn(i,percent,minim);
+				ts[i] = t;
+			}
+			CtrlCalendari.modificarTornsDia(plt,data,ts);
 		}
-		CtrlCalendari.modificarTornsDia(plt,data,ts);
 	}
 	
 	public static void borrarTorn() {
-		String plt = arg.next();
-		int any = arg.nextInt();
-		int mes = arg.nextInt();
-		int dia = arg.nextInt();
-		GregorianCalendar data = new GregorianCalendar(any,mes,dia);
-		int horari = arg.nextInt();
-		CtrlCalendari.borrarTornHorari(plt,data,horari);
+		if(primer) System.out.println("Has de crear primer algun calendari(opció2)");
+		else {
+			String plt = arg.next();
+			int any = lecturaAny();
+			int mes = lecturaMes();
+			int dia = lecturaDia(any,mes);
+			GregorianCalendar data = new GregorianCalendar(any,mes,dia);
+			int horari = lecturaHorari();
+			CtrlCalendari.borrarTornHorari(plt,data,horari);
+		}
 	}
 	
 	public static void consultarTorn() {
-		String plt = arg.next();
-		int any = arg.nextInt();
-		int mes = arg.nextInt();
-		int dia = arg.nextInt();
-		GregorianCalendar data = new GregorianCalendar(any,mes,dia);
-		int horari = arg.nextInt();
-		Torn t = CtrlCalendari.consultarTorn(data, plt, horari);
-		escriureTorn(t,horari);
+		if(primer) System.out.println("Has de crear primer algun calendari(opció2)");
+		else {
+			String plt = arg.next();
+			int any = lecturaAny();
+			int mes = lecturaMes();
+			int dia = lecturaDia(any,mes);
+			GregorianCalendar data = new GregorianCalendar(any,mes,dia);
+			int horari = lecturaHorari();
+			Torn t = CtrlCalendari.consultarTorn(data, plt, horari);
+			escriureTorn(t,horari);
+		}
 	}
 	
 	public static void consultarHoraIniciTorn() {
-		String plt = arg.next();
-		int any = arg.nextInt();
-		int mes = arg.nextInt();
-		int dia = arg.nextInt();
-		GregorianCalendar data = new GregorianCalendar(any,mes,dia);
-		int horari = arg.nextInt();
-		int hora = CtrlCalendari.consultarHoraIniciTorn(data, plt, horari);
-		System.out.println(hora);
+		if(primer) System.out.println("Has de crear primer algun calendari(opció2)");
+		else {
+			String plt = arg.next();
+			int any = lecturaAny();
+			int mes = lecturaMes();
+			int dia = lecturaDia(any,mes);
+			GregorianCalendar data = new GregorianCalendar(any,mes,dia);
+			int horari = lecturaHorari();
+			int hora = CtrlCalendari.consultarHoraIniciTorn(data, plt, horari);
+			System.out.println(hora);
+		}
 	}
 	
 	public static void consultarHoraFiTorn() {
-		String plt = arg.next();
-		int any = arg.nextInt();
-		int mes = arg.nextInt();
-		int dia = arg.nextInt();
-		GregorianCalendar data = new GregorianCalendar(any,mes,dia);
-		int horari = arg.nextInt();
-		int hora = CtrlCalendari.consultarHoraFiTorn(data, plt, horari);
-		System.out.println(hora);
+		if(primer) System.out.println("Has de crear primer algun calendari(opció2)");
+		else {
+			String plt = arg.next();
+			int any = lecturaAny();
+			int mes = lecturaMes();
+			int dia = lecturaDia(any,mes);
+			GregorianCalendar data = new GregorianCalendar(any,mes,dia);
+			int horari = lecturaHorari();
+			int hora = CtrlCalendari.consultarHoraFiTorn(data, plt, horari);
+			System.out.println(hora);
+		}
 	}
 	
 	public static void consultarPercentatgeTorn() {
-		String plt = arg.next();
-		int any = arg.nextInt();
-		int mes = arg.nextInt();
-		int dia = arg.nextInt();
-		GregorianCalendar data = new GregorianCalendar(any,mes,dia);
-		int horari = arg.nextInt();
-		float percent = CtrlCalendari.consultarPercentatgeTorn(data, plt, horari);
-		System.out.println(percent);
+		if(primer) System.out.println("Has de crear primer algun calendari(opció2)");
+		else {
+			String plt = arg.next();
+			int any = lecturaAny();
+			int mes = lecturaMes();
+			int dia = lecturaDia(any,mes);
+			GregorianCalendar data = new GregorianCalendar(any,mes,dia);
+			int horari = lecturaHorari();
+			float percent = CtrlCalendari.consultarPercentatgeTorn(data, plt, horari);
+			System.out.println(percent);
+		}
 	}
 	
 	public static void consultarMinimTorn() {
-		String plt = arg.next();
-		int any = arg.nextInt();
-		int mes = arg.nextInt();
-		int dia = arg.nextInt();
-		GregorianCalendar data = new GregorianCalendar(any,mes,dia);
-		int horari = arg.nextInt();
-		int minim = CtrlCalendari.consultarMinimTorn(data, plt, horari);
-		System.out.println(minim);
+		if(primer) System.out.println("Has de crear primer algun calendari(opció2)");
+		else {
+			String plt = arg.next();
+			int any = lecturaAny();
+			int mes = lecturaMes();
+			int dia = lecturaDia(any,mes);
+			GregorianCalendar data = new GregorianCalendar(any,mes,dia);
+			int horari = lecturaHorari();
+			int minim = CtrlCalendari.consultarMinimTorn(data, plt, horari);
+			System.out.println(minim);
+		}
 	}
 	
 	public static void modificarTorn() {
-		String plt = arg.next();
-		int any = arg.nextInt();
-		int mes = arg.nextInt();
-		int dia = arg.nextInt();
-		GregorianCalendar data = new GregorianCalendar(any,mes,dia);
-		int horari = arg.nextInt();
-		int hora_i = arg.nextInt();
-		int hora_f = arg.nextInt();
-		float percent = arg.nextFloat();
-		int minim = arg.nextInt();
-		Torn t = new Torn(hora_i,hora_f,percent,minim);
-		CtrlCalendari.modificarTorn(t, data, plt, horari);
+		if(primer) System.out.println("Has de crear primer algun calendari(opció2)");
+		else {
+			String plt = arg.next();
+			int any = lecturaAny();
+			int mes = lecturaMes();
+			int dia = lecturaDia(any,mes);
+			GregorianCalendar data = new GregorianCalendar(any,mes,dia);
+			int horari = lecturaHorari();
+			float percent = lecturaPercentatge();
+			int minim = lecturaNumMinimDocs();
+			Torn t = new Torn(horari,percent,minim);
+			CtrlCalendari.modificarTorn(t, data, plt, horari);
+		}
 	}
 
 	public static void modificarPercentatgeTorn() {
-		String plt = arg.next();
-		int any = arg.nextInt();
-		int mes = arg.nextInt();
-		int dia = arg.nextInt();
-		GregorianCalendar data = new GregorianCalendar(any,mes,dia);
-		int horari = arg.nextInt();
-		float percent = arg.nextFloat();
-		CtrlCalendari.modificarPercentatgeTorn(percent, data, plt, horari);
+		if(primer) System.out.println("Has de crear primer algun calendari(opció2)");
+		else {	
+			String plt = arg.next();
+			int any = lecturaAny();
+			int mes = lecturaMes();
+			int dia = lecturaDia(any,mes);
+			GregorianCalendar data = new GregorianCalendar(any,mes,dia);
+			int horari = lecturaHorari();
+			float percent = lecturaPercentatge();
+			CtrlCalendari.modificarPercentatgeTorn(percent, data, plt, horari);
+		}
 	}
 	
 	public static void modificarMinimTorn() {
-		String plt = arg.next();
-		int any = arg.nextInt();
-		int mes = arg.nextInt();
-		int dia = arg.nextInt();
-		GregorianCalendar data = new GregorianCalendar(any,mes,dia);
-		int horari = arg.nextInt();
-		int minim = arg.nextInt();
-		CtrlCalendari.modificarMinimTorn(minim, data, plt, horari);
+		if(primer) System.out.println("Has de crear primer algun calendari(opció2)");
+		else {
+			String plt = arg.next();
+			int any = lecturaAny();
+			int mes = lecturaMes();
+			int dia = lecturaDia(any,mes);
+			GregorianCalendar data = new GregorianCalendar(any,mes,dia);
+			int horari = lecturaHorari();
+			int minim = lecturaNumMinimDocs();
+			CtrlCalendari.modificarMinimTorn(minim, data, plt, horari);
+		}
 	}
 	
 	public static void guardar() {
