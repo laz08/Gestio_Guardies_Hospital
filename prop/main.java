@@ -1,5 +1,6 @@
 package prop;
 
+import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.Scanner;
 import java.util.TreeSet;
@@ -513,24 +514,66 @@ public class main {
     //----------------------------------------------------
     //-----------------------RESTRICCIONS---------------------
     //----------------------------------------------------
+    private static void casNovaRestriccio(){
+        String expressio = arg.next();
+        CtrlDomini.novaRestriccio(expressio);
+    }
 
+    private static void casLlistarRestriccions() {
+        System.out.println("El llistat de restriccions és el següent: ");
+
+        ArrayList<Restriccio> llista_r = CtrlDomini.consultaLlistaRestriccions();
+        for (int i = 0; i < llista_r.size(); i++) {
+            Restriccio restriccio = llista_r.get(i);
+            System.out.print(i + 1 + ": ");
+            System.out.println(CtrlRestriccio.mostra_arbre(restriccio));
+        }
+    }
+    private static void casEliminaRestriccio(){
+        System.out.println("El llistat de restriccions és el següent: ");
+        casLlistarRestriccions();
+        System.out.println("Quina restricció de totes vols eliminar?");
+        int pos = lecturaTeclat();
+        Restriccio r = CtrlDomini.consultaRestriccio(pos);
+        CtrlDomini.eliminaRestriccio(r);
+
+    }
+
+    private static void casGuardarRestriccions(){
+        CtrlDomini.guardarRestriccions();
+    }
+    private static void casCarregarRestriccions(){
+        CtrlDomini.carregarRestriccions();
+    }
 
     private static void escriuMenuGestioRestriccions(){
         System.out.println("----------GESTIÓ DE RESTRICCIONS----------");
-        System.out.println("1.- Nova restriccio");
-        System.out.println("2.- Consulta restriccio");
-        System.out.println("3.- Elimina restriccio");
-        System.out.println("4.- Guardar restriccions");
-        System.out.println("5.- Carregar restriccions");
-        System.out.println("6.- Mostra llista restriccions");
+        System.out.println("1.- Nova restriccio (expressio: String)");
+        System.out.println("2.- Elimina restriccio");
+        System.out.println("3.- Guardar restriccions");
+        System.out.println("4.- Carregar restriccions");
+        System.out.println("5.- Mostra llista restriccions");
         System.out.println("0.- Tornar a Menu Principal");
         System.out.println("---------------------------------");
         System.out.print(">> ");
     }
     private static void casGestioRestriccions(){
         escriuMenuGestioRestriccions();
-        int menu = lecturaTeclat();
-        //Crida a CtrlDomini si s'escau, o a un altre menú
+        boolean sortir = false;
+        while (!sortir){
+            int menu = lecturaTeclat();
+            switch(menu){
+                case 1: casNovaRestriccio(); break;
+                case 2: casEliminaRestriccio(); break;
+                case 3: casGuardarRestriccions(); break;
+                case 4: casCarregarRestriccions(); break;
+                case 5: casLlistarRestriccions(); break;
+                case 0: sortir = true; break;
+                default:
+                    System.out.println("El numero ha d'estar entre 0 i 5.");
+                    break;
+            }
+        }
 
     }
 
@@ -539,14 +582,34 @@ public class main {
     //-----------------------ALGORISMES---------------------
     //----------------------------------------------------
 
+    private static void casAplicarFF(){
+        Graf graf = CtrlDomini.crear_graf();
+        CtrlDomini.aplicaFordFulkerson(graf);
+        graf.mostra_graf();
+    }
+    private static void casAplicarEK(){
+        Graf graf = CtrlDomini.crear_graf();
+        CtrlDomini.aplicaEdmondsKarp(graf);
+        graf.mostra_graf();
+    }
+    private static void casComparaResultatsAlg(){
+        Graf GFF = CtrlDomini.crear_graf();
+        Graf GEK = CtrlDomini.crear_graf();
+
+        CtrlDomini.aplicaFordFulkerson(GFF);
+        CtrlDomini.aplicaEdmondsKarp(GEK);
+
+        System.out.println("Graf de Ford Fulkerson: ");
+        GFF.mostra_graf();
+        System.out.println("Graf d'Edmond's Karp: ");
+        GEK.mostra_graf();
+    }
 
     private static void escriuMenuAplicarAlgorisme(){
         System.out.println("----------APLICAR ALGORISME----------");
         System.out.println("1.- Aplica algorisme de Ford Fulkerson");
         System.out.println("2.- Aplica algorisme de Edmond's Karp");
-        System.out.println("3.- Consulta resultat algorisme de Ford Fulkerson");
-        System.out.println("4.- Consulta resultat algorisme d'Edmond's Karp");
-        System.out.println("5.- Compara resultats d'algorismes");   //Si no s'han aplicat, mostrar missatge d'error
+        System.out.println("3.- Compara resultats d'algorismes");   //Si no s'han aplicat, mostrar missatge d'error
         System.out.println("0.- Tornar a Menu Principal");
         System.out.println("---------------------------------");
         System.out.print(">> ");
@@ -559,12 +622,10 @@ public class main {
             switch(menu){
                 case 1: casAplicarFF(); break;
                 case 2: casAplicarEK(); break;
-                case 3: casConsultaResultatFF(); break;
-                case 4: casConsultaResultatEK(); break;
-                case 5: casComparaResultatsAlg(); break;
+                case 3: casComparaResultatsAlg(); break;
                 case 0: sortir = true; break;
                 default:
-                    System.out.println("El numero ha d'estar entre 0 i 5.");
+                    System.out.println("El numero ha d'estar entre 0 i 3.");
                     break;
             }
         }
@@ -816,7 +877,6 @@ public class main {
         boolean b = lecturaFestiu();
     	CtrlDomini.modificarDiaFestiu(nom,d,b);
     }
-    
     public static void modificarPercentatge(String nom) {
     	int any = lecturaAny();
         int mes = lecturaMes();
@@ -826,7 +886,6 @@ public class main {
     	float p = lecturaPercentatge();
     	CtrlDomini.modificarPercentatge(nom,d,horari,p);
     }
-
     public static void modificarMinim(String nom) {
     	int any = lecturaAny();
         int mes = lecturaMes();
@@ -836,7 +895,6 @@ public class main {
     	int p = lecturaNumMinimDocs();
     	CtrlDomini.modificarMinim(nom,d,horari,p);
     }
-    
     public static void borrarDia(String nom) {
         int any = lecturaAny();
         int mes = lecturaMes();
@@ -844,7 +902,6 @@ public class main {
     	GregorianCalendar d = new GregorianCalendar(any,mes,dia);
     	CtrlDomini.borrarDia(nom,d);
     }
-    
     public static void borrarTorn(String nom) {
         int any = lecturaAny();
         int mes = lecturaMes();
@@ -853,7 +910,6 @@ public class main {
     	int h = lecturaHorari();
     	CtrlDomini.borrarTorn(nom,d,h);
     }
-    
     public static void casModificarCalendari() {
         String nom_p = arg.next();
         if(CtrlDomini.existeixCalendari(nom_p)){
@@ -879,7 +935,6 @@ public class main {
             System.out.println("No existeix cap plantilla amb nom "+nom_p);
     
     }
-    
     public static void escriureDia(Dia d, GregorianCalendar data) {
 		String da = data.getTime().toString();
 		System.out.println("El dia "+da);
@@ -907,7 +962,6 @@ public class main {
 					+ "Numero minim de doctors: "+t.getMin_num_doctors()+"\n\n");
 		}
 	}
-    
     public static void casConsultarCalendari() {
 		String plt = arg.next();
 		Calendari c = CtrlDomini.consultaCalendari(plt);
@@ -916,7 +970,6 @@ public class main {
 			escriureDia(d,CtrlCalendari.quinDia(i,c.getAny()));
 		}
     }
-    
     public static void casEliminaCalendari(){
         String nom_p = arg.next();
         if(CtrlDomini.existeixCalendari(nom_p)){
@@ -925,22 +978,18 @@ public class main {
             System.out.println("No existeix cap calendari per la plantilla " + nom_p + ".");
         }
     }
-    
     public static void casGuardarCalendaris(){
         CtrlDomini.guardarCalendaris();
     }
-    
     public static void casCarregarCalendaris(){
         CtrlDomini.carregarCalendaris();
     }
-
     public static void casLlistarCalendaris(){
         TreeSet<Calendari> Cjt = CtrlDomini.llistarCalendaris();
         System.out.println("Núm. de plantilles: "+Cjt.size());
         for(Calendari c:Cjt)
             System.out.println(c.getPlantillaAssociada());
     }
-    
     private static void escriuMenuModificaCalendari(String nom_p){
         //Permetem canvi del nom de la plantilla
         //Pero no és gaire adequat
@@ -956,7 +1005,6 @@ public class main {
         System.out.print(">> ");
 
     }
-    
     private static void escriuMenuGestioCalendaris(){
         System.out.println("----------GESTIÓ DE CALENDARIS----------");
         System.out.println("1.- Crear Calendari(Nom_plantilla: String, any_inici: int, any_fi: int)");

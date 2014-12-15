@@ -2,6 +2,7 @@ package prop;
 
 import java.util.GregorianCalendar;
 import java.util.TreeSet;
+import java.util.ArrayList;
 
 public class CtrlDomini {
 
@@ -103,6 +104,28 @@ public class CtrlDomini {
     }
 
     //-------------RESTRICCIONS-------------
+    public static void novaRestriccio(String exp){
+        CtrlRestriccio.nova_res(exp);
+    }
+
+    public static ArrayList<Restriccio> consultaLlistaRestriccions(){
+        return CtrlRestriccio.consulta_llista_res();
+    }
+
+    public static Restriccio consultaRestriccio(int pos){
+        return CtrlRestriccio.consulta_res(pos);
+    }
+    public static void eliminaRestriccio(Restriccio restriccio){
+        CtrlRestriccio.elimina_res(restriccio);
+    }
+
+    public static void guardarRestriccions(){
+        CtrlRestriccio.guardar();
+    }
+
+    public static void carregarRestriccions(){
+        //CtrlRestriccio.carregar();
+    }
 
     //-------------CALENDARI-------------
 
