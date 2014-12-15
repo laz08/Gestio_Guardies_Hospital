@@ -1,6 +1,5 @@
 package prop;
 
-//import java.util.Arrays;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
@@ -15,10 +14,13 @@ public class Calendari {
 	//Pre: No existeix un calendari per a la plantilla plt
 	//Post: Creem un calendari per la plantilla plt des d'any_inici fins any_fi, buit, només amb els diumenges marcats com festius.
 	public Calendari(String plt, int any_inici, int any_fi) {
-		GregorianCalendar dia = new GregorianCalendar(any_inici,0,0);
+		GregorianCalendar dia = new GregorianCalendar(any_inici,0,1);
+		//System.out.println(dia.getTime().toString());
 		GregorianCalendar diaf = new GregorianCalendar(any_fi+1,0,0);
+		//System.out.println(diaf.getTime().toString());
 		long dies = diaf.getTimeInMillis() - dia.getTimeInMillis();
 		dies = dies/1000/60/60/24;
+		//System.out.println(dies);
 		cal = new Dia[(int) dies];
 		any =  any_inici;
 		afegirPosicio();
@@ -124,7 +126,7 @@ public class Calendari {
 	//Pre: -
 	//Post: Afegeix el boolea festiu=true a tots els diumenges de l'any
 	public void afegirFestius() {
-		GregorianCalendar dia1 = new GregorianCalendar(any,1,1);
+		GregorianCalendar dia1 = new GregorianCalendar(any,0,1);
 		int diaset = dia1.get(Calendar.DAY_OF_WEEK);
 		if(diaset==2) diaset=6;
 		else if(diaset==3) diaset=5;
@@ -134,14 +136,16 @@ public class Calendari {
 		else if(diaset==7) diaset=1;
 		else --diaset;
 		for(int i=diaset; i<cal.length; i=i+7){
-			cal[i].getFestiu();
+			cal[i].setFestiu(true);
 		}
 	}
 	
 	//Pre: -
 	//Post: Afegim la posicio de calendari a la qual pertany el torn
 	public void afegirPosicio() {
+		//System.out.println(cal.length);
 		for(int i=0; i<cal.length; ++i){
+			cal[i] = new Dia(false);
 			for(int j=0; j<3; ++j) cal[i].getTorns()[j].setPosicio(i);
 		}
 	}

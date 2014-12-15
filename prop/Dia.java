@@ -11,6 +11,7 @@ public class Dia {
 	public Dia(boolean f) {
 		festiu = f;
 		torns = new Torn[3];
+		for(int i=0; i<3; ++i) torns[i] = new Torn(i,0,1);
 	}
 	
 
