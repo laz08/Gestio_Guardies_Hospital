@@ -344,11 +344,7 @@ public class DriverCtrlCalendari {
             }
         }
 
-<<<<<<< HEAD
         if(!CtrlPlantilla.existeixPlantilla(nom_p)) CtrlPlantilla.creariAfegirPlantilla(nom_p);
-        
-=======
->>>>>>> e328abc3e4be27813a696a4f936603ca29502dbc
         if(!CtrlCalendari.existeixCalendari(nom_p)){
             CtrlCalendari.crearIafegirCalendari(nom_p,any_i,any_f);
         }
