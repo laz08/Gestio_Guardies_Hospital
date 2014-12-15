@@ -12,13 +12,21 @@ public class Torn {
 
 	//Pre: -
 	//Post: Creem un torn amb tots els parametres que ens arriben
-	public Torn(int h_i, int h_f, float percentatge, int minim) {
-		if(h_i>=0 && h_i<24 && h_f>=0 && h_f<24 && h_i<h_f) {
-			hora_inici = h_i;
-			hora_fi = h_f;
-			percent_sou = percentatge;
-			min_num_doctors = minim;
+	public Torn(int horari, float percentatge, int minim) {
+		if(horari==0) {
+			hora_inici = 0;
+			hora_fi = 8;
 		}
+		else if(horari==1) {
+			hora_inici =8;
+			hora_fi=16;
+		}
+		else {
+			hora_inici=16;
+			hora_fi=24;
+		}
+		percent_sou = percentatge;
+		min_num_doctors = minim;
 	}
 	
 	//Pre: -
@@ -51,7 +59,7 @@ public class Torn {
 	//Pre: -
 	//Post: modifiquem hora d'inici del torn per la que ens passen si compleix les condicions que sigui major que la hora inici i que sigui un enter entre 0 i 23, sino no es modificat.
 	public void setHora_fi(int h_f) {
-		if(h_f>hora_inici && h_f>=0 && h_f<24) hora_fi = h_f;
+		if(h_f>hora_inici && h_f>=0 && h_f<=24) hora_fi = h_f;
 	}
 	
 	//Pre: -
@@ -88,5 +96,26 @@ public class Torn {
 	//Post: Modifiquem el numero minim de doctors si compleix la condició que el numero que arribi sigui positiu
 	public void setPosicio(int pos) {
 		if(pos>=0) posicio_dia = pos;
+	}
+	
+	public void setHorari(int horari) {
+		if(horari==0) {
+			hora_inici = 0;
+			hora_fi = 8;
+		}
+		else if(horari==1) {
+			hora_inici =8;
+			hora_fi=16;
+		}
+		else {
+			hora_inici=16;
+			hora_fi=24;
+		}
+	}
+	
+	public int getHorari() {
+		if(hora_inici==0) return 0;
+		else if(hora_inici==8) return 1;
+		else return 2;
 	}
 }

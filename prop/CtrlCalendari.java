@@ -20,6 +20,13 @@ public class CtrlCalendari {
 	
 	//Pre: La plantilla plt no té calendari associat
 	//Post: llcalendaris ara té un nou calendari que pertany a la plantilla plt
+	public static void crearIafegirCalendari(String plt, int any, int anyf) {
+		Calendari c = new Calendari(plt,any,anyf);
+		llcalendaris.add(c);
+	}
+	
+	//Pre: La plantilla plt no té calendari associat
+	//Post: llcalendaris ara té un nou calendari que pertany a la plantilla plt
 	public static void afegirCalendari(String plt, int any) {
 		Calendari c = new Calendari(plt,any,any);
 		llcalendaris.add(c);
