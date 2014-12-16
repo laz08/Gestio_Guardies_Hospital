@@ -2,44 +2,29 @@ package prop;
 import javax.swing.*;
 import java.awt.*;
 
-public class VPC {
-	private CtrlPresentacion iCtrlPresentacion;
+public class VistaPrincipal {
 	private JFrame frameVista = new JFrame("Gestió de guàrdies d'un hospital");
 	private JTabbedPane pestanyes = new JTabbedPane();
-	
+
+    public VistaPrincipal(){
+        inicialitzar();
+    }
 	public void inicialitzar() {
 		inicializar_frameVista();
 	}
 	
-	public VPC(CtrlPresentacion pCtrlPresentacion) {
-	    System.out.println
-	      ("isEventDispatchThread: " + SwingUtilities.isEventDispatchThread());
-	    iCtrlPresentacion = pCtrlPresentacion;
-	    inicialitzar();
-	}
-
-	public void hacerVisible() {
-	    System.out.println
-	      ("isEventDispatchThread: " + SwingUtilities.isEventDispatchThread());
+	public void ferVisible() {
 	    frameVista.pack();
 	    frameVista.setVisible(true);
 
 	  }
 
-	  public void activar() {
-	    frameVista.setEnabled(true);
-	  }
-
-	  public void desactivar() {
-	    frameVista.setEnabled(false);
-	  }
-	  
 	  public void inicializar_frameVista() {
-		    // Tamanyo
+            //Mesures
 		    frameVista.setMinimumSize(new Dimension(1200,600));
 		    frameVista.setPreferredSize(frameVista.getMinimumSize());
 		    frameVista.setResizable(false);
-		    // Posicion y operaciones por defecto
+
 		    frameVista.setLocationRelativeTo(null);
 		    frameVista.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		    frameVista.setLayout(new BorderLayout());
@@ -51,7 +36,7 @@ public class VPC {
 		    pestanyes.addTab("Guardar", new JPanel());
 		    pestanyes.addTab("Carregar", new JPanel());
 		    frameVista.getContentPane().add(pestanyes);
-		    hacerVisible();
+		    ferVisible();
 		    
 	  }
 }
