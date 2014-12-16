@@ -1,15 +1,10 @@
 package prop;
-import java.awt.*;
-import java.awt.event.*;
-
 import javax.swing.*;
-import javax.swing.event.*;
-
-import java.util.*;
+import java.awt.*;
 
 public class VPC {
 	private CtrlPresentacion iCtrlPresentacion;
-	private JFrame frameVista = new JFrame("Projecte PROP");
+	private JFrame frameVista = new JFrame("Gestió de guàrdies d'un hospital");
 	private JTabbedPane pestanyes = new JTabbedPane();
 	
 	public void inicialitzar() {

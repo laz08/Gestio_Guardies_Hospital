@@ -1,10 +1,7 @@
 package prop;
 
-import java.util.*;
-import java.math.*;
-import java.io.*;
-
 public class PushRelabel extends Algorisme {
+    /*
 	Graf G;
 	int[] altura;
 	int[] exces;
@@ -131,5 +128,9 @@ public class PushRelabel extends Algorisme {
         }
         return exces[t];
 	}
-
+*/
+    @Override
+    public void maxFlow() throws Error {
+       //HOLA NO FAIG RES
+    }
 }
