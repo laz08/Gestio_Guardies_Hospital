@@ -135,9 +135,9 @@ public class CtrlPlantilla {
             return p.getLlistaDoctorsDNI().contains(new Doctor(dni));
     }
 
-    public static void crearCalendariAssociatAPlantilla(Plantilla p, int any){
+    public static void crearCalendariAssociatAPlantilla(Plantilla p, int any, int anyf){
         // !!!!!!!!!! ================= !!!!!!!!!!!!!!!!!!!!!
-        Calendari C = CtrlCalendari.CrearIAfegirCalendari(p.getNomPlantilla(), any);
+        Calendari C = CtrlCalendari.CrearIAfegirCalendari(p.getNomPlantilla(), any, anyf);
         p.set_calendari_asoc(C);
     }
 
