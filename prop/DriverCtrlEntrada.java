@@ -15,9 +15,6 @@ public class DriverCtrlEntrada {
     public static void main(String[] args) throws Error {
         prepara_prova();
         graf = CtrlEntrada.crea_graf();
-        System.out.println("---------------------------------\n");
-        /// PROVA DE ALGORISME 
-        System.out.println("-----------POSAM FLOW------------");
         Algorisme algo = new FordFulkerson();
         algo.setGraf(graf);
         algo.maxFlow();
@@ -59,10 +56,10 @@ public class DriverCtrlEntrada {
                 }
             }
         }
-        CtrlRestriccio.nova_res("H NOP(6)");
-        CtrlRestriccio.nova_res("H (NOP(6))AND((10)XOR(20))");
+        CtrlRestriccio.nova_res("D NOP(1-1)");
+        CtrlRestriccio.nova_res("D (NOP(1-1))AND((2-1)XOR(3-1))");
         CtrlRestriccio.nova_res("D (1-1)AND(2-1)");
-        CtrlRestriccio.nova_res("H (NOP(10))XOR(NOP(20))");
+        CtrlRestriccio.nova_res("D (NOP(2-1))XOR(NOP(1-1))");
         ArrayList<Restriccio> llista_res = CtrlRestriccio.consulta_llista_res();
 
         Plantilla p = CtrlPlantilla.getPlantillaActual();

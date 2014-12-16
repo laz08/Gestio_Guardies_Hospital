@@ -175,29 +175,27 @@ public class Graf {
             Aresta a = As.get(i);
             Vertex v = Vs.get(a.getv());
             Vertex w = Vs.get(a.getw());
-            if (v.getClasse() == Vertex.MAX || v.getClasse() == Vertex.TORN || v.getClasse() == Vertex.FONT_POU) {
-                switch (v.getClasse()) {
-                    case Vertex.MAX:
-                        System.out.println("MAX" + a.getv() + " -- f:" + a.getflow() + " --- c:" + a.getcap() + " ---- " + w.getClasse() + a.getw());
-                        break;
-                    case Vertex.FONT_POU:
-                        System.out.println("FONT" + a.getv() + " -- f:" + a.getflow() + " --- c:" + a.getcap() + " ---- " + w.getClasse() + a.getw());
-                        break;
-                    case Vertex.TORN:
-                        System.out.println("TORN" + a.getv() + " -- f:" + a.getflow() + " --- c:" + a.getcap() + " ---- " + w.getClasse() + a.getw());
-                        break;
-                }
-            } else {
+            
+            if (v.getClasse() != Vertex.MAX || v.getClasse() != Vertex.TORN || v.getClasse() != Vertex.FONT_POU) {
                 if (a.getflow() > 0) {
-                    System.out.println(v.getClasse() + a.getv() + " ------ " + w.getClasse() + a.getw());
                     switch (v.getClasse()) {
-                    case Vertex.RESTRICCIO:
-                        System.out.println(v.getId() + " ------ " + w.getClasse() + a.getw());
-                        break;
-                    case Vertex.DOCTOR:
-                        System.out.println("DOC: " + v.getId() + " ------ " + w.getClasse() + a.getw());
-                        break;
-                }
+                        case Vertex.RESTRICCIO:
+                            if(w.getClasse() != Vertex.MAX){
+                                System.out.println(v.getId() + " ---f: "+a.getflow()+"--- " + w.getId());
+                            }
+                            else{
+                                System.out.println(v.getId() + " ---f: "+a.getflow()+"--- MAX"+a.getw());
+                            }
+                            break;
+                        case Vertex.DOCTOR:
+                            if(w.getClasse() != Vertex.MAX){
+                                System.out.println("DOC: " + v.getId() + " ---f: "+a.getflow()+"--- " + w.getId());
+                            }
+                            else{
+                                System.out.println("DOC: " + v.getId() + " ---f: "+a.getflow()+"--- MAX" + a.getw());
+                            }
+                            break;
+                    }
                 }
             }
         }
