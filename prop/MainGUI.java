@@ -1,6 +1,6 @@
 package prop;
 
-////////////////////////
+
 
 public class MainGUI {
   public static void main (String[] args) {
@@ -13,4 +13,3 @@ public class MainGUI {
   }
 }
 
-////////////////////////
