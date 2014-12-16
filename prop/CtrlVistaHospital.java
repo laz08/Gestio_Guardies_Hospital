@@ -10,7 +10,13 @@ public class CtrlVistaHospital {
         vh = new VistaHospital(this);
     }
 
+
     public static VistaHospital getVistaHospital(){
         return vh;
     }
+
+    public static String getLlistaDocs_nom(){
+        return CtrlHospital.getLlistatDoctorsenString_nom();
+    }
+
 }
