@@ -333,6 +333,19 @@ public class CtrlEntrada {
         }
         return v_torns;
     }
+    
+    public static void guarda_assignacions(Graf g){
+        for(int i=0; i<g.numV(); i++){
+            Aresta a = g.getA(i);
+            Vertex v = g.getVertex(a.getv());
+            Vertex w = g.getVertex(a.getw());
+            if(v.getClasse() == Vertex.DOCTOR && w.getClasse() == Vertex.MAX){
+                if(a.getflow()>0){
+                    Doc_Ton.addRel((Doctor) v.getObjecte(), (Torn) w.getObjecte());
+                }
+            }
+        }
+    }
 
     private static int calculaDiesAnteriors(int mes) {
         switch (mes) {
