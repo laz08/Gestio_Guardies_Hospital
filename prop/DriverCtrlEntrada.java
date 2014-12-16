@@ -15,7 +15,6 @@ public class DriverCtrlEntrada {
     public static void main(String[] args) throws Error {
         prepara_prova();
         graf = CtrlEntrada.crea_graf();
-        graf.mostra_graf();
         System.out.println("---------------------------------\n");
         /// PROVA DE ALGORISME 
         System.out.println("-----------POSAM FLOW------------");
@@ -40,8 +39,9 @@ public class DriverCtrlEntrada {
 
         Dia[] any = c.getCalendari();
         for (int i = 0; i < 2; i++) {
+            
             for (int e = 0; e < 3; e++) {
-                Torn t = new Torn(0 + e * 8, 8 + e * 8 - 1, 10, 2);
+                Torn t = new Torn(e, 10, 2);
                 Dia d = any[i];
                 switch (e) {
                     case 0:

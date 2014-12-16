@@ -13,44 +13,6 @@ public class FordFulkerson extends Algorisme {
         seguent(graf.getVertex("FONT", Vertex.FONT_POU), null);
     }
 
-//    private static boolean DFS(Vertex s) {
-//        boolean arriba_a_torn;
-//        switch (s.getClasse()) {
-//            case Vertex.DOCTOR:
-//            case Vertex.FONT_POU: // Tots els doctors i el font
-//                arriba_a_torn = seguent(s);
-//                break;
-//            case Vertex.RESTRICCIO: // restriccions
-//                //comprovaRestriccio(s);
-//                if (s.getId().contains("XOR")) {
-//                    ArrayList<Integer> la = s.getArestes();
-//                    for (int i = 0; i < la.size(); i++) {
-//                        Aresta a = graf.getA(la.get(i));
-//                        arriba_a_torn = true;
-//                        if (graf.getVertex(a.getv()).equals(s)) {
-//                            boolean arriba = seguent(graf.getVertex(a.getw()));
-//                            if (arriba) {
-//                                a.addFlow(1);
-//                            }
-//                            arriba_a_torn &= arriba;
-//                        }
-//                    }
-//                    if (arriba_a_torn) {
-//                        a.addFlow(1);
-//                    }
-//                }
-//                if (!arriba_a_torn) {
-//                    redireccionaRestriccio(s);
-//                    arriba_a_torn = seguent(s);
-//                }
-//                break;
-//            case Vertex.MAX: //max 
-//                arriba_a_torn = seguentMax(s);
-//                break;
-//            // torns i pou es tracten quan es troba el vertex max
-//        }
-//        return arriba_a_torn;
-//    }
     private static boolean seguent(Vertex s, String doc_r_pare) throws Error {
         boolean arriba_a_torn = false;
         if (s.getClasse() != Vertex.MAX) {
