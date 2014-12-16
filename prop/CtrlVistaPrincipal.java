@@ -26,6 +26,7 @@ public class CtrlVistaPrincipal {
 
     public CtrlVistaPrincipal(){
         creaCtrlVistes();
+        vp = cVPl.getVistaPlantilla();
 
         VP = new VistaPrincipal();
 

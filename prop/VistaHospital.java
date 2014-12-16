@@ -9,6 +9,8 @@ import java.awt.event.ActionListener;
 import java.util.TreeSet;
 
 public class VistaHospital implements ActionListener, ListSelectionListener{
+    private static CtrlVistaHospital cVH;
+
     private JPanel hospital = new JPanel();
     private JPanel switchgestio = new JPanel();
     private JPanel buttonshospital = new JPanel();
@@ -56,8 +58,8 @@ public class VistaHospital implements ActionListener, ListSelectionListener{
     private JButton enrererestriccions = new JButton("Enrere");
     private JButton acceptarrestriccions = new JButton("Acceptar");
 
-    public VistaHospital() {
-
+    public VistaHospital(CtrlVistaHospital cvh) {
+        cVH = cvh;
         hospital.setLayout(new BorderLayout());
         switchllista.setLayout(new CardLayout());
         switchllista.add(llistathospital, "llistathospital");
