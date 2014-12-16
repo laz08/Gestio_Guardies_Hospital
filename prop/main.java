@@ -13,7 +13,7 @@ public class main {
 
     static Scanner arg = new Scanner(System.in);
 
-    public static void main(String[] args){
+    public static void main(String[] args) throws Error{
         int cas = 0;
         boolean sortir = false;
         escriuMenuPrincipal();
@@ -79,6 +79,47 @@ public class main {
     //----------------------------------------------------
 
     //-----------------------Auxiliars--------------------
+    public static int lecturaTelf(){
+        boolean valid = false;
+        int telf = 0;
+        while(!valid){
+            try{
+                telf = arg.nextInt();
+                if (telf >= 0) valid = true;
+                else{
+                    System.out.println("Telèfon ha de ser un nombre positiu.");
+                    System.out.print("Torna a introduir el telèfon: ");
+                }
+            } catch (Exception e){
+                System.out.println("Telèfon ha de ser un nombre positiu.");
+                System.out.print("Torna a introduir el telèfon: ");
+                arg.next();
+                continue;
+            }
+        }
+        return telf;
+    }
+
+    public static int lecturaSou(){
+        boolean valid = false;
+        int sou = 0;
+        while(!valid){
+            try{
+                sou = arg.nextInt();
+                if (sou >= 0) valid = true;
+                else{
+                    System.out.println("Sou ha de ser un nombre positiu.");
+                    System.out.print("Torna a introduir el sou: ");
+                }
+            } catch (Exception e){
+                System.out.println("Sou ha de ser un nombre positiu.");
+                System.out.print("Torna a introduir el sou: ");
+                arg.next();
+                continue;
+            }
+        }
+        return sou;
+    }
 
     public static void missatgeErrorDni(){
         System.out.println("Ja existeix un doctor amb aquest DNI.");
@@ -97,39 +138,15 @@ public class main {
         String nom = arg.next();
         String cg1 = arg.next();
         String cg2 = arg.next();
-        int sou = 0;
-        int telf = 0;
-
-        boolean valid = false;
-        while(!valid) {
-            try {
-                sou = arg.nextInt();
-                valid = true;
-            } catch (Exception e) {
-                System.out.println("Sou ha de ser un enter");
-                arg.next();
-                continue;
-            }
-        }
-        valid = false;
-        while(!valid){
-            try {
-                telf = arg.nextInt();
-                valid = true;
-            } catch (Exception e){
-                System.out.println("Telefon ha de ser un enter");
-                arg.next();
-                continue;
-            }
-        }
+        int sou = lecturaSou();
+        int telf = lecturaTelf();
         String correu = arg.next();
-
-
+        boolean valid = false;
         /*
         Comprovem si existeix doctor amb aquest DNI
          */
-        if (CtrlDomini.existeixDoctoraHospital(dni)){
-            valid = false;
+        if (!CtrlDomini.existeixDoctoraHospital(dni)){
+            valid = true;
         }
 
         while(!valid){
@@ -157,33 +174,11 @@ public class main {
         doc.setCorreu(correu);
     }
     private static void modificarTelefon(Doctor doc){
-        boolean valid = false;
-        int telf = 0;
-        while(!valid) {
-            try {
-                telf = arg.nextInt();
-                valid = true;
-            } catch (Exception e) {
-                System.out.println("Telefon ha de ser un enter");
-                arg.next();
-                continue;
-            }
-        }
+        int telf = lecturaTelf();
         doc.setTelefon(telf);
     }
     private static void modificarSou(Doctor doc){
-        boolean valid = false;
-        int sou = 0;
-        while(!valid) {
-            try {
-                sou = arg.nextInt();
-                valid = true;
-            } catch (Exception e) {
-                System.out.println("Sou ha de ser un enter");
-                arg.next();
-                continue;
-            }
-        }
+       int sou = lecturaSou();
         doc.setSou(sou);
     }
     //------------FALTA!!!!---------------
@@ -373,20 +368,13 @@ public class main {
         else
             System.out.println("No existeix cap doctor amb dni "+dni);
     }
+
+
     public static void crearIAssociarAmbCalendari(Plantilla p){
         boolean valid = false;
-        int any = 0;
-        while(!valid) {
-            try {
-                any = arg.nextInt();
-                valid = true;
-            } catch (Exception e) {
-                System.out.println("Any ha de ser un enter");
-                arg.next();
-                continue;
-            }
-        }
-        CtrlDomini.associaCalendariPlantilla(p, any);
+        int any_i = lecturaAny();
+        int any_f = lecturaAny();
+        CtrlDomini.associaCalendariPlantilla(p, any_i, any_f);
     }
     public static void desassociaIEsborraCalendari(Plantilla p){
         CtrlDomini.desassociaCalendariIEsborra(p);
@@ -582,17 +570,17 @@ public class main {
     //-----------------------ALGORISMES---------------------
     //----------------------------------------------------
 
-    private static void casAplicarFF(){
+    private static void casAplicarFF() throws Error {
         Graf graf = CtrlDomini.crear_graf();
         CtrlDomini.aplicaFordFulkerson(graf);
         graf.mostra_graf();
     }
-    private static void casAplicarEK(){
+    private static void casAplicarEK() throws Error {
         Graf graf = CtrlDomini.crear_graf();
         CtrlDomini.aplicaEdmondsKarp(graf);
         graf.mostra_graf();
     }
-    private static void casComparaResultatsAlg(){
+    private static void casComparaResultatsAlg() throws Error{
         Graf GFF = CtrlDomini.crear_graf();
         Graf GEK = CtrlDomini.crear_graf();
 
@@ -614,7 +602,7 @@ public class main {
         System.out.println("---------------------------------");
         System.out.print(">> ");
     }
-    private static void casAplicarAlgorisme(){
+    private static void casAplicarAlgorisme() throws Error {
         escriuMenuAplicarAlgorisme();
         boolean sortir = false;
         while(!sortir) {

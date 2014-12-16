@@ -78,8 +78,8 @@ public class CtrlDomini {
         CtrlPlantilla.esborrarDoctorDePlantilla(doc, plantilla);
     }
 
-    public static void associaCalendariPlantilla(Plantilla p, int any){
-        CtrlPlantilla.crearCalendariAssociatAPlantilla(p, any);
+    public static void associaCalendariPlantilla(Plantilla p, int any_i, int any_f){
+        CtrlPlantilla.crearCalendariAssociatAPlantilla(p, any_i, any_f);
     }
     public static void desassociaCalendariIEsborra(Plantilla p){
         CtrlPlantilla.desassociarDeCalendari(p);
@@ -195,13 +195,13 @@ public class CtrlDomini {
     public static Graf crear_graf(){
         return CtrlEntrada.crea_graf();
     }
-    public static void aplicaEdmondsKarp(Graf graf){
+    public static void aplicaEdmondsKarp(Graf graf) throws Error {
         Algorisme alg = new EdmondsKarp();
         alg.setGraf(graf);
         alg.maxFlow();
     }
 
-    public static void aplicaFordFulkerson(Graf graf){
+    public static void aplicaFordFulkerson(Graf graf) throws Error{
         Algorisme alg = new FordFulkerson();
         alg.setGraf(graf);
         alg.maxFlow();
