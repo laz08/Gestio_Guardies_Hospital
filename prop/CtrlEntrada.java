@@ -5,8 +5,6 @@
 package prop;
 
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.Iterator;
 import java.util.TreeSet;
 
@@ -341,7 +339,7 @@ public class CtrlEntrada {
             Vertex w = g.getVertex(a.getw());
             if(v.getClasse() == Vertex.DOCTOR && w.getClasse() == Vertex.MAX){
                 if(a.getflow()>0){
-                    Doc_Ton.addRel((Doctor) v.getObjecte(), (Torn) w.getObjecte());
+                    Doc_Torn.addRel((Doctor) v.getObjecte(), (Torn) w.getObjecte());
                 }
             }
         }

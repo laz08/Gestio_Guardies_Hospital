@@ -6,7 +6,7 @@ package prop;
 
 import java.util.ArrayList;
 
-public class Doc_Ton {
+public class Doc_Torn {
     private static ArrayList<Relacio> torns = new ArrayList<Relacio>();
     private static ArrayList<Relacio> doctors = new ArrayList<Relacio>();
     
