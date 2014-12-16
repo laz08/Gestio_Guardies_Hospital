@@ -55,7 +55,6 @@ public class CtrlDomini {
         CtrlHospital.carregar();
     }
 
-
     //-------------PLANTILLA-------------
 
     public static boolean existeixPlantilla(String nom_p){

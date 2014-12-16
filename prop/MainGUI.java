@@ -7,8 +7,7 @@ public class MainGUI {
     javax.swing.SwingUtilities.invokeLater (
       new Runnable() {
         public void run() {
-          CtrlPresentacion ctrlPresentacion = new CtrlPresentacion();
-          ctrlPresentacion.inicializarPresentacion();
+          CtrlVistaPrincipal vp = new CtrlVistaPrincipal();
     }});
   }
 }
