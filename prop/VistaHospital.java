@@ -6,10 +6,9 @@ import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.TreeSet;
 
 public class VistaHospital implements ActionListener, ListSelectionListener{
-    private static CtrlVistaHospital cVH;
+    private static CtrlVistaHospital ctrlVistaHospital;
 
     private JPanel hospital = new JPanel();
     private JPanel switchgestio = new JPanel();
@@ -58,8 +57,10 @@ public class VistaHospital implements ActionListener, ListSelectionListener{
     private JButton enrererestriccions = new JButton("Enrere");
     private JButton acceptarrestriccions = new JButton("Acceptar");
 
+
+    // ----------------------FUNCIONS----------------------
     public VistaHospital(CtrlVistaHospital cvh) {
-        cVH = cvh;
+        ctrlVistaHospital = cvh;
         hospital.setLayout(new BorderLayout());
         switchllista.setLayout(new CardLayout());
         switchllista.add(llistathospital, "llistathospital");
@@ -72,6 +73,7 @@ public class VistaHospital implements ActionListener, ListSelectionListener{
         inicialitza_insercio();
         inicialitza_gestio();
     }
+
 
     /**
      * b Ens diu si hi ha doctors o no
@@ -242,11 +244,13 @@ public class VistaHospital implements ActionListener, ListSelectionListener{
     }
 
     public boolean inicialitza_Docs(){
-        TreeSet<Doctor> ll = CtrlDomini.consultaHospital_nom();
-        if(ll.size() > 0) {
-            llistaDocs.removeAllElements();
-            for (Doctor d : ll) {
-                llistaDocs.addElement("DNI: "+d.getdni() + "Nom: " + d.getCognom1() + " " + d.getCognom2() + ", " + d.getNom());
+        String content = ctrlVistaHospital.getLlistaDocs_nom();
+        if(content.length() > 0) {
+            llistaDocs.clear();
+            String separadors = "[ \n]";
+            String[] separat = content.split(separadors);
+            for (int i = 0; i < separat.length; i += 7) {
+                llistaDocs.addElement(separat[i] + " " + separat[i + 1] + " " + separat[i + 2] + " " + separat[i + 3]);
             }
             return true;
         }

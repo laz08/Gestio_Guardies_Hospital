@@ -10,6 +10,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 
 public class VistaPlantilla implements ActionListener, ListSelectionListener {
+    private static CtrlVistaPlantilla ctrlVistaPlantilla;
+
 	private JPanel plantilla = new JPanel();
 	//Canvia entre la llista de plantilles i la llista de doctors
 	private JPanel switchllista = new JPanel();
@@ -54,7 +56,8 @@ public class VistaPlantilla implements ActionListener, ListSelectionListener {
 	private JButton enreredoctors = new JButton("Enrere");
 	private JButton acceptardllista = new JButton("Ok");
 	
-	public VistaPlantilla() {
+	public VistaPlantilla(CtrlVistaPlantilla cvp) {
+        ctrlVistaPlantilla = cvp;
 		plantilla.setLayout(new GridLayout(1,2));
 		switchllista.setLayout(new CardLayout());
 		switchgestio.setLayout(new CardLayout());

@@ -168,14 +168,26 @@ public class CtrlHospital {
         return doc.isActiu();
     }
 
+    /**
+     * Retorna strings dels doctors que hi ha a l'hospital ordenats per nom
+     * @return
+     */
+    public static String getLlistatDoctorsenString_nom(){
+        String content = "";
+        TreeSet<Doctor> ll = CtrlHospital.getHospital_dni();
+        for (Doctor doc:ll) {
+            content = content + doc.getdni() + " " + doc.getNom() + " " + doc.getCognom1() + " "
+                    + doc.getCognom2() + " " + doc.getSou() + " " + doc.getTelefon() + " " + doc.getCorreu() + "\n";
+        }
+        return content;
+    }
+
     public static void guardar() {
     	String content = "";
-    	int cont = 0;
     	TreeSet<Doctor> ll = CtrlHospital.getHospital_dni();
     	for (Doctor doc:ll) {
     		content = content + doc.getdni() + " " + doc.getNom() + " " + doc.getCognom1() + " "
     				+ doc.getCognom2() + " " + doc.getSou() + " " + doc.getTelefon() + " " + doc.getCorreu() + "\n";
-    		++cont;
     	}
     	CtrlPersistencia.guardar(content, "hospital_dni");
     }

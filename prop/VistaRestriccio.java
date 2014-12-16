@@ -1,24 +1,13 @@
 package prop;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.GridBagLayout;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JFileChooser;
-import javax.swing.JList;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
-import javax.swing.ListSelectionModel;
-
 public class VistaRestriccio implements ActionListener{
+    private static CtrlVistaRestriccions ctrlVistaRestriccions;
+
 	private JPanel restriccions = new JPanel();
 	private JPanel buttonsrestriccio = new JPanel();
 	private JPanel insertrestriccio = new JPanel();
@@ -38,8 +27,8 @@ public class VistaRestriccio implements ActionListener{
 	String[] tres = {"H", "D"};
 	private JList tipusrestriccio = new JList(tres);
 	
-	public VistaRestriccio() {
-
+	public VistaRestriccio(CtrlVistaRestriccions cvr) {
+        ctrlVistaRestriccions = cvr;
 		restriccions.setLayout(new BorderLayout());
 		inicialitza_llistat();
 		inicialitza_gestio();
