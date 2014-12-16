@@ -248,7 +248,7 @@ public class VistaHospital implements ActionListener, ListSelectionListener{
         if(ll.size() > 0) {
             llistaDocs.removeAllElements();
             for (Doctor d : ll) {
-                llistaDocs.addElement("DNI: "+d.getdni() + "Nom: " + d.getCognom1() + " " + d.getCognom2() + ", " + d.getNom());
+                llistaDocs.addElement("DNI: "+d.getdni() + "   ||   Nom: " + d.getCognom1() + " " + d.getCognom2() + ", " + d.getNom());
             }
             return true;
         }
