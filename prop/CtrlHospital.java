@@ -183,7 +183,7 @@ public class CtrlHospital {
     }
     public static String getDoctorEspecificString(String dni){
         Doctor doc = getDoctor(dni);
-        
+
     }
 
     public static void guardar() {

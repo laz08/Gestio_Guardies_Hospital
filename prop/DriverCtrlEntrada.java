@@ -23,7 +23,7 @@ public class DriverCtrlEntrada {
         algo.setGraf(g);
         System.out.println("_____________APLICAM L'ALGORISME AL NOU GRAF______________");
         algo.maxFlow();
-        g.mostra_graf();
+        CtrlEntrada.guarda_assignacions(g);
     }
 
     private static void prepara_prova() throws Error {
