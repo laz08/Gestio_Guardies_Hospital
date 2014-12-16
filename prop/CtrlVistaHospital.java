@@ -19,4 +19,8 @@ public class CtrlVistaHospital {
         return CtrlHospital.getLlistatDoctorsenString_nom();
     }
 
+    public static String getDoctorEspecific(String dni){
+        return CtrlHospital.getDoctorEspecificString(dni);
+    }
+
 }

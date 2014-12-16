@@ -34,7 +34,6 @@ public class CtrlVistaPrincipal {
         vistaAssignacio = ctrlVistaAssignacio.getVistaAssignacio();
         vistaGuardar = ctrlVistaGuardar.getVistaGuardar();
         vistaCarregar = ctrlVistaCarregar.getVistaCarregar();
-
         vistaPrincipal = new VistaPrincipal(this, vistaHospital, vistaPlantilla, vistaCalendari, vistaRestriccio, vistaAlgorismes, vistaAssignacio, vistaGuardar, vistaCarregar);
 
     }
@@ -50,19 +49,3 @@ public class CtrlVistaPrincipal {
     }
 
 }
-
-/*
-    controladorvistahospital
-    controladorvistaplantilla
-            vh = controladorvistahospital.vh();
-    vp = controladorvistaplantilla.vp();
-    vistaprincipal(vh,vp)
-}
-
-
-
-public class controladorvistahospital {
-    vistahospital new
-}
-
-*/
