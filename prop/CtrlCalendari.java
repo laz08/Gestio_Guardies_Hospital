@@ -13,18 +13,9 @@ public class CtrlCalendari {
 	//Pre: La plantilla plt no té calendari associat
 	//Post: llcalendaris ara té un nou calendari que pertany a la plantilla plt
 	public static Calendari CrearIAfegirCalendari(String plt, int anyi, int anyf) {
-<<<<<<< HEAD
-		if(CtrlPlantilla.existeixPlantilla(plt)) {
-			Calendari c = new Calendari(plt,anyi,anyf);
-			llcalendaris.add(c);
-			return c;
-		}
-		return null;
-=======
 		Calendari c = new Calendari(plt,anyi,anyf);
 		llcalendaris.add(c);
 		return c;
->>>>>>> e328abc3e4be27813a696a4f936603ca29502dbc
 	}
 	
 	//Pre: La plantilla plt no té calendari associat
@@ -39,15 +30,8 @@ public class CtrlCalendari {
 	//Pre: La plantilla plt no té calendari associat
 	//Post: llcalendaris ara té un nou calendari que pertany a la plantilla plt
 	public static void afegirCalendari(String plt, int anyi, int anyf) {
-<<<<<<< HEAD
-		if(CtrlPlantilla.existeixPlantilla(plt)) {
-			Calendari c = new Calendari(plt,anyi,anyf);
-			llcalendaris.add(c);
-		}
-=======
 		Calendari c = new Calendari(plt,anyi,anyf);
 		llcalendaris.add(c);
->>>>>>> e328abc3e4be27813a696a4f936603ca29502dbc
 	}
 	
 	//Pre:-
