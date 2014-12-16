@@ -75,7 +75,6 @@ public class FordFulkerson extends Algorisme {
                     }
                 } else if (s.getId().contains("AND")) {
                     Aresta a = graf.getA(la.get(i));// per cada aresta filla de s
-                    System.out.println(s.getId() + "--->" + i);
                     arriba_a_torn = true;
                     if (!graf.getVertex(a.getw()).equals(s)) {
                         arriba_a_torn &= seguent(graf.getVertex(a.getw()), s.getDoctorsRel().get(0));
@@ -113,13 +112,13 @@ public class FordFulkerson extends Algorisme {
             for (int i = 0; i < la.size(); i++) {
                 Aresta a = graf.getA(la.get(i));
                 Vertex v = graf.getVertex(a.getw());
-//                if (!v.equals(s)) {
-//                    if (!v.getDoctorsRel().contains(doc_r_pare)) {
-//                        v.getDoctorsRel().add(doc_r_pare);
-//                        a.setCap(a.getcap() - 1);
-//                        arriba_a_torn = true;
-//                    }
-//                }
+                if (!v.equals(s)) {
+                    if (!v.getDoctorsRel().contains(doc_r_pare)) {
+                        v.getDoctorsRel().add(doc_r_pare);
+                        a.setCap(a.getcap() - 1);
+                        arriba_a_torn = true;
+                    }
+                }
                 arriba_a_torn = true;
             }
         }
@@ -132,23 +131,6 @@ public class FordFulkerson extends Algorisme {
             Aresta a = graf.getA(la.get(i));
             if (a.getflow() > 0 && graf.getVertex(a.getv()).equals(s)) {
                 a.setflow(0);
-            }
-        }
-    }
-
-    private static void comprovaRestriccio(Vertex s) {
-        if (s.getId().contains("XOR")) { // si l'indentificador es de la classe XOR
-            boolean canviat = false;
-            int pos = 0;
-            ArrayList<Integer> la = s.getArestes();
-            while (!canviat && pos < la.size()) {
-                Aresta a = graf.getA(la.get(pos));
-                Vertex v1 = graf.getVertex(a.getv());
-                if (v1.equals(s)) {
-                    graf.getVertex(a.getw()).setVisitat(true);
-                    canviat = true;
-                }
-                pos++;
             }
         }
     }
@@ -168,43 +150,5 @@ public class FordFulkerson extends Algorisme {
                 pos++;
             }
         }
-    }
-
-    private static boolean seguentMax(Vertex vm) {
-        boolean arriba_a_torn = false;
-        ArrayList<Integer> la = vm.getArestes();
-        Vertex vt = null, vr = null;
-        String doc = null;
-        Aresta ar = null, at = null;
-        if (!vm.getVisitat()) {
-            for (int i = 0; i < la.size(); i++) {
-                Aresta a = graf.getA(la.get(i));
-                Vertex v = graf.getVertex(a.getw());
-                System.out.println(" id ---- Vertex: " + v.getId() + "Max " + vm.getId());
-                System.out.println("classe ---- Vertex: " + v.getClasse() + "Max " + vm.getClasse());
-                if (v.equals(vm)) {
-                    ar = a;
-                    vr = graf.getVertex(a.getw());
-                    doc = vr.getDoctorsRel().get(0); // agafam el doctor al que fa referència la restricció
-                    a.addFlow(1);
-                    if (a.getflow() >= vm.getNumMaxRestr()) {
-                        vm.setVisitat(true); // si ja s'han assignat el maxim de restriccions, es bloqueja el vertex
-                    }
-                } else if (v.getClasse() != vm.getClasse()) {
-                    vt = v; // es guarda el vertex torn relacionat amb el max
-                    at = a;
-                }
-            }
-        }
-
-        if (vt.getDoctorsRel().isEmpty() || !vt.getDoctorsRel().contains(doc)) {
-            vt.addDoctorRel(doc);
-            at.setCap(at.getcap() - 1);
-            arriba_a_torn = true;
-        } else { // si ja s'havia relacionat aquest doctor amb el torn s'elimina la relacio
-            ar.addFlow(-1);
-            vr.setVisitat(true);
-        }
-        return arriba_a_torn;
     }
 }
