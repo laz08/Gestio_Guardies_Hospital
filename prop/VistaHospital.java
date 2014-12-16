@@ -89,8 +89,8 @@ public class VistaHospital implements ActionListener, ListSelectionListener{
 		acceptarrestriccions.addActionListener(this);
 		restriccions.setLayout(new GridBagLayout());
 		texthospital.addListSelectionListener(this);
-		texthospital.setPreferredSize(new Dimension(600,600));
-		scrollpane.setPreferredSize(new Dimension(460,460));
+		texthospital.setPreferredSize(new Dimension(600,460));
+		scrollpane.setPreferredSize(new Dimension(600,460));
 		scrollpane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		llistathospital.setLayout(new BorderLayout());
 		llistathospital.add(scrollpane,BorderLayout.NORTH);
