@@ -5,7 +5,6 @@
 package prop;
 
 import java.util.ArrayList;
-import java.util.GregorianCalendar;
 import java.util.Iterator;
 
 public class DriverCtrlEntrada {
@@ -19,6 +18,12 @@ public class DriverCtrlEntrada {
         algo.setGraf(graf);
         algo.maxFlow();
         graf.mostra_graf();
+        System.out.println("_____________CALCULAM INVERS DEL GRAF ANTERIOR...___________");
+        Graf g = CtrlEntrada.calculaInvers(graf);
+        algo.setGraf(g);
+        System.out.println("_____________APLICAM L'ALGORISME AL NOU GRAF______________");
+        algo.maxFlow();
+        g.mostra_graf();
     }
 
     private static void prepara_prova() throws Error {
