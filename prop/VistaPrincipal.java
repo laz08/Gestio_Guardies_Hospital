@@ -3,6 +3,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class VistaPrincipal {
+    private static CtrlVistaPrincipal ctrlVistaPrincipal;
 	private JFrame frameVista = new JFrame("Gestió de guàrdies d'un hospital");
 	private JTabbedPane pestanyes = new JTabbedPane();
 
@@ -17,9 +18,11 @@ public class VistaPrincipal {
     private static VistaCarregar vcarr;
 
 
-    public VistaPrincipal(VistaHospital VH, VistaPlantilla VPL, VistaCalendari VCal, VistaRestriccio VRes, VistaAlgorismes VAlg, VistaAssignacio VAss, VistaGuardar VGu, VistaCarregar VCarr){
-       inicialitzar(VH, VPL, VCal, VRes, VAlg, VAss, VGu, VCarr);
+    public VistaPrincipal(CtrlVistaPrincipal cvp, VistaHospital VH, VistaPlantilla VPL, VistaCalendari VCal, VistaRestriccio VRes, VistaAlgorismes VAlg, VistaAssignacio VAss, VistaGuardar VGu, VistaCarregar VCarr){
+        ctrlVistaPrincipal = cvp;
+        inicialitzar(VH, VPL, VCal, VRes, VAlg, VAss, VGu, VCarr);
     }
+
 	public void inicialitzar(VistaHospital VH, VistaPlantilla VPL, VistaCalendari VCal, VistaRestriccio VRes, VistaAlgorismes VAlg, VistaAssignacio VAss, VistaGuardar VGu, VistaCarregar VCarr) {
 		vh = VH;
         vp = VPL;

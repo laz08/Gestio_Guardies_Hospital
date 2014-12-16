@@ -7,12 +7,14 @@ import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 
 public class VistaGuardar implements ActionListener, ListSelectionListener {
-	
+	private static CtrlVistaGuardar ctrlVistaGuardar;
+
 	private JPanel guardar = new JPanel();
 	private JButton guardargeneral = new JButton("Guardar");
 	private JFileChooser obrirdirectori = new JFileChooser();
 
-	public VistaGuardar() {
+	public VistaGuardar(CtrlVistaGuardar cvg) {
+        ctrlVistaGuardar = cvg;
 		guardar.setLayout(null);
 		guardargeneral.setLocation(500,250);
 		inicialitza_gestio();

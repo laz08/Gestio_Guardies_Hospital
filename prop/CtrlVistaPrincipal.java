@@ -3,43 +3,50 @@ package prop;
 
 public class CtrlVistaPrincipal {
 
-    private static VistaPrincipal VP;
-    private static CtrlVistaHospital cVH;
-    private static CtrlVistaPlantilla cVPl;
-    private static CtrlVistaCalendaris cVCal;
-    private static CtrlVistaRestriccions cVRes;
-    private static CtrlVistaAlgorismes cVAlg;
-    private static CtrlVistaAssignacio cVAss;
-    private static CtrlVistaGuardar cVG;
-    private static CtrlVistaCarregar cVC;
+    private static VistaPrincipal vistaPrincipal;
+    private static CtrlVistaHospital ctrlVistaHospital;
+    private static CtrlVistaPlantilla ctrlVistaPlantilla;
+    private static CtrlVistaCalendaris ctrlVistaCalendaris;
+    private static CtrlVistaRestriccions ctrlVistaRestriccions;
+    private static CtrlVistaAlgorismes ctrlVistaAlgorismes;
+    private static CtrlVistaAssignacio ctrlVistaAssignacio;
+    private static CtrlVistaGuardar ctrlVistaGuardar;
+    private static CtrlVistaCarregar ctrlVistaCarregar;
 
-    private static VistaHospital vh;
-    private static VistaPlantilla vp;
-    private static VistaCalendari vcal;
-    private static VistaRestriccio vr;
-    private static VistaAlgorismes va;
-    private static VistaAssignacio vass;
-    private static VistaGuardar vg;
-    private static VistaCarregar vcarr;
+    private static VistaHospital vistaHospital;
+    private static VistaPlantilla vistaPlantilla;
+    private static VistaCalendari vistaCalendari;
+    private static VistaRestriccio vistaRestriccio;
+    private static VistaAlgorismes vistaAlgorismes;
+    private static VistaAssignacio vistaAssignacio;
+    private static VistaGuardar vistaGuardar;
+    private static VistaCarregar vistaCarregar;
 
 
 
     public CtrlVistaPrincipal(){
         creaCtrlVistes();
-        vp = cVPl.getVistaPlantilla();
+        vistaHospital = ctrlVistaHospital.getVistaHospital();
+        vistaPlantilla = ctrlVistaPlantilla.getVistaPlantilla();
+        vistaCalendari = ctrlVistaCalendaris.getVistaCalendari();
+        vistaRestriccio = ctrlVistaRestriccions.getVistaRestriccio();
+        vistaAlgorismes = ctrlVistaAlgorismes.getVistaAlgorismes();
+        vistaAssignacio = ctrlVistaAssignacio.getVistaAssignacio();
+        vistaGuardar = ctrlVistaGuardar.getVistaGuardar();
+        vistaCarregar = ctrlVistaCarregar.getVistaCarregar();
 
-        VP = new VistaPrincipal();
+        vistaPrincipal = new VistaPrincipal(this, vistaHospital, vistaPlantilla, vistaCalendari, vistaRestriccio, vistaAlgorismes, vistaAssignacio, vistaGuardar, vistaCarregar);
 
     }
-    public static void creaCtrlVistes(){
-        cVH = new CtrlVistaHospital();
-        cVPl = new CtrlVistaPlantilla();
-        cVCal = new CtrlVistaCalendaris();
-        cVRes = new CtrlVistaRestriccions();
-        cVAlg = new CtrlVistaAlgorismes();
-        cVAss = new CtrlVistaAssignacio();
-        cVG = new CtrlVistaGuardar();
-        cVC = new CtrlVistaCarregar();
+    public  void creaCtrlVistes(){
+        ctrlVistaHospital = new CtrlVistaHospital(this);
+        ctrlVistaPlantilla = new CtrlVistaPlantilla(this);
+        ctrlVistaCalendaris= new CtrlVistaCalendaris(this);
+        ctrlVistaRestriccions = new CtrlVistaRestriccions(this);
+        ctrlVistaAlgorismes = new CtrlVistaAlgorismes(this);
+        ctrlVistaAssignacio = new CtrlVistaAssignacio(this);
+        ctrlVistaGuardar = new CtrlVistaGuardar(this);
+        ctrlVistaCarregar = new CtrlVistaCarregar(this);
     }
 
 }

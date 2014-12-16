@@ -58,6 +58,8 @@ public class VistaHospital implements ActionListener, ListSelectionListener{
     private JButton enrererestriccions = new JButton("Enrere");
     private JButton acceptarrestriccions = new JButton("Acceptar");
 
+
+    // ----------------------FUNCIONS----------------------
     public VistaHospital(CtrlVistaHospital cvh) {
         cVH = cvh;
         hospital.setLayout(new BorderLayout());

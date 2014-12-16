@@ -1,7 +1,17 @@
 package prop;
 
-/**
- * Created by rini on 16/12/14.
- */
 public class CtrlVistaGuardar {
+    private static CtrlVistaPrincipal ctrlVistaPrincipal;
+    private static VistaGuardar vistaGuardar;
+
+    public CtrlVistaGuardar(CtrlVistaPrincipal vpc){
+        ctrlVistaPrincipal = vpc;
+        vistaGuardar = new VistaGuardar(this);
+    }
+
+    public static VistaGuardar getVistaGuardar(){
+        return vistaGuardar;
+    }
+
+
 }
