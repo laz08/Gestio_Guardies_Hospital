@@ -87,10 +87,12 @@ public class CtrlDomini {
         CtrlPlantilla.desassociarDeCalendari(p);
     }
     public static void guardarPlantilles(){
-        CtrlPlantilla.guardar();
+
+
+        //CtrlPlantilla.guardar();
     }
     public static void carregarPlantilles(){
-        CtrlPlantilla.carregar();
+        //CtrlPlantilla.carregar();
     }
     public static TreeSet<Plantilla> llistarPlantilles(){
         return CtrlPlantilla.getCjt_plantilles();
@@ -182,7 +184,7 @@ public class CtrlDomini {
     //-------------CARREGAR-------------
     public static void carregarGeneral(){
     	File file = new File("/home/acer/Plantilles.txt");
-        CtrlPlantilla.carregar();
+        CtrlPlantilla.carregar(file);
         CtrlHospital.carregar(file);
         CtrlCalendari.carregar(file);
 
@@ -191,7 +193,7 @@ public class CtrlDomini {
     //-------------GUARDAR-------------
     public static void guardarGeneral(){
     	File file = new File("/home/acer/Plantilles.txt");
-        CtrlPlantilla.guardar();
+        CtrlPlantilla.guardar(file);
         CtrlHospital.guardar(file);
         CtrlCalendari.guardar(file);
         CtrlRestriccio.guardar(file);

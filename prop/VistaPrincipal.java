@@ -1,5 +1,8 @@
 package prop;
+
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import java.awt.*;
 
 public class VistaPrincipal {
@@ -60,6 +63,13 @@ public class VistaPrincipal {
 		    pestanyes.addTab("Carregar", vcarr.tornapanel());
 		    frameVista.getContentPane().add(pestanyes);
 		    ferVisible();
+             pestanyes.addChangeListener(new ChangeListener() {
+                 public void stateChanged(ChangeEvent e) {
+                     if(pestanyes.getSelectedIndex() == 0){
+                         vh.inicialitza_Docs();
+                     }
+                 }
+             });
 		    
 	  }
 }

@@ -235,6 +235,19 @@ public class CtrlHospital {
 
     }
 
+    public static String getDoctorsSensePlt() {
+        String content ="";
+        TreeSet<Doctor> ll = CtrlHospital.getHospital_nom();
+        for(Doctor doc: ll) {
+            if(!doc.isActiu()) {
+                content = content + doc.getdni() + " " + doc.getNom() + " " + doc.getCognom1() + " "
+                        + doc.getCognom2() + "\n";
+            }
+        }
+        return content;
+    }
+
+
     public static void guardar(File f) {
     	String content = "";
     	TreeSet<Doctor> ll = CtrlHospital.getHospital_dni();

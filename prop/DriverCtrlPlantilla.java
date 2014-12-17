@@ -1,6 +1,7 @@
 package prop;
 
 
+import java.io.File;
 import java.util.Scanner;
 import java.util.TreeSet;
 
@@ -347,11 +348,13 @@ public class DriverCtrlPlantilla {
     }
 
     public static void casGuardarPlantilles() {
-    	CtrlPlantilla.guardar();
+    	File f = new File("");
+        CtrlPlantilla.guardar(f);
     }
 
     public static void casCarregarPlantilles() {
-    	CtrlPlantilla.carregar();
+        File f = new File("");
+        CtrlPlantilla.carregar(f);
     }
 
 }

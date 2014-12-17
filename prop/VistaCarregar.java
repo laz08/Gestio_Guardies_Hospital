@@ -66,6 +66,7 @@ public class VistaCarregar implements ActionListener, ListSelectionListener {
                 File f = obrirdirectori.getSelectedFile();
                 CtrlHospital.carregar(f);
             }
+
 		}
         else if (arg0.getSource() == carregarRes) {
             int ret = obrirdirectori.showOpenDialog(carregar);
@@ -80,7 +81,7 @@ public class VistaCarregar implements ActionListener, ListSelectionListener {
             //L'usuari ha escollit un fitxer
             if(ret == obrirdirectori.APPROVE_OPTION){
                 File f = obrirdirectori.getSelectedFile();
-               // CtrlPlantilla.carregar(f);
+               CtrlPlantilla.carregar(f);
             }
         }
 

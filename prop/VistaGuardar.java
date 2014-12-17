@@ -60,7 +60,7 @@ public class VistaGuardar implements ActionListener {
             int ret = obrirdirectori.showSaveDialog(guardar);
             if (ret == obrirdirectori.APPROVE_OPTION){
                 File f = obrirdirectori.getSelectedFile();
-                //CtrlPlantilla.guardar(f);
+                CtrlPlantilla.guardar(f);
             }
         }
         else if (arg0.getSource() == guardarCal) {

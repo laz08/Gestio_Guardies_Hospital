@@ -465,7 +465,6 @@ public class VistaHospital implements ActionListener/*, ListSelectionListener*/{
         }
 
         public void mouseClicked(MouseEvent e) {
-
             CardLayout cl = (CardLayout) (switchgestio.getLayout());
             cl.show(switchgestio, "modificardoctor");
             afegirrestriccio.setEnabled(true);

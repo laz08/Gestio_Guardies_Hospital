@@ -24,6 +24,10 @@ public class CtrlVistaPlantilla {
     		CtrlPlantilla.creariAfegirPlantilla(plt);
     	}
     }
+
+    public static void assignarDocPlt(String d, String plt) {
+        CtrlPlantilla.afegirDoctorAPlantilla(d,plt);
+    }
     
     public static void eliminarPlantilla(String plt) {
     	CtrlPlantilla.esborrarPlantilla(plt);
@@ -40,13 +44,18 @@ public class CtrlVistaPlantilla {
     public static void eliminarCalendari(String plt) {
     	CtrlPlantilla.eliminarCalendari(plt);
     }
-    
+
     public static String getPlantillaespecifica(String plt) {
     	return CtrlPlantilla.getPlantillaespecifica(plt);
     }
-    
+
+
     public static String getDoctorsSensePlt() {
-    	return CtrlHospital.getLlistatDoctorsenString_nom();
+    	return CtrlHospital.getDoctorsSensePlt();
+    }
+
+    public static void assignaDocAPlt(String d, String p){
+        CtrlPlantilla.afegirDoctorAPlantilla(d, p);
     }
     
     //Vull tots els doctors que no estan actius. Crida a CtrlHospital???

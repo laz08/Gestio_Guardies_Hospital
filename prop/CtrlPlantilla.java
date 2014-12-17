@@ -183,11 +183,9 @@ public class CtrlPlantilla {
     	return content;
     }
 
-    public static void guardar() {
-        File file = new File("/home/acer/Plantilles.txt");
+    public static void guardar(File f) {
         String content = "";
         String fi = "Fi";
-        int cont = 0;
         for (Plantilla p: Cjt_plantilles) {
             content += p.getNomPlantilla() + "\n"; //+ p.get_calendari_asoc().getId() + "\n";
 
@@ -195,14 +193,13 @@ public class CtrlPlantilla {
                 content = content + doc.getdni() + " " + doc.getNom() + " " + doc.getCognom1() + " "
                         + doc.getCognom2() + " " + doc.getSou() + " " + doc.getTelefon() + " " + doc.getCorreu() + "\n";
             }
-            content += (fi +"\n");
+            content += (fi + "\n");
         }
-        CtrlPersistencia.guardar(content, file);
+        CtrlPersistencia.guardar(content, f);
     }
 
-    public static void carregar() {
-        File file = new File("/home/acer/Plantilles.txt");
-        String content = CtrlPersistencia.carregar(file);
+    public static void carregar(File f) {
+        String content = CtrlPersistencia.carregar(f);
         String separadors = "[ \n]";
         String[] separat = content.split(separadors);
         int i = 0;
