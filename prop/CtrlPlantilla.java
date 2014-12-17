@@ -185,6 +185,7 @@ public class CtrlPlantilla {
 
     public static void guardar(File f) {
         String content = "";
+        String fi = "Fi";
         for (Plantilla p: Cjt_plantilles) {
             content += p.getNomPlantilla() + "\n"; //+ p.get_calendari_asoc().getId() + "\n";
 
@@ -192,6 +193,7 @@ public class CtrlPlantilla {
                 content = content + doc.getdni() + " " + doc.getNom() + " " + doc.getCognom1() + " "
                         + doc.getCognom2() + " " + doc.getSou() + " " + doc.getTelefon() + " " + doc.getCorreu() + "\n";
             }
+            content += (fi + "\n");
         }
         CtrlPersistencia.guardar(content, f);
     }
