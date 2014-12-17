@@ -4,6 +4,9 @@
  */
 package prop;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -22,6 +25,13 @@ public class CtrlRestriccio {
     public static void elimina_res(Restriccio r) {
         int pos = consulta_pos(r);
         if (pos != -1) {
+            restriccions.remove(pos);
+            eRestriccions.remove(pos);
+        }
+    }
+    
+    public static void elimina_res(int pos){
+        if(pos<restriccions.size()){
             restriccions.remove(pos);
             eRestriccions.remove(pos);
         }
@@ -177,6 +187,20 @@ public class CtrlRestriccio {
         }
         return trobat;
     }
+    
+    public static int consulta_pos(String expressio){
+        int trobat = -1;
+        int i = 0;
+        String eRes;
+        while (trobat == -1 && i < eRestriccions.size()) {
+            eRes = eRestriccions.get(i);
+            if (eRes.equals(expressio)) {
+                trobat = i;
+            }
+            i++;
+        }
+        return trobat;
+    }
 
     /**
      * Retorna un el primer fill de la restricció intoduida com a Objecte que
@@ -221,92 +245,17 @@ public class CtrlRestriccio {
         return fill;
     }
 
-    public static void guardar() {
+    public static void guardar(File f) {
         String content = "";
-        for (Restriccio r : restriccions) {
-            content += mostra_arbre(r) + "\n";
+        for (String r : eRestriccions) {
+            content += r + "\n";
         }
-        CtrlPersistencia.guardar(content, "Restriccions");
+        CtrlPersistencia.guardar(content, f);
     }
-    /**
-     * Donada una expressió que defineix una restricció, canvia els valors
-     * numèrics que fan referència als torns per l'identificador de torn
-     * correcte
-     *
-     * @param e expressió amb identificador numèric de torn
-     * @return
-     */
-//    private static String transforma_expressio(String tipus, String e, Calendari cldr){
-//        String t = ""; 
-//        if (e.length() > 0) {
-//            String c = e.substring(0, 1);
-//            String s = e.substring(1);
-//            while ((c.equals("0") || c.equals("1") || c.equals("2") || c.equals("3")
-//                    || c.equals("4") || c.equals("5") || c.equals("6") || c.equals("7")
-//                    || c.equals("8") || c.equals("9")) && s.length() > 0) {
-//                t += c;
-//                c = s.substring(0, 1);
-//                s = s.substring(1);
-//            }
-//            if(!t.equals("")){
-//                ArrayList<Torn> torns = (ArrayList) cldr.getTorns().clone();
-//                int numt = Integer.parseInt(t);
-//               switch(tipus){
-//                   case "D":
-//                       for(int i=0; i<torns.size(); i++){
-//                           Torn torn = torns.get(i);
-//                           if(torn.getData_inici().get(Calendar.DAY_OF_YEAR)!=numt){
-//                               torns.remove(i);
-//                               i--; 
-//                               // decrementam la i perque quan s'elimina un objecte de s'arraylist
-//                               // un altre ocupa es seu lloc i s'ha de tornar a comprovar aquesta posició
-//                           }
-//                       }
-//                       break;
-//                   case "S":
-//                       for(int i=0; i<torns.size(); i++){
-//                           Torn torn = torns.get(i);
-//                           if(torn.getData_inici().get(Calendar.WEEK_OF_YEAR)!=numt){
-//                               torns.remove(i);
-//                               i--; 
-//                               // decrementam la i perque quan s'elimina un objecte de s'arraylist
-//                               // un altre ocupa es seu lloc i s'ha de tornar a comprovar aquesta posició
-//                           }
-//                       }
-//                       break;
-//                   case "H":
-//                       for(int i=0; i<torns.size(); i++){
-//                           Torn torn = torns.get(i);
-//                           if(torn.getData_inici().get(Calendar.HOUR_OF_DAY)!=numt){
-//                               torns.remove(i);
-//                               i--; 
-//                               // decrementam la i perque quan s'elimina un objecte de s'arraylist
-//                               // un altre ocupa es seu lloc i s'ha de tornar a comprovar aquesta posició
-//                           }
-//                       }
-//                       break;
-//               }
-//               t = concat_trobats(torns); 
-//            }
-//            t += c;
-//            t += transforma_expressio(tipus, s, cldr);
-//        }
-//        return t;
-//    }
-//    private static String concat_trobats(ArrayList<Torn> torns){
-//        String ret = "";
-//        int num_trobats = torns.size();
-//        if(num_trobats == 1){
-//            ret = "NOP("+torns.get(0).toString()+")";
-//        }
-//        else if (num_trobats == 2){
-//            ret = "("+torns.get(0).toString()+")AND("+torns.get(1).toString()+")";
-//        }
-//        else if(num_trobats>2){
-//            String fragment = "NOP("+torns.get(torns.size()-1).toString()+")";
-//            torns.remove(torns.size()-1);
-//            ret = "("+concat_trobats(torns)+")AND("+fragment+")";
-//        }
-//        return ret;
-//    }
+    
+    public static String carrega(String path) throws FileNotFoundException{
+        String contingut = CtrlPersistencia.carregar(path);
+        return contingut;
+    }
+    
 }
