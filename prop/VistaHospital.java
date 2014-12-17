@@ -257,33 +257,11 @@ public class VistaHospital implements ActionListener, ListSelectionListener{
         else return false;
 
     }
-    public void ompleDoctorDni(String d){
-        String ret = ctrlVistaHospital.getDoctorEspecific(d);
-        System.out.println(ret);
-        String separadors = "[ \n]";
-        String[] separat = ret.split(separadors);
-        dni.setText(d);
-        nom.setText(separat[1]);
-        cognom.setText(separat[2]);
-        cognom2.setText(separat[3]);
-        sou.setText(separat[4]);
-        telefon.setText(separat[5]);
-        correu.setText(separat[6]);
-    }
 
     public JPanel tornapanel() {
         return hospital;
     }
 
-    private void reiniciaTextFieldsDocs(){
-        dni.setText("");
-        nom.setText("");
-        cognom.setText("");
-        cognom2.setText("");
-        sou.setText("");
-        telefon.setText("");
-        correu.setText("");
-    }
     public void actionPerformed(ActionEvent ev) {
         JComponent accio = (JComponent) ev.getSource();
         if(accio == carregarhospital) {
@@ -300,16 +278,10 @@ public class VistaHospital implements ActionListener, ListSelectionListener{
             cl.show(switchgestio, "gestiohospital");
         }
         else if (accio == acceptardoctor) {
-            String d = dni.getText();
-            String n = nom.getText();
-            String cg1 = cognom.getText();
-            String cg2 = cognom2.getText();
-            int s = Integer.parseInt(sou.getText());
-            int t = Integer.parseInt(telefon.getText());
-            String cor = correu.getText();
-            if(!CtrlDomini.existeixDoctoraHospital(d)){
-                CtrlDomini.creaDoctor(d, n, cg1, cg2, s, t, cor);
+            if(!CtrlHospital.existeixDoctor(dni.getText())){
+                creaDoctor();
             }
+            else modificaDoctor();
             inicialitza_Docs();
             reiniciaTextFieldsDocs();
             CardLayout cl = (CardLayout)(switchgestio.getLayout());
@@ -348,13 +320,65 @@ public class VistaHospital implements ActionListener, ListSelectionListener{
         }
     }
 
+    /** Funcions auxiliars **/
+    public void modificaDoctor(){
+        String d = dni.getText();
+        String n = nom.getText();
+        String cg1 = cognom.getText();
+        String cg2 = cognom2.getText();
+        int s = Integer.parseInt(sou.getText());
+        int t = Integer.parseInt(telefon.getText());
+        String cor = correu.getText();
+       /* CtrlHospital.modificarNomD(d, n);
+        CtrlHospital.modificarCognom1D(d, cg1);
+        CtrlHospital.modificarCognom2D(d, cg2);
+        CtrlHospital.modificarSouD(d, s);
+        CtrlHospital.modificarTelfD(d, t);
+        CtrlHospital.modificarCorreuD(d, cor);*/
+        CtrlHospital.modificaAtributs(d, n, cg1, cg2, s, t, cor);
+    }
+
+    public void creaDoctor(){
+        String d = dni.getText();
+        String n = nom.getText();
+        String cg1 = cognom.getText();
+        String cg2 = cognom2.getText();
+        int s = Integer.parseInt(sou.getText());
+        int t = Integer.parseInt(telefon.getText());
+        String cor = correu.getText();
+        CtrlHospital.creariAfegirDoctor(d, n, cg1, cg2, s, t, cor);
+    }
+
+    public void ompleDoctorDni(String d){
+        String ret = ctrlVistaHospital.getDoctorEspecific(d);
+        System.out.println(ret);
+        String separadors = "[ \n]";
+        String[] separat = ret.split(separadors);
+        dni.setText(d);
+        nom.setText(separat[1]);
+        cognom.setText(separat[2]);
+        cognom2.setText(separat[3]);
+        sou.setText(separat[4]);
+        telefon.setText(separat[5]);
+        correu.setText(separat[6]);
+    }
+
+
+    private void reiniciaTextFieldsDocs(){
+        dni.setText("");
+        nom.setText("");
+        cognom.setText("");
+        cognom2.setText("");
+        sou.setText("");
+        telefon.setText("");
+        correu.setText("");
+    }
     public void ompleValuesDoctor(){
         String selected = texthospital.getSelectedValue().toString();
         String separadors = "[ \n]";
         String[] separat = selected.split(separadors);
         String d = separat[0]; //Dni
         ompleDoctorDni(d);
-
     }
 
     public void valueChanged(ListSelectionEvent lse) {

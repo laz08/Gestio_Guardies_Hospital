@@ -108,29 +108,68 @@ public class CtrlHospital {
     public static void modificarNom(Doctor doc, String nom){
         doc.setNom(nom);
     }
+    public static void modificarNomD(String d, String nom){
+        Doctor doc = getDoctor(d);
+        doc.setNom(nom);
+    }
+
 
     public static void modificarCognom1(Doctor doc, String cg1){
+        doc.setCognom1(cg1);
+    }
+    public static void modificarCognom1D(String d, String cg1){
+        Doctor doc = getDoctor(d);
         doc.setCognom1(cg1);
     }
 
     public static void modificarCognom2(Doctor doc, String cg2){
         doc.setCognom2(cg2);
     }
+    public static void modificarCognom2D(String d, String cg2){
+        Doctor doc = getDoctor(d);
+        doc.setCognom2(cg2);
+    }
 
     public static void modificarTelf(Doctor doc, int telf){
+        doc.setTelefon(telf);
+    }
+    public static void modificarTelfD(String d, int telf){
+        Doctor doc = getDoctor(d);
         doc.setTelefon(telf);
     }
 
     public static void modificarCorreu(Doctor doc, String mail){
         doc.setCorreu(mail);
     }
+    public static void modificarCorreuD(String d, String correu){
+        Doctor doc = getDoctor(d);
+        doc.setCorreu(correu);
+    }
 
     public static void modificarSou(Doctor doc, int sou){
+        doc.setSou(sou);
+    }
+    public static void modificarSouD(String d, int sou){
+        Doctor doc = getDoctor(d);
         doc.setSou(sou);
     }
 
     public static void modificarActivitat(Doctor doc, boolean actiu){
         doc.setActiu(actiu);
+    }
+    public static void modificarActivitatD (String d, boolean actiu){
+        Doctor doc = getDoctor(d);
+        doc.setActiu(actiu);
+    }
+
+    public static void modificaAtributs(String d, String n, String cg1, String cg2, int s, int t, String c){
+        Doctor doc = getDoctor(d);
+        doc.setNom(n);
+        doc.setCognom1(cg1);
+        doc.setCognom2(cg2);
+        doc.setTelefon(t);
+        doc.setSou(s);
+        doc.setCorreu(c);
     }
 
 
@@ -174,7 +213,7 @@ public class CtrlHospital {
      */
     public static String getLlistatDoctorsenString_nom(){
         String content = "";
-        TreeSet<Doctor> ll = CtrlHospital.getHospital_dni();
+        TreeSet<Doctor> ll = CtrlHospital.getHospital_nom();
         for (Doctor doc:ll) {
             content = content + doc.getdni() + " " + doc.getNom() + " " + doc.getCognom1() + " "
                     + doc.getCognom2() + " " + doc.getSou() + " " + doc.getTelefon() + " " + doc.getCorreu() + "\n";

@@ -15,11 +15,11 @@ public class CtrlVistaHospital {
         return vh;
     }
 
-    public static String getLlistaDocs_nom(){
+    public String getLlistaDocs_nom(){
         return CtrlHospital.getLlistatDoctorsenString_nom();
     }
 
-    public static String getDoctorEspecific(String dni){
+    public String getDoctorEspecific(String dni){
         return CtrlHospital.getDoctorEspecificString(dni);
     }
 
