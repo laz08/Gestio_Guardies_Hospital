@@ -35,8 +35,8 @@ public class CtrlVistaRestriccions {
         CtrlRestriccio.elimina_res(pos);
     }
     
-    public String[] carregaRestriccions(String path) throws FileNotFoundException{
-        String dades = CtrlRestriccio.carrega(path);
+    public String[] carregaRestriccions(File f) throws FileNotFoundException{
+        String dades = CtrlRestriccio.carrega(f);
         String separadors = "[ \n]";
         String[] llista = dades.split(separadors);
         return llista;

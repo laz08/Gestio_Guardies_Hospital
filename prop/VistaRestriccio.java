@@ -129,22 +129,21 @@ public class VistaRestriccio {
     }
 
     private void carregarRestriccio() {
-        try {
+        try{
             JFileChooser chooser = new JFileChooser();
             File f = null;
             boolean seleccionat = chooser.accept(f);
             String[] sRestriccions = null;
             if (seleccionat) {
-                sRestriccions = ctrlVistaRestriccions.carregaRestriccions(f.getAbsolutePath());
+                sRestriccions = ctrlVistaRestriccions.carregaRestriccions(f);
             }
             for (int i = 0; i < sRestriccions.length; i++) {
                 ctrlVistaRestriccions.creaRestriccio(sRestriccions[i]);
             }
             carregaRestriccions();
-        } catch (FileNotFoundException e) {
-            mostraErrors.setText("S'ha produit un error quan es carregaven les restriccions");
+        }catch(FileNotFoundException e){
+            mostraErrors.setText("No s'han pogut carregar les restriccions");
         }
-        carregaRestriccions();
     }
 
     private void guardarRestriccio() {
