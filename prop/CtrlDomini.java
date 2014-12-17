@@ -50,10 +50,12 @@ public class CtrlDomini {
         return CtrlHospital.getHospital_nom();
     }
     public static void guardarDoctors(){
-        CtrlHospital.guardar();
+    	File file = null;
+        CtrlHospital.guardar(file);
     }
     public static void carregarDoctors(){
-        CtrlHospital.carregar();
+    	File file = null;
+        CtrlHospital.carregar(file);
     }
 
     //-------------PLANTILLA-------------
@@ -120,7 +122,8 @@ public class CtrlDomini {
     }
 
     public static void guardarRestriccions(){
-        CtrlRestriccio.guardar();
+    	File file = null;
+        CtrlRestriccio.guardar(file);
     }
 
     public static void carregarRestriccions(){
@@ -180,7 +183,7 @@ public class CtrlDomini {
     public static void carregarGeneral(){
     	File file = new File("/home/acer/Plantilles.txt");
         CtrlPlantilla.carregar();
-        CtrlHospital.carregar();
+        CtrlHospital.carregar(file);
         CtrlCalendari.carregar(file);
 
     }
@@ -189,9 +192,9 @@ public class CtrlDomini {
     public static void guardarGeneral(){
     	File file = new File("/home/acer/Plantilles.txt");
         CtrlPlantilla.guardar();
-        CtrlHospital.guardar();
+        CtrlHospital.guardar(file);
         CtrlCalendari.guardar(file);
-        CtrlRestriccio.guardar();
+        CtrlRestriccio.guardar(file);
     }
 
 

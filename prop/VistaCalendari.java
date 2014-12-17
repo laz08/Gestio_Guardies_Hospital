@@ -31,7 +31,7 @@ public class VistaCalendari implements ListSelectionListener, ItemListener, Acti
     private JLabel labeldiatorn = new JLabel("Dia");
     private JTextField diatorn = new JTextField(3);
     private JLabel labelfestiu = new JLabel("Festiu:");
-    private JCheckBox festiu = new JCheckBox();
+    private JCheckBox festiu = new JCheckBox("A");
     private JLabel labeltorns = new JLabel("Torns:");
     private JLabel labelmati = new JLabel("Matí:");
     private JLabel labeltarda = new JLabel("Tarda:");
@@ -58,7 +58,7 @@ public class VistaCalendari implements ListSelectionListener, ItemListener, Acti
 
     //Part Calendari en si
     private JPanel agenda = new JPanel();
-    private String[] anys;
+    private String[] anys = {""};
     private JComboBox<String> any = new JComboBox<String>(anys);
     private String[] exemplemesos = {"Gener", "Febrer", "Març", "Abril", "Maig", "Juny", "Juliol", "Agost", "Setembre", "Octubre", "Novembre", "Desembre"};
     private JList<String> mesos = new JList<String>(exemplemesos);
@@ -338,7 +338,12 @@ public class VistaCalendari implements ListSelectionListener, ItemListener, Acti
         if (arg0.getSource() == llistaplantilla) {
             if (!arg0.getValueIsAdjusting()) {
             	if (!CtrlCalendari.existeixCalendari(llistaplantilla.getSelectedValue())) {
-            		anys = new String[ctrlVistaCalendaris.getAnyfi(llistaplantilla.get)-ctrlVistaCalendaris.getAny()];
+            		int anyfi = ctrlVistaCalendaris.getAnyfi(llistaplantilla.getSelectedValue());
+            		int anyinici = ctrlVistaCalendaris.getAny(llistaplantilla.getSelectedValue());
+            		anys = new String[anyfi-anyinici];
+            		for (int i = anyinici; i < anyfi; i++) {
+            			any.addItem(String.valueOf(i));
+            		}
             		CardLayout cl = (CardLayout)(switchgestio.getLayout());
             		cl.show(switchgestio, "crearcalendari");
             	}
