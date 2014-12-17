@@ -1,5 +1,6 @@
 package prop;
 
+import java.io.File;
 import java.util.GregorianCalendar;
 import java.util.Scanner;
 import java.util.TreeSet;
@@ -721,11 +722,14 @@ public class DriverCtrlCalendari {
 	}
 	
 	public static void guardar() {
-		CtrlCalendari.guardar();
+		File file = new File("/home/acer/Calendari");
+		CtrlCalendari.guardar(file);
 	}
 	
 	public static void carregar() {
-		CtrlCalendari.carregar();
+		File file = new File("/home/acer/Calendari");
+		CtrlCalendari.guardar(file);
+		CtrlCalendari.carregar(file);
 	}
 	
 	public static void escriureTorn(Torn t, int i) {

@@ -2,14 +2,16 @@ package prop;
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import javax.swing.event.TableModelEvent;
-import javax.swing.event.TableModelListener;
 import javax.swing.table.AbstractTableModel;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.util.GregorianCalendar;
+
+
 public class VistaCalendari implements ListSelectionListener, ItemListener, ActionListener {
     private static CtrlVistaCalendaris ctrlVistaCalendaris;
     private JPanel calendari = new JPanel();
@@ -56,8 +58,8 @@ public class VistaCalendari implements ListSelectionListener, ItemListener, Acti
 
     //Part Calendari en si
     private JPanel agenda = new JPanel();
-    private String[] exempleanys = {"2014", "2015", "2016"};
-    private JComboBox<String> any = new JComboBox<String>(exempleanys);
+    private String[] anys;
+    private JComboBox<String> any = new JComboBox<String>(anys);
     private String[] exemplemesos = {"Gener", "Febrer", "Març", "Abril", "Maig", "Juny", "Juliol", "Agost", "Setembre", "Octubre", "Novembre", "Desembre"};
     private JList<String> mesos = new JList<String>(exemplemesos);
     private JScrollPane scrollmesos = new JScrollPane(mesos);
@@ -75,8 +77,6 @@ public class VistaCalendari implements ListSelectionListener, ItemListener, Acti
     private JTextField anyfi = new JTextField(6);
     private JLabel labelanyinici = new JLabel("Any inici");
     private JTextField anyinici = new JTextField(6);
-    private JButton acceptarcrear = new JButton("Acceptar");
-    private JButton enrerecrear = new JButton("Enrere");
 
     public VistaCalendari(CtrlVistaCalendaris cvc) {
             ctrlVistaCalendaris = cvc;
@@ -89,10 +89,10 @@ public class VistaCalendari implements ListSelectionListener, ItemListener, Acti
         inicialitza_torncalendari();
         switchgestio.setLayout(new CardLayout());
         switchllista.setLayout(new CardLayout());
-        switchllista.add(llistatplantilla, "llistatplantilla");
         switchllista.add(torncalendari, "torncalendari");
-        switchgestio.add(gestiocg, "gestiocg");
+        switchllista.add(llistatplantilla, "llistatplantilla");
         switchgestio.add(agenda, "agenda");
+        switchgestio.add(gestiocg, "gestiocg");
         switchgestio.add(crearcalendari, "crearcalendari");
         calendari.add(switchgestio, BorderLayout.EAST);
         calendari.add(switchllista, BorderLayout.WEST);
@@ -100,10 +100,6 @@ public class VistaCalendari implements ListSelectionListener, ItemListener, Acti
     }
 
     public void inicialitza_llistatplantilla() {
-        modelplantilla.addElement("Plantilla1");
-        modelplantilla.addElement("Plantilla2");
-        modelplantilla.addElement("Plantilla3");
-        modelplantilla.addElement("Plantilla4");
         llistatplantilla.setLayout(new BorderLayout());
         llistaplantilla.addListSelectionListener(this);
         llistatplantilla.add(scrollplantilla, BorderLayout.NORTH);
@@ -112,8 +108,15 @@ public class VistaCalendari implements ListSelectionListener, ItemListener, Acti
     }
 
     public void inicialitza_torncalendari() {
+    	inicimati.setText("0");
+    	fimati.setText("8");
+    	inicitarda.setText("8");
+    	fitarda.setText("16");
+    	inicinit.setText("16");
+    	finit.setText("24");
         enreretorn.addActionListener(this);
         acceptartorn.addActionListener(this);
+    	diatorn.setEditable(false);
         torncalendari.setLayout(new GridBagLayout());
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
@@ -225,18 +228,25 @@ public class VistaCalendari implements ListSelectionListener, ItemListener, Acti
         c.gridy = 6;
         c.gridwidth = 1;
         torncalendari.add(acceptartorn, c);
+        inicimati.setEditable(false);
+        fimati.setEditable(false);
+        inicitarda.setEditable(false);
+        fitarda.setEditable(false);
+        inicinit.setEditable(false);
+        finit.setEditable(false);
+        diatorn.setEditable(false);
     }
 
     public void inicialitza_calendari() {
         eliminarcalendari.addActionListener(this);
         acceptarcalendari.addActionListener(this);
         enrerecalendari.addActionListener(this);
+        mesos.addListSelectionListener(this);
         agenda.setLayout(new GridBagLayout());
         any.setBounds(10, 10, 100, 30);
         any.setSelectedIndex(0);
         any.addItemListener(this);
         scrollmesos.setBounds(100, 10, 150, 100);
-        mesos.setSelectedIndex(3);
         mesos.addListSelectionListener(this);
         table.setBounds(10, 150, 550, 200);
         table.setShowGrid(true);
@@ -292,8 +302,6 @@ public class VistaCalendari implements ListSelectionListener, ItemListener, Acti
     }
 
     public void inicialitza_crearcalendari() {
-        enrerecrear.addActionListener(this);
-        acceptarcrear.addActionListener(this);
         crearcalendari.setLayout(new GridBagLayout());
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
@@ -315,38 +323,55 @@ public class VistaCalendari implements ListSelectionListener, ItemListener, Acti
         c.gridy = 3;
         c.gridwidth = 1;
         crearcalendari.add(anyfi, c);
-        c.fill = GridBagConstraints.HORIZONTAL;
-        c.gridx = 0;
-        c.gridy = 4;
-        c.gridwidth = 1;
-        crearcalendari.add(enrerecrear, c);
-        c.fill = GridBagConstraints.HORIZONTAL;
-        c.gridx = 0;
-        c.gridy = 5;
-        c.gridwidth = 1;
-        crearcalendari.add(acceptarcrear, c);
     }
 
     public void itemStateChanged(ItemEvent e) {
-        model.setMonth(any.getSelectedIndex() + 1998, mesos.getSelectedIndex());
-        agenda.repaint();
+    	if (e.getSource() == any) {
+    		model.setMonth(any.getSelectedIndex() + 1998, mesos.getSelectedIndex());
+            agenda.repaint();
+            //RETORNA L'ANY
+    	}
+        
     }
 
     public void valueChanged(ListSelectionEvent arg0) {
         if (arg0.getSource() == llistaplantilla) {
             if (!arg0.getValueIsAdjusting()) {
-                CardLayout cl = (CardLayout)(switchgestio.getLayout());
-                cl.show(switchgestio, "agenda");
+            	if (!CtrlCalendari.existeixCalendari(llistaplantilla.getSelectedValue())) {
+            		CardLayout cl = (CardLayout)(switchgestio.getLayout());
+            		cl.show(switchgestio, "crearcalendari");
+            	}
+            	else  {
+            		CardLayout cl = (CardLayout)(switchgestio.getLayout());
+            		cl.show(switchgestio, "agenda");
+            	}
+                
             }
         }
+        else if (arg0.getSource() == mesos) {
+        	 if (!arg0.getValueIsAdjusting()) {
+
+             }
+        	 model.setMonth(any.getSelectedIndex()+1998, mesos.getSelectedIndex());
+             agenda.repaint();
+        }
         else {
-            model.setMonth(any.getSelectedIndex()+1998, mesos.getSelectedIndex());
-            agenda.repaint();
+            
             //RETORNA LA FILA CLICADA
             int fila = table.getSelectedRow();
             // RETORNA LA COLUMNA CLICADA
             int columna = table.getSelectedColumn();
             if (fila > 0 && columna >= 0 && table.getValueAt(fila, columna) != " ") {
+            	//RETORNA DIA
+            	GregorianCalendar data = new GregorianCalendar(Integer.parseInt(any.getItemAt(any.getSelectedIndex())), mesos.getSelectedIndex(), Integer.parseInt(String.valueOf(table.getValueAt(table.getSelectedRow(), table.getSelectedColumn()))));
+            	festiu.setSelected(CtrlVistaCalendaris.diafestiu(llistaplantilla.getSelectedValue(), data));
+            	percentmati.setText(String.valueOf(CtrlVistaCalendaris.consultarpercenttorn(data, llistaplantilla.getSelectedValue(),0)));
+            	minimmati.setText(String.valueOf(CtrlVistaCalendaris.consultaminimtorn(data, llistaplantilla.getSelectedValue(), 0)));
+            	percentarda.setText(String.valueOf(CtrlVistaCalendaris.consultarpercenttorn(data, llistaplantilla.getSelectedValue(),1)));
+            	minimtarda.setText(String.valueOf(CtrlVistaCalendaris.consultaminimtorn(data, llistaplantilla.getSelectedValue(), 1)));
+            	percentnit.setText(String.valueOf(CtrlVistaCalendaris.consultarpercenttorn(data, llistaplantilla.getSelectedValue(),2)));
+            	minimnit.setText(String.valueOf(CtrlVistaCalendaris.consultaminimtorn(data, llistaplantilla.getSelectedValue(), 2)));
+            	diatorn.setText((String) table.getValueAt(fila, columna));
                 CardLayout cl = (CardLayout)(switchllista.getLayout());
                 cl.show(switchllista, "torncalendari");
             }
@@ -417,6 +442,16 @@ public class VistaCalendari implements ListSelectionListener, ItemListener, Acti
         return calendari;
     }
 
+    public void actualitza_llista_plantilles() {
+    	String content = ctrlVistaCalendaris.getllistaplantilles();
+    	String split = "[ \n]";
+    	String[] separat = content.split(split);
+    	for (int i = 0; i < separat.length; ++i) {
+    		modelplantilla.addElement(separat[i]);
+    	}
+    	
+    }
+    
     // Botons
     public void actionPerformed(ActionEvent ev) {
         Object comp = ev.getSource();
@@ -428,11 +463,18 @@ public class VistaCalendari implements ListSelectionListener, ItemListener, Acti
             CardLayout cl = (CardLayout)(switchgestio.getLayout());
             cl.show(switchgestio, "gestiocg");
         }
-        else if (comp == enrerecrear) {
-            CardLayout cl = (CardLayout)(switchgestio.getLayout());
-            cl.show(switchgestio, "gestiocg");
-        }
         else if (comp == acceptartorn) {
+        	if (table.getSelectedRow() > 0 && table.getSelectedColumn() >= 0 && table.getValueAt(table.getSelectedRow(), table.getSelectedRow()) != " ") {
+        		GregorianCalendar data = new GregorianCalendar(Integer.parseInt(any.getItemAt(any.getSelectedIndex())), mesos.getSelectedIndex(), Integer.parseInt(String.valueOf(table.getValueAt(table.getSelectedRow(), table.getSelectedColumn()))));
+        		CtrlVistaCalendaris.modificarMinimTorn(Integer.parseInt(minimmati.getText()), data, llistaplantilla.getSelectedValue(), 0);
+        		CtrlVistaCalendaris.modificarMinimTorn(Integer.parseInt(minimtarda.getText()), data, llistaplantilla.getSelectedValue(), 1);
+        		CtrlVistaCalendaris.modificarMinimTorn(Integer.parseInt(minimnit.getText()), data, llistaplantilla.getSelectedValue(), 2);
+        		CtrlVistaCalendaris.modificarPercentatgeTorn(Float.parseFloat(percentmati.getText()), data, llistaplantilla.getSelectedValue(), 0);
+        		CtrlVistaCalendaris.modificarPercentatgeTorn(Float.parseFloat(percentarda.getText()), data, llistaplantilla.getSelectedValue(), 1);
+        		CtrlVistaCalendaris.modificarPercentatgeTorn(Float.parseFloat(percentnit.getText()), data, llistaplantilla.getSelectedValue(), 2);
+        		if (festiu.isSelected()) CtrlVistaCalendaris.modificadiafestiu(llistaplantilla.getSelectedValue(), data, true);
+        		else CtrlVistaCalendaris.modificadiafestiu(llistaplantilla.getSelectedValue(), data, false);
+        	}
             CardLayout cl = (CardLayout)(switchllista.getLayout());
             cl.show(switchllista, "llistatplantilla");
         }
@@ -440,23 +482,29 @@ public class VistaCalendari implements ListSelectionListener, ItemListener, Acti
             CardLayout cl = (CardLayout)(switchgestio.getLayout());
             cl.show(switchgestio, "gestiocg");
         }
-        else if (comp == acceptarcrear) {
-            CardLayout cl = (CardLayout)(switchgestio.getLayout());
-            cl.show(switchgestio, "gestiocg");
-        }
         else if (comp == eliminarcalendari) {
+        	CtrlVistaCalendaris.eliminarcalendari(llistaplantilla.getSelectedValue());
+        	actualitza_llista_plantilles();
             CardLayout cl = (CardLayout)(switchgestio.getLayout());
             cl.show(switchgestio, "gestiocg");
         }
         else if (comp == creacalendari) {
+        	CtrlVistaCalendaris.crearcalendari(llistaplantilla.getSelectedValue(), Integer.parseInt(anyinici.getText()), Integer.parseInt(anyfi.getText()));
             CardLayout cl = (CardLayout)(switchgestio.getLayout());
             cl.show(switchgestio, "gestiocg");
         }
         else if (comp == carregarcalendari) {
-            obrirdirectori.showOpenDialog(calendari);
+        	int ret = obrirdirectori.showOpenDialog(calendari);
+            if (ret == JFileChooser.APPROVE_OPTION) {
+            	CtrlVistaCalendaris.carregar(obrirdirectori.getSelectedFile());
+            	actualitza_llista_plantilles();
+            }
         }
         else if (comp == guardarcalendari) {
-            obrirdirectori.showSaveDialog(calendari);
+        	int ret = obrirdirectori.showSaveDialog(calendari);
+            if (ret == JFileChooser.APPROVE_OPTION) {
+            	CtrlVistaCalendaris.guardar(obrirdirectori.getSelectedFile());
+            }
         }
     }
 

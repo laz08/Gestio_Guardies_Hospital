@@ -11,10 +11,8 @@ import java.nio.file.Paths;
 
 public class CtrlPersistencia {
 
-	public static void guardar(String content, String arxiu) {
-		Path path = Paths.get(System.getProperty("user.dir"), arxiu);
-		File file = new File(path.toString());
-
+	public static void guardar(String content, File f) {
+		File file = f;
 		try {
 			if (!file.exists()) {
 				file.createNewFile();
@@ -30,14 +28,13 @@ public class CtrlPersistencia {
 		}
 	}
 
-	public static String carregar(String arxiu) {
-		Path path = Paths.get(System.getProperty("user.dir"), arxiu); 
+	public static String carregar(File f) {
 		BufferedReader br = null;
  		String line = "";
  		String total = "";
 		try {
 
-			br = new BufferedReader(new FileReader(path.toString()));
+			br = new BufferedReader(new FileReader(f.getAbsolutePath()));
  
 			while ((line = br.readLine()) != null) {
 				total += line + " ";

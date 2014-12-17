@@ -1,5 +1,6 @@
 package prop;
 
+import java.io.File;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.TreeSet;
@@ -54,7 +55,7 @@ public class CtrlCalendari {
 		return llcalendaris.contains(aux);
 	}
 	
-	//Pre: -
+	//Pre: -switchllista.add(torncalendari, "torncalendari");
 	//Post: Retorna tots els calendaris existents
 	public static TreeSet<Calendari> getLlcalendaris() {
 		return llcalendaris;
@@ -70,51 +71,50 @@ public class CtrlCalendari {
 	
 	//Pre: -
 	//Post: Guardem llcalendaris calendari
-	public static void guardar() {
+	public static void guardar(File f) {
 		String content = "";
 		String fi = "Fi";
 		for(Calendari c: llcalendaris) {
-			content += c.getPlantillaAssociada() + "\n" + c.getAny() + "\n";
+			content += c.getPlantillaAssociada() + "\n" + c.getAny() + "\n" + c.getAnyFi() + "\n";
+			int cont = 0;
 			for (Dia d: c.getCalendari()) {
 				content += d.getFestiu() + "\n";
 				for (Torn t: d.getTorns()) {
 					content += t.getHora_inici() + " " + t.getHora_fi() + " " 
 					+ t.getPercent_sou() + " " + t.getMin_num_doctors() + "\n";
 				}
+				++cont;
 			}
 			content += (fi + "\n");
 		}
-		CtrlPersistencia.guardar(content, "Calendaris");
+		CtrlPersistencia.guardar(content, f);
 	}
 	
 	//Pre: -
 	//Post: Carreguem la llcalendaris
-	public static void carregar() {
-		String content = CtrlPersistencia.carregar("Calendaris");
+	public static void carregar(File f) {
+		String content = CtrlPersistencia.carregar(f);
 		String separadors = "[ \n]";
     	String[] separat = content.split(separadors);
+    	System.out.println(separat.length);
     	int i = 0;
     	while (i < separat.length && separat[i].compareTo("Fi")!= 0) {
-    		System.out.println("SEPARAT "+ i);
     		if(!CtrlPlantilla.existeixPlantilla(separat[i])) CtrlPlantilla.creariAfegirPlantilla(separat[i]);
-    		Calendari c = new Calendari(separat[i], Integer.parseInt(separat[i+1]), Integer.parseInt(separat[i+1]));
-    		i += 2;
+    		System.out.println("Plantilla " + separat[i]);
+    		Calendari c = new Calendari(separat[i], Integer.parseInt(separat[i+1]), Integer.parseInt(separat[i+2]));
+    		i += 3;
     		Dia[] any = c.getCalendari();
     		int j = 0;
-    		for (j = 0; j < any.length && separat[i].compareTo("Fi")!= 0; j++) {
-    			System.out.println("BOOL " +j +" "+ separat[i]);
+    		for (j = 0; j < any.length; j++) {
     			any[j].setFestiu(Boolean.parseBoolean(separat[i]));
     			i++;
                 for(int e=0; e<3; e++){
-                	System.out.println(j + " " + e +" "+ separat[i]);
-                	System.out.println(j + " " + e +" "+ separat[i+1]);
-                	System.out.println(j + " " + e +" "+ separat[i+2]);
-                	System.out.println(j + " " + e +" "+ separat[i+3]);
                 	Torn t;
+                	System.out.println("Torns" + separat[i] + " " + i);
                     if(Integer.parseInt(separat[i])==0) {
                     	t = new Torn(0,Float.parseFloat(separat[i+2]), Integer.parseInt(separat[i+3]));
                     }
-                    else if(Integer.parseInt(separat[i])==1){
+                    else if(Integer.parseInt(separat[i])==8){
                     	t = new Torn(1,Float.parseFloat(separat[i+2]), Integer.parseInt(separat[i+3]));
                     }
                     else {
@@ -133,9 +133,10 @@ public class CtrlCalendari {
                                 break;
                         }
                 }
+                
             }
     		c.setCalendari(any);
-            CtrlCalendari.afegirCalendarif(c);
+            afegirCalendarif(c);
     	}
     	
 	}
@@ -168,7 +169,7 @@ public class CtrlCalendari {
 	//Post: Retorna un boolea dient si el dia(dia) és festiu o no
 	public static boolean consultarDiaFestiu(String plt, GregorianCalendar dia) {
 		int pos = calcularPosicioDia(dia,consultarCalendari(plt).getAny());
-		return(consultarCalendari(plt).getCalendari()[pos].getFestiu());
+		return(consultarCalendari(plt).getCalendari()[pos/consultarCalendari(plt).getAny()].getFestiu());
 	}
 	
 	//Pre: Dia pertany a una data del calendari de la plantilla plt
@@ -189,7 +190,7 @@ public class CtrlCalendari {
 	//Post: Es modifica el boolea de festiu del dia(dia) del calendari de plt pel boolea que li arriba
 	public static void modificarDiaFestiu(String plt, GregorianCalendar dia, boolean b) {
 		int pos = calcularPosicioDia(dia,consultarCalendari(plt).getAny());
-		consultarCalendari(plt).getCalendari()[pos].setFestiu(b);
+		consultarCalendari(plt).getCalendari()[pos/consultarCalendari(plt).getAny()].setFestiu(b);
 	}
 	
 	//Pre: Dia pertany a una data del calendari de la plantilla plt, ts vector de 3 torns
@@ -248,27 +249,27 @@ public class CtrlCalendari {
 	//Post: Retorna el percentatge de sou del torn d'horari(mati=0, tarda=1 o nit=2) del dia (dia) del calendari de la plantilla plt
 	public static float consultarPercentatgeTorn(GregorianCalendar dia, String plt, int horari) {
 		int pos = calcularPosicioDia(dia,consultarCalendari(plt).getAny());
-		if(horari==0) return consultarCalendari(plt).getCalendari()[pos].getTornMati().getPercent_sou();
-		else if(horari==1) return consultarCalendari(plt).getCalendari()[pos].getTornTarda().getPercent_sou();
-		else return consultarCalendari(plt).getCalendari()[pos].getTornNit().getPercent_sou();
+		if(horari==0) return consultarCalendari(plt).getCalendari()[pos/consultarCalendari(plt).getAny()].getTornMati().getPercent_sou();
+		else if(horari==1) return consultarCalendari(plt).getCalendari()[pos/consultarCalendari(plt).getAny()].getTornTarda().getPercent_sou();
+		else return consultarCalendari(plt).getCalendari()[pos/consultarCalendari(plt).getAny()].getTornNit().getPercent_sou();
 	}
 	
 	//Pre: tipustorn es un enter entre 0 i 2, i dia es una data que pertany al calendari associat de plt
 	//Post: Retorna el numero minim de doctors del torn d'horari(mati=0, tarda=1 o nit=2) del dia (dia) del calendari de la plantilla plt
 	public static int consultarMinimTorn(GregorianCalendar dia, String plt, int horari) {
 		int pos = calcularPosicioDia(dia,consultarCalendari(plt).getAny());
-		if(horari==0) return consultarCalendari(plt).getCalendari()[pos].getTornMati().getMin_num_doctors();
-		else if(horari==1) return consultarCalendari(plt).getCalendari()[pos].getTornTarda().getMin_num_doctors();
-		else return consultarCalendari(plt).getCalendari()[pos].getTornNit().getMin_num_doctors();
+		if(horari==0) return consultarCalendari(plt).getCalendari()[pos/consultarCalendari(plt).getAny()].getTornMati().getMin_num_doctors();
+		else if(horari==1) return consultarCalendari(plt).getCalendari()[pos/consultarCalendari(plt).getAny()].getTornTarda().getMin_num_doctors();
+		else return consultarCalendari(plt).getCalendari()[pos/consultarCalendari(plt).getAny()].getTornNit().getMin_num_doctors();
 	}
 	
 	//Pre: Dia pertany a una data del calendari i horari es un enter entre 0 i 2
 	//Post: Modifica tota la informació del torn d'horari(mati=0, tarda=1 o nit=2) del dia (dia) del calendari de la plantilla plt pel torn t
 	public static void modificarTorn(Torn t, GregorianCalendar dia, String plt, int horari) {
 		int pos = calcularPosicioDia(dia,consultarCalendari(plt).getAny());
-		if(horari==0) consultarCalendari(plt).getCalendari()[pos].setTornMati(t);
-		else if(horari==1) consultarCalendari(plt).getCalendari()[pos].setTornTarda(t);
-		else if(horari==2) consultarCalendari(plt).getCalendari()[pos].setTornNit(t);
+		if(horari==0) consultarCalendari(plt).getCalendari()[pos/consultarCalendari(plt).getAny()].setTornMati(t);
+		else if(horari==1) consultarCalendari(plt).getCalendari()[pos/consultarCalendari(plt).getAny()].setTornTarda(t);
+		else if(horari==2) consultarCalendari(plt).getCalendari()[pos/consultarCalendari(plt).getAny()].setTornNit(t);
 
 	}
 
@@ -276,9 +277,9 @@ public class CtrlCalendari {
 	//Post: Modifica el percentatge de sou del torn d'horari(mati=0, tarda=1 o nit=2) del dia (dia) del calendari de la plantilla plt pel percentatge p
 	public static void modificarPercentatgeTorn(float p, GregorianCalendar dia, String plt, int horari) {
 		int pos = calcularPosicioDia(dia,consultarCalendari(plt).getAny());
-		if(horari==0) consultarCalendari(plt).getCalendari()[pos].getTornMati().setPercent_sou(p);
-		else if(horari==1) consultarCalendari(plt).getCalendari()[pos].getTornTarda().setPercent_sou(p);
-		else if(horari==2) consultarCalendari(plt).getCalendari()[pos].getTornNit().setPercent_sou(p);
+		if(horari==0) consultarCalendari(plt).getCalendari()[pos/consultarCalendari(plt).getAny()].getTornMati().setPercent_sou(p);
+		else if(horari==1) consultarCalendari(plt).getCalendari()[pos/consultarCalendari(plt).getAny()].getTornTarda().setPercent_sou(p);
+		else if(horari==2) consultarCalendari(plt).getCalendari()[pos/consultarCalendari(plt).getAny()].getTornNit().setPercent_sou(p);
 
 	}
 	
@@ -286,9 +287,9 @@ public class CtrlCalendari {
 	//Post: Modifica el numero minim de doctors del torn d'horari(mati=0, tarda=1 o nit=2) del dia (dia) del calendari de la plantilla plt pel nou minim m
 	public static void modificarMinimTorn(int m, GregorianCalendar dia, String plt, int horari) {
 		int pos = calcularPosicioDia(dia,consultarCalendari(plt).getAny());
-		if(horari==0) consultarCalendari(plt).getCalendari()[pos].getTornMati().setMin_num_doctors(m);
-		else if(horari==1) consultarCalendari(plt).getCalendari()[pos].getTornTarda().setMin_num_doctors(m);
-		else if(horari==2) consultarCalendari(plt).getCalendari()[pos].getTornNit().setMin_num_doctors(m);
+		if(horari==0) consultarCalendari(plt).getCalendari()[pos/consultarCalendari(plt).getAny()].getTornMati().setMin_num_doctors(m);
+		else if(horari==1) consultarCalendari(plt).getCalendari()[pos/consultarCalendari(plt).getAny()].getTornTarda().setMin_num_doctors(m);
+		else if(horari==2) consultarCalendari(plt).getCalendari()[pos/consultarCalendari(plt).getAny()].getTornNit().setMin_num_doctors(m);
 
 	}
 
@@ -302,7 +303,7 @@ public class CtrlCalendari {
 	//Post: Ens retorna la posició on es troba el dia en qüestió en el nostre calendari
 	public static int calcularPosicioDia(GregorianCalendar dia, int any) {
 		GregorianCalendar primerdia = new GregorianCalendar(any,1,1);
-		long dif = primerdia.getTimeInMillis() - dia.getTimeInMillis();
+		long dif = dia.getTimeInMillis() - primerdia.getTimeInMillis();
 		dif = dif/1000/60/60/24;
 		return (int) dif;
 		

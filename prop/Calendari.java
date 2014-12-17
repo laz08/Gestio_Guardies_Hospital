@@ -8,6 +8,7 @@ public class Calendari {
 	private Dia[] cal;
 	//private int id;
 	private int any;
+	private int anyfi;
 	private Plantilla p;
 	
 	
@@ -23,6 +24,7 @@ public class Calendari {
 		//System.out.println(dies);
 		cal = new Dia[(int) dies];
 		any =  any_inici;
+		anyfi = any_fi;
 		afegirPosicio();
 		afegirFestius(); //Afegim a tots els diumenges de l'any el boolea festiu true
 		setPlantillaAssociada(plt);
@@ -33,6 +35,10 @@ public class Calendari {
 	//Post: Retorna l'any d'inici del calendari
 	public int getAny() {
 		return any;
+	}
+	
+	public int getAnyFi() {
+		return anyfi;
 	}
 	
 	//Pre: -

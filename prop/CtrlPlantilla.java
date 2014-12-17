@@ -1,6 +1,7 @@
 
 package prop;
 
+import java.io.File;
 import java.util.TreeSet;
 
 
@@ -156,6 +157,7 @@ public class CtrlPlantilla {
     }
 
     public static void guardar() {
+    	File file = new File("/home/acer/Plantilles.txt");
     	String content = "";
     	String fi = "Fi";
     	int cont = 0; 
@@ -168,11 +170,12 @@ public class CtrlPlantilla {
     		}
   			content += (fi +"\n");
   		}
-    	CtrlPersistencia.guardar(content, "Plantilles");
+    	CtrlPersistencia.guardar(content, file);
     }
 
     public static void carregar() {
-    	String content = CtrlPersistencia.carregar("Plantilles");
+    	File file = new File("/home/acer/Plantilles.txt");
+    	String content = CtrlPersistencia.carregar(file);
     	String separadors = "[ \n]";
     	String[] separat = content.split(separadors);
     	int i = 0;
