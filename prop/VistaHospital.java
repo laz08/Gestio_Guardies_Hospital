@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.File;
 
 public class VistaHospital implements ActionListener/*, ListSelectionListener*/{
     private static CtrlVistaHospital ctrlVistaHospital;
@@ -271,11 +272,23 @@ public class VistaHospital implements ActionListener/*, ListSelectionListener*/{
     @Override
     public void actionPerformed(ActionEvent ev) {
         JComponent accio = (JComponent) ev.getSource();
+
         if(accio == carregarhospital) {
-            obrirdirectori.showOpenDialog(hospital);
+            int ret = obrirdirectori.showOpenDialog(hospital);
+            //L'usuari ha escollit un fitxer
+            if(ret == obrirdirectori.APPROVE_OPTION){
+                File f = obrirdirectori.getSelectedFile();
+                CtrlHospital.carregar(f);
+            }
+            inicialitza_Docs();
         }
         else if (accio == guardarhospital) {
-            obrirdirectori.showSaveDialog(hospital);
+            int ret = obrirdirectori.showSaveDialog(hospital);
+            if (ret == obrirdirectori.APPROVE_OPTION){
+                File f = obrirdirectori.getSelectedFile();
+                CtrlHospital.guardar(f);
+            }
+
         }
         else if (accio == enreredoctor) {
             CardLayout cl = (CardLayout)(switchllista.getLayout());

@@ -165,12 +165,19 @@ public class CtrlHospital {
 
     public static void modificaAtributs(String d, String n, String cg1, String cg2, int s, int t, String c){
         Doctor doc = getDoctor(d);
+
+        //REORDENEM
+        TreeSet<Doctor> ll = getHospital_nom();
+        ll.remove(doc);
+
         doc.setNom(n);
         doc.setCognom1(cg1);
         doc.setCognom2(cg2);
         doc.setTelefon(t);
         doc.setSou(s);
         doc.setCorreu(c);
+
+        ll.add(doc);
     }
 
 
