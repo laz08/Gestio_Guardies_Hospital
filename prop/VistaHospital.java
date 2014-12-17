@@ -67,19 +67,16 @@ public class VistaHospital implements ActionListener, ListSelectionListener{
         switchllista.add(restriccions, "restriccions");
         switchgestio.setLayout(new CardLayout());
         gestiohospital.setLayout(new GridLayout(2, 1));
-        boolean b = inicialitza_Docs();
-        inicialitza_llistat(b);
+        inicialitza_Docs();
+        inicialitza_llistat();
         inicialitza_modificacio();
         inicialitza_insercio();
         inicialitza_gestio();
     }
 
 
-    /**
-     * b Ens diu si hi ha doctors o no
-     * @param b
-     */
-    public void inicialitza_llistat(boolean b) {
+
+    public void inicialitza_llistat() {
         enrererestriccions.addActionListener(this);
         acceptarrestriccions.addActionListener(this);
         restriccions.setLayout(new GridBagLayout());
@@ -92,7 +89,7 @@ public class VistaHospital implements ActionListener, ListSelectionListener{
         hospital.add(switchllista, BorderLayout.WEST);
         hospital.add(switchgestio, BorderLayout.EAST);
         texthospital.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        if(!b)llistathospital.setVisible(false);
+        llistathospital.setVisible(false);
         //Panel restriccions
         llistarestriccions.setPreferredSize(new Dimension(500,400));
         c.fill = GridBagConstraints.HORIZONTAL;
@@ -243,18 +240,16 @@ public class VistaHospital implements ActionListener, ListSelectionListener{
         buttonshospital.add(carregarhospital);
     }
 
-    public boolean inicialitza_Docs(){
+    public void inicialitza_Docs(){
         String content = ctrlVistaHospital.getLlistaDocs_nom();
+        llistaDocs.clear();
         if(content.length() > 0) {
-            llistaDocs.clear();
             String separadors = "[ \n]";
             String[] separat = content.split(separadors);
             for (int i = 0; i < separat.length; i += 7) {
                 llistaDocs.addElement(separat[i] + " " + separat[i + 1] + " " + separat[i + 2] + " " + separat[i + 3]);
             }
-            return true;
         }
-        else return false;
 
     }
 
@@ -265,15 +260,12 @@ public class VistaHospital implements ActionListener, ListSelectionListener{
     public void actionPerformed(ActionEvent ev) {
         JComponent accio = (JComponent) ev.getSource();
         if(accio == carregarhospital) {
-            reiniciaTextFieldsDocs();
             obrirdirectori.showOpenDialog(hospital);
         }
         else if (accio == guardarhospital) {
-            reiniciaTextFieldsDocs();
             obrirdirectori.showSaveDialog(hospital);
         }
         else if (accio == enreredoctor) {
-            reiniciaTextFieldsDocs();
             CardLayout cl = (CardLayout)(switchgestio.getLayout());
             cl.show(switchgestio, "gestiohospital");
         }
@@ -284,13 +276,17 @@ public class VistaHospital implements ActionListener, ListSelectionListener{
                     creaDoctor();
                 }
             }
-            else modificaDoctor();
+            else{
+                modificaDoctor();
+            }
             inicialitza_Docs();
             reiniciaTextFieldsDocs();
             CardLayout cl = (CardLayout)(switchgestio.getLayout());
             cl.show(switchgestio, "gestiohospital");
         }
         else if (accio == eliminardoctor) {
+            esborraDoctor();
+            inicialitza_Docs();
             reiniciaTextFieldsDocs();
             CardLayout cl = (CardLayout)(switchgestio.getLayout());
             cl.show(switchgestio, "gestiohospital");
@@ -352,6 +348,10 @@ public class VistaHospital implements ActionListener, ListSelectionListener{
         CtrlHospital.creariAfegirDoctor(d, n, cg1, cg2, s, t, cor);
     }
 
+    public void esborraDoctor(){
+        String d = dni.getText();
+        CtrlHospital.eliminarDoctor(d);
+    }
     public void ompleDoctorDni(String d){
         String ret = ctrlVistaHospital.getDoctorEspecific(d);
         System.out.println(ret);
@@ -377,10 +377,12 @@ public class VistaHospital implements ActionListener, ListSelectionListener{
         correu.setText("");
     }
     public void ompleValuesDoctor(){
+        //agafem els valors
         String selected = texthospital.getSelectedValue().toString();
         String separadors = "[ \n]";
         String[] separat = selected.split(separadors);
         String d = separat[0]; //Dni
+        //omplim segons el dni
         ompleDoctorDni(d);
     }
 
