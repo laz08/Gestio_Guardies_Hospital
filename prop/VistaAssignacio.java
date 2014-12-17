@@ -41,14 +41,14 @@ public class VistaAssignacio {
         label_torn.setText("LLISTA DE TORNS");
         label_torn.setBounds(250, 0, 200, 20);
         panelLlistes.add(label_torn);
-        scrollPaneTorns = new JScrollPane(llista_torns);
-        scrollPaneTorns.setBounds(20, 20, W_WIDTH/2-40, W_HEIGHT/2-70);
         llista_torns.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
                 seleccioTorn(e);
             }
         }); 
+        scrollPaneTorns = new JScrollPane(llista_torns);
+        scrollPaneTorns.setBounds(20, 20, W_WIDTH/2-40, W_HEIGHT/2-70);
         panelLlistes.add(scrollPaneTorns);
         
         //posam la llista de doctors
