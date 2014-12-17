@@ -5,7 +5,6 @@
 package prop;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -253,8 +252,8 @@ public class CtrlRestriccio {
         CtrlPersistencia.guardar(content, f);
     }
     
-    public static String carrega(String path) throws FileNotFoundException{
-        String contingut = CtrlPersistencia.carregar(path);
+    public static String carrega(File f) throws FileNotFoundException{
+        String contingut = CtrlPersistencia.carregar(f);
         return contingut;
     }
     

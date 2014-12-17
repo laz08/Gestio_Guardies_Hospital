@@ -1,6 +1,7 @@
 
 package prop;
 
+import java.io.File;
 import java.util.TreeSet;
 
 
@@ -135,6 +136,23 @@ public class CtrlPlantilla {
             return p.getLlistaDoctorsDNI().contains(new Doctor(dni));
     }
 
+    public static boolean existeixCalendari(String plt) {
+		Plantilla aux = new Plantilla(plt);
+		return Cjt_plantilles.contains(aux);
+    }
+    
+    public static void crearCalendari(String plt, int any, int anyf) {
+    	setPlantillaActual(plt);
+    	Plantilla p = getPlantillaActual();
+    	crearCalendariAssociatAPlantilla(p,any,anyf);
+    }
+    
+    public static void eliminarCalendari(String plt) {
+    	setPlantillaActual(plt);
+    	Plantilla p = getPlantillaActual();
+    	desassociarDeCalendari(p);
+    }
+    
     public static void crearCalendariAssociatAPlantilla(Plantilla p, int any, int anyf){
         // !!!!!!!!!! ================= !!!!!!!!!!!!!!!!!!!!!
         Calendari C = CtrlCalendari.CrearIAfegirCalendari(p.getNomPlantilla(), any, anyf);
@@ -147,50 +165,62 @@ public class CtrlPlantilla {
         p.set_calendari_asoc(null);
     }
     
+    public static String getPlantillaespecifica(String plt) {
+    	String content ="";
+    	Plantilla p = consultarPlantilla(plt);
+    	for(Doctor doc: p.getLlistaDoctorsNom()) {
+    		content += doc.getdni() + " " + doc.getNom() + " " + doc.getCognom1() + " " + doc.getCognom2() + "\n";
+    	}
+    	return content;
+    	
+    }
+    
     public static String getLlista_plantilles() {
     	String content = "";
   		for (Plantilla p: Cjt_plantilles) {
-  			content += p.getNomPlantilla() + "\n"; //+ p.get_calendari_asoc().getId() + "\n";
+  			content += p.getNomPlantilla() + "\n"; 
   		}
     	return content;
     }
 
     public static void guardar() {
-    	String content = "";
-    	String fi = "Fi";
-    	int cont = 0; 
-  		for (Plantilla p: Cjt_plantilles) {
-  			content += p.getNomPlantilla() + "\n"; //+ p.get_calendari_asoc().getId() + "\n";
+        File file = new File("/home/acer/Plantilles.txt");
+        String content = "";
+        String fi = "Fi";
+        int cont = 0;
+        for (Plantilla p: Cjt_plantilles) {
+            content += p.getNomPlantilla() + "\n"; //+ p.get_calendari_asoc().getId() + "\n";
 
-  			for (Doctor doc: p.getLlistaDoctorsDNI()) {
-    			content = content + doc.getdni() + " " + doc.getNom() + " " + doc.getCognom1() + " "
-    				+ doc.getCognom2() + " " + doc.getSou() + " " + doc.getTelefon() + " " + doc.getCorreu() + "\n";
-    		}
-  			content += (fi +"\n");
-  		}
-    	CtrlPersistencia.guardar(content, "Plantilles");
+            for (Doctor doc: p.getLlistaDoctorsDNI()) {
+                content = content + doc.getdni() + " " + doc.getNom() + " " + doc.getCognom1() + " "
+                        + doc.getCognom2() + " " + doc.getSou() + " " + doc.getTelefon() + " " + doc.getCorreu() + "\n";
+            }
+            content += (fi +"\n");
+        }
+        CtrlPersistencia.guardar(content, file);
     }
 
     public static void carregar() {
-    	String content = CtrlPersistencia.carregar("Plantilles");
-    	String separadors = "[ \n]";
-    	String[] separat = content.split(separadors);
-    	int i = 0;
-    	String np = "";
-    	String fi = "Fi";
-    	while (i < separat.length) {
-    		np = separat[i];
-    		creariAfegirPlantilla(np);
-    		++i;
-    		String dnid = "";
-    		while (!separat[i].equals(fi)) {
-    			dnid = separat[i];
-    			CtrlHospital.creariAfegirDoctor(separat[i],separat[++i],separat[++i],separat[++i],Integer.parseInt(separat[++i]), Integer.parseInt(separat[++i]), separat[++i]);
-    			afegirDoctorAPlantilla(dnid, np);
-    			++i;
-    		}
-    		++i;
-    	}
+        File file = new File("/home/acer/Plantilles.txt");
+        String content = CtrlPersistencia.carregar(file);
+        String separadors = "[ \n]";
+        String[] separat = content.split(separadors);
+        int i = 0;
+        String np = "";
+        String fi = "Fi";
+        while (i < separat.length) {
+            np = separat[i];
+            creariAfegirPlantilla(np);
+            ++i;
+            String dnid = "";
+            while (!separat[i].equals(fi)) {
+                dnid = separat[i];
+                CtrlHospital.creariAfegirDoctor(separat[i], separat[++i], separat[++i], separat[++i], Integer.parseInt(separat[++i]), Integer.parseInt(separat[++i]), separat[++i]);
+                afegirDoctorAPlantilla(dnid, np);
+                ++i;
+            }
+            ++i;
+        }
     }
 
 

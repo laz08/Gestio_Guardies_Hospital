@@ -52,7 +52,7 @@ public class VistaPrincipal {
 		    frameVista.setLayout(new BorderLayout());
 		    pestanyes.addTab("Hospital", vh.tornapanel());
 		    pestanyes.addTab("Plantilla", vp.tornapanel());
-		    //pestanyes.addTab("Calendari", vcal.tornapanel());
+		    pestanyes.addTab("Calendari", vcal.tornapanel());
 		    pestanyes.addTab("Restriccions", vr.tornapanel());
             pestanyes.addTab("Assignacions", vass.tornapanel());
 		    //pestanyes.addTab("Algorisme", va.tornapanel());

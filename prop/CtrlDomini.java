@@ -1,5 +1,6 @@
 package prop;
 
+import java.io.File;
 import java.util.GregorianCalendar;
 import java.util.TreeSet;
 import java.util.ArrayList;
@@ -49,10 +50,12 @@ public class CtrlDomini {
         return CtrlHospital.getHospital_nom();
     }
     public static void guardarDoctors(){
-        CtrlHospital.guardar();
+    	File file = null;
+        CtrlHospital.guardar(file);
     }
     public static void carregarDoctors(){
-        CtrlHospital.carregar();
+    	File file = null;
+        CtrlHospital.carregar(file);
     }
 
     //-------------PLANTILLA-------------
@@ -119,7 +122,8 @@ public class CtrlDomini {
     }
 
     public static void guardarRestriccions(){
-        CtrlRestriccio.guardar();
+    	File file = null;
+        CtrlRestriccio.guardar(file);
     }
 
     public static void carregarRestriccions(){
@@ -165,28 +169,32 @@ public class CtrlDomini {
     }
     
     public static void guardarCalendaris(){
-        CtrlCalendari.guardar();
+    	File file = new File("/home/acer/Plantilles.txt");
+        CtrlCalendari.guardar(file);
     }
     public static void carregarCalendaris(){
-        CtrlCalendari.carregar();
+    	File file = new File("/home/acer/Plantilles.txt");
+        CtrlCalendari.carregar(file);
     }
     public static TreeSet<Calendari> llistarCalendaris(){
         return CtrlCalendari.getLlcalendaris();
     }
     //-------------CARREGAR-------------
     public static void carregarGeneral(){
+    	File file = new File("/home/acer/Plantilles.txt");
         CtrlPlantilla.carregar();
-        CtrlHospital.carregar();
-        CtrlCalendari.carregar();
+        CtrlHospital.carregar(file);
+        CtrlCalendari.carregar(file);
 
     }
 
     //-------------GUARDAR-------------
     public static void guardarGeneral(){
+    	File file = new File("/home/acer/Plantilles.txt");
         CtrlPlantilla.guardar();
-        CtrlHospital.guardar();
-        CtrlCalendari.guardar();
-        CtrlRestriccio.guardar();
+        CtrlHospital.guardar(file);
+        CtrlCalendari.guardar(file);
+        CtrlRestriccio.guardar(file);
     }
 
 

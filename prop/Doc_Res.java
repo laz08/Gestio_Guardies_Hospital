@@ -4,6 +4,7 @@
  */
 package prop;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class Doc_Res{
@@ -50,11 +51,13 @@ public class Doc_Res{
   			}
   			content += "Fi"+"\n";
   		}
-    	CtrlPersistencia.guardar(content, "Doctors-restriccions");
+  		File file = new File("/home/acer/doc_res.txt");
+    	CtrlPersistencia.guardar(content, file);
     }
 
     public static void carregar() throws NumberFormatException, Error {
-    	String content = CtrlPersistencia.carregar("Doctors-restriccions");
+    	File file = new File("/home/acer/doc_res.txt");
+    	String content = CtrlPersistencia.carregar(file);
     	String separadors = "[ \n]";
     	String[] separat = content.split(separadors);
     	int i = 0;
@@ -69,5 +72,6 @@ public class Doc_Res{
     		}
     		++i;
     	}
+    	
     }
 }

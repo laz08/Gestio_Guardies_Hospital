@@ -1,41 +1,83 @@
 package prop;
 import javax.swing.*;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
+import java.io.File;
 
-public class VistaGuardar implements ActionListener, ListSelectionListener {
+public class VistaGuardar implements ActionListener {
 	private static CtrlVistaGuardar ctrlVistaGuardar;
 
 	private JPanel guardar = new JPanel();
-	private JButton guardargeneral = new JButton("Guardar");
+	private JButton guardarDocs = new JButton("Guardar doctors");
+    private JButton guardarRes = new JButton("Guardar restriccions");
+    private JButton guardarPlan = new JButton("Guardar plantilles");
+    private JButton guardarCal = new JButton("Guardar calendaris");
 	private JFileChooser obrirdirectori = new JFileChooser();
 
 	public VistaGuardar(CtrlVistaGuardar cvg) {
         ctrlVistaGuardar = cvg;
 		guardar.setLayout(null);
-		guardargeneral.setLocation(500,250);
+		guardarDocs.setLocation(250, 150);
+        guardarRes.setLocation(700, 150);
+        guardarPlan.setLocation(250, 350);
+        guardarCal.setLocation(700, 350);
 		inicialitza_gestio();
 	}
 
 	
 	private void inicialitza_gestio() {
-		guardargeneral.addActionListener(this);
-		guardargeneral.setSize(200, 100);
-		guardar.add(guardargeneral);
+		guardarDocs.addActionListener(this);
+		guardarDocs.setSize(200, 100);
+
+        guardarPlan.addActionListener(this);
+        guardarPlan.setSize(200,100);
+
+        guardarCal.addActionListener(this);
+        guardarCal.setSize(200, 100);
+
+        guardarRes.addActionListener(this);
+        guardarRes.setSize(200, 100);
+
+		guardar.add(guardarDocs);
+        guardar.add(guardarPlan);
+        guardar.add(guardarCal);
+        guardar.add(guardarRes);
 	}
 	
-	public void valueChanged(ListSelectionEvent e) {
 
-	}
 	
 	public void actionPerformed(ActionEvent arg0) {
 
-		if (arg0.getSource() == guardargeneral) {
-			obrirdirectori.showOpenDialog(guardar);
+		if (arg0.getSource() == guardarDocs) {
+            int ret = obrirdirectori.showSaveDialog(guardar);
+            if (ret == obrirdirectori.APPROVE_OPTION){
+                File f = obrirdirectori.getSelectedFile();
+                CtrlHospital.guardar(f);
+            }
 		}
+        else if (arg0.getSource() == guardarPlan) {
+            int ret = obrirdirectori.showSaveDialog(guardar);
+            if (ret == obrirdirectori.APPROVE_OPTION){
+                File f = obrirdirectori.getSelectedFile();
+                //CtrlPlantilla.guardar(f);
+            }
+        }
+        else if (arg0.getSource() == guardarCal) {
+            int ret = obrirdirectori.showSaveDialog(guardar);
+            if (ret == obrirdirectori.APPROVE_OPTION){
+                File f = obrirdirectori.getSelectedFile();
+                CtrlCalendari.guardar(f);
+            }
+        }
+        if (arg0.getSource() == guardarRes) {
+            int ret = obrirdirectori.showSaveDialog(guardar);
+            if (ret == obrirdirectori.APPROVE_OPTION){
+                File f = obrirdirectori.getSelectedFile();
+                CtrlRestriccio.guardar(f);
+            }
+        }
+
 	}
 	
 	public void itemStateChanged(ItemEvent evt) {

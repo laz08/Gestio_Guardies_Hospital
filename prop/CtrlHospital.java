@@ -1,6 +1,7 @@
 
 package prop;
 
+import java.io.File;
 import java.util.*;
 
 public class CtrlHospital {
@@ -164,12 +165,19 @@ public class CtrlHospital {
 
     public static void modificaAtributs(String d, String n, String cg1, String cg2, int s, int t, String c){
         Doctor doc = getDoctor(d);
+
+        //REORDENEM
+        TreeSet<Doctor> ll = getHospital_nom();
+        ll.remove(doc);
+
         doc.setNom(n);
         doc.setCognom1(cg1);
         doc.setCognom2(cg2);
         doc.setTelefon(t);
         doc.setSou(s);
         doc.setCorreu(c);
+
+        ll.add(doc);
     }
 
 
@@ -227,18 +235,18 @@ public class CtrlHospital {
 
     }
 
-    public static void guardar() {
+    public static void guardar(File f) {
     	String content = "";
     	TreeSet<Doctor> ll = CtrlHospital.getHospital_dni();
     	for (Doctor doc:ll) {
     		content = content + doc.getdni() + " " + doc.getNom() + " " + doc.getCognom1() + " "
     				+ doc.getCognom2() + " " + doc.getSou() + " " + doc.getTelefon() + " " + doc.getCorreu() + "\n";
     	}
-    	CtrlPersistencia.guardar(content, "hospital_dni");
+    	CtrlPersistencia.guardar(content, f);
     }
 
-    public static void carregar() {
-    	String content = CtrlPersistencia.carregar("hospital_dni");
+    public static void carregar(File f) {
+    	String content = CtrlPersistencia.carregar(f);
     	String separadors = "[ \n]";
     	String[] separat = content.split(separadors);
     	for (int i = 0; i < separat.length; i += 7) {

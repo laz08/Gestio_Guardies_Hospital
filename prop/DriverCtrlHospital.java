@@ -1,5 +1,6 @@
 package prop;
 
+import java.io.File;
 import java.util.Scanner;
 import java.util.TreeSet;
 
@@ -166,11 +167,13 @@ public class DriverCtrlHospital {
     }
 
     public static void casGuardarDoctors() {
-        CtrlHospital.guardar();
+    	File file = new File("");
+        CtrlHospital.guardar(file);
     }
 
     public static void casCarregarDoctors() {
-        CtrlHospital.carregar();
+    	File file = new File("");
+        CtrlHospital.carregar(file);
     }
 
 
