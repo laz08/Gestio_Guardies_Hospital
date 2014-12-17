@@ -1,13 +1,13 @@
 package prop;
 
 import javax.swing.*;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
-public class VistaHospital implements ActionListener, ListSelectionListener{
+public class VistaHospital implements ActionListener/*, ListSelectionListener*/{
     private static CtrlVistaHospital ctrlVistaHospital;
 
     private JPanel hospital = new JPanel();
@@ -80,7 +80,7 @@ public class VistaHospital implements ActionListener, ListSelectionListener{
         enrererestriccions.addActionListener(this);
         acceptarrestriccions.addActionListener(this);
         restriccions.setLayout(new GridBagLayout());
-        texthospital.addListSelectionListener(this);
+        texthospital.addMouseListener(new raton());
         texthospital.setPreferredSize(new Dimension(600,460));
         scrollpane.setPreferredSize(new Dimension(600, 460));
         scrollpane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
@@ -240,23 +240,27 @@ public class VistaHospital implements ActionListener, ListSelectionListener{
         buttonshospital.add(carregarhospital);
     }
 
-    public void inicialitza_Docs(){
+    public void inicialitza_Docs() {
         String content = ctrlVistaHospital.getLlistaDocs_nom();
-        llistaDocs.clear();
-        if(content.length() > 0) {
-            String separadors = "[ \n]";
-            String[] separat = content.split(separadors);
-            for (int i = 0; i < separat.length; i += 7) {
-                llistaDocs.addElement(separat[i] + " " + separat[i + 1] + " " + separat[i + 2] + " " + separat[i + 3]);
+        System.out.println("About to RemoveAllElements");
+        llistaDocs.removeAllElements();
+        System.out.println("removed all elements");
+        if (!content.equals("")) {
+                if (content.length() > 0) {
+                    String separadors = "[ \n]";
+                    String[] separat = content.split(separadors);
+                    for (int i = 0; i < separat.length; i += 7) {
+                        llistaDocs.addElement(separat[i] + " " + separat[i + 1] + " " + separat[i + 2] + " " + separat[i + 3]);
+                    }
             }
         }
-
     }
 
     public JPanel tornapanel() {
         return hospital;
     }
 
+    @Override
     public void actionPerformed(ActionEvent ev) {
         JComponent accio = (JComponent) ev.getSource();
         if(accio == carregarhospital) {
@@ -286,8 +290,8 @@ public class VistaHospital implements ActionListener, ListSelectionListener{
         }
         else if (accio == eliminardoctor) {
             esborraDoctor();
-            inicialitza_Docs();
             reiniciaTextFieldsDocs();
+            inicialitza_Docs();
             CardLayout cl = (CardLayout)(switchgestio.getLayout());
             cl.show(switchgestio, "gestiohospital");
         }
@@ -328,12 +332,6 @@ public class VistaHospital implements ActionListener, ListSelectionListener{
         int s = Integer.parseInt(sou.getText());
         int t = Integer.parseInt(telefon.getText());
         String cor = correu.getText();
-       /* CtrlHospital.modificarNomD(d, n);
-        CtrlHospital.modificarCognom1D(d, cg1);
-        CtrlHospital.modificarCognom2D(d, cg2);
-        CtrlHospital.modificarSouD(d, s);
-        CtrlHospital.modificarTelfD(d, t);
-        CtrlHospital.modificarCorreuD(d, cor);*/
         CtrlHospital.modificaAtributs(d, n, cg1, cg2, s, t, cor);
     }
 
@@ -352,9 +350,9 @@ public class VistaHospital implements ActionListener, ListSelectionListener{
         String d = dni.getText();
         CtrlHospital.eliminarDoctor(d);
     }
+
     public void ompleDoctorDni(String d){
         String ret = ctrlVistaHospital.getDoctorEspecific(d);
-        System.out.println(ret);
         String separadors = "[ \n]";
         String[] separat = ret.split(separadors);
         dni.setText(d);
@@ -379,17 +377,20 @@ public class VistaHospital implements ActionListener, ListSelectionListener{
     public void ompleValuesDoctor(){
         //agafem els valors
         String selected = texthospital.getSelectedValue().toString();
-        String separadors = "[ \n]";
-        String[] separat = selected.split(separadors);
+        //String separadors = "[ \n]";
+        String[] separat = selected.split(" ");
         String d = separat[0]; //Dni
         //omplim segons el dni
         ompleDoctorDni(d);
     }
 
-    public void valueChanged(ListSelectionEvent lse) {
+
+    /*public void valueChanged(ListSelectionEvent lse) {
         if (!lse.getValueIsAdjusting()) {
             if (lse.getSource() == texthospital){
+                System.out.println("he hecho click EN LA LISTA");
                 ompleValuesDoctor();
+                System.out.println("he rellenado los fields");
                 CardLayout cl = (CardLayout)(switchgestio.getLayout());
                 cl.show(switchgestio, "modificardoctor");
                 afegirrestriccio.setEnabled(true);
@@ -399,6 +400,30 @@ public class VistaHospital implements ActionListener, ListSelectionListener{
             }
 
         }
+    }
+    */
 
+    public class raton implements MouseListener {
+        public void mousePressed(MouseEvent e) {
+        }
+
+        public void mouseReleased(MouseEvent e) {
+        }
+
+        public void mouseEntered(MouseEvent e) {
+        }
+
+        public void mouseExited(MouseEvent e) {
+        }
+
+        public void mouseClicked(MouseEvent e) {
+            ompleValuesDoctor();
+            CardLayout cl = (CardLayout)(switchgestio.getLayout());
+            cl.show(switchgestio, "modificardoctor");
+            afegirrestriccio.setEnabled(true);
+            eliminarrestriccio.setEnabled(true);
+            dni.setEditable(false);
+            eliminardoctor.setEnabled(true);
+        }
     }
 }

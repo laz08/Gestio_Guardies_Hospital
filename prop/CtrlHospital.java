@@ -218,6 +218,7 @@ public class CtrlHospital {
             content = content + doc.getdni() + " " + doc.getNom() + " " + doc.getCognom1() + " "
                     + doc.getCognom2() + " " + doc.getSou() + " " + doc.getTelefon() + " " + doc.getCorreu() + "\n";
         }
+
         return content;
     }
     public static String getDoctorEspecificString(String dni){
