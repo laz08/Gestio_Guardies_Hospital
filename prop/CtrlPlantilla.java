@@ -28,6 +28,9 @@ public class CtrlPlantilla {
     public static void esborrarPlantilla(String nom_p){
         Plantilla p = new Plantilla(nom_p);
         //Creem Dummy i el passem
+        for(Doctor doc: p.getLlistaDoctorsNom()) {
+           doc.setActiu(false);
+        }
         Cjt_plantilles.remove(p);
     }
 
@@ -107,8 +110,8 @@ public class CtrlPlantilla {
         Doctor doc = CtrlHospital.getDoctor(dni);
         doc.setActiu(false);
         Plantilla p = Cjt_plantilles.ceiling(new Plantilla(id_plantilla));
-        p.getLlistaDoctorsNom().remove(p);
-        p.getLlistaDoctorsDNI().remove(p);
+        p.getLlistaDoctorsNom().remove(doc);
+        p.getLlistaDoctorsDNI().remove(doc);
     }
 
     /**
@@ -164,7 +167,12 @@ public class CtrlPlantilla {
         C = null;
         p.set_calendari_asoc(null);
     }
-    
+
+    /**
+     * Retorna tots els doctors de la plantilla plt
+     * @param plt
+     * @return
+     */
     public static String getPlantillaespecifica(String plt) {
     	String content ="";
     	Plantilla p = consultarPlantilla(plt);

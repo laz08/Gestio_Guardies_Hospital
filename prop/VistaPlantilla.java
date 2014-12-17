@@ -44,8 +44,8 @@ public class VistaPlantilla implements ActionListener/*ListSelectionListener */{
 	private JTextField textnomplantilla = new JTextField();
 	private JButton assignardoctorplantilla = new JButton("Assignar Doctor");
 	private JButton treuredoctorplantilla = new JButton("Desassignar Doctor");
-	private JButton crearassociarcalendari = new JButton("Crear Calendari \n associat");
-	private JButton eliminardesasociarcalendari = new JButton("Eliminar Calendari \n associat");
+	//private JButton crearassociarcalendari = new JButton("Crear Calendari \n associat");
+	//private JButton eliminardesasociarcalendari = new JButton("Eliminar Calendari \n associat");
 	private JButton eliminarplantilla = new JButton("Eliminar");
 
 	
@@ -104,8 +104,8 @@ public class VistaPlantilla implements ActionListener/*ListSelectionListener */{
 		
 		//Part caracteristiques plantilla
 		//Actions Listeners
-		crearassociarcalendari.addActionListener(this);
-		eliminardesasociarcalendari.addActionListener(this);
+		//crearassociarcalendari.addActionListener(this);
+		//eliminardesasociarcalendari.addActionListener(this);
 		assignardoctorplantilla.addActionListener(this);
 		treuredoctorplantilla.addActionListener(this);
 		eliminarplantilla.addActionListener(this);
@@ -122,8 +122,8 @@ public class VistaPlantilla implements ActionListener/*ListSelectionListener */{
 		//gestioseleccioplantilla.add(acceptarllista);
 		gestioseleccioplantilla.add(assignardoctorplantilla);
 		gestioseleccioplantilla.add(treuredoctorplantilla);
-		gestioseleccioplantilla.add(crearassociarcalendari);
-		gestioseleccioplantilla.add(eliminardesasociarcalendari);
+		//gestioseleccioplantilla.add(crearassociarcalendari);
+		//gestioseleccioplantilla.add(eliminardesasociarcalendari);
 		gestioseleccioplantilla.add(eliminarplantilla);
 		gestioseleccioplantilla.add(enrerellista);
 		switchgestio.add(gestioseleccioplantilla, "gestioseleccioplantilla");
@@ -191,6 +191,13 @@ public class VistaPlantilla implements ActionListener/*ListSelectionListener */{
         String[] separat = content.split(separadors);
         return separat[0];
     }
+
+    public String getDNIdeDoctorAssignat(){
+        String content = (String) llistacplantilla.getSelectedValue();
+        String separadors = "[ \n]";
+        String[] separat = content.split(separadors);
+        return separat[0];
+    }
 	public void actionPerformed(ActionEvent arg0) {
 		if (arg0.getSource() == enrerellista) {
             netejaNomPlant();
@@ -201,10 +208,7 @@ public class VistaPlantilla implements ActionListener/*ListSelectionListener */{
 			CardLayout cl2 = (CardLayout)(switchgestio.getLayout());
 	        cl2.show(switchgestio, "gestioplantilla");
 		}
-		/*else if (arg0.getSource() == acceptarllista) {
-			CardLayout cl = (CardLayout)(switchgestio.getLayout());
-	        cl.show(switchgestio, "gestioplantilla");
-		}*/
+
 		else if (arg0.getSource() == carregarplantilla) {
 			obrirdirectori.showOpenDialog(plantilla);
 		}
@@ -240,9 +244,11 @@ public class VistaPlantilla implements ActionListener/*ListSelectionListener */{
 	        cl.show(switchllista, "gestiodoctorplantilla");
 		}
 		else if (arg0.getSource() == treuredoctorplantilla) {
-            inicialitzar_docsPlt();
-			CardLayout cl = (CardLayout)(switchllista.getLayout());
-	        cl.show(switchllista, "gestiodoctorplantilla");
+            esborrarDocDePlantilla();
+            inicialitzaDocsPlant();
+            inicialitza_Docs();
+			/*CardLayout cl = (CardLayout)(switchllista.getLayout());
+	        cl.show(switchllista, "gestiodoctorplantilla");*/
 		}
 		else if(arg0.getSource() == acceptarcreacioplantilla) {
 			String nom = textcrearplantilla.getText();
@@ -255,6 +261,7 @@ public class VistaPlantilla implements ActionListener/*ListSelectionListener */{
 		
 		else if(arg0.getSource() == eliminarplantilla) {
             String nom = textnomplantilla.getText();
+            //Primer traiem tots els doctors de dins la plantilla
 			ctrlVistaPlantilla.eliminarPlantilla(nom);
 			inicialitza_plt();
 			CardLayout cl = (CardLayout)(switchgestio.getLayout());
@@ -271,10 +278,12 @@ public class VistaPlantilla implements ActionListener/*ListSelectionListener */{
 		}
 	}
 
-    public void inicialitzar_docsPlt() {
+    public void esborrarDocDePlantilla(){
+        String dni = getDNIdeDoctorAssignat();
+        System.out.println(dni);
         String plt = textnomplantilla.getText();
-        String content = ctrlVistaPlantilla.getPlantillaespecifica(plt);
-
+        System.out.println(plt);
+        ctrlVistaPlantilla.desassignarDocPlt(dni, plt);
     }
 
     public void inicialitza_Docs() {
@@ -328,15 +337,6 @@ public class VistaPlantilla implements ActionListener/*ListSelectionListener */{
         textcrearplantilla.setText("");
     }
 	
-    public void ompleValuesPlantilla(){
-        //agafem els valors
-        String selected = (String)textplantilla.getSelectedValue();
-        //String separadors = "[ \n]";
-        String[] separat = selected.split(" ");
-        String d = separat[0]; //Dni
-        //omplim segons el dni
-        ompleDoctorDni(d);
-    }
 
 	
     public class ratonPlant implements MouseListener {
@@ -406,3 +406,9 @@ public class VistaPlantilla implements ActionListener/*ListSelectionListener */{
 
 
 }
+
+
+	/*else if (arg0.getSource() == acceptarllista) {
+			CardLayout cl = (CardLayout)(switchgestio.getLayout());
+	        cl.show(switchgestio, "gestioplantilla");
+		}*/

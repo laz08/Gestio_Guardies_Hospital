@@ -28,7 +28,9 @@ public class CtrlVistaPlantilla {
     public static void assignarDocPlt(String d, String plt) {
         CtrlPlantilla.afegirDoctorAPlantilla(d,plt);
     }
-    
+
+    public static void desassignarDocPlt(String d, String plt) { CtrlPlantilla.esborrarDoctordePlantilla(d,plt);}
+
     public static void eliminarPlantilla(String plt) {
     	CtrlPlantilla.esborrarPlantilla(plt);
     }
@@ -48,6 +50,7 @@ public class CtrlVistaPlantilla {
     public static String getPlantillaespecifica(String plt) {
     	return CtrlPlantilla.getPlantillaespecifica(plt);
     }
+
 
 
     public static String getDoctorsSensePlt() {
