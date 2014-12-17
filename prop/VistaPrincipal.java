@@ -54,6 +54,7 @@ public class VistaPrincipal {
 		    pestanyes.addTab("Plantilla", vp.tornapanel());
 		    //pestanyes.addTab("Calendari", vcal.tornapanel());
 		    pestanyes.addTab("Restriccions", vr.tornapanel());
+            pestanyes.addTab("Assignacions", vass.tornapanel());
 		    //pestanyes.addTab("Algorisme", va.tornapanel());
 		    pestanyes.addTab("Guardar", vg.tornapanel());
 		    pestanyes.addTab("Carregar", vcarr.tornapanel());
