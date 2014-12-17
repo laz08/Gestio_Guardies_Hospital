@@ -41,4 +41,33 @@ public class Doc_Res{
         }
         return res;
     }
+    
+    public static void guardar() {
+    	String content = "";
+  		for (int i = 0; i < assig.size(); i++) {
+  			for (int j = 0; j < assig.get(i).size(); j++) {
+  				content += assig.get(i).get(j) + "\n";
+  			}
+  			content += "Fi"+"\n";
+  		}
+    	CtrlPersistencia.guardar(content, "Doctors-restriccions");
+    }
+
+    public static void carregar() throws NumberFormatException, Error {
+    	String content = CtrlPersistencia.carregar("Doctors-restriccions");
+    	String separadors = "[ \n]";
+    	String[] separat = content.split(separadors);
+    	int i = 0;
+    	String res = "";
+    	String fi = "Fi";
+    	while (i < separat.length) {
+    		res = separat[i];
+    		++i;
+    		while (!separat[i].equals(fi)) {
+    			relaciona(res, Integer.parseInt(separat[i]));
+    			++i;
+    		}
+    		++i;
+    	}
+    }
 }
