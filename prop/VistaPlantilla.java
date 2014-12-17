@@ -39,7 +39,7 @@ public class VistaPlantilla implements ActionListener/*ListSelectionListener */{
 	private JList llistacplantilla = new JList(llistaDocsPlt);
     private JScrollPane scrollcplantilla = new JScrollPane(llistacplantilla);
 	private JButton enrerellista = new JButton("Enrere");
-	private JButton acceptarllista = new JButton("Ok");
+	//private JButton acceptarllista = new JButton("Ok");
 	private JLabel nomplantilla = new JLabel("Nom Plantilla");
 	private JTextField textnomplantilla = new JTextField();
 	private JButton assignardoctorplantilla = new JButton("Assignar Doctor");
@@ -110,7 +110,7 @@ public class VistaPlantilla implements ActionListener/*ListSelectionListener */{
 		treuredoctorplantilla.addActionListener(this);
 		eliminarplantilla.addActionListener(this);
 		enrerellista.addActionListener(this);
-		acceptarllista.addActionListener(this);
+		//acceptarllista.addActionListener(this);
 		textnomplantilla.setEditable(false);
 
 		
@@ -119,7 +119,7 @@ public class VistaPlantilla implements ActionListener/*ListSelectionListener */{
 		gestioseleccioplantilla.add(nomplantilla);
 		gestioseleccioplantilla.add(textnomplantilla);
 		gestioseleccioplantilla.add(scrollcplantilla);
-		gestioseleccioplantilla.add(acceptarllista);
+		//gestioseleccioplantilla.add(acceptarllista);
 		gestioseleccioplantilla.add(assignardoctorplantilla);
 		gestioseleccioplantilla.add(treuredoctorplantilla);
 		gestioseleccioplantilla.add(crearassociarcalendari);
@@ -201,10 +201,10 @@ public class VistaPlantilla implements ActionListener/*ListSelectionListener */{
 			CardLayout cl2 = (CardLayout)(switchgestio.getLayout());
 	        cl2.show(switchgestio, "gestioplantilla");
 		}
-		else if (arg0.getSource() == acceptarllista) {
+		/*else if (arg0.getSource() == acceptarllista) {
 			CardLayout cl = (CardLayout)(switchgestio.getLayout());
 	        cl.show(switchgestio, "gestioplantilla");
-		}
+		}*/
 		else if (arg0.getSource() == carregarplantilla) {
 			obrirdirectori.showOpenDialog(plantilla);
 		}
