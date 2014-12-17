@@ -37,8 +37,8 @@ public class CtrlVistaHospital {
         Doc_Res.relaciona(dni, CtrlRestriccio.consulta_pos(r));
     }
 
-    public String getRestriccions(){
-        return "HOLA";
-    }
+//    public String getRestriccions(){
+//        return "HOLA";
+//    }
 
 }

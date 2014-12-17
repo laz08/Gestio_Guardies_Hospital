@@ -115,6 +115,7 @@ public class VistaRestriccio {
         if (!introduirrestriccio.getText().isEmpty()) {
             ctrlVistaRestriccions.creaRestriccio(introduirrestriccio.getText());
         }
+        introduirrestriccio.setText("");
         carregaRestriccions();
     }
 

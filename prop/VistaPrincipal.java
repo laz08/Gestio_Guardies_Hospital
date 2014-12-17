@@ -68,6 +68,9 @@ public class VistaPrincipal {
                      if(pestanyes.getSelectedIndex() == 0){
                          vh.inicialitza_Docs();
                      }
+                     else if(pestanyes.getSelectedIndex() == 4){
+                         va.initPanelMostraPlantilla();
+                     }
                  }
              });
 		    

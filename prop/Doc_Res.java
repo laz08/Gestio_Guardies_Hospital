@@ -20,9 +20,12 @@ public class Doc_Res{
                 assig.get(res).add(doc);
             }
         } else {
-            ArrayList llistaDoc = new ArrayList();
+            ArrayList<String> llistaDoc = new ArrayList<String>();
             llistaDoc.add(doc);
-            assig.add(res, llistaDoc);
+            for(int i=0; i< res; i++){
+                assig.add(i, new ArrayList<String>());
+            }
+            assig.add(llistaDoc);
         }
     }
 

@@ -53,7 +53,7 @@ public class VistaAlgorismes {
         panel_algorisme.add(panel_execucio);
     }
 
-    private void initPanelMostraPlantilla() {
+    public void initPanelMostraPlantilla() {
         panel_plantilles.setBounds(0, 0, W_WIDTH / 2, W_HEIGHT);
         panel_plantilles.setLayout(null);
 

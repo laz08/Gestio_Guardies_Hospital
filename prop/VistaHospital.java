@@ -277,9 +277,9 @@ public class VistaHospital implements ActionListener/*, ListSelectionListener*/{
         }
     }
 
-    public void inicialitza_Res(){
-        String content = ctrlVistaHospital.getRestriccions();
-    }
+//    public void inicialitza_Res(){
+//        String content = ctrlVistaHospital.getRestriccions();
+//    }
     public JPanel tornapanel() {
         return hospital;
     }
