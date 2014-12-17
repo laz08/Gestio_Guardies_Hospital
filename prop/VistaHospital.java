@@ -7,6 +7,10 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
+import java.util.ArrayList;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.plaf.basic.BasicListUI;
 
 public class VistaHospital implements ActionListener/*, ListSelectionListener*/{
     private static CtrlVistaHospital ctrlVistaHospital;
@@ -100,6 +104,17 @@ public class VistaHospital implements ActionListener/*, ListSelectionListener*/{
         //Panel restriccions
         llistarestriccions.addMouseListener(new ratonllistaRes());
         llistarestriccions.setPreferredSize(new Dimension(500,400));
+        llistarestriccions.addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                try{
+                String r = (String) llistarestriccions.getSelectedValue();
+                ctrlVistaHospital.associaRestriccio(r, dni.getText());
+                }catch(Error error){
+                    
+                }
+            }
+        });
         c.fill = GridBagConstraints.HORIZONTAL;
         c.weighty = 1.0;
         c.gridx = 0;
@@ -329,6 +344,10 @@ public class VistaHospital implements ActionListener/*, ListSelectionListener*/{
         }
         else if (accio == afegirrestriccio) {
             CardLayout cl = (CardLayout)(switchllista.getLayout());
+             ArrayList<String> lr = ctrlVistaHospital.carregaLlistaRestriccions();
+            for(int i=0; i<lr.size(); i++){
+                llistaRes.addElement(lr.get(i));
+            }
             cl.show(switchllista, "restriccions");
         }
 
