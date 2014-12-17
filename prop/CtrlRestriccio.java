@@ -4,6 +4,7 @@
  */
 package prop;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -221,12 +222,12 @@ public class CtrlRestriccio {
         return fill;
     }
 
-    public static void guardar() {
+    public static void guardar(File f) {
         String content = "";
         for (Restriccio r : restriccions) {
             content += mostra_arbre(r) + "\n";
         }
-        CtrlPersistencia.guardar(content, "Restriccions");
+        CtrlPersistencia.guardar(content, f);
     }
     /**
      * Donada una expressió que defineix una restricció, canvia els valors

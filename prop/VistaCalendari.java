@@ -338,6 +338,7 @@ public class VistaCalendari implements ListSelectionListener, ItemListener, Acti
         if (arg0.getSource() == llistaplantilla) {
             if (!arg0.getValueIsAdjusting()) {
             	if (!CtrlCalendari.existeixCalendari(llistaplantilla.getSelectedValue())) {
+            		anys = new String[ctrlVistaCalendaris.getAnyfi(llistaplantilla.get)-ctrlVistaCalendaris.getAny()];
             		CardLayout cl = (CardLayout)(switchgestio.getLayout());
             		cl.show(switchgestio, "crearcalendari");
             	}
