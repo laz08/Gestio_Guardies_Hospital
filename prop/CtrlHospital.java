@@ -183,7 +183,7 @@ public class CtrlHospital {
     }
     public static String getDoctorEspecificString(String dni){
         Doctor doc = getDoctor(dni);
-        return doc.getdni() + " " + doc.getNom() + " " + doc.getCognom1() + " " + doc.getCognom2() + " " + doc.getSou() + " " + doc.getTelefon() + " " + doc.getCorreu();
+        return doc.getdni() + " " + doc.getNom() + " " + doc.getCognom1() + " " + doc.getCognom2() + " " + doc.getSou() + " " + doc.getTelefon() + " " + doc.getCorreu() + " \n";
 
     }
 

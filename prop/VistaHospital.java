@@ -259,6 +259,7 @@ public class VistaHospital implements ActionListener, ListSelectionListener{
     }
     public void ompleDoctorDni(String d){
         String ret = ctrlVistaHospital.getDoctorEspecific(d);
+        System.out.println(ret);
         String separadors = "[ \n]";
         String[] separat = ret.split(separadors);
         dni.setText(d);
@@ -286,12 +287,15 @@ public class VistaHospital implements ActionListener, ListSelectionListener{
     public void actionPerformed(ActionEvent ev) {
         JComponent accio = (JComponent) ev.getSource();
         if(accio == carregarhospital) {
+            reiniciaTextFieldsDocs();
             obrirdirectori.showOpenDialog(hospital);
         }
         else if (accio == guardarhospital) {
-            obrirdirectori.showOpenDialog(hospital);
+            reiniciaTextFieldsDocs();
+            obrirdirectori.showSaveDialog(hospital);
         }
         else if (accio == enreredoctor) {
+            reiniciaTextFieldsDocs();
             CardLayout cl = (CardLayout)(switchgestio.getLayout());
             cl.show(switchgestio, "gestiohospital");
         }
@@ -303,19 +307,21 @@ public class VistaHospital implements ActionListener, ListSelectionListener{
             int s = Integer.parseInt(sou.getText());
             int t = Integer.parseInt(telefon.getText());
             String cor = correu.getText();
-            reiniciaTextFieldsDocs();
             if(!CtrlDomini.existeixDoctoraHospital(d)){
                 CtrlDomini.creaDoctor(d, n, cg1, cg2, s, t, cor);
             }
             inicialitza_Docs();
+            reiniciaTextFieldsDocs();
             CardLayout cl = (CardLayout)(switchgestio.getLayout());
             cl.show(switchgestio, "gestiohospital");
         }
         else if (accio == eliminardoctor) {
+            reiniciaTextFieldsDocs();
             CardLayout cl = (CardLayout)(switchgestio.getLayout());
             cl.show(switchgestio, "gestiohospital");
         }
         else if (accio == creardoctor) {
+            reiniciaTextFieldsDocs();
             CardLayout cl = (CardLayout)(switchgestio.getLayout());
             cl.show(switchgestio, "modificardoctor");
             afegirrestriccio.setEnabled(false);
@@ -342,9 +348,19 @@ public class VistaHospital implements ActionListener, ListSelectionListener{
         }
     }
 
+    public void ompleValuesDoctor(){
+        String selected = texthospital.getSelectedValue().toString();
+        String separadors = "[ \n]";
+        String[] separat = selected.split(separadors);
+        String d = separat[0]; //Dni
+        ompleDoctorDni(d);
+
+    }
+
     public void valueChanged(ListSelectionEvent lse) {
         if (!lse.getValueIsAdjusting()) {
             if (lse.getSource() == texthospital){
+                ompleValuesDoctor();
                 CardLayout cl = (CardLayout)(switchgestio.getLayout());
                 cl.show(switchgestio, "modificardoctor");
                 afegirrestriccio.setEnabled(true);
