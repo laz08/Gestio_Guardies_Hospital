@@ -10,10 +10,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-public class VistaCalendari implements TableModelListener, ListSelectionListener, ItemListener, ActionListener {
+public class VistaCalendari implements ListSelectionListener, ItemListener, ActionListener {
     private static CtrlVistaCalendaris ctrlVistaCalendaris;
-
-
     private JPanel calendari = new JPanel();
     private JPanel switchllista = new JPanel();
     private JPanel switchgestio = new JPanel();
@@ -243,7 +241,6 @@ public class VistaCalendari implements TableModelListener, ListSelectionListener
         table.setBounds(10, 150, 550, 200);
         table.setShowGrid(true);
         table.setGridColor(Color.BLACK);
-        model.addTableModelListener(this);
         ListSelectionModel cellSelectionModel = table.getSelectionModel();
         cellSelectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         cellSelectionModel.addListSelectionListener(this);
@@ -345,11 +342,11 @@ public class VistaCalendari implements TableModelListener, ListSelectionListener
         else {
             model.setMonth(any.getSelectedIndex()+1998, mesos.getSelectedIndex());
             agenda.repaint();
+            //RETORNA LA FILA CLICADA
             int fila = table.getSelectedRow();
+            // RETORNA LA COLUMNA CLICADA
             int columna = table.getSelectedColumn();
-            // RETORNA LA FILA
             if (fila > 0 && columna >= 0 && table.getValueAt(fila, columna) != " ") {
-                System.out.println(table.getValueAt(fila, columna));
                 CardLayout cl = (CardLayout)(switchllista.getLayout());
                 cl.show(switchllista, "torncalendari");
             }
@@ -463,9 +460,4 @@ public class VistaCalendari implements TableModelListener, ListSelectionListener
         }
     }
 
-    @Override
-    public void tableChanged(TableModelEvent arg0) {
-
-        System.out.println(table.getValueAt(table.getSelectedRow(), table.getSelectedColumn()));
-    }
 }
