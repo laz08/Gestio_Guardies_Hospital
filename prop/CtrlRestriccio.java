@@ -10,17 +10,20 @@ import java.util.Calendar;
 public class CtrlRestriccio {
 
     private static ArrayList<Restriccio> restriccions = new ArrayList<Restriccio>();
+    private static ArrayList<String> eRestriccions = new ArrayList<String>();
     private static int idcount = 0;
 
     public static void nova_res(String expressio) {
         Restriccio r = crea_arbre(expressio);
         restriccions.add(r);
+        eRestriccions.add(expressio);
     }
 
     public static void elimina_res(Restriccio r) {
         int pos = consulta_pos(r);
         if (pos != -1) {
             restriccions.remove(pos);
+            eRestriccions.remove(pos);
         }
     }
 
@@ -30,6 +33,10 @@ public class CtrlRestriccio {
 
     public static Restriccio consulta_res(int i) {
         return restriccions.get(i);
+    }
+    
+    public static String consulta_explesio_res(int i){
+        return eRestriccions.get(i);
     }
 
     /**
