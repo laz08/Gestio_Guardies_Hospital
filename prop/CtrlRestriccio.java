@@ -247,7 +247,7 @@ public class CtrlRestriccio {
     public static void guardar(File f) {
         String content = "";
         for (String r : eRestriccions) {
-            content += r + "\n";
+            content += r + "/";
         }
         CtrlPersistencia.guardar(content, f);
     }

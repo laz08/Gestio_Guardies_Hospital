@@ -37,12 +37,11 @@ public class CtrlVistaRestriccions {
     
     public String[] carregaRestriccions(File f) throws FileNotFoundException{
         String dades = CtrlRestriccio.carrega(f);
-        String separadors = "[ \n]";
-        String[] llista = dades.split(separadors);
+        String[] llista = dades.split("/");
         return llista;
     }
     
-    public void grardaRestriccions(File f){
+    public void guardaRestriccions(File f){
         CtrlRestriccio.guardar(f);
     }
 }

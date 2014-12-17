@@ -131,26 +131,25 @@ public class VistaRestriccio {
     private void carregarRestriccio() {
         try{
             JFileChooser chooser = new JFileChooser();
-            File f = null;
-            boolean seleccionat = chooser.accept(f);
-            String[] sRestriccions = null;
-            if (seleccionat) {
-                sRestriccions = ctrlVistaRestriccions.carregaRestriccions(f);
-            }
-            for (int i = 0; i < sRestriccions.length; i++) {
+            chooser.showOpenDialog(restriccions);
+            File f = chooser.getSelectedFile();
+            String[] sRestriccions  = ctrlVistaRestriccions.carregaRestriccions(f);
+            for (int i = 0; i < sRestriccions.length-1; i++) {
                 ctrlVistaRestriccions.creaRestriccio(sRestriccions[i]);
             }
             carregaRestriccions();
         }catch(FileNotFoundException e){
             mostraErrors.setText("No s'han pogut carregar les restriccions");
         }
+        carregaRestriccions();
     }
 
     private void guardarRestriccio() {
         JFileChooser chooser = new JFileChooser();
-        File f = null;
-        boolean seleccionat = chooser.accept(f);
-        ctrlVistaRestriccions.grardaRestriccions(f);
+        
+        chooser.showSaveDialog(restriccions);
+        File f = chooser.getSelectedFile();
+        ctrlVistaRestriccions.guardaRestriccions(f);
     }
 //    @Override
 //    public void actionPerformed(ActionEvent ev) {
