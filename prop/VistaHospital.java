@@ -257,6 +257,19 @@ public class VistaHospital implements ActionListener, ListSelectionListener{
         else return false;
 
     }
+    public void ompleDoctorDni(String d){
+        String ret = ctrlVistaHospital.getDoctorEspecific(d);
+        String separadors = "[ \n]";
+        String[] separat = ret.split(separadors);
+        dni.setText(d);
+        nom.setText(separat[1]);
+        cognom.setText(separat[2]);
+        cognom2.setText(separat[3]);
+        sou.setText(separat[4]);
+        telefon.setText(separat[5]);
+        correu.setText(separat[6]);
+    }
+
     public JPanel tornapanel() {
         return hospital;
     }
