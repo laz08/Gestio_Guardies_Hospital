@@ -23,4 +23,8 @@ public class CtrlVistaHospital {
         return CtrlHospital.getDoctorEspecificString(dni);
     }
 
+    public String getRestriccions(){
+        return "HOLA";
+    }
+
 }

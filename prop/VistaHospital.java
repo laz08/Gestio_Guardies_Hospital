@@ -50,10 +50,16 @@ public class VistaHospital implements ActionListener/*, ListSelectionListener*/{
     GridBagConstraints c = new GridBagConstraints();
 
     //Panel Gestio Restriccions
+
+    /*
+    private DefaultListModel llistaDocs = new DefaultListModel();
+    private JList texthospital = new JList(llistaDocs);
+    private JScrollPane scrollpane = new JScrollPane(texthospital);
+     */
     private JPanel switchllista = new JPanel();
     private JPanel restriccions = new JPanel();
-    String[] exemplerestriccions = {"D 25 AND 26", "H 10 XOR 12"};
-    private JList<String> llistarestriccions = new JList<String>(exemplerestriccions);
+    private DefaultListModel llistaRes = new DefaultListModel();
+    private JList llistarestriccions = new JList(llistaRes);
     private JButton enrererestriccions = new JButton("Enrere");
     private JButton acceptarrestriccions = new JButton("Acceptar");
 
@@ -80,7 +86,7 @@ public class VistaHospital implements ActionListener/*, ListSelectionListener*/{
         enrererestriccions.addActionListener(this);
         acceptarrestriccions.addActionListener(this);
         restriccions.setLayout(new GridBagLayout());
-        texthospital.addMouseListener(new raton());
+        texthospital.addMouseListener(new ratonllistaDocs());
         texthospital.setPreferredSize(new Dimension(600,460));
         scrollpane.setPreferredSize(new Dimension(600, 460));
         scrollpane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
@@ -91,6 +97,7 @@ public class VistaHospital implements ActionListener/*, ListSelectionListener*/{
         texthospital.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         llistathospital.setVisible(false);
         //Panel restriccions
+        llistarestriccions.addMouseListener(new ratonllistaRes());
         llistarestriccions.setPreferredSize(new Dimension(500,400));
         c.fill = GridBagConstraints.HORIZONTAL;
         c.weighty = 1.0;
@@ -242,9 +249,7 @@ public class VistaHospital implements ActionListener/*, ListSelectionListener*/{
 
     public void inicialitza_Docs() {
         String content = ctrlVistaHospital.getLlistaDocs_nom();
-        System.out.println("About to RemoveAllElements");
         llistaDocs.removeAllElements();
-        System.out.println("removed all elements");
         if (!content.equals("")) {
                 if (content.length() > 0) {
                     String separadors = "[ \n]";
@@ -256,6 +261,9 @@ public class VistaHospital implements ActionListener/*, ListSelectionListener*/{
         }
     }
 
+    public void inicialitza_Res(){
+        String content = ctrlVistaHospital.getRestriccions();
+    }
     public JPanel tornapanel() {
         return hospital;
     }
@@ -270,8 +278,10 @@ public class VistaHospital implements ActionListener/*, ListSelectionListener*/{
             obrirdirectori.showSaveDialog(hospital);
         }
         else if (accio == enreredoctor) {
-            CardLayout cl = (CardLayout)(switchgestio.getLayout());
-            cl.show(switchgestio, "gestiohospital");
+            CardLayout cl = (CardLayout)(switchllista.getLayout());
+            cl.show(switchllista, "llistathospital");
+            CardLayout cl2 = (CardLayout)(switchgestio.getLayout());
+            cl2.show(switchgestio, "gestiohospital");
         }
         else if (accio == acceptardoctor) {
             if(dni.isEditable()){
@@ -403,7 +413,7 @@ public class VistaHospital implements ActionListener/*, ListSelectionListener*/{
     }
     */
 
-    public class raton implements MouseListener {
+    public class ratonllistaDocs implements MouseListener {
         public void mousePressed(MouseEvent e) {
         }
 
@@ -417,13 +427,39 @@ public class VistaHospital implements ActionListener/*, ListSelectionListener*/{
         }
 
         public void mouseClicked(MouseEvent e) {
-            ompleValuesDoctor();
-            CardLayout cl = (CardLayout)(switchgestio.getLayout());
+                ompleValuesDoctor();
+                CardLayout cl = (CardLayout) (switchgestio.getLayout());
+                cl.show(switchgestio, "modificardoctor");
+                afegirrestriccio.setEnabled(true);
+                eliminarrestriccio.setEnabled(true);
+                dni.setEditable(false);
+                eliminardoctor.setEnabled(true);
+        }
+
+    }
+
+    public class ratonllistaRes implements MouseListener {
+        public void mousePressed(MouseEvent e) {
+        }
+
+        public void mouseReleased(MouseEvent e) {
+        }
+
+        public void mouseEntered(MouseEvent e) {
+        }
+
+        public void mouseExited(MouseEvent e) {
+        }
+
+        public void mouseClicked(MouseEvent e) {
+
+            CardLayout cl = (CardLayout) (switchgestio.getLayout());
             cl.show(switchgestio, "modificardoctor");
             afegirrestriccio.setEnabled(true);
             eliminarrestriccio.setEnabled(true);
             dni.setEditable(false);
             eliminardoctor.setEnabled(true);
         }
+
     }
 }
