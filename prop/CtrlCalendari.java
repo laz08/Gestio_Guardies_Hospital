@@ -73,19 +73,17 @@ public class CtrlCalendari {
 	//Post: Guardem llcalendaris calendari
 	public static void guardar(File f) {
 		String content = "";
-		String fi = "Fi";
+//		String fi = "Fi";
 		for(Calendari c: llcalendaris) {
 			content += c.getPlantillaAssociada() + "\n" + c.getAny() + "\n" + c.getAnyFi() + "\n";
-			int cont = 0;
 			for (Dia d: c.getCalendari()) {
 				content += d.getFestiu() + "\n";
 				for (Torn t: d.getTorns()) {
 					content += t.getHora_inici() + " " + t.getHora_fi() + " " 
 					+ t.getPercent_sou() + " " + t.getMin_num_doctors() + "\n";
 				}
-				++cont;
 			}
-			content += (fi + "\n");
+			//content += (fi + "\n");
 		}
 		CtrlPersistencia.guardar(content, f);
 	}
@@ -95,50 +93,42 @@ public class CtrlCalendari {
 	public static void carregar(File f) {
 		String content = CtrlPersistencia.carregar(f);
 		String separadors = "[ \n]";
-    	String[] separat = content.split(separadors);
-    	System.out.println(separat.length);
+    	String[] separat = content.split(separadors); 	
     	int i = 0;
-    	while (i < separat.length && separat[i].compareTo("Fi")!= 0) {
+    	
+    	System.out.println(separadors);
+    	System.out.println(separat.length);
+    	String calendari;
+    	while (i < separat.length) {
+    		calendari = separat[i];
     		if(!CtrlPlantilla.existeixPlantilla(separat[i])) CtrlPlantilla.creariAfegirPlantilla(separat[i]);
-    		System.out.println("Plantilla " + separat[i]);
     		Calendari c = new Calendari(separat[i], Integer.parseInt(separat[i+1]), Integer.parseInt(separat[i+2]));
-    		i += 3;
+    		i+=3;
     		Dia[] any = c.getCalendari();
-    		int j = 0;
-    		for (j = 0; j < any.length; j++) {
+    		for (int j = 0; j < any.length; j++) {
     			any[j].setFestiu(Boolean.parseBoolean(separat[i]));
     			i++;
                 for(int e=0; e<3; e++){
                 	Torn t;
-                	System.out.println("Torns" + separat[i] + " " + i);
                     if(Integer.parseInt(separat[i])==0) {
-                    	t = new Torn(0,Float.parseFloat(separat[i+2]), Integer.parseInt(separat[i+3]));
+                    	t = new Torn(e,Float.parseFloat(separat[i+2]), Integer.parseInt(separat[i+3]));
+                    	any[j].setTornMati(t);
                     }
                     else if(Integer.parseInt(separat[i])==8){
-                    	t = new Torn(1,Float.parseFloat(separat[i+2]), Integer.parseInt(separat[i+3]));
+                    	t = new Torn(e,Float.parseFloat(separat[i+2]), Integer.parseInt(separat[i+3]));
+                    	any[j].setTornTarda(t);
                     }
                     else {
-                    	t = new Torn(2,Float.parseFloat(separat[i+2]), Integer.parseInt(separat[i+3]));
+                    	t = new Torn(e,Float.parseFloat(separat[i+2]), Integer.parseInt(separat[i+3]));
+                    	any[j].setTornNit(t);
                     }
-                        i+=4;
-                    	switch(e){
-                            case 0:
-                                any[j].setTornMati(t);
-                                break;
-                            case 1:
-                                any[j].setTornTarda(t);
-                                break;
-                            case 2:
-                                any[j].setTornNit(t);
-                                break;
-                        }
+                        i +=4;
                 }
-                
             }
-    		c.setCalendari(any);
-            afegirCalendarif(c);
+            		c.setCalendari(any);
+                    c.setPlantillaAssociada(calendari);
+                    afegirCalendarif(c); 
     	}
-    	
 	}
 	
 	//------------ FUNCIONS PER UN CALENDARI CONCRET ----------
@@ -258,6 +248,7 @@ public class CtrlCalendari {
 	//Post: Retorna el numero minim de doctors del torn d'horari(mati=0, tarda=1 o nit=2) del dia (dia) del calendari de la plantilla plt
 	public static int consultarMinimTorn(GregorianCalendar dia, String plt, int horari) {
 		int pos = calcularPosicioDia(dia,consultarCalendari(plt).getAny());
+		System.out.println(consultarCalendari(plt).getCalendari()[pos/consultarCalendari(plt).getAny()].getTornMati().getMin_num_doctors());
 		if(horari==0) return consultarCalendari(plt).getCalendari()[pos/consultarCalendari(plt).getAny()].getTornMati().getMin_num_doctors();
 		else if(horari==1) return consultarCalendari(plt).getCalendari()[pos/consultarCalendari(plt).getAny()].getTornTarda().getMin_num_doctors();
 		else return consultarCalendari(plt).getCalendari()[pos/consultarCalendari(plt).getAny()].getTornNit().getMin_num_doctors();

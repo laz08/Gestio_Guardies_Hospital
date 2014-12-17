@@ -28,9 +28,7 @@ public class DriverCtrlCalendari {
 				
 			switch(cas) {
 				case 0: sortir = true; break;
-				
 				case 1: consultarLlistaCalendaris(); break;
-				
 				case 2:	crearCalendari(); break;
 				case 3: eliminarCalendari(); break;
 				case 4: existeixCalendari(); break;
@@ -387,7 +385,7 @@ public class DriverCtrlCalendari {
 		else {
 			String plt = arg.next();
 			Calendari c = CtrlCalendari.consultarCalendari(plt);
-			for(int i=0; i<c.getCalendari().length; ++i){
+			for(int i=0; i<c.getCalendari().length; i++){
 				Dia d = c.getCalendari()[i];
 				escriureDia(d,CtrlCalendari.quinDia(i,c.getAny()));
 			}
@@ -728,7 +726,7 @@ public class DriverCtrlCalendari {
 	
 	public static void carregar() {
 		File file = new File("/home/acer/Calendari");
-		CtrlCalendari.guardar(file);
+		primer = false;
 		CtrlCalendari.carregar(file);
 	}
 	
