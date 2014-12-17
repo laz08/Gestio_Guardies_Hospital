@@ -8,6 +8,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 public class VistaPlantilla implements ActionListener, ListSelectionListener {
     private static CtrlVistaPlantilla ctrlVistaPlantilla;
@@ -20,9 +22,12 @@ public class VistaPlantilla implements ActionListener, ListSelectionListener {
 	private JPanel consultaplantilla = new JPanel();
 	private JPanel gestioplantilla = new JPanel();
 	
+    private DefaultListModel llistaPlt = new DefaultListModel();
+    private JList textplantilla = new JList(llistaPlt);
+	
 	private JFileChooser obrirdirectori = new JFileChooser();
-	String[] exempleplantilla = { "Plantilla1", "Plantilla2", "Plantilla3", "Plantilla4", "Plantilla5", "Plantilla6"};
-	private JList llistaplantilla = new JList(exempleplantilla);
+	//String[] exempleplantilla = { "Plantilla1", "Plantilla2", "Plantilla3", "Plantilla4", "Plantilla5", "Plantilla6"};
+	private JList llistaplantilla = new JList(llistaPlt);
 	private JScrollPane scrollpane = new JScrollPane(llistaplantilla);
 	private JTextField introduirrestriccio = new JTextField(40);
 	private JButton buttoncrearplantilla = new JButton("Crear Plantilla");
@@ -36,18 +41,21 @@ public class VistaPlantilla implements ActionListener, ListSelectionListener {
 	private JTextField textcrearplantilla = new JTextField(20);
 	
 	// Caracteristiques plantilla
+    private DefaultListModel llistaCPlt = new DefaultListModel();
 	private JPanel gestioseleccioplantilla = new JPanel();
-	String[] exempledoctorsplantilla = {"Rosa que l'amor si posa", "XD", "No pas."};
-	private JList llistacplantilla = new JList(exempledoctorsplantilla);
+	//String[] exempledoctorsplantilla = {"Rosa que l'amor si posa", "XD", "No pas."};
+	private JList llistacplantilla = new JList(llistaCPlt);
 	private JScrollPane scrollcplantilla = new JScrollPane(llistacplantilla);
 	private JButton enrerellista = new JButton("Enrere");
 	private JButton acceptarllista = new JButton("Ok");
 	private JLabel nomplantilla = new JLabel("Nom Plantilla");
-	private JTextField textnomplantilla = new JTextField(20);
+	private JTextField textnomplantilla = new JTextField();
 	private JButton assignardoctorplantilla = new JButton("Assignar Doctor");
 	private JButton treuredoctorplantilla = new JButton("Desassignar Doctor");
 	private JButton crearassociarcalendari = new JButton("Crear Calendari \n associat");
 	private JButton eliminardesasociarcalendari = new JButton("Eliminar Calendari \n associat");
+	private JButton eliminarplantilla = new JButton("Eliminar");
+
 	
 	//Afegir/eliminar doctors
 	private JPanel gestiodoctorplantilla = new JPanel();
@@ -55,24 +63,43 @@ public class VistaPlantilla implements ActionListener, ListSelectionListener {
 	private JScrollPane scrolldoctorsllista = new JScrollPane(doctorsllista);
 	private JButton enreredoctors = new JButton("Enrere");
 	private JButton acceptardllista = new JButton("Ok");
+	GridBagConstraints c = new GridBagConstraints();
 	
+	
+	//-------------------------------------------------
+	
+
+
 	public VistaPlantilla(CtrlVistaPlantilla cvp) {
         ctrlVistaPlantilla = cvp;
 		plantilla.setLayout(new GridLayout(1,2));
 		switchllista.setLayout(new CardLayout());
 		switchgestio.setLayout(new CardLayout());
+		inicialitza_plt();
 		inicialitza_llistat();
 		inicialitza_gestio();
 	}
+	
+    public void inicialitza_plt(){
+        String content = ctrlVistaPlantilla.getLlista_plt();
+        llistaPlt.removeAllElements();
+        if(!content.equals("")) {
+        	if(content.length() > 0) {
+        		String separadors = "[ \n]";
+        		String[] separat = content.split(separadors);
+        		for (int i = 0; i < separat.length; i += 1) {
+        			llistaPlt.addElement(separat[i]);
+        		}
+        	}
+        }
+    
+    }
 	
 	private void inicialitza_gestio() {
 		guardarplantilla.addActionListener(this);
 		carregarplantilla.addActionListener(this);
 		llistacplantilla.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		buttoncrearplantilla.setSize(100, 50);
-		guardarplantilla.setSize(100, 50);
-		carregarplantilla.setSize(100, 50);
-		gestioplantilla.setLayout(new GridLayout(1,3));
+		gestioplantilla.setLayout(new GridLayout(3,1));
 		gestioplantilla.add(buttoncrearplantilla);
 		gestioplantilla.add(guardarplantilla);
 		gestioplantilla.add(carregarplantilla);
@@ -84,11 +111,21 @@ public class VistaPlantilla implements ActionListener, ListSelectionListener {
 		eliminardesasociarcalendari.addActionListener(this);
 		assignardoctorplantilla.addActionListener(this);
 		treuredoctorplantilla.addActionListener(this);
+		eliminarplantilla.addActionListener(this);
 		enrerellista.addActionListener(this);
 		acceptarllista.addActionListener(this);
+		textnomplantilla.setEditable(false);
+		//if(llistaplantilla.getSelectedValue() != null ) {
+			//String s = llistaplantilla.getSelectedValue().toString();
+			//textnomplantilla.setText(s);
+		
+		
+		//	ESTAS AQUII !!!!!!!!!!---------------
+		
+		
 		
 		//Inicialització + Adds
-		gestioseleccioplantilla.setLayout(new GridLayout(9,1));
+		gestioseleccioplantilla.setLayout(new GridLayout(10,1));
 		gestioseleccioplantilla.add(nomplantilla);
 		gestioseleccioplantilla.add(textnomplantilla);
 		gestioseleccioplantilla.add(scrollcplantilla);
@@ -97,6 +134,7 @@ public class VistaPlantilla implements ActionListener, ListSelectionListener {
 		gestioseleccioplantilla.add(treuredoctorplantilla);
 		gestioseleccioplantilla.add(crearassociarcalendari);
 		gestioseleccioplantilla.add(eliminardesasociarcalendari);
+		gestioseleccioplantilla.add(eliminarplantilla);
 		gestioseleccioplantilla.add(enrerellista);
 		switchgestio.add(gestioseleccioplantilla, "gestioseleccioplantilla");
 		plantilla.add(switchgestio);
@@ -131,6 +169,7 @@ public class VistaPlantilla implements ActionListener, ListSelectionListener {
 	
 	private void inicialitza_llistat() {
 		//Listeners
+		llistaplantilla.addMouseListener(new raton());
 		llistaplantilla.addListSelectionListener(this);
 
 		//Inicialitzacions +Adds
@@ -148,10 +187,15 @@ public class VistaPlantilla implements ActionListener, ListSelectionListener {
 
 	public void valueChanged(ListSelectionEvent e) {
 		if (e.getSource() == llistaplantilla) {
+			String s = llistaplantilla.getSelectedValue().toString();
+			textnomplantilla.setText(s);
+			ompleDoctorDni(s);
 			CardLayout cl = (CardLayout)(switchgestio.getLayout());
 	        cl.show(switchgestio, "gestioseleccioplantilla");
 		}
-		if (e.getSource() == doctorsllista) {
+		if (e.getSource() == textplantilla) {
+			String s = llistaplantilla.getSelectedValue().toString();
+			textnomplantilla.setText(s);
 			CardLayout cl = (CardLayout)(switchllista.getLayout());
 	        cl.show(switchllista, "gestiodoctorplantilla");
 		}
@@ -174,11 +218,11 @@ public class VistaPlantilla implements ActionListener, ListSelectionListener {
 		}
 		else if (arg0.getSource() == enreredoctors) {
 			CardLayout cl = (CardLayout)(switchllista.getLayout());
-	        cl.show(switchllista, "consultaplantilla");
+			cl.show(switchllista, "consultaplantilla");
 		}
 		else if (arg0.getSource() == acceptardllista) {
 			CardLayout cl = (CardLayout)(switchllista.getLayout());
-	        cl.show(switchllista, "consultaplantilla");
+			cl.show(switchllista, "consultaplantilla");
 		}
 		else if (arg0.getSource() == assignardoctorplantilla) {
 			CardLayout cl = (CardLayout)(switchllista.getLayout());
@@ -189,6 +233,18 @@ public class VistaPlantilla implements ActionListener, ListSelectionListener {
 	        cl.show(switchllista, "gestiodoctorplantilla");
 		}
 		else if(arg0.getSource() == acceptarcreacioplantilla) {
+			String nom = textcrearplantilla.getText();
+			textcrearplantilla.setText("");
+	        ctrlVistaPlantilla.crearPlantilla(nom);
+	        inicialitza_plt();
+			CardLayout cl = (CardLayout)(switchgestio.getLayout());
+	        cl.show(switchgestio, "gestioplantilla");
+		}
+		
+		else if(arg0.getSource() == eliminarplantilla) {
+			String nom = nomplantilla.getText();
+			ctrlVistaPlantilla.eliminarPlantilla(nom);
+			inicialitza_plt();
 			CardLayout cl = (CardLayout)(switchgestio.getLayout());
 	        cl.show(switchgestio, "gestioplantilla");
 		}
@@ -206,7 +262,54 @@ public class VistaPlantilla implements ActionListener, ListSelectionListener {
 		
     }
 	
+	
 	public JPanel tornapanel() {
 		return plantilla;
 	}
+
+	
+    public void ompleDoctorDni(String p){
+        String content = ctrlVistaPlantilla.getPlantillaespecifica(p);
+        llistaCPlt.removeAllElements();
+        if(!content.equals("")) {
+        	if(content.length() > 0) {
+        		String separadors = "[ \n]";
+        		String[] separat = content.split(separadors);
+        		for (int i = 0; i < separat.length; i += 1) {
+        			llistaCPlt.addElement(separat[i] + " " + separat[i + 1] + " " + separat[i + 2] + " " + separat[i + 3]);
+        		}
+        	}
+        }
+    }
+	
+    public void ompleValuesPlantilla(){
+        //agafem els valors
+        String selected = textplantilla.getSelectedValue().toString();
+        //String separadors = "[ \n]";
+        String[] separat = selected.split(" ");
+        String d = separat[0]; //Dni
+        //omplim segons el dni
+        ompleDoctorDni(d);
+    }
+	
+    public class raton implements MouseListener {
+        public void mousePressed(MouseEvent e) {
+        }
+
+        public void mouseReleased(MouseEvent e) {
+        }
+
+        public void mouseEntered(MouseEvent e) {
+        }
+
+        public void mouseExited(MouseEvent e) {
+        }
+
+        public void mouseClicked(MouseEvent e) {
+            ompleValuesPlantilla();
+            CardLayout cl = (CardLayout)(switchgestio.getLayout());
+            cl.show(switchgestio, "modificarplantilla");
+
+        }
+    }
 }
