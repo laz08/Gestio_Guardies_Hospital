@@ -27,8 +27,6 @@ public class VistaRestriccio {
     private JPanel insertaracceptarrestriccio = new JPanel();
     private JPanel insertartextrestriccio = new JPanel();
     private JLabel mostraErrors = new JLabel();
-    String[] tres = {"H", "D"};
-    private JList tipusrestriccio = new JList(tres);
 
     public VistaRestriccio(CtrlVistaRestriccions cvr) {
         ctrlVistaRestriccions = cvr;
@@ -63,14 +61,12 @@ public class VistaRestriccio {
         insertaracceptarrestriccio.setLayout(new BorderLayout());
         insertartextrestriccio.setLayout(new FlowLayout());
         insertrestriccio.setLayout(new BorderLayout());
-        insertartextrestriccio.add(tipusrestriccio);
         insertartextrestriccio.add(introduirrestriccio);
 
         insertrestriccio.add(insertartextrestriccio, BorderLayout.NORTH);
         insertrestriccio.add(insertaracceptarrestriccio, BorderLayout.SOUTH);
         insertrestriccio.setPreferredSize(new Dimension(600, 300));
 
-        tipusrestriccio.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         gestiorestriccio.add(insertrestriccio, BorderLayout.NORTH);
     }
 
