@@ -278,8 +278,11 @@ public class VistaHospital implements ActionListener, ListSelectionListener{
             cl.show(switchgestio, "gestiohospital");
         }
         else if (accio == acceptardoctor) {
-            if(!CtrlHospital.existeixDoctor(dni.getText())){
-                creaDoctor();
+            if(dni.isEditable()){
+                //Creem nou doctor
+                if(!CtrlHospital.existeixDoctor(dni.getText())){
+                    creaDoctor();
+                }
             }
             else modificaDoctor();
             inicialitza_Docs();
