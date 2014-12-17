@@ -146,6 +146,14 @@ public class CtrlPlantilla {
         C = null;
         p.set_calendari_asoc(null);
     }
+    
+    public static String getLlista_plantilles() {
+    	String content = "";
+  		for (Plantilla p: Cjt_plantilles) {
+  			content += p.getNomPlantilla() + "\n"; //+ p.get_calendari_asoc().getId() + "\n";
+  		}
+    	return content;
+    }
 
     public static void guardar() {
     	String content = "";
