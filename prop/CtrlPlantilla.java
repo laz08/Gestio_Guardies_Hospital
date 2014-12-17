@@ -26,7 +26,7 @@ public class CtrlPlantilla {
     //Pre:  -
     //Post: S'ha esborrat del conjunt de plantilles la plantilla amb nom nom_p
     public static void esborrarPlantilla(String nom_p){
-        Plantilla p = new Plantilla(nom_p);
+        Plantilla p = Cjt_plantilles.ceiling(new Plantilla(nom_p));
         //Creem Dummy i el passem
         for(Doctor doc: p.getLlistaDoctorsNom()) {
            doc.setActiu(false);

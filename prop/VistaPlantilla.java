@@ -3,6 +3,7 @@ package prop;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.File;
 
 public class VistaPlantilla implements ActionListener/*ListSelectionListener */{
     private static CtrlVistaPlantilla ctrlVistaPlantilla;
@@ -210,10 +211,19 @@ public class VistaPlantilla implements ActionListener/*ListSelectionListener */{
 		}
 
 		else if (arg0.getSource() == carregarplantilla) {
-			obrirdirectori.showOpenDialog(plantilla);
+            int ret = obrirdirectori.showOpenDialog(plantilla);
+            //L'usuari ha escollit un fitxer
+            if(ret == obrirdirectori.APPROVE_OPTION){
+                File f = obrirdirectori.getSelectedFile();
+                CtrlPlantilla.carregar(f);
+            }
 		}
 		else if (arg0.getSource() == guardarplantilla) {
-			obrirdirectori.showOpenDialog(plantilla);
+            int ret = obrirdirectori.showSaveDialog(plantilla);
+            if (ret == obrirdirectori.APPROVE_OPTION){
+                File f = obrirdirectori.getSelectedFile();
+                CtrlPlantilla.guardar(f);
+            }
 		}
 		else if (arg0.getSource() == enreredoctors) {
 			CardLayout cl = (CardLayout)(switchllista.getLayout());
@@ -245,7 +255,7 @@ public class VistaPlantilla implements ActionListener/*ListSelectionListener */{
 		}
 		else if (arg0.getSource() == treuredoctorplantilla) {
             esborrarDocDePlantilla();
-            inicialitzaDocsPlant();
+            //inicialitzaDocsPlant();
             inicialitza_Docs();
 			/*CardLayout cl = (CardLayout)(switchllista.getLayout());
 	        cl.show(switchllista, "gestiodoctorplantilla");*/
@@ -264,6 +274,8 @@ public class VistaPlantilla implements ActionListener/*ListSelectionListener */{
             //Primer traiem tots els doctors de dins la plantilla
 			ctrlVistaPlantilla.eliminarPlantilla(nom);
 			inicialitza_plt();
+            inicialitza_Docs();
+            //inicialitzaDocsPlant();
 			CardLayout cl = (CardLayout)(switchgestio.getLayout());
 	        cl.show(switchgestio, "gestioplantilla");
 		}
@@ -280,9 +292,7 @@ public class VistaPlantilla implements ActionListener/*ListSelectionListener */{
 
     public void esborrarDocDePlantilla(){
         String dni = getDNIdeDoctorAssignat();
-        System.out.println(dni);
         String plt = textnomplantilla.getText();
-        System.out.println(plt);
         ctrlVistaPlantilla.desassignarDocPlt(dni, plt);
     }
 
