@@ -345,6 +345,7 @@ public class VistaHospital implements ActionListener/*, ListSelectionListener*/{
         else if (accio == afegirrestriccio) {
             CardLayout cl = (CardLayout)(switchllista.getLayout());
              ArrayList<String> lr = ctrlVistaHospital.carregaLlistaRestriccions();
+            llistaRes.removeAllElements(); // buidam llista restriccions anteriors
             for(int i=0; i<lr.size(); i++){
                 llistaRes.addElement(lr.get(i));
             }
