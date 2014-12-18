@@ -10,8 +10,10 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
-public class VistaHospital implements ActionListener/*, ListSelectionListener*/{
+public class VistaHospital implements ActionListener {
     private static CtrlVistaHospital ctrlVistaHospital;
 
     private JPanel hospital = new JPanel();
@@ -54,18 +56,16 @@ public class VistaHospital implements ActionListener/*, ListSelectionListener*/{
     GridBagConstraints c = new GridBagConstraints();
 
     //Panel Gestio Restriccions
-
-    /*
-    private DefaultListModel llistaDocs = new DefaultListModel();
-    private JList texthospital = new JList(llistaDocs);
-    private JScrollPane scrollpane = new JScrollPane(texthospital);
-     */
     private JPanel switchllista = new JPanel();
     private JPanel restriccions = new JPanel();
     private DefaultListModel llistaRes = new DefaultListModel();
     private JList llistarestriccions = new JList(llistaRes);
     private JButton enrererestriccions = new JButton("Enrere");
     private JButton acceptarrestriccions = new JButton("Acceptar");
+
+
+    //	Per mostrar els errors
+    private JTextField missatgeErrors = new JTextField(40);
 
 
     // ----------------------FUNCIONS----------------------
@@ -96,11 +96,17 @@ public class VistaHospital implements ActionListener/*, ListSelectionListener*/{
         acceptarrestriccions.addActionListener(this);
         restriccions.setLayout(new GridBagLayout());
         texthospital.addMouseListener(new ratonllistaDocs());
-        texthospital.setPreferredSize(new Dimension(600,460));
-        scrollpane.setPreferredSize(new Dimension(600, 460));
+        texthospital.setPreferredSize(new Dimension(600, 520));
+        scrollpane.setPreferredSize(new Dimension(600, 520));
         scrollpane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         llistathospital.setLayout(new BorderLayout());
-        llistathospital.add(scrollpane,BorderLayout.NORTH);
+        llistathospital.add(scrollpane, BorderLayout.NORTH);
+
+        llistathospital.add(missatgeErrors, BorderLayout.SOUTH);
+        missatgeErrors.setEditable(false);
+        missatgeErrors.setText("");
+        missatgeErrors.setForeground(Color.RED);
+
         hospital.add(switchllista, BorderLayout.WEST);
         hospital.add(switchgestio, BorderLayout.EAST);
         texthospital.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -137,7 +143,6 @@ public class VistaHospital implements ActionListener/*, ListSelectionListener*/{
         c.gridy = 4;
         c.gridwidth = 1;
         restriccions.add(acceptarrestriccions, c);
-
     }
     public void inicialitza_insercio() {
         switchgestio.add(gestiohospital, "gestiohospital");
@@ -316,19 +321,22 @@ public class VistaHospital implements ActionListener/*, ListSelectionListener*/{
             cl2.show(switchgestio, "gestiohospital");
         }
         else if (accio == acceptardoctor) {
+            boolean valid = true;
             if(dni.isEditable()){
                 //Creem nou doctor
-                if(!CtrlHospital.existeixDoctor(dni.getText())){
-                    creaDoctor();
-                }
+
+                valid = creaDoctor();
             }
-            else{
-                modificaDoctor();
+            else
+                valid = modificaDoctor();
+
+            if(valid){
+                esborrarTotsErrors();
+                inicialitza_Docs();
+                reiniciaTextFieldsDocs();
+                CardLayout cl = (CardLayout)(switchgestio.getLayout());
+                cl.show(switchgestio, "gestiohospital");
             }
-            inicialitza_Docs();
-            reiniciaTextFieldsDocs();
-            CardLayout cl = (CardLayout)(switchgestio.getLayout());
-            cl.show(switchgestio, "gestiohospital");
         }
         else if (accio == eliminardoctor) {
             esborraDoctor();
@@ -371,26 +379,113 @@ public class VistaHospital implements ActionListener/*, ListSelectionListener*/{
     }
 
     /** Funcions auxiliars **/
-    public void modificaDoctor(){
+    public boolean modificaDoctor(){
+        boolean valid = true;
         String d = dni.getText();
         String n = nom.getText();
         String cg1 = cognom.getText();
         String cg2 = cognom2.getText();
-        int s = Integer.parseInt(sou.getText());
-        int t = Integer.parseInt(telefon.getText());
+        String so = sou.getText();
+        String telf = telefon.getText();
         String cor = correu.getText();
-        CtrlHospital.modificaAtributs(d, n, cg1, cg2, s, t, cor);
+
+        if(n.equals("") || cg1.equals("") || cg2.equals("") || so.equals("") || telf.equals("") || cor.equals("")){
+            valid = false;
+            errorUnOMesDunCampNull();
+        }
+        int s = 0;
+        int t = 0;
+        //Si tots els camps estan plens...
+        if(valid){
+            try {
+                s = Integer.parseInt(so);
+                if(s < 0){
+                    valid = false;
+                    errorHaDeSerUnReal("Sou");
+                }
+            } catch (Exception e){
+                errorHaDeSerUnReal("Sou");
+                valid = false;
+            }
+            //Si sou és valid
+            if(valid){
+                try {
+                    t = Integer.parseInt(telf);
+                    if (t < 0){
+                        valid = false;
+                        errorHaDeSerUnReal("Telèfon");
+                    }
+                } catch(Exception e){
+                    errorHaDeSerUnReal("Telèfon");
+                    valid = false;
+                }
+            }
+        }
+        //Si els camps estan plens i sou i telefon son correctes...
+        if(valid) {
+            if (esCorreu(cor)) {
+                CtrlHospital.modificaAtributs(d, n, cg1, cg2, s, t, cor);
+            } else {
+                noEsCorreu();
+                valid = false;
+            }
+        }
+        return valid;
     }
 
-    public void creaDoctor(){
+    public boolean creaDoctor(){
+        boolean valid = true;
         String d = dni.getText();
         String n = nom.getText();
         String cg1 = cognom.getText();
         String cg2 = cognom2.getText();
-        int s = Integer.parseInt(sou.getText());
-        int t = Integer.parseInt(telefon.getText());
+        String so = sou.getText();
+        String telf = telefon.getText();
         String cor = correu.getText();
-        CtrlHospital.creariAfegirDoctor(d, n, cg1, cg2, s, t, cor);
+
+        if(d.equals("")|| n.equals("") || cg1.equals("") || cg2.equals("") || so.equals("") || telf.equals("") || cor.equals("")){
+            valid = false;
+            errorUnOMesDunCampNull();
+        }
+        int s = 0;
+        int t = 0;
+        //Si tots els camps estan plens...
+        if(valid){
+            try {
+                s = Integer.parseInt(so);
+                if(s < 0){
+                    valid = false;
+                    errorHaDeSerUnReal("Sou");
+                }
+            } catch (Exception e){
+                errorHaDeSerUnReal("Sou");
+                valid = false;
+            }
+            //Si sou és valid
+            if(valid){
+                try {
+                    t = Integer.parseInt(telf);
+                    if (t < 0){
+                        valid = false;
+                        errorHaDeSerUnReal("Telèfon");
+                    }
+                } catch(Exception e){
+                    errorHaDeSerUnReal("Telèfon");
+                    valid = false;
+                }
+            }
+        }
+        //Si els camps estan plens i sou i telefon son correctes...
+        if(valid){
+            if(esCorreu(cor)){
+                CtrlHospital.creariAfegirDoctor(d, n, cg1, cg2, s, t, cor);
+            }
+            else{
+                noEsCorreu();
+                valid = false;
+            }
+        }
+        return valid;
     }
 
     public void esborraDoctor(){
@@ -431,24 +526,6 @@ public class VistaHospital implements ActionListener/*, ListSelectionListener*/{
         ompleDoctorDni(d);
     }
 
-
-    /*public void valueChanged(ListSelectionEvent lse) {
-        if (!lse.getValueIsAdjusting()) {
-            if (lse.getSource() == texthospital){
-                System.out.println("he hecho click EN LA LISTA");
-                ompleValuesDoctor();
-                System.out.println("he rellenado los fields");
-                CardLayout cl = (CardLayout)(switchgestio.getLayout());
-                cl.show(switchgestio, "modificardoctor");
-                afegirrestriccio.setEnabled(true);
-                eliminarrestriccio.setEnabled(true);
-                dni.setEditable(false);
-                eliminardoctor.setEnabled(true);
-            }
-
-        }
-    }
-    */
 
     public class ratonllistaDocs implements MouseListener {
         public void mousePressed(MouseEvent e) {
@@ -496,6 +573,31 @@ public class VistaHospital implements ActionListener/*, ListSelectionListener*/{
             dni.setEditable(false);
             eliminardoctor.setEnabled(true);
         }
+
+    }
+
+
+    //MISSATGES ERROR
+    public void errorUnOMesDunCampNull(){
+        missatgeErrors.setText("ERROR: Falten dades en un o més camps del doctor.");
+    }
+    //Per a sou i telèfon
+    public void errorHaDeSerUnReal(String s){
+        missatgeErrors.setText("ERROR: " + s + " ha de ser un número positiu.");
+    }
+
+    public void noEsCorreu(){
+        missatgeErrors.setText("ERROR: El correu introduït no és vàlid.");
+    }
+
+    public void esborrarTotsErrors(){
+        missatgeErrors.setText("");
+    }
+
+    public boolean esCorreu(String correu){
+        Pattern p = Pattern.compile("[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}");
+        Matcher m = p.matcher(correu);
+        return m.matches();
 
     }
 }
