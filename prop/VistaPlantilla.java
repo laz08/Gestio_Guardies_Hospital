@@ -35,11 +35,12 @@ public class VistaPlantilla implements ActionListener/*ListSelectionListener */{
 	private JTextField textcrearplantilla = new JTextField(20);
 	
 	private JPanel gestioseleccioplantilla = new JPanel();
+
     // Caracteristiques plantilla
     private DefaultListModel llistaDocsPlt = new DefaultListModel();
 	private JList llistacplantilla = new JList(llistaDocsPlt);
     private JScrollPane scrollcplantilla = new JScrollPane(llistacplantilla);
-	private JButton enrerellista = new JButton("Enrere");
+	private JButton enrerellista = new JButton("EnrereBUSCOOO");
 	//private JButton acceptarllista = new JButton("Ok");
 	private JLabel nomplantilla = new JLabel("Nom Plantilla");
 	private JTextField textnomplantilla = new JTextField();
@@ -56,7 +57,7 @@ public class VistaPlantilla implements ActionListener/*ListSelectionListener */{
     private DefaultListModel llistaDocs = new DefaultListModel();
 	private JList doctorsllista = new JList(llistaDocs);
 	private JScrollPane scrolldoctorsllista = new JScrollPane(doctorsllista);
-	private JButton enreredoctors = new JButton("Enrere");
+	private JButton enreredoctors = new JButton("EnrereNOBUSCO");
 	private JButton acceptardllista = new JButton("Ok");
 	GridBagConstraints c = new GridBagConstraints();
 
@@ -203,11 +204,14 @@ public class VistaPlantilla implements ActionListener/*ListSelectionListener */{
 		if (arg0.getSource() == enrerellista) {
             netejaNomPlant();
             //Enrere doctors
-            CardLayout cl = (CardLayout)(switchllista.getLayout());
-            cl.show(switchllista, "consultaplantilla");
-
+            //Carreguem part dreta
 			CardLayout cl2 = (CardLayout)(switchgestio.getLayout());
 	        cl2.show(switchgestio, "gestioplantilla");
+
+            //Carreguem part esquerra
+            CardLayout cl = (CardLayout)(switchllista.getLayout());
+            cl.show(switchllista, "consultaplantilla");
+            inicialitza_plt();
 		}
 
 		else if (arg0.getSource() == carregarplantilla) {
@@ -217,6 +221,7 @@ public class VistaPlantilla implements ActionListener/*ListSelectionListener */{
                 File f = obrirdirectori.getSelectedFile();
                 CtrlPlantilla.carregar(f);
             }
+            inicialitza_plt();
 		}
 		else if (arg0.getSource() == guardarplantilla) {
             int ret = obrirdirectori.showSaveDialog(plantilla);
@@ -227,25 +232,19 @@ public class VistaPlantilla implements ActionListener/*ListSelectionListener */{
 		}
 		else if (arg0.getSource() == enreredoctors) {
 			CardLayout cl = (CardLayout)(switchllista.getLayout());
-			cl.show(switchllista, "consultaplantilla");
-		}
+            cl.show(switchllista, "consultaplantilla");
+        }
 		else if (arg0.getSource() == acceptardllista) {
-            /*
-            Assignem doctor a plantilla.
-            Hem d'haver seleccionat un value de la llista "llistaDocs"
-             */
-            //System.out.println("He premut l'OK corqui");
-
-
             String d = getDNIseleccionatdePlt();
             String p = textnomplantilla.getText();
             assignaDocAPlt(d, p);
             //Tinc dni
             inicialitzaDocsPlant();
             inicialitza_Docs();
-
-            CardLayout cl = (CardLayout)(switchllista.getLayout());
+            /*CardLayout cl = (CardLayout)(switchllista.getLayout());
 			cl.show(switchllista, "consultaplantilla");
+			*/
+            inicialitza_plt();
 		}
 
 		else if (arg0.getSource() == assignardoctorplantilla) {
@@ -255,10 +254,8 @@ public class VistaPlantilla implements ActionListener/*ListSelectionListener */{
 		}
 		else if (arg0.getSource() == treuredoctorplantilla) {
             esborrarDocDePlantilla();
-            //inicialitzaDocsPlant();
+            inicialitzaDocsPlant();
             inicialitza_Docs();
-			/*CardLayout cl = (CardLayout)(switchllista.getLayout());
-	        cl.show(switchllista, "gestiodoctorplantilla");*/
 		}
 		else if(arg0.getSource() == acceptarcreacioplantilla) {
 			String nom = textcrearplantilla.getText();
@@ -336,7 +333,7 @@ public class VistaPlantilla implements ActionListener/*ListSelectionListener */{
         	if(content.length() > 0) {
         		String separadors = "[ \n]";
         		String[] separat = content.split(separadors);
-        		for (int i = 0; i < separat.length; i += 1) {
+        		for (int i = 0; i < separat.length; i += 4) {
         			llistaDocsPlt.addElement(separat[i] + " " + separat[i + 1] + " " + separat[i + 2] + " " + separat[i + 3]);
         		}
         	}
