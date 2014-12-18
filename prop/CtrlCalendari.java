@@ -245,7 +245,6 @@ public class CtrlCalendari {
 	//Post: Retorna el numero minim de doctors del torn d'horari(mati=0, tarda=1 o nit=2) del dia (dia) del calendari de la plantilla plt
 	public static int consultarMinimTorn(GregorianCalendar dia, String plt, int horari) {
 		int pos = calcularPosicioDia(dia,consultarCalendari(plt).getAny());
-		System.out.println(consultarCalendari(plt).getCalendari()[pos].getTornMati().getMin_num_doctors());
 		if(horari==0) return consultarCalendari(plt).getCalendari()[pos].getTornMati().getMin_num_doctors();
 		else if(horari==1) return consultarCalendari(plt).getCalendari()[pos].getTornTarda().getMin_num_doctors();
 		else return consultarCalendari(plt).getCalendari()[pos].getTornNit().getMin_num_doctors();
@@ -280,9 +279,6 @@ public class CtrlCalendari {
 		else if(horari==2) consultarCalendari(plt).getCalendari()[pos].getTornNit().setMin_num_doctors(m);
 
 	}
-
-	
-
 	
 	// ----------- FUNCIONS AUXILIARS -------------
 

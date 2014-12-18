@@ -63,7 +63,7 @@ public class CtrlVistaCalendaris {
     }
     
     public static void crearcalendari(String plt, int anyi, int anyfi) {
-    	CtrlCalendari.crearIafegirCalendari(plt, anyi, anyfi);
+    	CtrlCalendari.afegirCalendari(plt, anyi, anyfi);
     }
     
     public static void eliminarcalendari(String plt) {

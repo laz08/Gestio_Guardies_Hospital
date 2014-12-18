@@ -6,7 +6,7 @@ import java.util.GregorianCalendar;
 public class Calendari {
 	
 	private Dia[] cal;
-	//private int id;
+	private String pl;
 	private int any;
 	private int anyfi;
 	private Plantilla p;
@@ -16,19 +16,16 @@ public class Calendari {
 	//Post: Creem un calendari per la plantilla plt des d'any_inici fins any_fi, buit, només amb els diumenges marcats com festius.
 	public Calendari(String plt, int any_inici, int any_fi) {
 		GregorianCalendar dia = new GregorianCalendar(any_inici,0,1);
-		//System.out.println(dia.getTime().toString());
 		GregorianCalendar diaf = new GregorianCalendar(any_fi+1,0,0);
-		//System.out.println(diaf.getTime().toString());
 		long dies = diaf.getTimeInMillis() - dia.getTimeInMillis();
 		dies = dies/1000/60/60/24;
-		//System.out.println(dies);
 		cal = new Dia[(int) dies];
 		any =  any_inici;
 		anyfi = any_fi;
 		afegirPosicio();
 		afegirFestius(); //Afegim a tots els diumenges de l'any el boolea festiu true
 		setPlantillaAssociada(plt);
-		//id = Integer.parseInt(plt);
+		pl = plt;
 	}
 	
 	//Pre: -
@@ -56,14 +53,14 @@ public class Calendari {
 	//Pre: -
 	//Post: Retornem el nom de la plantilla associada a aquest calendari
 	public String getPlantillaAssociada() {
-		return p.getNomPlantilla();
+		return pl;
 	}
 	
 	//Pre: La plantilla nom existeix
 	//Post: Associem la plantilla nom amb el calendari que estem
 	public void setPlantillaAssociada(String nom) {
-		//p = CtrlPlantilla.getPlantillaNom(nom);
 		p =  CtrlPlantilla.consultarPlantilla(nom);
+		pl = nom;
 	}
 	
 	/*
@@ -149,7 +146,6 @@ public class Calendari {
 	//Pre: -
 	//Post: Afegim la posicio de calendari a la qual pertany el torn
 	public void afegirPosicio() {
-		//System.out.println(cal.length);
 		for(int i=0; i<cal.length; ++i){
 			cal[i] = new Dia(false);
 			for(int j=0; j<3; ++j) cal[i].getTorns()[j].setPosicio(i);
