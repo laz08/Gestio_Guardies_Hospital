@@ -40,7 +40,7 @@ public class CtrlEntrada {
     }
 
     private static void posaVertexTorn(Graf g) throws Error {
-        Plantilla plantilla = CtrlPlantilla.getPlantillaActual();
+        Plantilla plantilla = CtrlPlantilla.getPlantillaActual();        
         Dia[] dia = plantilla.get_calendari_asoc().getCalendari();
         for (int i = 0; i < dia.length; i++) { // cream nodes de tipus torn i els afagim al graf
             for (int t = 0; t < 3; t++) {

@@ -22,8 +22,8 @@ public class VistaAlgorismes {
     private CtrlVistaAlgorismes ctrlVistaAlgorismes;
     private static JPanel panel_algorisme = new JPanel();
     //boolean
-    private static boolean grafCreat = false;
-    private static boolean plantillaSelec = false;
+//    private static boolean grafCreat = false;
+//    private static boolean plantillaSelec = false;
     //plantilles
     private static JLabel label_plantilles = new JLabel();
     private static JPanel panel_plantilles = new JPanel();
@@ -63,8 +63,9 @@ public class VistaAlgorismes {
         llista_plantilles.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
-                seleccioPlantilla();
-                grafCreat = false;
+                String plantilla = seleccioPlantilla();
+                if(ctrlVistaAlgorismes.teCalendariAssociat(plantilla)) btnGraf.setEnabled(true);
+                btn_executa_algorisme.setEnabled(false);
             }
         });
 
@@ -92,10 +93,11 @@ public class VistaAlgorismes {
             @Override
             public void actionPerformed(ActionEvent e) {
                 ctrlVistaAlgorismes.creaGraf();
-                grafCreat = true;
+                panel_execucio.repaint();
+
             }
         });
-        btnGraf.setEnabled(plantillaSelec);
+        btnGraf.setEnabled(false);
         btnGraf.setBounds(400, 100, 150, 50);
         panel_graf.add(btnGraf);
 
@@ -112,18 +114,17 @@ public class VistaAlgorismes {
         panel_algorismes.add(algorisme1);
         panel_algorismes.add(algorisme2);
         btn_executa_algorisme.setText("Executa");
-        btn_executa_algorisme.setEnabled(grafCreat && (algorisme2.isEnabled() || algorisme1.isEnabled()));
+        btn_executa_algorisme.setEnabled(false);
         btn_executa_algorisme.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                try{
-                if (algorisme1.isSelected()) {
-                    ctrlVistaAlgorismes.executaAlgorisme(algorisme1.getText());
-                } else if (algorisme2.isSelected()) {
-                    ctrlVistaAlgorismes.executaAlgorisme(algorisme2.getText());
-                }
-                }catch(Error error){
-                    
+                try {
+                    if (algorisme1.isSelected()) {
+                        ctrlVistaAlgorismes.executaAlgorisme(algorisme1.getText());
+                    } else if (algorisme2.isSelected()) {
+                        ctrlVistaAlgorismes.executaAlgorisme(algorisme2.getText());
+                    }
+                } catch (Error error) {
                 }
             }
         });
@@ -141,10 +142,10 @@ public class VistaAlgorismes {
         }
     }
 
-    private void seleccioPlantilla() {
+    private String seleccioPlantilla() {
         String sPlantilla = (String) llista_plantilles.getSelectedValue();
         ctrlVistaAlgorismes.seleccionaPlantilla(sPlantilla);
-        plantillaSelec = true;
+        return sPlantilla;
     }
 
     public JPanel tornapanel() {

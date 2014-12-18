@@ -32,6 +32,10 @@ public class CtrlVistaAlgorismes {
             CtrlPlantilla.setPlantillaActual(plantila);
         }
         
+        public boolean teCalendariAssociat(String plantilla){
+            return CtrlPlantilla.existeixCalendari(plantilla);
+        }
+        
         public void creaGraf(){
             g = CtrlEntrada.crea_graf();
         }
