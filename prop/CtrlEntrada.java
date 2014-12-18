@@ -40,8 +40,9 @@ public class CtrlEntrada {
     }
 
     private static void posaVertexTorn(Graf g) throws Error {
-        Plantilla plantilla = CtrlPlantilla.getPlantillaActual();        
-        Dia[] dia = plantilla.get_calendari_asoc().getCalendari();
+        Plantilla plantilla = CtrlPlantilla.getPlantillaActual();   
+        System.out.println(CtrlCalendari.existeixCalendari(plantilla.getNomPlantilla()));
+        Dia[] dia = CtrlCalendari.consultarCalendari(plantilla.getNomPlantilla()).getCalendari();//plantilla.get_calendari_asoc().getCalendari();
         for (int i = 0; i < dia.length; i++) { // cream nodes de tipus torn i els afagim al graf
             for (int t = 0; t < 3; t++) {
                 Torn torn = null;
@@ -250,7 +251,7 @@ public class CtrlEntrada {
     private static ArrayList<Vertex> consulta_torns_afectats(String t, String tipus_r, Graf g) throws Error {
         ArrayList<Vertex> v_torns = new ArrayList<Vertex>();
         Plantilla plantilla = CtrlPlantilla.getPlantillaActual();
-        Calendari c = plantilla.get_calendari_asoc();
+        Calendari c = CtrlCalendari.consultarCalendari(plantilla.getNomPlantilla());//plantilla.get_calendari_asoc();
 
         Dia[] any = c.getCalendari();
 
