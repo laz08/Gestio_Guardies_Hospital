@@ -57,7 +57,7 @@ public class VistaPrincipal {
 		    pestanyes.addTab("Plantilla", vp.tornapanel());
 		    pestanyes.addTab("Calendari", vcal.tornapanel());
 		    pestanyes.addTab("Restriccions", vr.tornapanel());
-                    pestanyes.addTab("Assignacions", vass.tornapanel());
+            pestanyes.addTab("Assignacions", vass.tornapanel());
 		    pestanyes.addTab("Algorisme", va.tornapanel());
 		    pestanyes.addTab("Guardar", vg.tornapanel());
 		    pestanyes.addTab("Carregar", vcarr.tornapanel());
@@ -66,8 +66,14 @@ public class VistaPrincipal {
              pestanyes.addChangeListener(new ChangeListener() {
                  @Override
                  public void stateChanged(ChangeEvent e) {
+                     //HOSPITAL
                      if(pestanyes.getSelectedIndex() == 0){
+                         vh.pantalla_principal();
                          vh.inicialitza_Docs();
+                     }
+                     else if(pestanyes.getSelectedIndex() == 1){
+                          vp.pantalla_principal();
+                          vp.inicialitza_plt();
                      }
                      else if(pestanyes.getSelectedIndex() == 5){
                          va.insereixPlantilles();

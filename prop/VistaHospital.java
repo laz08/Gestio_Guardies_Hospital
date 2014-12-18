@@ -1,6 +1,8 @@
 package prop;
 
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -8,9 +10,6 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
 import java.util.ArrayList;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
-import javax.swing.plaf.basic.BasicListUI;
 
 public class VistaHospital implements ActionListener/*, ListSelectionListener*/{
     private static CtrlVistaHospital ctrlVistaHospital;
@@ -85,7 +84,12 @@ public class VistaHospital implements ActionListener/*, ListSelectionListener*/{
         inicialitza_gestio();
     }
 
-
+    public void pantalla_principal(){
+        CardLayout cl = (CardLayout)(switchllista.getLayout());
+        cl.show(switchllista, "llistathospital");
+        CardLayout cl2 = (CardLayout)(switchgestio.getLayout());
+        cl2.show(switchgestio, "gestiohospital");
+    }
 
     public void inicialitza_llistat() {
         enrererestriccions.addActionListener(this);

@@ -241,6 +241,8 @@ public class VistaPlantilla implements ActionListener/*ListSelectionListener */{
             //Tinc dni
             inicialitzaDocsPlant();
             inicialitza_Docs();
+            //Així podem fer assignacions més ràpidament, sense tornar al panel anterior
+            //Ho deixo comentat
             /*CardLayout cl = (CardLayout)(switchllista.getLayout());
 			cl.show(switchllista, "consultaplantilla");
 			*/
@@ -286,6 +288,7 @@ public class VistaPlantilla implements ActionListener/*ListSelectionListener */{
 	        cl.show(switchgestio, "crearplantilla");
 		}
 	}
+
 
     public void esborrarDocDePlantilla(){
         String dni = getDNIdeDoctorAssignat();
@@ -410,6 +413,10 @@ public class VistaPlantilla implements ActionListener/*ListSelectionListener */{
 
     }
 
+    public void pantalla_principal(){
+        CardLayout cl = (CardLayout)(switchgestio.getLayout());
+        cl.show(switchgestio, "gestioplantilla");
+    }
 
 
 }
