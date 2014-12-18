@@ -28,7 +28,7 @@ public class VistaAlgorismes {
     private static JLabel label_plantilles = new JLabel();
     private static JPanel panel_plantilles = new JPanel();
     private static DefaultListModel default_llista_plantilles = new DefaultListModel();
-    private static JList llista_plantilles = new JList();
+    private static JList llista_plantilles = new JList(default_llista_plantilles);
     private static JScrollPane scroll_llistaP;
     private static JPanel panel_execucio = new JPanel();
     private static JButton btnGraf = new JButton("Crea Graf");
@@ -53,7 +53,7 @@ public class VistaAlgorismes {
         panel_algorisme.add(panel_execucio);
     }
 
-    public void initPanelMostraPlantilla() {
+    private void initPanelMostraPlantilla() {
         panel_plantilles.setBounds(0, 0, W_WIDTH / 2, W_HEIGHT);
         panel_plantilles.setLayout(null);
 
@@ -85,7 +85,7 @@ public class VistaAlgorismes {
         vertex_info.setBounds(40, 100, 250, 20);
         vertex_info.setText("Nombre de vertex: " + ctrlVistaAlgorismes.grafNumVertex());
         arestes_info.setBounds(40, 130, 250, 20);
-        arestes_info.setText("Nombre de vertex: " + ctrlVistaAlgorismes.grafNumArestes());
+        arestes_info.setText("Nombre de arestes: " + ctrlVistaAlgorismes.grafNumArestes());
         panel_graf.add(vertex_info);
         panel_graf.add(arestes_info);
         btnGraf.addActionListener(new ActionListener() {
@@ -133,8 +133,9 @@ public class VistaAlgorismes {
         panel_execucio.add(panel_algorismes);
     }
 
-    private void insereixPlantilles() {
+    public void insereixPlantilles() {
         ArrayList<Plantilla> llistaP = ctrlVistaAlgorismes.consulta_llista_plantilles();
+        default_llista_plantilles.removeAllElements();
         for (int i = 0; i < llistaP.size(); i++) {
             default_llista_plantilles.addElement(llistaP.get(i).getNomPlantilla());
         }

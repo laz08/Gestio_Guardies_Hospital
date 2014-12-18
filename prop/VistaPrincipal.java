@@ -64,12 +64,13 @@ public class VistaPrincipal {
 		    frameVista.getContentPane().add(pestanyes);
 		    ferVisible();
              pestanyes.addChangeListener(new ChangeListener() {
+                 @Override
                  public void stateChanged(ChangeEvent e) {
                      if(pestanyes.getSelectedIndex() == 0){
                          vh.inicialitza_Docs();
                      }
-                     else if(pestanyes.getSelectedIndex() == 4){
-                         va.initPanelMostraPlantilla();
+                     else if(pestanyes.getSelectedIndex() == 5){
+                         va.insereixPlantilles();
                      }
                  }
              });
