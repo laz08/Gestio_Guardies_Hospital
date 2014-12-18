@@ -394,8 +394,12 @@ public class VistaCalendari implements ListSelectionListener, ItemListener, Acti
             if (fila > 0 && columna >= 0 && table.getValueAt(fila, columna) != " " && any.getSelectedItem() != null) {
             	//RETORNA DIA 
             	//percentmati.setText(Float.toString(CtrlCalendari.consultarPercentatgeTorn(new GregorianCalendar(Integer.parseInt((String)any.getItemAt(any.getSelectedIndex())),Integer.parseInt(mesos.getSelectedValue()),(int) table.getValueAt(fila, columna)), llistaplantilla.getSelectedValue(), 0)));
-            	
-            	festiu.setSelected(CtrlVistaCalendaris.diafestiu(llistaplantilla.getSelectedValue(), new GregorianCalendar(Integer.parseInt((String) any.getSelectedItem()), mesos.getSelectedIndex(), Integer.parseInt((String) model.getValueAt(table.getSelectedRow(), table.getSelectedColumn())))));            	
+            	int rany = Integer.parseInt((String)any.getSelectedItem());
+            	int mes = mesos.getSelectedIndex();
+            	int dia = Integer.parseInt((String)table.getValueAt(fila, columna));
+            	GregorianCalendar data = new GregorianCalendar(rany,mes, dia);
+            	System.out.println("Si? "+CtrlCalendari.consultarDiaFestiu(llistaplantilla.getSelectedValue(),data));
+            	festiu.setSelected(CtrlCalendari.consultarDiaFestiu(llistaplantilla.getSelectedValue(),data));            	
             	percentmati.setText(String.valueOf(CtrlVistaCalendaris.consultarpercenttorn(new GregorianCalendar(Integer.parseInt((String) any.getSelectedItem()), mesos.getSelectedIndex(), Integer.parseInt((String) model.getValueAt(table.getSelectedRow(), table.getSelectedColumn()))), llistaplantilla.getSelectedValue(),0)));
             	minimmati.setText(String.valueOf(CtrlVistaCalendaris.consultaminimtorn(new GregorianCalendar(Integer.parseInt((String) any.getSelectedItem()), mesos.getSelectedIndex(), Integer.parseInt((String) model.getValueAt(table.getSelectedRow(), table.getSelectedColumn()))), llistaplantilla.getSelectedValue(), 0)));
             	percentarda.setText(String.valueOf(CtrlVistaCalendaris.consultarpercenttorn(new GregorianCalendar(Integer.parseInt((String) any.getSelectedItem()), mesos.getSelectedIndex(), Integer.parseInt((String) model.getValueAt(table.getSelectedRow(), table.getSelectedColumn()))), llistaplantilla.getSelectedValue(),1)));

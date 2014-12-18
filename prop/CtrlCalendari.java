@@ -95,9 +95,6 @@ public class CtrlCalendari {
 		String separadors = "[ \n]";
     	String[] separat = content.split(separadors); 	
     	int i = 0;
-    	
-    	System.out.println(separadors);
-    	System.out.println(separat.length);
     	String calendari;
     	while (i < separat.length) {
     		calendari = separat[i];
@@ -159,7 +156,7 @@ public class CtrlCalendari {
 	//Post: Retorna un boolea dient si el dia(dia) és festiu o no
 	public static boolean consultarDiaFestiu(String plt, GregorianCalendar dia) {
 		int pos = calcularPosicioDia(dia,consultarCalendari(plt).getAny());
-		return(consultarCalendari(plt).getCalendari()[pos/consultarCalendari(plt).getAny()].getFestiu());
+		return(consultarCalendari(plt).getCalendari()[pos].getFestiu());
 	}
 	
 	//Pre: Dia pertany a una data del calendari de la plantilla plt
@@ -180,7 +177,7 @@ public class CtrlCalendari {
 	//Post: Es modifica el boolea de festiu del dia(dia) del calendari de plt pel boolea que li arriba
 	public static void modificarDiaFestiu(String plt, GregorianCalendar dia, boolean b) {
 		int pos = calcularPosicioDia(dia,consultarCalendari(plt).getAny());
-		consultarCalendari(plt).getCalendari()[pos/consultarCalendari(plt).getAny()].setFestiu(b);
+		consultarCalendari(plt).getCalendari()[pos].setFestiu(b);
 	}
 	
 	//Pre: Dia pertany a una data del calendari de la plantilla plt, ts vector de 3 torns
@@ -239,28 +236,28 @@ public class CtrlCalendari {
 	//Post: Retorna el percentatge de sou del torn d'horari(mati=0, tarda=1 o nit=2) del dia (dia) del calendari de la plantilla plt
 	public static float consultarPercentatgeTorn(GregorianCalendar dia, String plt, int horari) {
 		int pos = calcularPosicioDia(dia,consultarCalendari(plt).getAny());
-		if(horari==0) return consultarCalendari(plt).getCalendari()[pos/consultarCalendari(plt).getAny()].getTornMati().getPercent_sou();
-		else if(horari==1) return consultarCalendari(plt).getCalendari()[pos/consultarCalendari(plt).getAny()].getTornTarda().getPercent_sou();
-		else return consultarCalendari(plt).getCalendari()[pos/consultarCalendari(plt).getAny()].getTornNit().getPercent_sou();
+		if(horari==0) return consultarCalendari(plt).getCalendari()[pos].getTornMati().getPercent_sou();
+		else if(horari==1) return consultarCalendari(plt).getCalendari()[pos].getTornTarda().getPercent_sou();
+		else return consultarCalendari(plt).getCalendari()[pos].getTornNit().getPercent_sou();
 	}
 	
 	//Pre: tipustorn es un enter entre 0 i 2, i dia es una data que pertany al calendari associat de plt
 	//Post: Retorna el numero minim de doctors del torn d'horari(mati=0, tarda=1 o nit=2) del dia (dia) del calendari de la plantilla plt
 	public static int consultarMinimTorn(GregorianCalendar dia, String plt, int horari) {
 		int pos = calcularPosicioDia(dia,consultarCalendari(plt).getAny());
-		System.out.println(consultarCalendari(plt).getCalendari()[pos/consultarCalendari(plt).getAny()].getTornMati().getMin_num_doctors());
-		if(horari==0) return consultarCalendari(plt).getCalendari()[pos/consultarCalendari(plt).getAny()].getTornMati().getMin_num_doctors();
-		else if(horari==1) return consultarCalendari(plt).getCalendari()[pos/consultarCalendari(plt).getAny()].getTornTarda().getMin_num_doctors();
-		else return consultarCalendari(plt).getCalendari()[pos/consultarCalendari(plt).getAny()].getTornNit().getMin_num_doctors();
+		System.out.println(consultarCalendari(plt).getCalendari()[pos].getTornMati().getMin_num_doctors());
+		if(horari==0) return consultarCalendari(plt).getCalendari()[pos].getTornMati().getMin_num_doctors();
+		else if(horari==1) return consultarCalendari(plt).getCalendari()[pos].getTornTarda().getMin_num_doctors();
+		else return consultarCalendari(plt).getCalendari()[pos].getTornNit().getMin_num_doctors();
 	}
 	
 	//Pre: Dia pertany a una data del calendari i horari es un enter entre 0 i 2
 	//Post: Modifica tota la informació del torn d'horari(mati=0, tarda=1 o nit=2) del dia (dia) del calendari de la plantilla plt pel torn t
 	public static void modificarTorn(Torn t, GregorianCalendar dia, String plt, int horari) {
 		int pos = calcularPosicioDia(dia,consultarCalendari(plt).getAny());
-		if(horari==0) consultarCalendari(plt).getCalendari()[pos/consultarCalendari(plt).getAny()].setTornMati(t);
-		else if(horari==1) consultarCalendari(plt).getCalendari()[pos/consultarCalendari(plt).getAny()].setTornTarda(t);
-		else if(horari==2) consultarCalendari(plt).getCalendari()[pos/consultarCalendari(plt).getAny()].setTornNit(t);
+		if(horari==0) consultarCalendari(plt).getCalendari()[pos].setTornMati(t);
+		else if(horari==1) consultarCalendari(plt).getCalendari()[pos].setTornTarda(t);
+		else if(horari==2) consultarCalendari(plt).getCalendari()[pos].setTornNit(t);
 
 	}
 
@@ -268,9 +265,9 @@ public class CtrlCalendari {
 	//Post: Modifica el percentatge de sou del torn d'horari(mati=0, tarda=1 o nit=2) del dia (dia) del calendari de la plantilla plt pel percentatge p
 	public static void modificarPercentatgeTorn(float p, GregorianCalendar dia, String plt, int horari) {
 		int pos = calcularPosicioDia(dia,consultarCalendari(plt).getAny());
-		if(horari==0) consultarCalendari(plt).getCalendari()[pos/consultarCalendari(plt).getAny()].getTornMati().setPercent_sou(p);
-		else if(horari==1) consultarCalendari(plt).getCalendari()[pos/consultarCalendari(plt).getAny()].getTornTarda().setPercent_sou(p);
-		else if(horari==2) consultarCalendari(plt).getCalendari()[pos/consultarCalendari(plt).getAny()].getTornNit().setPercent_sou(p);
+		if(horari==0) consultarCalendari(plt).getCalendari()[pos].getTornMati().setPercent_sou(p);
+		else if(horari==1) consultarCalendari(plt).getCalendari()[pos].getTornTarda().setPercent_sou(p);
+		else if(horari==2) consultarCalendari(plt).getCalendari()[pos].getTornNit().setPercent_sou(p);
 
 	}
 	
@@ -278,9 +275,9 @@ public class CtrlCalendari {
 	//Post: Modifica el numero minim de doctors del torn d'horari(mati=0, tarda=1 o nit=2) del dia (dia) del calendari de la plantilla plt pel nou minim m
 	public static void modificarMinimTorn(int m, GregorianCalendar dia, String plt, int horari) {
 		int pos = calcularPosicioDia(dia,consultarCalendari(plt).getAny());
-		if(horari==0) consultarCalendari(plt).getCalendari()[pos/consultarCalendari(plt).getAny()].getTornMati().setMin_num_doctors(m);
-		else if(horari==1) consultarCalendari(plt).getCalendari()[pos/consultarCalendari(plt).getAny()].getTornTarda().setMin_num_doctors(m);
-		else if(horari==2) consultarCalendari(plt).getCalendari()[pos/consultarCalendari(plt).getAny()].getTornNit().setMin_num_doctors(m);
+		if(horari==0) consultarCalendari(plt).getCalendari()[pos].getTornMati().setMin_num_doctors(m);
+		else if(horari==1) consultarCalendari(plt).getCalendari()[pos].getTornTarda().setMin_num_doctors(m);
+		else if(horari==2) consultarCalendari(plt).getCalendari()[pos].getTornNit().setMin_num_doctors(m);
 
 	}
 
@@ -293,7 +290,7 @@ public class CtrlCalendari {
 	//Pre: dia pertany a l'any
 	//Post: Ens retorna la posició on es troba el dia en qüestió en el nostre calendari
 	public static int calcularPosicioDia(GregorianCalendar dia, int any) {
-		GregorianCalendar primerdia = new GregorianCalendar(any,1,1);
+		GregorianCalendar primerdia = new GregorianCalendar(any,0,1);
 		long dif = dia.getTimeInMillis() - primerdia.getTimeInMillis();
 		dif = dif/1000/60/60/24;
 		return (int) dif;
@@ -303,10 +300,8 @@ public class CtrlCalendari {
 	//Pre: i pertany a una posicio del vector
 	//Post: Retorna la data que te la posicio i al vector.
 	public static GregorianCalendar quinDia(int i, int any) {
-		GregorianCalendar primerdia = new GregorianCalendar(any,1,1);
+		GregorianCalendar primerdia = new GregorianCalendar(any,0,1);
 		primerdia.add(Calendar.DAY_OF_YEAR,i);
 		return primerdia;		
 	}
-	
-	
 }
