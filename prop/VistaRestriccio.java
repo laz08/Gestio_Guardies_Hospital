@@ -5,7 +5,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 public class VistaRestriccio {
@@ -26,13 +25,13 @@ public class VistaRestriccio {
     private JTextField introduirrestriccio = new JTextField(40);
     private JPanel insertaracceptarrestriccio = new JPanel();
     private JPanel insertartextrestriccio = new JPanel();
-    private JLabel mostraErrors = new JLabel();
+    private JTextField mostraErrors = new JTextField(40);
+
 
     public VistaRestriccio(CtrlVistaRestriccions cvr) {
         ctrlVistaRestriccions = cvr;
         restriccions.setLayout(new BorderLayout());
-        mostraErrors.setText("");
-        mostraErrors.setForeground(Color.red);
+
         inicialitza_llistat();
         inicialitza_gestio();
         inicialitza_insercio();
@@ -40,13 +39,20 @@ public class VistaRestriccio {
     }
 
     public void inicialitza_llistat() {
-        scrollpane.setPreferredSize(new Dimension(600, 460));
+        scrollpane.setPreferredSize(new Dimension(600, 520));
         scrollpane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+
+       // llistatrestriccio.setSize(new Dimension(600, 520));
         llistatrestriccio.setLayout(new BoxLayout(llistatrestriccio, BoxLayout.Y_AXIS));
         llistatrestriccio.add(scrollpane);//, BorderLayout.NORTH);
+        llistatrestriccio.add(mostraErrors, BorderLayout.SOUTH);
+        mostraErrors.setEditable(false);
+        mostraErrors.setForeground(Color.RED);
+
+
         carregaRestriccions();
-        //llistatrestriccio.add(llistaRestriccions);
         restriccions.add(llistatrestriccio, BorderLayout.WEST);
+        //restriccions.add(mostraErrors, BorderLayout.SOUTH);
     }
 
     private void carregaRestriccions() {
@@ -61,17 +67,16 @@ public class VistaRestriccio {
         insertaracceptarrestriccio.setLayout(new BorderLayout());
         insertartextrestriccio.setLayout(new FlowLayout());
         insertrestriccio.setLayout(new BorderLayout());
-        insertartextrestriccio.add(introduirrestriccio);
+        insertartextrestriccio.add(introduirrestriccio, BorderLayout.CENTER);
 
-        insertrestriccio.add(insertartextrestriccio, BorderLayout.NORTH);
+        insertrestriccio.add(insertartextrestriccio, BorderLayout.CENTER);
         insertrestriccio.add(insertaracceptarrestriccio, BorderLayout.SOUTH);
         insertrestriccio.setPreferredSize(new Dimension(600, 300));
 
-        gestiorestriccio.add(insertrestriccio, BorderLayout.NORTH);
+        gestiorestriccio.add(insertrestriccio, BorderLayout.CENTER);
     }
 
     public void inicialitza_gestio() {
-
         buttonsrestriccio.setLayout(new GridBagLayout());
         buttonsrestriccio.setPreferredSize(new Dimension(600, 250));
         gestiorestriccio.setLayout(new BorderLayout());
@@ -113,16 +118,31 @@ public class VistaRestriccio {
 
     private void crearRestriccio() {
         if (!introduirrestriccio.getText().isEmpty()) {
-            ctrlVistaRestriccions.creaRestriccio(introduirrestriccio.getText());
+            try{
+                ctrlVistaRestriccions.creaRestriccio(introduirrestriccio.getText());
+                esborraErrors();
+                introduirrestriccio.setText("");
+                carregaRestriccions();
+            } catch (Exception e){
+                mostraErrors.setText("ERROR: L'expressió de restriccions introduïda no és vàlida.");
+            }
+
         }
-        introduirrestriccio.setText("");
-        carregaRestriccions();
+        else{
+            mostraErrors.setText("ERROR: El camp d'introducció de restriccions no pot estar en blanc.");
+        }
     }
 
     private void eliminarRestriccio() {
+        esborraErrors();
         String rSeleccionada = (String) llistaRestriccions.getSelectedValue();
-        ctrlVistaRestriccions.eliminaRestriccio(rSeleccionada);
-        carregaRestriccions();
+        if(rSeleccionada.equals("")){
+            mostraErrors.setText("ERROR: Has de seleccionar una restricció de la llista.");
+        }
+        else {
+            ctrlVistaRestriccions.eliminaRestriccio(rSeleccionada);
+            carregaRestriccions();
+        }
     }
 
     private void carregarRestriccio() {
@@ -135,10 +155,11 @@ public class VistaRestriccio {
                 ctrlVistaRestriccions.creaRestriccio(sRestriccions[i]);
             }
             carregaRestriccions();
-        }catch(FileNotFoundException e){
-            mostraErrors.setText("No s'han pogut carregar les restriccions");
+        }catch(Exception e){
+            mostraErrors.setText("ERROR: No s'han pogut carregar les restriccions.");
         }
         carregaRestriccions();
+        esborraErrors();
     }
 
     private void guardarRestriccio() {
@@ -147,5 +168,9 @@ public class VistaRestriccio {
         chooser.showSaveDialog(restriccions);
         File f = chooser.getSelectedFile();
         ctrlVistaRestriccions.guardaRestriccions(f);
+    }
+
+    public void esborraErrors(){
+        mostraErrors.setText("");
     }
 }

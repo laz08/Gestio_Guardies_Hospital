@@ -70,10 +70,15 @@ public class VistaPrincipal {
                      if(pestanyes.getSelectedIndex() == 0){
                          vh.pantalla_principal();
                          vh.inicialitza_Docs();
+                         vh.esborrarTotsErrors();
                      }
                      else if(pestanyes.getSelectedIndex() == 1){
                           vp.pantalla_principal();
                           vp.inicialitza_plt();
+                          vp.esborrarErrors();
+                     }
+                     else if(pestanyes.getSelectedIndex() == 3){
+                         vr.esborraErrors();
                      }
                      else if(pestanyes.getSelectedIndex() == 5){
                          va.insereixPlantilles();

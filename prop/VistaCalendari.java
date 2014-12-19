@@ -20,7 +20,7 @@ public class VistaCalendari implements ListSelectionListener, ItemListener, Acti
     private JFileChooser obrirdirectori = new JFileChooser();
 
     //Part llistat plantilla
-    private JTextField texterror = new JTextField(20);
+    private JTextField texterror = new JTextField(40);
     private JPanel llistatplantilla = new JPanel();
     private DefaultListModel<String> modelplantilla = new DefaultListModel<String>();
     private JList<String> llistaplantilla = new JList<String>(modelplantilla);
@@ -107,6 +107,7 @@ public class VistaCalendari implements ListSelectionListener, ItemListener, Acti
         llistatplantilla.add(scrollplantilla, BorderLayout.NORTH);
         scrollplantilla.setPreferredSize(new Dimension(600, 520));
         texterror.setEditable(false);
+        texterror.setForeground(Color.RED);
         llistatplantilla.add(texterror, BorderLayout.SOUTH);
     }
 
