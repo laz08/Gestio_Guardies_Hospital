@@ -105,7 +105,8 @@ public class VistaCalendari implements ListSelectionListener, ItemListener, Acti
         llistatplantilla.setLayout(new BorderLayout());
         llistaplantilla.addListSelectionListener(this);
         llistatplantilla.add(scrollplantilla, BorderLayout.NORTH);
-        scrollplantilla.setPreferredSize(new Dimension(600, 460));
+        scrollplantilla.setPreferredSize(new Dimension(600, 520));
+        texterror.setEditable(false);
         llistatplantilla.add(texterror, BorderLayout.SOUTH);
     }
 
@@ -414,6 +415,8 @@ public class VistaCalendari implements ListSelectionListener, ItemListener, Acti
         }
     }
     
+    
+
     class CalendarModel extends AbstractTableModel {
         String[] exempledies= { "Dissabte", "Diumenge", "Dilluns", "Dimarts", "Dimecres", "Dijous", "Divendres" };
 
@@ -520,13 +523,13 @@ public class VistaCalendari implements ListSelectionListener, ItemListener, Acti
             	int dia = Integer.parseInt((String)table.getValueAt(fila, columna));
             	GregorianCalendar data = new GregorianCalendar(rany,mes, dia);
             	if (!isnumber(percentmati.getText(),2) || !isnumber(percentarda.getText(),2) || !isnumber(percentnit.getText(),2)) {
-            		texterror.setText("Un o més percentatges no són percentatges valids");
+            		texterror.setText("ERROR: Un o més percentatges no són percentatges valids");
             	}
             	else if (!isnumber(minimmati.getText(),1) || !isnumber(minimtarda.getText(),1) || !isnumber(minimnit.getText(),1)) {
-            		texterror.setText("El nombre de doctors d'un o més torns no és un nombre");
+            		texterror.setText("ERROR: El nombre de doctors d'un o més torns no és un nombre");
             	}
             	else if(Integer.parseInt(minimmati.getText()) < 0 || Integer.parseInt(minimtarda.getText()) < 0 || Integer.parseInt(minimnit.getText()) < 0) {
-            		texterror.setText("El nombre de doctors d'un o més torns és inferior a 0");
+            		texterror.setText("ERROR: El nombre de doctors d'un o més torns és inferior a 0");
             	}
             	else {
             		if (festiu.isSelected()) CtrlCalendari.modificarDiaFestiu(llistaplantilla.getSelectedValue(), data, true);
@@ -555,13 +558,13 @@ public class VistaCalendari implements ListSelectionListener, ItemListener, Acti
         }
         else if (comp == creacalendari) {
         	if (!isnumber(anyinici.getText(),1) || !isnumber(anyfi.getText(),1)){
-        		texterror.setText("Any inici i/o any fi no són numeros");
+        		texterror.setText("ERROR: Any inici i/o any fi no són numeros");
         	}
         	else if (Integer.parseInt(anyinici.getText()) <= 0 || Integer.parseInt(anyfi.getText()) <= 0) {
-        		texterror.setText("Any inici i/o any fi inferior a 1");
+        		texterror.setText("ERROR: Any inici i/o any fi inferior a 1");
         	}
         	else if (Integer.parseInt(anyinici.getText()) > Integer.parseInt(anyfi.getText())) {
-        		texterror.setText("Any inici inferior a any fi");
+        		texterror.setText("ERROR: Any inici inferior a any fi");
         	}
         	else {
         		CtrlCalendari.afegirCalendari(llistaplantilla.getSelectedValue(), Integer.parseInt(anyinici.getText()), Integer.parseInt(anyfi.getText()));
@@ -591,17 +594,15 @@ public class VistaCalendari implements ListSelectionListener, ItemListener, Acti
         
     }
     public boolean isnumber(String str, int check) {  
-        try  
-        { 
-      	if (check == 1) {
-      		int d = Integer.parseInt(str);
-      	}
-      	else {
-      		Float d = Float.parseFloat(str);  
-      	}
+        try  { 
+        	if (check == 1) {
+        		int d = Integer.parseInt(str);
+        	}	
+        	else {
+        		Float d = Float.parseFloat(str);  
+        	}
         }  
-        catch(NumberFormatException nfe)  
-        {  
+        catch(NumberFormatException nfe)  {  
       	  return false;
         }  
         return true; 

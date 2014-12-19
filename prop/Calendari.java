@@ -23,7 +23,7 @@ public class Calendari {
 		any =  any_inici;
 		anyfi = any_fi;
 		afegirPosicio();
-		afegirFestius(); //Afegim a tots els diumenges de l'any el boolea festiu true
+		//afegirFestius(); //Afegim a tots els diumenges de l'any el boolea festiu true
 		setPlantillaAssociada(plt);
 		pl = plt;
 	}
