@@ -22,7 +22,7 @@ public class VistaAlgorismes {
     private CtrlVistaAlgorismes ctrlVistaAlgorismes;
     private static JPanel panel_algorisme = new JPanel();
     //boolean
-//    private static boolean grafCreat = false;
+    private static boolean grafCreat = false;
 //    private static boolean plantillaSelec = false;
     //plantilles
     private static JLabel label_plantilles = new JLabel();
@@ -65,6 +65,7 @@ public class VistaAlgorismes {
             public void valueChanged(ListSelectionEvent e) {
                 String plantilla = seleccioPlantilla();
                 if(ctrlVistaAlgorismes.teCalendariAssociat(plantilla)) btnGraf.setEnabled(true);
+                grafCreat = false;
                 btn_executa_algorisme.setEnabled(false);
             }
         });
@@ -93,8 +94,9 @@ public class VistaAlgorismes {
             @Override
             public void actionPerformed(ActionEvent e) {
                 ctrlVistaAlgorismes.creaGraf();
-                panel_execucio.repaint();
-
+                vertex_info.setText("Nombre de vertex: " + ctrlVistaAlgorismes.grafNumVertex());
+                arestes_info.setText("Nombre de arestes: " + ctrlVistaAlgorismes.grafNumArestes());
+                grafCreat=true;
             }
         });
         btnGraf.setEnabled(false);
@@ -108,6 +110,18 @@ public class VistaAlgorismes {
         algorisme1.setBounds(50, 20, 200, 30);
         algorisme2.setText("Edmond's Karp");
         algorisme2.setBounds(50, 70, 200, 30);
+        algorisme1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                btn_executa_algorisme.setEnabled(true);
+            }
+        });
+        algorisme2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                btn_executa_algorisme.setEnabled(true);
+            }
+        });
         ButtonGroup btn_group = new ButtonGroup();
         btn_group.add(algorisme1);
         btn_group.add(algorisme2);

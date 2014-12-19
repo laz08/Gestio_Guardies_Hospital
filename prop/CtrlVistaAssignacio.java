@@ -9,6 +9,15 @@ public class CtrlVistaAssignacio {
         ctrlVistaPrincipal = vpc;
         vistaAssignacio = new VistaAssignacio(this);
     }
+    
+    public Graf consultaGraf(){
+        return CtrlVistaAlgorismes.getGraf();
+    }
+    
+    public Calendari consultaCalendari(){
+        Plantilla p = CtrlPlantilla.getPlantillaActual();
+        return CtrlCalendari.consultarCalendari(p.getNomPlantilla());
+    }
 
     public static VistaAssignacio getVistaAssignacio(){
         return vistaAssignacio;

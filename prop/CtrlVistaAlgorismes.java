@@ -7,7 +7,7 @@ import java.util.TreeSet;
 public class CtrlVistaAlgorismes {
         private static CtrlVistaPrincipal ctrlVistaPrincipal;
         private static VistaAlgorismes vistaAlgorismes;
-        private Graf g = null; 
+        private static Graf g = null;
         
         public CtrlVistaAlgorismes(CtrlVistaPrincipal cvp){
             ctrlVistaPrincipal = cvp;
@@ -38,6 +38,10 @@ public class CtrlVistaAlgorismes {
         
         public void creaGraf(){
             g = CtrlEntrada.crea_graf();
+        }
+        
+        public static Graf getGraf(){
+            return g;
         }
         
         public int grafNumVertex(){
