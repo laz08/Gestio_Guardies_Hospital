@@ -40,7 +40,7 @@ public class VistaHospital implements ActionListener {
     private JButton enreredoctor = new JButton("Enrere");
     private JPanel modificadoctor = new JPanel();
     private JLabel labeldni = new JLabel("DNI:");
-    private JTextField dni = new JTextField();
+    private JTextField dni = new JTextField(8);
     private JLabel labelnom = new JLabel("Nom:");
     private JTextField nom = new JTextField();
     private JLabel labelcognom = new JLabel("Primer Cognom:");
@@ -76,7 +76,8 @@ public class VistaHospital implements ActionListener {
         switchllista.add(llistathospital, "llistathospital");
         switchllista.add(restriccions, "restriccions");
         switchgestio.setLayout(new CardLayout());
-        gestiohospital.setLayout(new GridLayout(2, 1));
+        switchgestio.setAlignmentX(Component.LEFT_ALIGNMENT);
+        gestiohospital.setLayout(new BoxLayout(gestiohospital, BoxLayout.Y_AXIS));
         inicialitza_Docs();
         inicialitza_llistat();
         inicialitza_modificacio();
@@ -150,11 +151,12 @@ public class VistaHospital implements ActionListener {
     public void inicialitza_insercio() {
         switchgestio.add(gestiohospital, "gestiohospital");
         switchgestio.add(modificadoctor, "modificardoctor");
-        insertaracceptarhospital.setLayout(new GridBagLayout());
-        insertartexthospital.setLayout(new FlowLayout());
-        inserthospital.setLayout(new GridBagLayout());
+        insertaracceptarhospital.setLayout(new BoxLayout(insertaracceptarhospital, BoxLayout.Y_AXIS));
+        insertartexthospital.setLayout(new BoxLayout(insertartexthospital, BoxLayout.Y_AXIS));
+        inserthospital.setLayout(new BoxLayout(inserthospital, BoxLayout.Y_AXIS));
         creardoctor.addActionListener(this);
         gestiohospital.add(inserthospital);
+        inserthospital.setAlignmentX(Component.LEFT_ALIGNMENT);
     }
     public void inicialitza_modificacio() {
         enreredoctor.addActionListener(this);
@@ -162,12 +164,15 @@ public class VistaHospital implements ActionListener {
         afegirrestriccio.addActionListener(this);
         eliminarrestriccio.addActionListener(this);
         eliminardoctor.addActionListener(this);
+        modificadoctor.setAlignmentX(Component.LEFT_ALIGNMENT);
         modificadoctor.setLayout(new GridBagLayout());
         c.fill = GridBagConstraints.HORIZONTAL;
-        c.weighty = 1.0;
         c.gridx = 0;
         c.gridy = 0;
+        c.weightx = 1.0;
+        c.weighty = 1.0;
         c.gridwidth = 1;
+
         modificadoctor.add(labeldni, c);
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 1;
@@ -322,6 +327,8 @@ public class VistaHospital implements ActionListener {
             cl.show(switchllista, "llistathospital");
             CardLayout cl2 = (CardLayout)(switchgestio.getLayout());
             cl2.show(switchgestio, "gestiohospital");
+            esborrarTotsErrors();
+
         }
         else if (accio == acceptardoctor) {
             boolean valid = true;

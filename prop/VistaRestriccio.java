@@ -143,14 +143,9 @@ public class VistaRestriccio {
 
     private void guardarRestriccio() {
         JFileChooser chooser = new JFileChooser();
-        
+
         chooser.showSaveDialog(restriccions);
         File f = chooser.getSelectedFile();
         ctrlVistaRestriccions.guardaRestriccions(f);
     }
-//    @Override
-//    public void actionPerformed(ActionEvent ev) {
-//        JFileChooser obrirdirectori = new JFileChooser();
-//        obrirdirectori.showOpenDialog(restriccions);
-//    }
 }

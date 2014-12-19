@@ -24,7 +24,7 @@ public class VistaPlantilla implements ActionListener/*ListSelectionListener */{
 
 	private JList llistaplantilla = new JList(llistaPlt);
 	private JScrollPane scrollpane = new JScrollPane(llistaplantilla);
-	private JTextField introduirrestriccio = new JTextField(40);
+	private JTextField errors_missatges = new JTextField(40);
 	private JButton buttoncrearplantilla = new JButton("Crear Plantilla");
 	private JButton guardarplantilla = new JButton("Guardar Plantilles");
 	private JButton carregarplantilla = new JButton("Carregar Plantilles");
@@ -182,9 +182,9 @@ public class VistaPlantilla implements ActionListener/*ListSelectionListener */{
 		scrollpane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		consultaplantilla.setLayout(new BoxLayout(consultaplantilla, BoxLayout.Y_AXIS));
 		consultaplantilla.add(scrollpane); //, BorderLayout.NORTH);
-        introduirrestriccio.setEditable(false);
-        introduirrestriccio.setForeground(Color.RED);
-		consultaplantilla.add(introduirrestriccio, BorderLayout.SOUTH);
+        errors_missatges.setEditable(false);
+        errors_missatges.setForeground(Color.RED);
+		consultaplantilla.add(errors_missatges, BorderLayout.SOUTH);
 		switchllista.add(consultaplantilla, "consultaplantilla");
 		switchllista.add(gestiodoctorplantilla, "gestiodoctorplantilla");
 		plantilla.add(switchllista);	
@@ -436,10 +436,10 @@ public class VistaPlantilla implements ActionListener/*ListSelectionListener */{
     }
 
     public void errorNomPlantBuit(){
-        introduirrestriccio.setText("ERROR: El nom de la pantilla no pot ser buit");
+        errors_missatges.setText("ERROR: El nom de la pantilla no pot ser buit");
     }
     public void esborrarErrors(){
-        introduirrestriccio.setText("");
+      errors_missatges.setText("");
     }
 
 
