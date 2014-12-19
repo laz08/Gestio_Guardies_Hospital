@@ -104,6 +104,7 @@ public class EdmondsKarp extends Algorisme {
                     int cap = aresta.getcap();
                     aresta.setCap(cap - 1);
                     vt.addDoctorRel(doc_r);
+                    if(vp.getClasse() != Vertex.RESTRICCIO) Doc_Torn.addRel((Doctor) vp.getObjecte(), (Torn)vt.getObjecte());
                     puja_flow(v, a);
                     // si es troba una restriccio XOR, s'ha de cercar l'altre fill i eliminar-lo de la cua igual que cualsevol vertex que hagui pogut sortir d'aquest
                 } else {

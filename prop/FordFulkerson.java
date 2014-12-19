@@ -40,6 +40,7 @@ public class FordFulkerson extends Algorisme {
                                     if (!vf2.equals(s)) {
                                         Torn tf = (Torn) graf.getVertex(vf2.getId(), Vertex.TORN).getObjecte();
                                         String op = ((Restriccio) s.getObjecte()).getTipus();
+                                        if(s.getClasse() != Vertex.RESTRICCIO) Doc_Torn.addRel((Doctor) s.getObjecte(), (Torn)t);
                                         switch (op) { // si compleixen les visitam
                                             case "D":
                                                 if (t.getPosicio() == tf.getPosicio()) {
@@ -50,9 +51,6 @@ public class FordFulkerson extends Algorisme {
                                                 }
                                                 break;
                                             case "H":
-
-                                                System.out.println(s.getId());
-
 
                                                 if (t.getHora_inici() == tf.getHora_inici()) {
                                                     arriba_a_torn &= seguent(vf2, s.getDoctorsRel().get(0));
