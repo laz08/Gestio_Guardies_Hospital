@@ -1,6 +1,7 @@
 package prop;
 
 import javax.swing.*;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -26,6 +27,8 @@ public class VistaRestriccio {
     private JPanel insertaracceptarrestriccio = new JPanel();
     private JPanel insertartextrestriccio = new JPanel();
     private JTextField mostraErrors = new JTextField(40);
+    
+    private JPanel espaiblanc = new JPanel();
 
 
     public VistaRestriccio(CtrlVistaRestriccions cvr) {
@@ -64,7 +67,7 @@ public class VistaRestriccio {
     }
 
     public void inicialitza_insercio() {
-        insertaracceptarrestriccio.setLayout(new BorderLayout());
+        /*insertaracceptarrestriccio.setLayout(new BorderLayout());
         insertartextrestriccio.setLayout(new FlowLayout());
         insertrestriccio.setLayout(new BorderLayout());
         insertartextrestriccio.add(introduirrestriccio, BorderLayout.CENTER);
@@ -73,7 +76,23 @@ public class VistaRestriccio {
         insertrestriccio.add(insertaracceptarrestriccio, BorderLayout.SOUTH);
         insertrestriccio.setPreferredSize(new Dimension(600, 300));
 
-        gestiorestriccio.add(insertrestriccio, BorderLayout.CENTER);
+        gestiorestriccio.add(insertrestriccio, BorderLayout.CENTER);*/
+        
+        insertaracceptarrestriccio.setLayout(new BorderLayout());
+        insertartextrestriccio.setLayout(new FlowLayout());
+        insertrestriccio.setLayout(new BorderLayout());
+        //espaiblanc.setBounds(0,0,200,1000);
+        insertrestriccio.add(espaiblanc);
+        introduirrestriccio.setBounds(50,50,500,25);
+        insertrestriccio.add(introduirrestriccio);
+        insertrestriccio.add(insertaracceptarrestriccio);
+        introduirrestriccio.setLocation(50, 260);
+
+        insertrestriccio.setPreferredSize(new Dimension(600, 300));
+
+        gestiorestriccio.add(insertrestriccio, BorderLayout.NORTH);
+      
+        
     }
 
     public void inicialitza_gestio() {
