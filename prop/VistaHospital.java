@@ -123,6 +123,7 @@ public class VistaHospital implements ActionListener {
             public void valueChanged(ListSelectionEvent e) {
                 try{
                 String r = (String) llistarestriccions.getSelectedValue();
+                    System.out.println("Expressió llegida: "+r);
                 ctrlVistaHospital.associaRestriccio(r, dni.getText());
                 }catch(Error error){
                     
@@ -457,6 +458,19 @@ public class VistaHospital implements ActionListener {
             valid = false;
             errorUnOMesDunCampNull();
         }
+        if(valid && d.length() == 8){
+            try {
+                int dni_num = Integer.parseInt(d);
+            } catch (Exception e){
+                condicionsDNIError();
+                valid = false;
+            }
+        }
+        else{
+            valid = false;
+            condicionsDNIError();
+        }
+
         int s = 0;
         int t = 0;
         //Si tots els camps estan plens...
@@ -602,6 +616,9 @@ public class VistaHospital implements ActionListener {
 
     public void esborrarTotsErrors(){
         missatgeErrors.setText("");
+    }
+    public void condicionsDNIError(){
+        missatgeErrors.setText("ERROR: DNI ha de ser una cadena de 8 caràcters numèrics.");
     }
 
     public boolean esCorreu(String correu){

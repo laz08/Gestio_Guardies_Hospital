@@ -77,6 +77,9 @@ public class VistaPrincipal {
                           vp.inicialitza_plt();
                           vp.esborrarErrors();
                      }
+                     else if(pestanyes.getSelectedIndex() == 2){
+                         vcal.actualitza_llista_plantilles();
+                     }
                      else if(pestanyes.getSelectedIndex() == 3){
                          vr.esborraErrors();
                      }
