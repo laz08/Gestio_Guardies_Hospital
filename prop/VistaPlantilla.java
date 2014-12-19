@@ -63,6 +63,7 @@ public class VistaPlantilla implements ActionListener/*ListSelectionListener */{
 	GridBagConstraints c = new GridBagConstraints();
 
 
+
 	
 	//-------------------------------------------------
 	
@@ -92,65 +93,49 @@ public class VistaPlantilla implements ActionListener/*ListSelectionListener */{
         }
     
     }
-	
-	private void inicialitza_gestio() {
-		guardarplantilla.addActionListener(this);
-		carregarplantilla.addActionListener(this);
+
+
+    private void inicialitza_gestio() {
+        guardarplantilla.addActionListener(this);
+        carregarplantilla.addActionListener(this);
 
         llistacplantilla.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
-   		//gestioplantilla.setLayout(new FlowLayout());
+        //gestioplantilla.setLayout(new FlowLayout());
         gestioplantilla.setLayout(new GridBagLayout());
-		gestioplantilla.add(buttoncrearplantilla);
-		gestioplantilla.add(guardarplantilla);
-		gestioplantilla.add(carregarplantilla);
+        gestioplantilla.add(buttoncrearplantilla);
+        gestioplantilla.add(guardarplantilla);
+        gestioplantilla.add(carregarplantilla);
 
 
-		switchgestio.add(gestioplantilla, "gestioplantilla");
-		
-		//Part caracteristiques plantilla
-		//Actions Listeners
-		//crearassociarcalendari.addActionListener(this);
-		//eliminardesasociarcalendari.addActionListener(this);
-		assignardoctorplantilla.addActionListener(this);
-		treuredoctorplantilla.addActionListener(this);
-		eliminarplantilla.addActionListener(this);
-		enrerellista.addActionListener(this);
-		//acceptarllista.addActionListener(this);
-		textnomplantilla.setEditable(false);
+        switchgestio.add(gestioplantilla, "gestioplantilla");
 
-		
-		//Inicialització + Adds
-		gestioseleccioplantilla.setLayout(new GridLayout(7,1));
-		gestioseleccioplantilla.add(nomplantilla);
-		gestioseleccioplantilla.add(textnomplantilla);
-		gestioseleccioplantilla.add(scrollcplantilla);
-		gestioseleccioplantilla.add(assignardoctorplantilla);
-		gestioseleccioplantilla.add(treuredoctorplantilla);
-		gestioseleccioplantilla.add(eliminarplantilla);
-		gestioseleccioplantilla.add(enrerellista);
-		/*JPanel caracplantilla = new JPanel();
-		JPanel identplantilla = new JPanel();
-		JPanel opcionsplant = new JPanel();
-		gestioseleccioplantilla.setLayout(new GridLayout(2,1));
-		gestioseleccioplantilla.add(caracplantilla);
-		caracplantilla.setLayout(new GridLayout(2,1));
-		caracplantilla.add(identplantilla);
-		identplantilla.add(nomplantilla);
-		identplantilla.add(textnomplantilla);
-		caracplantilla.add(scrollcplantilla);
-		gestioseleccioplantilla.add(opcionsplant);
-		opcionsplant.setLayout(new GridLayout(4,1));
-		//gestioseleccioplantilla.add(acceptarllista);
-		opcionsplant.add(assignardoctorplantilla);
-		opcionsplant.add(treuredoctorplantilla);
-		//gestioseleccioplantilla.add(crearassociarcalendari);
-		//gestioseleccioplantilla.add(eliminardesasociarcalendari);
-		opcionsplant.add(eliminarplantilla);
-		opcionsplant.add(enrerellista);*/
+        //Part caracteristiques plantilla
+        //Actions Listeners
+        //crearassociarcalendari.addActionListener(this);
+        //eliminardesasociarcalendari.addActionListener(this);
+        assignardoctorplantilla.addActionListener(this);
+        treuredoctorplantilla.addActionListener(this);
+        eliminarplantilla.addActionListener(this);
+        enrerellista.addActionListener(this);
+        //acceptarllista.addActionListener(this);
+        textnomplantilla.setEditable(false);
+
+
+        //Inicialització + Adds
+        gestioseleccioplantilla.setLayout(new GridLayout(7,1));
+        gestioseleccioplantilla.add(nomplantilla);
+        gestioseleccioplantilla.add(textnomplantilla);
+        gestioseleccioplantilla.add(scrollcplantilla);
+        gestioseleccioplantilla.add(assignardoctorplantilla);
+        gestioseleccioplantilla.add(treuredoctorplantilla);
+        gestioseleccioplantilla.add(eliminarplantilla);
+        gestioseleccioplantilla.add(enrerellista);
+
+
 		switchgestio.add(gestioseleccioplantilla, "gestioseleccioplantilla");
 		plantilla.add(switchgestio);
-		
+
 		//Afegir / Eliminar doctors
 		//Action Listeners
 		buttoncrearplantilla.addActionListener(this);
@@ -168,17 +153,17 @@ public class VistaPlantilla implements ActionListener/*ListSelectionListener */{
 		gestiodoctorplantilla.add(scrolldoctorsllista);
 		gestiodoctorplantilla.add(acceptardllista);
 		gestiodoctorplantilla.add(enreredoctors);
-		
+
 		//Afegir Plantilla
 		//Action Listeners
 		switchgestio.add(crearplantilla, "crearplantilla");
 		acceptarcreacioplantilla.addActionListener(this);
 		enrerecreacioplantilla.addActionListener(this);
-		
+
 		//Incialitzacions +Adds
 		JPanel ok = new JPanel();
         //crearplantilla.setLayout(new GridBagLayout());
-		crearplantilla.setLayout(new GridLayout(2,1));
+		crearplantilla.setLayout(new GridLayout(4,1));
 		crearplantilla.add(textcrearplantilla);
 		crearplantilla.add(ok);
 		ok.add(acceptarcreacioplantilla);
@@ -192,11 +177,13 @@ public class VistaPlantilla implements ActionListener/*ListSelectionListener */{
 
 		//Inicialitzacions +Adds
 		llistaplantilla.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		consultaplantilla.setPreferredSize(new Dimension(600,460));
-		scrollpane.setPreferredSize(new Dimension(600,460));
+		consultaplantilla.setPreferredSize(new Dimension(600,520));
+		scrollpane.setPreferredSize(new Dimension(600,520));
 		scrollpane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		consultaplantilla.setLayout(new BorderLayout());
-		consultaplantilla.add(scrollpane, BorderLayout.NORTH);
+		consultaplantilla.setLayout(new BoxLayout(consultaplantilla, BoxLayout.Y_AXIS));
+		consultaplantilla.add(scrollpane); //, BorderLayout.NORTH);
+        introduirrestriccio.setEditable(false);
+        introduirrestriccio.setForeground(Color.RED);
 		consultaplantilla.add(introduirrestriccio, BorderLayout.SOUTH);
 		switchllista.add(consultaplantilla, "consultaplantilla");
 		switchllista.add(gestiodoctorplantilla, "gestiodoctorplantilla");
@@ -284,11 +271,17 @@ public class VistaPlantilla implements ActionListener/*ListSelectionListener */{
 		}
 		else if(arg0.getSource() == acceptarcreacioplantilla) {
 			String nom = textcrearplantilla.getText();
-			netejaNomPlant();
-	        ctrlVistaPlantilla.crearPlantilla(nom);
-	        inicialitza_plt();
-			CardLayout cl = (CardLayout)(switchgestio.getLayout());
-	        cl.show(switchgestio, "gestioplantilla");
+            if(nom.equals("")){
+                errorNomPlantBuit();
+            }
+            else {
+                esborrarErrors();
+                netejaNomPlant();
+                ctrlVistaPlantilla.crearPlantilla(nom);
+                inicialitza_plt();
+                CardLayout cl = (CardLayout) (switchgestio.getLayout());
+                cl.show(switchgestio, "gestioplantilla");
+            }
 		}
 		
 		else if(arg0.getSource() == eliminarplantilla) {
@@ -303,6 +296,7 @@ public class VistaPlantilla implements ActionListener/*ListSelectionListener */{
 		}
 		else if (arg0.getSource() == enrerecreacioplantilla) {
             netejaNomPlant();
+            esborrarErrors();
 		    CardLayout cl2 = (CardLayout)(switchgestio.getLayout());
 	        cl2.show(switchgestio, "gestioplantilla");
 		}
@@ -439,6 +433,13 @@ public class VistaPlantilla implements ActionListener/*ListSelectionListener */{
     public void pantalla_principal(){
         CardLayout cl = (CardLayout)(switchgestio.getLayout());
         cl.show(switchgestio, "gestioplantilla");
+    }
+
+    public void errorNomPlantBuit(){
+        introduirrestriccio.setText("ERROR: El nom de la pantilla no pot ser buit");
+    }
+    public void esborrarErrors(){
+        introduirrestriccio.setText("");
     }
 
 
