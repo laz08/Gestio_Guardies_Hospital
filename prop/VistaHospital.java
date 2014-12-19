@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class VistaHospital implements ActionListener {
+public class VistaHospital implements ActionListener, ListSelectionListener {
     private static CtrlVistaHospital ctrlVistaHospital;
 
     private JPanel hospital = new JPanel();
@@ -58,8 +58,8 @@ public class VistaHospital implements ActionListener {
     //Panel Gestio Restriccions
     private JPanel switchllista = new JPanel();
     private JPanel restriccions = new JPanel();
-    private DefaultListModel llistaRes = new DefaultListModel();
-    private JList llistarestriccions = new JList(llistaRes);
+    private DefaultListModel<String> llistaRes = new DefaultListModel<String>();
+    private JList<String> llistarestriccions = new JList<String>(llistaRes);
     private JButton enrererestriccions = new JButton("Enrere");
     private JButton acceptarrestriccions = new JButton("Acceptar");
 
@@ -118,6 +118,7 @@ public class VistaHospital implements ActionListener {
         //Panel restriccions
         llistarestriccions.addMouseListener(new ratonllistaRes());
         llistarestriccions.setPreferredSize(new Dimension(500,400));
+       /*
         llistarestriccions.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
@@ -129,7 +130,20 @@ public class VistaHospital implements ActionListener {
                     
                 }
             }
-        });
+        });*/
+
+        llistarestriccions.addListSelectionListener(this);
+//       new ListSelectionListener()// {
+//            @Override
+//            public void valueChanged(ListSelectionEvent e) {
+//                try{
+//                String r = (String) llistarestriccions.getSelectedValue();
+//                ctrlVistaHospital.associaRestriccio(r, dni.getText());
+//                }catch(Error error){
+//                    
+//                }
+//            }
+//        });
         c.fill = GridBagConstraints.HORIZONTAL;
         c.weighty = 1.0;
         c.gridx = 0;
@@ -368,7 +382,8 @@ public class VistaHospital implements ActionListener {
         else if (accio == afegirrestriccio) {
             CardLayout cl = (CardLayout)(switchllista.getLayout());
              ArrayList<String> lr = ctrlVistaHospital.carregaLlistaRestriccions();
-            llistaRes.removeAllElements(); // buidam llista restriccions anteriors
+             System.out.println("MIDA "+llistaRes.size());
+             llistaRes.clear();//llistaRes.removeAllElements(); // buidam llista restriccions anteriors
             for(int i=0; i<lr.size(); i++){
                 llistaRes.addElement(lr.get(i));
             }
@@ -627,4 +642,10 @@ public class VistaHospital implements ActionListener {
         return m.matches();
 
     }
+
+	@Override
+	public void valueChanged(ListSelectionEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
 }
