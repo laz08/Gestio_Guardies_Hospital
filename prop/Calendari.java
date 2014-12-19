@@ -16,7 +16,7 @@ public class Calendari {
 	//Post: Creem un calendari per la plantilla plt des d'any_inici fins any_fi, buit, només amb els diumenges marcats com festius.
 	public Calendari(String plt, int any_inici, int any_fi) {
 		GregorianCalendar dia = new GregorianCalendar(any_inici,0,1);
-		GregorianCalendar diaf = new GregorianCalendar(any_fi+1,0,0);
+		GregorianCalendar diaf = new GregorianCalendar(any_fi+1,0,1);
 		long dies = diaf.getTimeInMillis() - dia.getTimeInMillis();
 		dies = dies/1000/60/60/24;
 		cal = new Dia[(int) dies];
@@ -129,18 +129,19 @@ public class Calendari {
 	//Pre: -
 	//Post: Afegeix el boolea festiu=true a tots els diumenges de l'any
 	public void afegirFestius() {
-		GregorianCalendar dia1 = new GregorianCalendar(any,0,1);
-		int diaset = dia1.get(Calendar.DAY_OF_WEEK);
-		if(diaset==2) diaset=6;
-		else if(diaset==3) diaset=5;
-		else if(diaset==4) diaset=4;
-		else if(diaset==5) diaset=3;
-		else if(diaset==6) diaset=2;
-		else if(diaset==7) diaset=1;
-		else --diaset;
-		for(int i=diaset; i<cal.length; i=i+7){
-			cal[i].setFestiu(true);
-		}
+			GregorianCalendar dia1 = new GregorianCalendar(any,0,1);
+			int diaset = dia1.get(Calendar.DAY_OF_WEEK);
+			if(diaset==2) diaset=6;
+			else if(diaset==3) diaset=5;
+			else if(diaset==4) diaset=4;
+			else if(diaset==5) diaset=3;
+			else if(diaset==6) diaset=2;
+			else if(diaset==7) diaset=1;
+			else diaset=0;
+			for(int i=diaset; i<cal.length; i+=7){
+				cal[i].setFestiu(true);
+			}
+		
 	}
 	
 	//Pre: -

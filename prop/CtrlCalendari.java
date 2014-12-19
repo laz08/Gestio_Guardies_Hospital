@@ -279,7 +279,7 @@ public class CtrlCalendari {
 		else if(horari==2) consultarCalendari(plt).getCalendari()[pos].getTornNit().setMin_num_doctors(m);
 
 	}
-	
+
 	// ----------- FUNCIONS AUXILIARS -------------
 
 	
@@ -289,6 +289,7 @@ public class CtrlCalendari {
 		GregorianCalendar primerdia = new GregorianCalendar(any,0,1);
 		long dif = dia.getTimeInMillis() - primerdia.getTimeInMillis();
 		dif = dif/1000/60/60/24;
+		System.out.println(dif);
 		return (int) dif;
 		
 	}
