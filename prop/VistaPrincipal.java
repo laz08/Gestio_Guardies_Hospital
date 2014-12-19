@@ -83,6 +83,10 @@ public class VistaPrincipal {
                      else if(pestanyes.getSelectedIndex() == 3){
                          vr.esborraErrors();
                      }
+                     else if(pestanyes.getSelectedIndex() == 4){
+                         vass.posaDocs();
+                         vass.posaTorns();
+                     }
                      else if(pestanyes.getSelectedIndex() == 5){
                          va.insereixPlantilles();
                      }
