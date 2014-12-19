@@ -484,16 +484,17 @@ public class VistaCalendari implements ListSelectionListener, ItemListener, Acti
 
     public void actualitza_llista_plantilles() {
     	
-    	llistaplantilla.clearSelection();
     	String content = CtrlPlantilla.getLlista_plantilles();
-    	if (content != "") {
-    		modelplantilla.clear();
-    		String separadors = "[ \n]";
-        	String[] separat = content.split(separadors);
-        	for (int i = 0; i < separat.length; i++) {
-        		modelplantilla.addElement(separat[i]);
+        modelplantilla.removeAllElements();
+        if(!content.equals("")) {
+        	if(content.length() > 0) {
+        		String separadors = "[ \n]";
+        		String[] separat = content.split(separadors);
+        		for (int i = 0; i < separat.length; i += 1) {
+        			modelplantilla.addElement(separat[i]);
+        		}
         	}
-    	}    	
+        }
     }
 
     // Botons

@@ -1,20 +1,11 @@
 package prop;
 
-import java.awt.Color;
+import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import javax.swing.ButtonGroup;
-import javax.swing.DefaultListModel;
-import javax.swing.GroupLayout;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.JPanel;
-import javax.swing.JRadioButton;
-import javax.swing.JScrollPane;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 
 public class VistaAlgorismes {
 
@@ -158,6 +149,7 @@ public class VistaAlgorismes {
 
     private String seleccioPlantilla() {
         String sPlantilla = (String) llista_plantilles.getSelectedValue();
+        System.out.println(sPlantilla);
         ctrlVistaAlgorismes.seleccionaPlantilla(sPlantilla);
         return sPlantilla;
     }
