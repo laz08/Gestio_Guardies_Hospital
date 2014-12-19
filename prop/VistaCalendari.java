@@ -102,7 +102,7 @@ public class VistaCalendari implements ListSelectionListener, ItemListener, Acti
     }
 
     public void inicialitza_llistatplantilla() {
-        llistatplantilla.setLayout(new BorderLayout());
+        llistatplantilla.setLayout(new BoxLayout(llistatplantilla, BoxLayout.Y_AXIS));
         llistaplantilla.addListSelectionListener(this);
         llistatplantilla.add(scrollplantilla, BorderLayout.NORTH);
         scrollplantilla.setPreferredSize(new Dimension(600, 520));
