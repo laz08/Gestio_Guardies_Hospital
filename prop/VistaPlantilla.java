@@ -1,6 +1,7 @@
 package prop;
 
 import javax.swing.*;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
@@ -40,7 +41,7 @@ public class VistaPlantilla implements ActionListener/*ListSelectionListener */{
     private DefaultListModel llistaDocsPlt = new DefaultListModel();
 	private JList llistacplantilla = new JList(llistaDocsPlt);
     private JScrollPane scrollcplantilla = new JScrollPane(llistacplantilla);
-	private JButton enrerellista = new JButton("EnrereBUSCOOO");
+	private JButton enrerellista = new JButton("Enrere");
 	//private JButton acceptarllista = new JButton("Ok");
 	private JLabel nomplantilla = new JLabel("Nom Plantilla");
 	private JTextField textnomplantilla = new JTextField();
@@ -57,7 +58,7 @@ public class VistaPlantilla implements ActionListener/*ListSelectionListener */{
     private DefaultListModel llistaDocs = new DefaultListModel();
 	private JList doctorsllista = new JList(llistaDocs);
 	private JScrollPane scrolldoctorsllista = new JScrollPane(doctorsllista);
-	private JButton enreredoctors = new JButton("EnrereNOBUSCO");
+	private JButton enreredoctors = new JButton("Enrere");
 	private JButton acceptardllista = new JButton("Ok");
 	GridBagConstraints c = new GridBagConstraints();
 
@@ -98,10 +99,13 @@ public class VistaPlantilla implements ActionListener/*ListSelectionListener */{
 
         llistacplantilla.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
-		gestioplantilla.setLayout(new GridLayout(3,1));
+   		//gestioplantilla.setLayout(new FlowLayout());
+        gestioplantilla.setLayout(new GridBagLayout());
 		gestioplantilla.add(buttoncrearplantilla);
 		gestioplantilla.add(guardarplantilla);
 		gestioplantilla.add(carregarplantilla);
+
+
 		switchgestio.add(gestioplantilla, "gestioplantilla");
 		
 		//Part caracteristiques plantilla
@@ -117,17 +121,33 @@ public class VistaPlantilla implements ActionListener/*ListSelectionListener */{
 
 		
 		//Inicialització + Adds
-		gestioseleccioplantilla.setLayout(new GridLayout(10,1));
+		gestioseleccioplantilla.setLayout(new GridLayout(7,1));
 		gestioseleccioplantilla.add(nomplantilla);
 		gestioseleccioplantilla.add(textnomplantilla);
 		gestioseleccioplantilla.add(scrollcplantilla);
-		//gestioseleccioplantilla.add(acceptarllista);
 		gestioseleccioplantilla.add(assignardoctorplantilla);
 		gestioseleccioplantilla.add(treuredoctorplantilla);
-		//gestioseleccioplantilla.add(crearassociarcalendari);
-		//gestioseleccioplantilla.add(eliminardesasociarcalendari);
 		gestioseleccioplantilla.add(eliminarplantilla);
 		gestioseleccioplantilla.add(enrerellista);
+		/*JPanel caracplantilla = new JPanel();
+		JPanel identplantilla = new JPanel();
+		JPanel opcionsplant = new JPanel();
+		gestioseleccioplantilla.setLayout(new GridLayout(2,1));
+		gestioseleccioplantilla.add(caracplantilla);
+		caracplantilla.setLayout(new GridLayout(2,1));
+		caracplantilla.add(identplantilla);
+		identplantilla.add(nomplantilla);
+		identplantilla.add(textnomplantilla);
+		caracplantilla.add(scrollcplantilla);
+		gestioseleccioplantilla.add(opcionsplant);
+		opcionsplant.setLayout(new GridLayout(4,1));
+		//gestioseleccioplantilla.add(acceptarllista);
+		opcionsplant.add(assignardoctorplantilla);
+		opcionsplant.add(treuredoctorplantilla);
+		//gestioseleccioplantilla.add(crearassociarcalendari);
+		//gestioseleccioplantilla.add(eliminardesasociarcalendari);
+		opcionsplant.add(eliminarplantilla);
+		opcionsplant.add(enrerellista);*/
 		switchgestio.add(gestioseleccioplantilla, "gestioseleccioplantilla");
 		plantilla.add(switchgestio);
 		
@@ -156,10 +176,13 @@ public class VistaPlantilla implements ActionListener/*ListSelectionListener */{
 		enrerecreacioplantilla.addActionListener(this);
 		
 		//Incialitzacions +Adds
-		crearplantilla.setLayout(new GridLayout(3,1));
+		JPanel ok = new JPanel();
+        //crearplantilla.setLayout(new GridBagLayout());
+		crearplantilla.setLayout(new GridLayout(2,1));
 		crearplantilla.add(textcrearplantilla);
-		crearplantilla.add(acceptarcreacioplantilla);
-		crearplantilla.add(enrerecreacioplantilla);
+		crearplantilla.add(ok);
+		ok.add(acceptarcreacioplantilla);
+		ok.add(enrerecreacioplantilla);
 	}
 	
 	private void inicialitza_llistat() {

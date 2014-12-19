@@ -97,10 +97,13 @@ public class VistaHospital implements ActionListener {
         restriccions.setLayout(new GridBagLayout());
         texthospital.addMouseListener(new ratonllistaDocs());
         texthospital.setPreferredSize(new Dimension(600, 520));
+
+
         scrollpane.setPreferredSize(new Dimension(600, 520));
-        scrollpane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-        llistathospital.setLayout(new BorderLayout());
-        llistathospital.add(scrollpane, BorderLayout.NORTH);
+        scrollpane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        llistathospital.setLayout(new BoxLayout(llistathospital, BoxLayout.Y_AXIS));
+        llistathospital.add(scrollpane); //, BorderLayout.NORTH);
+
 
         llistathospital.add(missatgeErrors, BorderLayout.SOUTH);
         missatgeErrors.setEditable(false);
@@ -110,7 +113,7 @@ public class VistaHospital implements ActionListener {
         hospital.add(switchllista, BorderLayout.WEST);
         hospital.add(switchgestio, BorderLayout.EAST);
         texthospital.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        llistathospital.setVisible(false);
+       // llistathospital.setVisible(false);
         //Panel restriccions
         llistarestriccions.addMouseListener(new ratonllistaRes());
         llistarestriccions.setPreferredSize(new Dimension(500,400));
