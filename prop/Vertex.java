@@ -3,7 +3,7 @@ package prop;
 import java.util.ArrayList;
 
 public class Vertex {
-    public static final int DOCTOR = 0, RESTRICCIO = 1, TORN = 2, FONT_POU=3, MAX = 4;
+    public static final int DOCTOR = 0, RESTRICCIO = 1, TORN = 2, FONT_POU=3;
     
     private String id;
     private int classe;
@@ -17,7 +17,7 @@ public class Vertex {
         id = identif;
         doctors_rel = new ArrayList<String>();
         arestes = new ArrayList<Integer>();
-        if (c == DOCTOR || c == RESTRICCIO || c == TORN || c == FONT_POU || c == MAX){
+        if (c == DOCTOR || c == RESTRICCIO || c == TORN || c == FONT_POU){
             classe = c;
         }
         else{
@@ -31,7 +31,7 @@ public class Vertex {
         doctors_rel = new ArrayList<String>();
         arestes = new ArrayList<Integer>();
         obj = o;
-        if (c == DOCTOR || c == RESTRICCIO || c == TORN || c == FONT_POU || c == MAX){
+        if (c == DOCTOR || c == RESTRICCIO || c == TORN || c == FONT_POU){
             classe = c;
         }
         else{

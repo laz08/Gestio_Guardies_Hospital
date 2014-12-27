@@ -18,12 +18,13 @@ public class DriverCtrlEntrada {
         algo.setGraf(graf);
         algo.maxFlow();
         graf.mostra_graf();
-        System.out.println("_____________CALCULAM INVERS DEL GRAF ANTERIOR...___________");
-        Graf g = CtrlEntrada.calculaInvers(graf);
-        algo.setGraf(g);
-        System.out.println("_____________APLICAM L'ALGORISME AL NOU GRAF______________");
-        algo.maxFlow();
-        CtrlEntrada.guarda_assignacions(g);
+//        System.out.println("_____________CALCULAM INVERS DEL GRAF ANTERIOR...___________");
+//        Graf g = CtrlEntrada.calculaInvers(graf);
+//        algo.setGraf(g);
+//        System.out.println("_____________APLICAM L'ALGORISME AL NOU GRAF______________");
+//        algo.maxFlow();
+        CtrlEntrada.guarda_assignacions(graf);
+        Doc_Torn.mostraRelacions();
     }
 
     private static void prepara_prova() throws Error {

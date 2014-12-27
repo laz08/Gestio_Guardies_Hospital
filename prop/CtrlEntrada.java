@@ -21,7 +21,7 @@ public class CtrlEntrada {
             posaVertexDoctor(g, p);
             posaVertexTorn(g);
             posaRestriccions(p.getLlistaDoctorsDNI(), g);
-            posaArestesMax(g, p.getLlistaDoctorsDNI().size());
+            //posaArestesMax(g, p.getLlistaDoctorsDNI().size());
         } catch (Error e) {
             System.err.println("Hi ha hagut problemes a l'hora de crear el graf\n" + e);
         }
@@ -59,8 +59,8 @@ public class CtrlEntrada {
                 }
                 Dia d = dia[i];
                 if (torn != null) {
-                    Vertex vmax = new Vertex(torn.toString(), Vertex.MAX);
-                    g.afegirVertex(vmax);
+//                    Vertex vmax = new Vertex(torn.toString(), Vertex.MAX);
+//                    g.afegirVertex(vmax);
                     Vertex v = new Vertex(torn.toString(), Vertex.TORN, torn);
                     Vertex pou = g.getVertex("POU", Vertex.FONT_POU);
                     g.afegirVertex(v);
@@ -140,35 +140,35 @@ public class CtrlEntrada {
      *
      * @param g
      */
-    private static void posaArestesMax(Graf g, int numDoc) {
-        for (int i = 0; i < g.numV(); i++) {
-            Vertex v = g.getVertex(i);
-            if (v.getClasse() == Vertex.MAX) {
-                ArrayList<Integer> la = v.getArestes();
-                for (int e = 0; e < la.size(); e++) {
-                    Aresta a = g.getA(la.get(e));
-                    Vertex vp = g.getVertex(a.getv()); // agafam el vertex anterior al vertex MAX (sempre sera una Restriccio) 
-                    ArrayList<String> doc_relacionats = v.getDoctorsRel();
-                    boolean existeix = false;
-                    int pos = 0;
-                    while (!existeix && pos < doc_relacionats.size()) {
-                        if (doc_relacionats.get(pos).equals(vp.getDoctorsRel().get(0))) {
-                            existeix = true;
-                        }
-                        pos++;
-                    }
-                    if (!existeix) {
-                        v.addDoctorRel(vp.getDoctorsRel().get(0));
-                    }
-                }
-                Vertex vtorn = g.getVertex(v.getId(), Vertex.TORN);
-                ArrayList<Integer> llista_a = vtorn.getArestes();
-                Aresta a = g.getA(llista_a.get(0)); // la seva capacitat es el num min de doctors per torn
-                v.setNumMaxRestr(numDoc - a.getcap());
-                g.afegirAresta(v, vtorn, numDoc, 0); // la capacitat es modificara segons les assignacions dels algorismes
-            }
-        }
-    }
+//    private static void posaArestesMax(Graf g, int numDoc) {
+//        for (int i = 0; i < g.numV(); i++) {
+//            Vertex v = g.getVertex(i);
+//            if (v.getClasse() == Vertex.MAX){
+//                ArrayList<Integer> la = v.getArestes();
+//                for(int e = 0; e < la.size(); e++){
+//                    Aresta a = g.getA(la.get(e));
+//                    Vertex vp = g.getVertex(a.getv()); // agafam el vertex anterior al vertex MAX (sempre sera una Restriccio) 
+//                    ArrayList<String> doc_relacionats = v.getDoctorsRel();
+//                    boolean existeix = false;
+//                    int pos = 0;
+//                    while (!existeix && pos < doc_relacionats.size()) {
+//                        if (doc_relacionats.get(pos).equals(vp.getDoctorsRel().get(0))) {
+//                            existeix = true;
+//                        }
+//                        pos++;
+//                    }
+//                    if (!existeix) {
+//                        v.addDoctorRel(vp.getDoctorsRel().get(0));
+//                    }
+//                }
+//                Vertex vtorn = g.getVertex(v.getId(), Vertex.TORN);
+//                ArrayList<Integer> llista_a = vtorn.getArestes();
+//                Aresta a = g.getA(llista_a.get(0)); // la seva capacitat es el num min de doctors per torn
+//                v.setNumMaxRestr(numDoc - a.getcap());
+//                g.afegirAresta(v, vtorn, numDoc, 0); // la capacitat es modificara segons les assignacions dels algorismes
+//            }
+//        }
+//    }
 
     /**
      * Fa un recorregut a l'arbre que representa cada restricció i el va
@@ -276,7 +276,7 @@ public class CtrlEntrada {
                             break;
                     }
                     if (torn != null) {
-                        v_torns.add(g.getVertex(torn.toString(), Vertex.MAX));
+                        v_torns.add(g.getVertex(torn.toString(), Vertex.TORN));
                     }
                 }
                 break;
@@ -297,36 +297,36 @@ public class CtrlEntrada {
                                 break;
                         }
                         if (torn != null && torn.getHora_inici() <= hora && torn.getHora_fi() > hora) {
-                            v_torns.add(g.getVertex(torn.toString(), Vertex.MAX));
+                            v_torns.add(g.getVertex(torn.toString(), Vertex.TORN));
                         }
                     }
                 }
                 break;
-            case "S":
-                int numSetmana = Integer.parseInt(t);
-                int diesAnteriors = (numSetmana - 1) * 7;
-                for (int i = diesAnteriors; i < 7; i++) {
-                    if (i < any.length) {
-                        for (int e = 0; e < 3; e++) {
-                            Torn torn = null;
-                            switch (e) {
-                                case 0:
-                                    torn = any[i].getTornMati();
-                                    break;
-                                case 1:
-                                    torn = any[i].getTornTarda();
-                                    break;
-                                case 2:
-                                    torn = any[i].getTornNit();
-                                    break;
-                            }
-                            if (torn != null) {
-                                v_torns.add(g.getVertex(torn.toString(), Vertex.MAX));
-                            }
-                        }
-                    }
-                }
-                break;
+//            case "S":
+//                int numSetmana = Integer.parseInt(t);
+//                int diesAnteriors = (numSetmana - 1) * 7;
+//                for (int i = diesAnteriors; i < 7; i++) {
+//                    if (i < any.length) {
+//                        for (int e = 0; e < 3; e++) {
+//                            Torn torn = null;
+//                            switch (e) {
+//                                case 0:
+//                                    torn = any[i].getTornMati();
+//                                    break;
+//                                case 1:
+//                                    torn = any[i].getTornTarda();
+//                                    break;
+//                                case 2:
+//                                    torn = any[i].getTornNit();
+//                                    break;
+//                            }
+//                            if (torn != null) {
+//                                v_torns.add(g.getVertex(torn.toString(), Vertex.MAX));
+//                            }
+//                        }
+//                    }
+//                }
+//                break;
             default:
                 throw new Error("No es reconeix el tipus de la restricció");
         }
@@ -335,12 +335,11 @@ public class CtrlEntrada {
     
     public static void guarda_assignacions(Graf g){
         for(int i=0; i<g.numV(); i++){
-            Aresta a = g.getA(i);
-            Vertex v = g.getVertex(a.getv());
-            Vertex w = g.getVertex(a.getw());
-            if(v.getClasse() == Vertex.DOCTOR && w.getClasse() == Vertex.MAX){
-                if(a.getflow()>0){
-                    Doc_Torn.addRel((Doctor) v.getObjecte(), (Torn) w.getObjecte());
+            Vertex v = g.getVertex(i);
+            if(v.getClasse() == Vertex.TORN){
+                ArrayList<String> DNI_doctors = v.getDoctorsRel();
+                for(int e=0; e<DNI_doctors.size(); e++){
+                    Doc_Torn.addRel(DNI_doctors.get(i), v.getId());
                 }
             }
         }

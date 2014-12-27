@@ -176,24 +176,14 @@ public class Graf {
             Vertex v = Vs.get(a.getv());
             Vertex w = Vs.get(a.getw());
             
-            if (v.getClasse() != Vertex.MAX || v.getClasse() != Vertex.TORN || v.getClasse() != Vertex.FONT_POU) {
+            if (v.getClasse() != Vertex.TORN || v.getClasse() != Vertex.FONT_POU) {
                 if (a.getflow() > 0) {
                     switch (v.getClasse()) {
                         case Vertex.RESTRICCIO:
-                            if(w.getClasse() != Vertex.MAX){
                                 System.out.println(v.getId() + " ---f: "+a.getflow()+"--- " + w.getId());
-                            }
-                            else{
-                                System.out.println(v.getId() + " ---f: "+a.getflow()+"--- MAX"+a.getw());
-                            }
                             break;
                         case Vertex.DOCTOR:
-                            if(w.getClasse() != Vertex.MAX){
-                                System.out.println("DOC: " + v.getId() + " ---f: "+a.getflow()+"--- " + w.getId());
-                            }
-                            else{
                                 System.out.println("DOC: " + v.getId() + " ---f: "+a.getflow()+"--- MAX" + a.getw());
-                            }
                             break;
                     }
                 }
