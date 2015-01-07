@@ -1,4 +1,7 @@
+import java.awt.CardLayout;
 import java.io.File;
+
+import javax.swing.JPanel;
 
 public class CtrlDiscGuardar {
 	private static DiscGuardar discguardar;
