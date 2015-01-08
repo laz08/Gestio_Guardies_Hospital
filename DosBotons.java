@@ -5,12 +5,12 @@ import javax.swing.JButton;
 
 
 public class DosBotons extends Panel implements ActionListener {
-	protected JButton boto1 = new JButton();
-	protected JButton boto2 = new JButton();
+	protected JButton b1 = new JButton();
+	protected JButton b2 = new JButton();
 	
 	public DosBotons() {
-		add(boto1);
-		add(boto2);
+		add(b1);
+		add(b2);
 	}
 
 	public void actionPerformed(ActionEvent arg0) {
