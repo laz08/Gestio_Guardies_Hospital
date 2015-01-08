@@ -7,7 +7,7 @@ import java.awt.event.*;
 import java.io.File;
 
 public class VistaPlantilla implements ActionListener/*ListSelectionListener */{
-    private static CtrlVistaPlantilla ctrlVistaPlantilla;
+    private static OLDCtrlVistaPlantilla ctrlVistaPlantilla;
 
 	private JPanel plantilla = new JPanel();
 	//Canvia entre la llista de plantilles i la llista de doctors
@@ -69,7 +69,7 @@ public class VistaPlantilla implements ActionListener/*ListSelectionListener */{
 	
 
 
-	public VistaPlantilla(CtrlVistaPlantilla cvp) {
+	public VistaPlantilla(OLDCtrlVistaPlantilla cvp) {
         ctrlVistaPlantilla = cvp;
 		plantilla.setLayout(new GridLayout(1,2));
 		switchllista.setLayout(new CardLayout());

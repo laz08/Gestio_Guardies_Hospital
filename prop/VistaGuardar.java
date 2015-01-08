@@ -6,7 +6,7 @@ import java.awt.event.ItemEvent;
 import java.io.File;
 
 public class VistaGuardar implements ActionListener {
-	private static CtrlVistaGuardar ctrlVistaGuardar;
+	private static OLDCtrlVistaGuardar ctrlVistaGuardar;
 
 	private JPanel guardar = new JPanel();
 	private JButton guardarDocs = new JButton("Guardar doctors");
@@ -15,7 +15,7 @@ public class VistaGuardar implements ActionListener {
     private JButton guardarCal = new JButton("Guardar calendaris");
 	private JFileChooser obrirdirectori = new JFileChooser();
 
-	public VistaGuardar(CtrlVistaGuardar cvg) {
+	public VistaGuardar(OLDCtrlVistaGuardar cvg) {
         ctrlVistaGuardar = cvg;
 		guardar.setLayout(null);
 		guardarDocs.setLocation(250, 150);

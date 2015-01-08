@@ -1,21 +1,18 @@
 package prop;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.SwingConstants;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 public class VistaAssignacio {
     private static final int W_WIDTH = 1200;
     private static final int W_HEIGHT = 600;
-    private static CtrlVistaAssignacio ctrlVistaAssignacio;
+    private static OLDCtrlVistaAssignacio ctrlVistaAssignacio;
     // SELECCIO DE DADES
     private static JPanel assignacio = new JPanel();
     private static JPanel panelLlistes = new JPanel();
@@ -35,7 +32,7 @@ public class VistaAssignacio {
     private static JLabel label_res;
     
     
-    public VistaAssignacio(CtrlVistaAssignacio cva){
+    public VistaAssignacio(OLDCtrlVistaAssignacio cva){
         ctrlVistaAssignacio = cva;
         assignacio.setLayout(null);
         panelLlistes.setLayout(null);

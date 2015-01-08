@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class VistaAlgorismes {
 
     private static final int W_WIDTH = 1200, W_HEIGHT = 530;
-    private CtrlVistaAlgorismes ctrlVistaAlgorismes;
+    private OLDCtrlVistaAlgorismes ctrlVistaAlgorismes;
     private static JPanel panel_algorisme = new JPanel();
     //boolean
     private static boolean grafCreat = false;
@@ -32,7 +32,7 @@ public class VistaAlgorismes {
     private static JButton btn_executa_algorisme = new JButton();
     private static JPanel panel_algorismes = new JPanel();
 
-    public VistaAlgorismes(CtrlVistaAlgorismes cvalg) {
+    public VistaAlgorismes(OLDCtrlVistaAlgorismes cvalg) {
         ctrlVistaAlgorismes = cvalg;
         panel_algorisme.setLayout(null);
 

@@ -7,7 +7,7 @@ import java.awt.event.ActionListener;
 import java.io.File;
 
 public class VistaCarregar implements ActionListener, ListSelectionListener {
-	private static CtrlVistaCarregar ctrlVistaCarregar;
+	private static OLDCtrlVistaCarregar ctrlVistaCarregar;
 
 	private JPanel carregar = new JPanel();
 	private JButton carregarDocs = new JButton("Carregar doctors");
@@ -17,7 +17,7 @@ public class VistaCarregar implements ActionListener, ListSelectionListener {
 
     private JFileChooser obrirdirectori = new JFileChooser();
 
-	public VistaCarregar(CtrlVistaCarregar cvc) {
+	public VistaCarregar(OLDCtrlVistaCarregar cvc) {
         ctrlVistaCarregar = cvc;
 		carregar.setLayout(null);
 

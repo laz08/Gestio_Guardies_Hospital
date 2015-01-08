@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class VistaRestriccio {
 
-    private static CtrlVistaRestriccions ctrlVistaRestriccions;
+    private static OLDCtrlVistaRestriccions ctrlVistaRestriccions;
     private JPanel restriccions = new JPanel();
     private JPanel buttonsrestriccio = new JPanel();
     private JPanel insertrestriccio = new JPanel();
@@ -31,7 +31,7 @@ public class VistaRestriccio {
     private JPanel espaiblanc = new JPanel();
 
 
-    public VistaRestriccio(CtrlVistaRestriccions cvr) {
+    public VistaRestriccio(OLDCtrlVistaRestriccions cvr) {
         ctrlVistaRestriccions = cvr;
         restriccions.setLayout(new BorderLayout());
 

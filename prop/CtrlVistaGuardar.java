@@ -6,12 +6,7 @@ public class CtrlVistaGuardar {
 
     public CtrlVistaGuardar(CtrlVistaPrincipal vpc){
         ctrlVistaPrincipal = vpc;
-        vistaGuardar = new VistaGuardar(this);
-    }
 
-    public static VistaGuardar getVistaGuardar(){
-        return vistaGuardar;
     }
-
 
 }

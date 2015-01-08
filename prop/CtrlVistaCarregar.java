@@ -7,10 +7,6 @@ public class CtrlVistaCarregar {
 
     public CtrlVistaCarregar(CtrlVistaPrincipal vpc){
         ctrlVistaPrincipal = vpc;
-        vistaCarregar = new VistaCarregar(this);
-    }
 
-    public VistaCarregar getVistaCarregar(){
-        return vistaCarregar;
     }
 }

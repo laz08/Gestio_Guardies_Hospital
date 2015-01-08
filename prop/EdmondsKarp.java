@@ -5,12 +5,12 @@
 package prop;
 
 import java.util.ArrayList;
-import static prop.Algorisme.graf;
 
 /**
  *
  * @author Xisco
  */
+
 public class EdmondsKarp extends Algorisme {
 
     private static ArrayList<Vertex> cua;
@@ -22,10 +22,12 @@ public class EdmondsKarp extends Algorisme {
 
     @Override
     public void maxFlow() {
+        /*
         graf.resetFlow();
         recorregut_en_amplada(graf.getVertex("FONT", Vertex.FONT_POU));
+        */
     }
-
+/*
     private static void recorregut_en_amplada(Vertex s) {
         cua = new ArrayList<Vertex>();
         cua.add(s);
@@ -253,6 +255,9 @@ public class EdmondsKarp extends Algorisme {
                     elimina_fills(vf);
                 }
             }
-        }
-    }
+
 }
+    }
+*/
+}
+

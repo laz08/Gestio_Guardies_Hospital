@@ -5,13 +5,13 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 
-public class CtrlVistaRestriccions {
-    private static CtrlVistaPrincipal ctrlVistaPrincipal;
+public class OLDCtrlVistaRestriccions {
+    private static OLDCtrlVistaPrincipal ctrlVistaPrincipal;
     private static VistaRestriccio vistaRestriccio;
 
-    public CtrlVistaRestriccions(CtrlVistaPrincipal vpc){
+    public OLDCtrlVistaRestriccions(OLDCtrlVistaPrincipal vpc){
         ctrlVistaPrincipal = vpc;
-
+        vistaRestriccio = new VistaRestriccio(this);
     }
 
     public static VistaRestriccio getVistaRestriccio(){

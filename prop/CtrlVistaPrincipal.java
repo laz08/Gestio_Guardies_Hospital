@@ -13,28 +13,9 @@ public class CtrlVistaPrincipal {
     private static CtrlVistaGuardar ctrlVistaGuardar;
     private static CtrlVistaCarregar ctrlVistaCarregar;
 
-    private static VistaHospital vistaHospital;
-    private static VistaPlantilla vistaPlantilla;
-    private static VistaCalendari vistaCalendari;
-    private static VistaRestriccio vistaRestriccio;
-    private static VistaAlgorismes vistaAlgorismes;
-    private static VistaAssignacio vistaAssignacio;
-    private static VistaGuardar vistaGuardar;
-    private static VistaCarregar vistaCarregar;
-
-
 
     public CtrlVistaPrincipal(){
         creaCtrlVistes();
-        vistaHospital = ctrlVistaHospital.getVistaHospital();
-        vistaPlantilla = ctrlVistaPlantilla.getVistaPlantilla();
-        vistaCalendari = ctrlVistaCalendaris.getVistaCalendari();
-        vistaRestriccio = ctrlVistaRestriccions.getVistaRestriccio();
-        vistaAlgorismes = ctrlVistaAlgorismes.getVistaAlgorismes();
-        vistaAssignacio = ctrlVistaAssignacio.getVistaAssignacio();
-        vistaGuardar = ctrlVistaGuardar.getVistaGuardar();
-        vistaCarregar = ctrlVistaCarregar.getVistaCarregar();
-        vistaPrincipal = new VistaPrincipal(this, vistaHospital, vistaPlantilla, vistaCalendari, vistaRestriccio, vistaAlgorismes, vistaAssignacio, vistaGuardar, vistaCarregar);
 
     }
     public  void creaCtrlVistes(){

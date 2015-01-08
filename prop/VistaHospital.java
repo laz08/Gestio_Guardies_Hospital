@@ -14,7 +14,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class VistaHospital implements ActionListener, ListSelectionListener {
-    private static CtrlVistaHospital ctrlVistaHospital;
+    private static OLDCtrlVistaHospital ctrlVistaHospital;
 
     private JPanel hospital = new JPanel();
     private JPanel switchgestio = new JPanel();
@@ -69,7 +69,7 @@ public class VistaHospital implements ActionListener, ListSelectionListener {
 
 
     // ----------------------FUNCIONS----------------------
-    public VistaHospital(CtrlVistaHospital cvh) {
+    public VistaHospital(OLDCtrlVistaHospital cvh) {
         ctrlVistaHospital = cvh;
         hospital.setLayout(new BorderLayout());
         switchllista.setLayout(new CardLayout());
