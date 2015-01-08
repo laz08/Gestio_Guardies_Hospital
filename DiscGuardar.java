@@ -1,7 +1,10 @@
 import java.awt.event.ActionEvent;
 import java.io.File;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 
-public class DiscGuardar extends DiscGeneral{
+public class DiscGuardar extends QuatreBotons{
+	protected ImageIcon load = new ImageIcon("Cercle.gif");
 	
 	public DiscGuardar(CtrlDiscGuardar cdg){
 		b1.setText("Guardar Hospital");
@@ -12,6 +15,7 @@ public class DiscGuardar extends DiscGeneral{
 		b2.addActionListener(this);
 		b3.addActionListener(this);
 		b4.addActionListener(this);
+		add(new JLabel("Executant Algorisme... ", load, JLabel.CENTER));
 	}
 	
 	public void actionPerformed(ActionEvent arg0) {
@@ -21,7 +25,7 @@ public class DiscGuardar extends DiscGeneral{
             if (arg0.getSource() == b1){
                 CtrlDiscGuardar.guardarh(f);
             }
-            else if (arg0.getSource() == b2) {            
+            else if (arg0.getSource() == b2) {    
             	CtrlDiscGuardar.guardarp(f);
             }
             else if (arg0.getSource() == b3) {

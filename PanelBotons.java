@@ -1,11 +1,8 @@
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 
 
-public class PanelBotons extends Panel implements ActionListener{
+public class PanelBotons extends DosBotons{
 	protected JButton b1 = new JButton();
 	protected JButton b2 = new JButton();
 	protected JButton b3 = new JButton();
@@ -20,6 +17,4 @@ public class PanelBotons extends Panel implements ActionListener{
 		b2.addActionListener(this);
 		b3.addActionListener(this);
 	}
-	
-	public void actionPerformed(ActionEvent arg0) {}
 }
