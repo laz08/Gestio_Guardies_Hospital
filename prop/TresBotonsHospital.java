@@ -3,7 +3,9 @@ import java.awt.event.ActionEvent;
 
 public class TresBotonsHospital extends TresBotons {
 	
-	public TresBotonsHospital() { //CtrlVistaHospital cvh) {
+	private CtrlVistaHospital ctrlvh;
+	public TresBotonsHospital(CtrlVistaHospital cvh) { //CtrlVistaHospital cvh) {
+		ctrlvh = cvh;
 		b1.setText("Crear Doctor");
 		b2.setText("Guardar Doctors");
 		b3.setText("Carregar Doctors");
@@ -14,7 +16,7 @@ public class TresBotonsHospital extends TresBotons {
 	
 	public void actionPerformed(ActionEvent arg0) {
 		if (arg0.getSource() == b1) {
-			
+			ctrlvh.swap(2);
 		}
 		else {
 			

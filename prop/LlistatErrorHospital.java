@@ -1,12 +1,14 @@
 package prop;
+import java.awt.Dimension;
 import javax.swing.event.ListSelectionEvent;
-import java.awt.*;
 
 
 public class LlistatErrorHospital extends PanelLlistatError {
-	public LlistatErrorHospital() {
+	private CtrlVistaHospital ctrlvh;
+	public LlistatErrorHospital(CtrlVistaHospital cvh) {
+		ctrlvh = cvh;
 		error.setEditable(false);
-		setPreferredSize(new Dimension(400,600));
+		
 	}
 	
 	public void valueChanged(ListSelectionEvent arg0) {
