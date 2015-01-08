@@ -6,7 +6,7 @@ import javax.swing.JButton;
 //import prop.CtrlHospital;
 
 
-public class DiscCarregar extends DiscGeneral{
+public class DiscCarregar extends QuatreBotons{
 	
 	public DiscCarregar(CtrlDiscCarregar cdc) {
 		b1.setText("Carregar Hospital");
