@@ -10,13 +10,13 @@ public class CtrlVistaPrincipal {
     private static CtrlVistaRestriccions ctrlVistaRestriccions;
     private static CtrlVistaAlgorismes ctrlVistaAlgorismes;
     private static CtrlVistaAssignacio ctrlVistaAssignacio;
-    private static CtrlVistaGuardar ctrlVistaGuardar;
-    private static CtrlVistaCarregar ctrlVistaCarregar;
+    private static CtrlDiscCarregar ctrlDiscCarregar;
+    private static CtrlDiscGuardar ctrlDiscGuardar;
 
 
     public CtrlVistaPrincipal(){
         creaCtrlVistes();
-
+        vistaPrincipal = new VistaPrincipal(this, ctrlDiscGuardar, ctrlDiscCarregar);
     }
     public  void creaCtrlVistes(){
         ctrlVistaHospital = new CtrlVistaHospital(this);
@@ -25,8 +25,8 @@ public class CtrlVistaPrincipal {
         ctrlVistaRestriccions = new CtrlVistaRestriccions(this);
         ctrlVistaAlgorismes = new CtrlVistaAlgorismes(this);
         ctrlVistaAssignacio = new CtrlVistaAssignacio(this);
-        ctrlVistaGuardar = new CtrlVistaGuardar(this);
-        ctrlVistaCarregar = new CtrlVistaCarregar(this);
+        ctrlDiscGuardar = new CtrlDiscGuardar(this);
+        ctrlDiscCarregar = new CtrlDiscCarregar(this);
     }
 
 }

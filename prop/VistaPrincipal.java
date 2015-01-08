@@ -1,9 +1,5 @@
 package prop;
 
-import vistes_carles.CtrlDiscCarregar;
-import vistes_carles.CtrlDiscGuardar;
-import vistes_carles.CtrlVistaPrincipal;
-
 import javax.swing.*;
 import java.awt.*;
 
