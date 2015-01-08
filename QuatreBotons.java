@@ -1,7 +1,7 @@
 import javax.swing.JButton;
 
 
-public class QuatreBotons extends PanelBotons {
+public class QuatreBotons extends TresBotons {
 	protected JButton b4 = new JButton();
 	
 	public QuatreBotons() {
