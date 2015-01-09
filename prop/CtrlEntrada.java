@@ -79,59 +79,67 @@ public class CtrlEntrada {
             ArrayList<Integer> llista_r = d.getRestriccions();
             Vertex vd = g.getVertex(d.getdni(), Vertex.DOCTOR);
             for (int e = 0; e < llista_r.size(); e++) {
+//                
+//                
+//                System.out.println(d.getNom());
+//                System.out.println(e);
+//                
+//                
+                
+                
                 r = CtrlRestriccio.consulta_res(llista_r.get(e));
                 Vertex vr = recorregut_restriccio(r, d.getdni(), g);
                 g.afegirAresta(vd, vr, /*vr.getCapacitatAcumulada()*/ Graf.INFINIT, 0);
             }
         }
     }
-
-    /**
-     * Donat un graf per paràmetres, en retorna un l'invers
-     *
-     * @param g Graf inicial
-     * @return Graf invers
-     */
-    public static Graf calculaInvers(Graf g) {
-        Graf graf = new Graf();
-        for (int i = 0; i < g.numV(); i++) { // copiam tots els vertex del graf menys les restriccions
-            Vertex v = g.getVertex(i);
-            if (v.getClasse() != Vertex.RESTRICCIO) {
-                g.getVertex(i).getArestes().clear();
-                graf.afegirVertex(g.getVertex(i));
-            }
-        }
-
-        ArrayList<Vertex> vdoctors = new ArrayList<Vertex>();
-        for (int i = 0; i < graf.numV(); i++) {
-            Vertex v = graf.getVertex(i);
-            if (v.getClasse() == Vertex.DOCTOR) {
-                vdoctors.add(v);
-            }
-        }
-        
-        for (int i = 0; i<g.getNumA(); i++){
-            Aresta a = g.getA(i);
-            Vertex v = g.getVertex(a.getv());
-            Vertex w = g.getVertex(a.getw());
-            if (v.getClasse() != Vertex.RESTRICCIO && w.getClasse() != Vertex.RESTRICCIO) {
-                    graf.afegirAresta(v, w, a.getcap(), 0);
-            }
-        }
-            
-        for (int i = 0; i < graf.numV(); i++) {
-            Vertex vertex = graf.getVertex(i);
-            if (vertex.getClasse() == Vertex.TORN) {
-                ArrayList<String> docs  = vertex.getDoctorsRel();
-                for(int e=0; e<vdoctors.size(); e++){
-                    if(!docs.contains(vdoctors.get(e).getId())){
-                        graf.afegirAresta(vdoctors.get(e), vertex, 1, 0);
-                    }
-                }
-            }
-        }
-        return graf;
-    }
+//
+//    /**
+//     * Donat un graf per paràmetres, en retorna un l'invers
+//     *
+//     * @param g Graf inicial
+//     * @return Graf invers
+//     */
+//    public static Graf calculaInvers(Graf g) {
+//        Graf graf = new Graf();
+//        for (int i = 0; i < g.numV(); i++) { // copiam tots els vertex del graf menys les restriccions
+//            Vertex v = g.getVertex(i);
+//            if (v.getClasse() != Vertex.RESTRICCIO) {
+//                g.getVertex(i).getArestes().clear();
+//                graf.afegirVertex(g.getVertex(i));
+//            }
+//        }
+//
+//        ArrayList<Vertex> vdoctors = new ArrayList<Vertex>();
+//        for (int i = 0; i < graf.numV(); i++) {
+//            Vertex v = graf.getVertex(i);
+//            if (v.getClasse() == Vertex.DOCTOR) {
+//                vdoctors.add(v);
+//            }
+//        }
+//        
+//        for (int i = 0; i<g.getNumA(); i++){
+//            Aresta a = g.getA(i);
+//            Vertex v = g.getVertex(a.getv());
+//            Vertex w = g.getVertex(a.getw());
+//            if (v.getClasse() != Vertex.RESTRICCIO && w.getClasse() != Vertex.RESTRICCIO) {
+//                    graf.afegirAresta(v, w, a.getcap(), 0);
+//            }
+//        }
+//            
+//        for (int i = 0; i < graf.numV(); i++) {
+//            Vertex vertex = graf.getVertex(i);
+//            if (vertex.getClasse() == Vertex.TORN) {
+//                ArrayList<String> docs  = vertex.getDoctorsRel();
+//                for(int e=0; e<vdoctors.size(); e++){
+//                    if(!docs.contains(vdoctors.get(e).getId())){
+//                        graf.afegirAresta(vdoctors.get(e), vertex, 1, 0);
+//                    }
+//                }
+//            }
+//        }
+//        return graf;
+//    }
 
     /**
      * Una vegada relacionades totes les restriccions amb els seus respectius
@@ -337,9 +345,12 @@ public class CtrlEntrada {
         for(int i=0; i<g.numV(); i++){
             Vertex v = g.getVertex(i);
             if(v.getClasse() == Vertex.TORN){
+
                 ArrayList<String> DNI_doctors = v.getDoctorsRel();
+                
                 for(int e=0; e<DNI_doctors.size(); e++){
-                    Doc_Torn.addRel(DNI_doctors.get(i), v.getId());
+                    Doc_Torn.addRel(DNI_doctors.get(e), v.getId());
+                                        
                 }
             }
         }

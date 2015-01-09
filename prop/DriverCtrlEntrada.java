@@ -14,15 +14,11 @@ public class DriverCtrlEntrada {
     public static void main(String[] args) throws Error {
         prepara_prova();
         graf = CtrlEntrada.crea_graf();
-        Algorisme algo = new FordFulkerson();
+        Algorisme algo = new EdmondsKarp();
         algo.setGraf(graf);
         algo.maxFlow();
         graf.mostra_graf();
-//        System.out.println("_____________CALCULAM INVERS DEL GRAF ANTERIOR...___________");
-//        Graf g = CtrlEntrada.calculaInvers(graf);
-//        algo.setGraf(g);
-//        System.out.println("_____________APLICAM L'ALGORISME AL NOU GRAF______________");
-//        algo.maxFlow();
+        
         CtrlEntrada.guarda_assignacions(graf);
         Doc_Torn.mostraRelacions();
     }
@@ -33,6 +29,7 @@ public class DriverCtrlEntrada {
         CtrlPlantilla.setPlantillaActual("Prova");
 
         Calendari c = new Calendari("Prova", 1000, 1000);
+        CtrlCalendari.afegirCalendarif(c);
         CtrlPlantilla.consultarPlantilla("Prova").set_calendari_asoc(c);
         //Cream un conjunt de doctors de prova i els afagim a la plantilla
         for (int i = 0; i < 6; i++) {

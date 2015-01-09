@@ -22,7 +22,7 @@ public class Doc_Res{
         } else {
             ArrayList<String> llistaDoc = new ArrayList<String>();
             llistaDoc.add(doc);
-            for(int i=0; i< res; i++){
+            for(int i=assig.size(); i< res; i++){
                 assig.add(i, new ArrayList<String>());
             }
             assig.add(llistaDoc);

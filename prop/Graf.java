@@ -183,7 +183,7 @@ public class Graf {
                                 System.out.println(v.getId() + " ---f: "+a.getflow()+"--- " + w.getId());
                             break;
                         case Vertex.DOCTOR:
-                                System.out.println("DOC: " + v.getId() + " ---f: "+a.getflow()+"--- MAX" + a.getw());
+                                System.out.println("DOC: " + v.getId() + " ---f: "+a.getflow()+"--- " + Vs.get(a.getw()).getId());
                             break;
                     }
                 }

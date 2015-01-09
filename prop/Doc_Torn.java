@@ -25,8 +25,14 @@ public class Doc_Torn {
                 post++;
             }
         }
-
-
+        
+        if (existeixt) {
+            torns.get(post).addRelacio(rd);
+        } else {
+            rt.addRelacio(rd);
+            torns.add(rt);
+        }
+        
         boolean existeixd = false;
         int posd = 0;
         while (posd < torns.size() && !existeixd) {
@@ -84,6 +90,14 @@ public class Doc_Torn {
         }
 
 
+        if (existeixt) {
+            torns.get(post).addRelacio(rd);
+        } else {
+            rt.addRelacio(rd);
+            torns.add(rt);
+        }
+        
+        
         boolean existeixd = false;
         int posd = 0;
         while (posd < torns.size() && !existeixd) {
@@ -201,7 +215,7 @@ public class Doc_Torn {
         System.out.println("________TORNS______");
         for(int i=0; i<torns.size(); i++){
             Relacio rel = torns.get(i);
-            System.out.print("Doctor "+((Torn)rel.getObj()).toString()); 
+            System.out.print("Torn "+((Torn)rel.getObj()).toString()); 
             System.out.print(" relacionat amb ");
             ArrayList<Relacio> relacionats = rel.getRelacionats();
             for(int e=0; e<relacionats.size(); e++){
