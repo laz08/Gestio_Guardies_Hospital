@@ -1,12 +1,8 @@
 package prop;
 
-import java.awt.Component;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
-
-import javax.swing.JButton;
-import javax.swing.JLabel;
 
 
 public class BotoMesTextHospital extends BotoMesText{
@@ -155,6 +151,7 @@ public class BotoMesTextHospital extends BotoMesText{
 			ctrlvh.swap(2,1);
 		}
 		else if (arg0.getSource() == b5) {
+            ctrlvh.crea_doc();
 			ctrlvh.swap(2,1);
 		}
 	}
