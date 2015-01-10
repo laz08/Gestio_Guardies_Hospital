@@ -7,6 +7,12 @@ import static prop.Algorisme.graf;
 
 public class FordFulkerson extends Algorisme {
 
+    private static boolean selSou;
+    
+    public FordFulkerson(boolean selSou){
+        this.selSou = selSou;
+    }
+    
     @Override
     public void maxFlow() throws Error {
         graf.resetFlow();
