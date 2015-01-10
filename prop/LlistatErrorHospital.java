@@ -19,4 +19,10 @@ public class LlistatErrorHospital extends PanelLlistatError {
         ctrlvh.swap(2,2);
 		llista1.clearSelection();
 	}
+
+    public void esborraElementsModel(){
+        System.out.println("Hola");
+        model1.removeAllElements();
+        System.out.println("Adeu");
+    }
 }

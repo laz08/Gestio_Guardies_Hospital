@@ -57,7 +57,7 @@ public class CtrlVistaHospital {
     //AUXILIARS
     public void actualitza_llista_docs(){
         System.out.println("FIns aqui arribo");
-        llistat.model1.removeAllElements();
+        llistat.esborraElementsModel();
         System.out.println("FIns aqui arribo");
         String contingut = getLlistaDocs_nom();
         System.out.println("FIns aqui arribo");
