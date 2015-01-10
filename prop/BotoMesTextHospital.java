@@ -3,6 +3,8 @@ package prop;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 public class BotoMesTextHospital extends BotoMesText{
@@ -11,10 +13,14 @@ public class BotoMesTextHospital extends BotoMesText{
 	protected JButton b5 = new JButton("Acceptar");
 	protected JLabel l7 = new JLabel("Correu:");
 	protected GridBagConstraints c = new GridBagConstraints();
+
 	private CtrlVistaHospital ctrlvh;
-	
-	public BotoMesTextHospital(CtrlVistaHospital cvh) {
+	private LlistatErrorHospital llistat;
+
+	public BotoMesTextHospital(CtrlVistaHospital cvh, LlistatErrorHospital ll) {
 		ctrlvh = cvh;
+        llistat = ll;
+
 		b1.setText("Afegir Restricció");
 		b2.setText("Eliminar Restricció");
 		b1.addActionListener(this);
@@ -151,8 +157,84 @@ public class BotoMesTextHospital extends BotoMesText{
 			ctrlvh.swap(2,1);
 		}
 		else if (arg0.getSource() == b5) {
-            ctrlvh.crea_doc();
+            //ctrlvh.crea_doc();
 			ctrlvh.swap(2,1);
 		}
 	}
+
+    public boolean crea_doc(){
+        boolean valid = true;
+        String d = t1.getText();
+        String n = t2.getText();
+        String cg1 = t3.getText();
+        String cg2 = t4.getText();
+        String so = t5.getText();
+        String telf = t6.getText();
+        String cor = t7.getText();
+
+        if(d.equals("")|| n.equals("") || cg1.equals("") || cg2.equals("") || so.equals("") || telf.equals("") || cor.equals("")){
+            valid = false;
+            llistat.errorUnOMesDunCampNull();
+        }
+        if(valid && d.length() == 8){
+            try {
+                int dni_num = Integer.parseInt(d);
+            } catch (Exception e){
+                llistat.condicionsDNIError();
+                valid = false;
+            }
+        }
+        else{
+            valid = false;
+            llistat.condicionsDNIError();
+        }
+
+        int s = 0;
+        int t = 0;
+        //Si tots els camps estan plens...
+        if(valid){
+            try {
+                s = Integer.parseInt(so);
+                if(s < 0){
+                    valid = false;
+                    llistat.errorHaDeSerUnReal("Sou");
+                }
+            } catch (Exception e){
+                llistat.errorHaDeSerUnReal("Sou");
+                valid = false;
+            }
+            //Si sou és valid
+            if(valid){
+                try {
+                    t = Integer.parseInt(telf);
+                    if (t < 0){
+                        valid = false;
+                        llistat.errorHaDeSerUnReal("Telèfon");
+                    }
+                } catch(Exception e){
+                    llistat.errorHaDeSerUnReal("Telèfon");
+                    valid = false;
+                }
+            }
+        }
+        //Si els camps estan plens i sou i telefon son correctes...
+        if(valid){
+            if(esCorreu(cor)){
+                CtrlHospital.creariAfegirDoctor(d, n, cg1, cg2, s, t, cor);
+            }
+            else{
+                llistat.noEsCorreu();
+                valid = false;
+            }
+        }
+        return valid;
+
+    }
+
+
+    public boolean esCorreu(String correu){
+        Pattern p = Pattern.compile("[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}");
+        Matcher m = p.matcher(correu);
+        return m.matches();
+    }
 }
