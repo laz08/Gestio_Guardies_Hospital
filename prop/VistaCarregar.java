@@ -1,4 +1,6 @@
+/*
 package prop;
+
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -7,7 +9,7 @@ import java.awt.event.ActionListener;
 import java.io.File;
 
 public class VistaCarregar implements ActionListener, ListSelectionListener {
-	private static OLDCtrlVistaCarregar ctrlVistaCarregar;
+	private static CtrlVistaCarregar ctrlVistaCarregar;
 
 	private JPanel carregar = new JPanel();
 	private JButton carregarDocs = new JButton("Carregar doctors");
@@ -17,16 +19,16 @@ public class VistaCarregar implements ActionListener, ListSelectionListener {
 
     private JFileChooser obrirdirectori = new JFileChooser();
 
-	public VistaCarregar(OLDCtrlVistaCarregar cvc) {
+	public VistaCarregar(CtrlVistaCarregar cvc) {
         ctrlVistaCarregar = cvc;
 		carregar.setLayout(null);
 
-        /*
+
         guardarDocs.setLocation(250, 150);
         guardarRes.setLocation(700, 150);
         guardarPlan.setLocation(250, 350);
         guardarCal.setLocation(700, 350);
-         */
+
         carregarDocs.setLocation(250, 150);
         carregarRes.setLocation(700, 150);
         carregarPlan.setLocation(250, 350);
@@ -104,3 +106,4 @@ public class VistaCarregar implements ActionListener, ListSelectionListener {
 
 
 }
+*/

@@ -1,4 +1,4 @@
-package prop;
+/*package prop;
 
 import javax.swing.*;
 
@@ -6,7 +6,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
 
-public class VistaPlantilla implements ActionListener/*ListSelectionListener */{
+public class VistaPlantilla implements ActionListener/*ListSelectionListener {
     private static OLDCtrlVistaPlantilla ctrlVistaPlantilla;
 
 	private JPanel plantilla = new JPanel();
@@ -255,7 +255,7 @@ public class VistaPlantilla implements ActionListener/*ListSelectionListener */{
             //Ho deixo comentat
             /*CardLayout cl = (CardLayout)(switchllista.getLayout());
 			cl.show(switchllista, "consultaplantilla");
-			*/
+			
             inicialitza_plt();
 		}
 

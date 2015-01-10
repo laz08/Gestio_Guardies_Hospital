@@ -1,7 +1,10 @@
 package prop;
-import javax.swing.*;
+
 import java.awt.event.ActionEvent;
 import java.io.File;
+
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 
 public class DiscGuardar extends QuatreBotons{
 	protected ImageIcon load = new ImageIcon("Cercle.gif");

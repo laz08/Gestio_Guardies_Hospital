@@ -5,29 +5,24 @@ import java.awt.CardLayout;
 
 import javax.swing.JPanel;
 
-
-public class CtrlVistaPlantilla {
+public class CtrlVistaCalendari {
 	private CtrlVistaPrincipal ctrlvp;
-	private JPanel plantilla = new JPanel();
+	private JPanel calendari = new JPanel();
 	private JPanel dret = new JPanel();
 	private JPanel esquerre = new JPanel();
 	
-	public CtrlVistaPlantilla(CtrlVistaPrincipal cvp) {
+	public CtrlVistaCalendari(CtrlVistaPrincipal cvp) {
 		ctrlvp = cvp;
-		plantilla.setLayout(new BorderLayout());
+		calendari.setLayout(new BorderLayout());
 		dret.setLayout(new CardLayout());
 		esquerre.setLayout(new CardLayout());
-		dret.add(new TresBotonsPlantilla(this), "2-1");
-		dret.add(new BotoTextPlantilla(this), "2-2");
-		dret.add(new BotoLlistaMesPlantilla(this), "2-3");
-		esquerre.add(new LlistatErrorPlantilla(this), "1-1");
-		esquerre.add(new BotoLlistaPlantilla(this), "1-2");
-		plantilla.add(esquerre, BorderLayout.WEST);
-		plantilla.add(dret, BorderLayout.EAST);
-	}
-	
-	public JPanel tornavista() {
-		return plantilla;
+		esquerre.add(new LlistatErrorCalendari(this),"1-1");
+		esquerre.add(new BotoMesTextCalendari(this), "1-2");
+		dret.add(new CGCalendari(this), "2-1");
+		dret.add(new BotoTextCalendari(this), "2-2");
+		dret.add(new ModelCalendari(this), "2-3");
+		calendari.add(esquerre, BorderLayout.WEST);
+		calendari.add(dret, BorderLayout.EAST);
 	}
 	
 	public void swap(int banda, int numpanelins) {
@@ -40,4 +35,9 @@ public class CtrlVistaPlantilla {
 			cl.show(dret, String.valueOf(banda)+"-"+String.valueOf(numpanelins));
 		}
 	}
+
+	public JPanel tornavista() {
+		return calendari;
+	}
+	
 }

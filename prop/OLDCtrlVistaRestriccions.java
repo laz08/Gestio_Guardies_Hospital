@@ -1,4 +1,4 @@
-package prop;
+/*package prop;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -45,3 +45,4 @@ public class OLDCtrlVistaRestriccions {
         CtrlRestriccio.guardar(f);
     }
 }
+*/

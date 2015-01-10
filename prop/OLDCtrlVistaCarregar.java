@@ -1,4 +1,4 @@
-package prop;
+/*package prop;
 
 
 public class OLDCtrlVistaCarregar {
@@ -14,3 +14,4 @@ public class OLDCtrlVistaCarregar {
         return vistaCarregar;
     }
 }
+*/

@@ -1,3 +1,4 @@
+/*
 package prop;
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -610,3 +611,4 @@ public class VistaCalendari implements ListSelectionListener, ItemListener, Acti
         return true; 
       }
 }
+*/

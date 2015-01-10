@@ -1,3 +1,4 @@
+/*
 package prop;
 
 import java.io.File;
@@ -27,7 +28,7 @@ public class CtrlDomini {
      * @param s
      * @param telf
      * @param mail
-     */
+     
     public static void creaDoctor(String d, String n, String cg1, String cg2, int s, int telf, String mail) {
         CtrlHospital.creariAfegirDoctor(d, n, cg1, cg2, s, telf, mail);
     }
@@ -39,7 +40,7 @@ public class CtrlDomini {
      * PRE: Existeix doctor amb aquest dni a l'hospital.
      * POST: Queda esborrat doctor de l'hospital
      * @param dni
-     */
+     
     public static void eliminaDoctorHospital(String dni){
         CtrlHospital.eliminarDoctor(dni);
     }
@@ -216,4 +217,4 @@ public class CtrlDomini {
         alg.maxFlow();
     }
 
-}
+}*/

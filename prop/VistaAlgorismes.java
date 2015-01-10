@@ -1,3 +1,4 @@
+/*
 package prop;
 
 import javax.swing.*;
@@ -10,7 +11,7 @@ import java.util.ArrayList;
 public class VistaAlgorismes {
 
     private static final int W_WIDTH = 1200, W_HEIGHT = 530;
-    private OLDCtrlVistaAlgorismes ctrlVistaAlgorismes;
+    private CtrlVistaAlgorismes ctrlVistaAlgorismes;
     private static JPanel panel_algorisme = new JPanel();
     //boolean
     private static boolean grafCreat = false;
@@ -32,7 +33,7 @@ public class VistaAlgorismes {
     private static JButton btn_executa_algorisme = new JButton();
     private static JPanel panel_algorismes = new JPanel();
 
-    public VistaAlgorismes(OLDCtrlVistaAlgorismes cvalg) {
+    public VistaAlgorismes(CtrlVistaAlgorismes cvalg) {
         ctrlVistaAlgorismes = cvalg;
         panel_algorisme.setLayout(null);
 
@@ -158,3 +159,4 @@ public class VistaAlgorismes {
         return panel_algorisme;
     }
 }
+*/

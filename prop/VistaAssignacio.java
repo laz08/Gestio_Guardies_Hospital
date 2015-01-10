@@ -1,3 +1,4 @@
+/*
 package prop;
 
 import java.util.ArrayList;
@@ -12,7 +13,7 @@ import javax.swing.event.ListSelectionListener;
 public class VistaAssignacio {
     private static final int W_WIDTH = 1200;
     private static final int W_HEIGHT = 600;
-    private static OLDCtrlVistaAssignacio ctrlVistaAssignacio;
+    private static CtrlVistaAssignacio ctrlVistaAssignacio;
     // SELECCIO DE DADES
     private static JPanel assignacio = new JPanel();
     private static JPanel panelLlistes = new JPanel();
@@ -32,7 +33,7 @@ public class VistaAssignacio {
     private static JLabel label_res;
     
     
-    public VistaAssignacio(OLDCtrlVistaAssignacio cva){
+    public VistaAssignacio(CtrlVistaAssignacio cva){
         ctrlVistaAssignacio = cva;
         assignacio.setLayout(null);
         panelLlistes.setLayout(null);
@@ -145,3 +146,4 @@ public class VistaAssignacio {
         return assignacio;
     }
 }
+*/
