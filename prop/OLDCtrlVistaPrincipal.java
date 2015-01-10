@@ -42,7 +42,7 @@ public class OLDCtrlVistaPrincipal {
         ctrlVistaPlantilla = new OLDCtrlVistaPlantilla(this);
         ctrlVistaCalendaris= new OLDCtrlVistaCalendaris(this);
         ctrlVistaRestriccions = new OLDCtrlVistaRestriccions(this);
-        ctrlVistaAlgorismes = new OLDCtrlVistaAlgorismes(this);
+       // ctrlVistaAlgorismes = new OLDCtrlVistaAlgorismes(this);
         ctrlVistaAssignacio = new OLDCtrlVistaAssignacio(this);
         ctrlVistaGuardar = new OLDCtrlVistaGuardar(this);
         ctrlVistaCarregar = new OLDCtrlVistaCarregar(this);

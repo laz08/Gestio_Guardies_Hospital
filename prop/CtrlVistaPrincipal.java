@@ -6,9 +6,7 @@ public class CtrlVistaPrincipal {
 		CtrlDiscCarregar cdc = new CtrlDiscCarregar(this);
 		CtrlDiscGuardar cdg = new CtrlDiscGuardar(this);
 		CtrlVistaHospital cvh = new CtrlVistaHospital(this);
-		vistaprincipal = new VistaPrincipal(this, cdg, cdc, cvh);
-	}
-	public void actualitza() {
-		vistaprincipal.actualitza();
+		CtrlVistaPlantilla cvp = new CtrlVistaPlantilla(this);
+		vistaprincipal = new VistaPrincipal(this, cdg, cdc, cvh, cvp);
 	}
 }

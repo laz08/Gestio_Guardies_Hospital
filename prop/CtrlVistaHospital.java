@@ -20,11 +20,11 @@ public class CtrlVistaHospital {
 		ctrlvp = cvp;
 		hospital.setLayout(new BorderLayout());
 		esquerre.setLayout(new CardLayout());
-		esquerre.add(llistat, "E1");
-		esquerre.add(restriccions, "E2");
+		esquerre.add(llistat, "1-1");
+		esquerre.add(restriccions, "1-2");
 		dret.setLayout(new CardLayout());
-		dret.add(cgc, "D1");
-		dret.add(doctor, "D2");
+		dret.add(cgc, "2-1");
+		dret.add(doctor, "2-2");
 		hospital.add(esquerre, BorderLayout.WEST);
 		hospital.add(dret, BorderLayout.EAST);
 	}
@@ -33,43 +33,14 @@ public class CtrlVistaHospital {
 		return hospital;
 	}
 
-	public void swap(int banda) {
+	public void swap(int banda, int numpanelins) {
 		if (banda == 1) {
 			CardLayout cl = (CardLayout) (esquerre.getLayout());
-			int i = 0;
-			while (i < esquerre.getComponents().length) {
-				if (esquerre.getComponent(i).isVisible()) {
-					if (i == 0) {
-						cl.show(esquerre, "E2");
-						break;
-					}
-					else {
-						cl.show(esquerre, "E1");
-						break;
-					}
-				}
-				++i;
-			}
+			cl.show(esquerre, String.valueOf(banda)+"-"+String.valueOf(numpanelins));
 		}
-		
 		else {
 			CardLayout cl = (CardLayout) (dret.getLayout());
-			int i = 0; 
-			while (i < dret.getComponents().length) {
-				if (dret.getComponent(i).isVisible()) {
-					if (i == 0) {
-						cl.show(dret, "D2");
-						break;
-					}
-					else {
-						cl.show(dret, "D1");
-						break;
-					}
-				}
-				++i;
-			}
+			cl.show(dret, String.valueOf(banda)+"-"+String.valueOf(numpanelins));
 		}
-		ctrlvp.actualitza();
-		System.out.println("Actualitza");
 	}
 }
