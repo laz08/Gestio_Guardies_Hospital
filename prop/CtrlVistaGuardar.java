@@ -1,4 +1,6 @@
+/*
 package prop;
+
 
 public class CtrlVistaGuardar {
     private static CtrlVistaPrincipal ctrlVistaPrincipal;
@@ -10,3 +12,4 @@ public class CtrlVistaGuardar {
     }
 
 }
+*/

@@ -1,4 +1,4 @@
-package prop;
+/*package prop;
 
 
 public class OLDCtrlVistaAssignacio {
@@ -23,3 +23,5 @@ public class OLDCtrlVistaAssignacio {
         return vistaAssignacio;
     }
 }
+
+*/

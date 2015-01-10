@@ -1,4 +1,4 @@
-package prop;
+/*package prop;
 
 
 public class OLDCtrlVistaPrincipal {
@@ -49,3 +49,4 @@ public class OLDCtrlVistaPrincipal {
     }
 
 }
+*/

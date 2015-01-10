@@ -1,3 +1,4 @@
+/*
 package prop;
 
 import java.io.File;
@@ -73,3 +74,4 @@ public class OLDCtrlVistaCalendaris {
     	CtrlCalendari.modificarDiaFestiu(plt, dia, b);
     }
 }
+*/

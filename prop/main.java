@@ -1,3 +1,4 @@
+/*
 package prop;
 
 import java.util.ArrayList;
@@ -8,7 +9,7 @@ import java.util.TreeSet;
 /**
  * Main per consola
  * (2a entrega)
- */
+ 
 public class main {
 
     static Scanner arg = new Scanner(System.in);
@@ -144,7 +145,7 @@ public class main {
         boolean valid = false;
         /*
         Comprovem si existeix doctor amb aquest DNI
-         */
+         
         if (!CtrlDomini.existeixDoctoraHospital(dni)){
             valid = true;
         }
@@ -1030,3 +1031,4 @@ public class main {
     }
 
 }
+*/

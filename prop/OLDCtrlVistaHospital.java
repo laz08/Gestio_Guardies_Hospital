@@ -1,4 +1,4 @@
-package prop;
+/*package prop;
 
 import java.util.ArrayList;
 
@@ -42,3 +42,4 @@ public class OLDCtrlVistaHospital {
 //    }
 
 }
+*/

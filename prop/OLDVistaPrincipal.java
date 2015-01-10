@@ -1,3 +1,4 @@
+/*
 package prop;
 
 import javax.swing.*;
@@ -95,3 +96,4 @@ public class OLDVistaPrincipal {
 		    
 	  }
 }
+*/

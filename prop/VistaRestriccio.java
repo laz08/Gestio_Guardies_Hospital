@@ -1,3 +1,4 @@
+/*
 package prop;
 
 import javax.swing.*;
@@ -76,7 +77,7 @@ public class VistaRestriccio {
         insertrestriccio.add(insertaracceptarrestriccio, BorderLayout.SOUTH);
         insertrestriccio.setPreferredSize(new Dimension(600, 300));
 
-        gestiorestriccio.add(insertrestriccio, BorderLayout.CENTER);*/
+        gestiorestriccio.add(insertrestriccio, BorderLayout.CENTER);
         
         insertaracceptarrestriccio.setLayout(new BorderLayout());
         insertartextrestriccio.setLayout(new FlowLayout());
@@ -193,3 +194,5 @@ public class VistaRestriccio {
         mostraErrors.setText("");
     }
 }
+
+*/

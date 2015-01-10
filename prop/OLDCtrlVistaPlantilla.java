@@ -1,4 +1,4 @@
-package prop;
+/*package prop;
 
 
 public class OLDCtrlVistaPlantilla {
@@ -63,3 +63,4 @@ public class OLDCtrlVistaPlantilla {
     
     //Vull tots els doctors que no estan actius. Crida a CtrlHospital???
 }
+*/

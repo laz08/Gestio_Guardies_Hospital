@@ -1,4 +1,4 @@
-package prop;
+/*package prop;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -130,7 +130,7 @@ public class VistaHospital implements ActionListener, ListSelectionListener {
                     
                 }
             }
-        });*/
+        });
 
         llistarestriccions.addListSelectionListener(this);
 //       new ListSelectionListener()// {
@@ -404,7 +404,7 @@ public class VistaHospital implements ActionListener, ListSelectionListener {
         }
     }
 
-    /** Funcions auxiliars **/
+    /** Funcions auxiliars *
     public boolean modificaDoctor(){
         boolean valid = true;
         String d = dni.getText();
@@ -649,3 +649,4 @@ public class VistaHospital implements ActionListener, ListSelectionListener {
 		
 	}
 }
+*/

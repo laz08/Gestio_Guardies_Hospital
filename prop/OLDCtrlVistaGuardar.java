@@ -1,4 +1,4 @@
-package prop;
+/*package prop;
 
 public class OLDCtrlVistaGuardar {
     private static OLDCtrlVistaPrincipal ctrlVistaPrincipal;
@@ -15,3 +15,4 @@ public class OLDCtrlVistaGuardar {
 
 
 }
+*/
