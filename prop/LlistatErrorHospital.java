@@ -1,5 +1,4 @@
 package prop;
-import java.awt.Dimension;
 
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;

@@ -1,14 +1,13 @@
 package prop;
-import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
 
-import javax.swing.JButton;
-import javax.swing.JLabel;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
 
 
 public class BotoLlistaMesPlantilla extends BotoLlista {
 	private CtrlVistaPlantilla ctrlvp;
-	private JLabel nomPlantilla = new JLabel();
+	private JLabel nomPlantilla = new JLabel("Plantilla x");
 	private JButton b3 = new JButton("Eliminar Plantilla");
 	private JButton b4 = new JButton("Enrere");
 	

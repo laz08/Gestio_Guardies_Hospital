@@ -1,7 +1,6 @@
 package prop;
+
 import java.awt.BorderLayout;
-import java.awt.Component;
-import java.awt.Dimension;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;

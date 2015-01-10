@@ -1,8 +1,7 @@
 package prop;
+
 import java.awt.event.ActionEvent;
 import java.io.File;
-
-import javax.swing.JButton;
 
 //import prop.CtrlHospital;
 

@@ -1,4 +1,5 @@
 package prop;
+
 import java.awt.event.ActionEvent;
 
 public class BotoLlistaHospital extends BotoLlista {
