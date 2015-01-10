@@ -1,6 +1,6 @@
 package prop;
 
-import javax.swing.ListSelectionModel;
+import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 
 
@@ -8,9 +8,10 @@ public class LlistatErrorHospital extends PanelLlistatError {
 	private CtrlVistaHospital ctrlvh;
 	public LlistatErrorHospital(CtrlVistaHospital cvh) {
 		ctrlvh = cvh;
-		error.setEditable(false);
+
+
 		llista1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		model1.addElement("Clica");
+		model1.addElement("Clica2");
 		llista1.addListSelectionListener(this);
 	}
 	

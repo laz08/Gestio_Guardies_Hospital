@@ -1,9 +1,7 @@
 package prop;
 
-import java.awt.BorderLayout;
-import java.awt.CardLayout;
-
-import javax.swing.JPanel;
+import javax.swing.*;
+import java.awt.*;
 
 
 public class CtrlVistaHospital {
@@ -43,4 +41,6 @@ public class CtrlVistaHospital {
 			cl.show(dret, String.valueOf(banda)+"-"+String.valueOf(numpanelins));
 		}
 	}
+
+
 }

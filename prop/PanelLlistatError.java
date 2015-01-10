@@ -1,20 +1,22 @@
 package prop;
 
-import java.awt.BorderLayout;
-
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
+import javax.swing.*;
+import java.awt.*;
 
 
 public class PanelLlistatError extends PanelLlistat{
-	protected JTextField error = new JTextField();
 	protected ImageIcon load = new ImageIcon("Cercle.gif");
-	protected JLabel icona = new JLabel("Error: ", load, JLabel.CENTER);
+	protected JLabel error = new JLabel("Error: ", load, JLabel.LEFT);
 	
 	public PanelLlistatError() {
-		icona.setHorizontalTextPosition(JLabel.LEFT);
-		add(icona, BorderLayout.SOUTH);
-		
+        inicialitza_icona();
+		add(error, BorderLayout.SOUTH);
+
 	}
+
+    private void inicialitza_icona(){
+        error.setHorizontalTextPosition(JLabel.LEFT);
+        error.setVisible(true);
+        error.setForeground(Color.RED);
+    }
 }
