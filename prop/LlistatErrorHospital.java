@@ -7,6 +7,7 @@ import java.awt.*;
 
 public class LlistatErrorHospital extends PanelLlistatError {
 	private CtrlVistaHospital ctrlvh;
+    private BotoMesTextHospital bmth;
 
 	public LlistatErrorHospital(CtrlVistaHospital cvh) {
 		ctrlvh = cvh;
@@ -15,10 +16,16 @@ public class LlistatErrorHospital extends PanelLlistatError {
         actualitza_llista_docs();
         esborrarTotsErrors();
 	}
+    public void setBotoMesTextHospital(BotoMesTextHospital b){
+        bmth = b;
+    }
 	
 	public void valueChanged(ListSelectionEvent arg0) {
+        bmth.ompleValuesDoctor();
         ctrlvh.swap(2,2);
 		llista1.clearSelection();
+        
+
 	}
 
     public void esborraElementsModel(){
@@ -38,14 +45,6 @@ public class LlistatErrorHospital extends PanelLlistatError {
                 }
             }
         }
-    }
-
-
-
-
-
-    public void modifica_doc(){
-
     }
 
 
@@ -79,6 +78,9 @@ public class LlistatErrorHospital extends PanelLlistatError {
         calcula_mida_font();
     }
 
+    public void jaExisteixDocAmbDNI(){
+        error.setText("ERROR: Ja existeix un doctor amb aquest DNI.");
+    }
 
     public void calcula_mida_font(){
         error.setFont(new Font(error.getFont().getName(), Font.PLAIN, 10));
