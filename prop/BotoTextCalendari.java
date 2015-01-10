@@ -9,14 +9,14 @@ import javax.swing.JTextField;
 
 
 public class BotoTextCalendari extends BotoText {
-	//private CtrlVistaCalendari ctrlvc;
+	private CtrlVistaCalendari ctrlvc;
 	private JLabel anyi = new JLabel("Any inici");
 	private JLabel anyf = new JLabel("Any fi");
 	private JTextField textfield2 = new JTextField();
 	private GridBagConstraints c = new GridBagConstraints();
 	
-	public BotoTextCalendari() { //(CtrlVistaCalendari cvc) {
-		//ctrlvc = cvc;
+	public BotoTextCalendari(CtrlVistaCalendari cvc) {
+		ctrlvc = cvc;
 		remove(textfield1);
 		remove(b1);
 		remove(b2);
@@ -64,6 +64,6 @@ public class BotoTextCalendari extends BotoText {
 		else if (arg0.getSource() == b2) {
 			
 		}
-		//cvc.swap(2,1);
+		ctrlvc.swap(2,1);
 	}
 }

@@ -6,8 +6,8 @@ import javax.swing.JFileChooser;
 
 
 public class CGCalendari extends TresBotons{
-	//private CtrlVistaCalendari ctrlvc;
-	public CGCalendari() { //(CtrlVistaCalendari cvc) {
+	private CtrlVistaCalendari ctrlvc;
+	public CGCalendari(CtrlVistaCalendari cvc) {
 		//ctrlvc = cvc;
 		b1.setText("Carregar Calendaris");
 		b2.setText("Guardar Calendaris");

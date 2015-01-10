@@ -7,6 +7,7 @@ public class CtrlVistaPrincipal {
 		CtrlDiscGuardar cdg = new CtrlDiscGuardar(this);
 		CtrlVistaHospital cvh = new CtrlVistaHospital(this);
 		CtrlVistaPlantilla cvp = new CtrlVistaPlantilla(this);
-		vistaprincipal = new VistaPrincipal(this, cdg, cdc, cvh, cvp);
+		CtrlVistaCalendari cvc = new CtrlVistaCalendari(this);
+		vistaprincipal = new VistaPrincipal(this, cdg, cdc, cvh, cvp, cvc);
 	}
 }

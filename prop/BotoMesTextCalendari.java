@@ -9,7 +9,7 @@ import javax.swing.JTextField;
 
 
 public class BotoMesTextCalendari extends BotoMesText {
-	//private CtrlVistaCalendari ctrlvc;
+	private CtrlVistaCalendari ctrlvc;
 	private JCheckBox festiu = new JCheckBox();
 	private JTextField t8 = new JTextField();
 	private JTextField t9 = new JTextField();
@@ -19,8 +19,8 @@ public class BotoMesTextCalendari extends BotoMesText {
 	private JTextField t13 = new JTextField();
 	private GridBagConstraints c = new GridBagConstraints();
 
-	public BotoMesTextCalendari() { //(CtrlVistaCalendari cvc) {
-		//ctrlvc = cvc
+	public BotoMesTextCalendari(CtrlVistaCalendari cvc) {
+		ctrlvc = cvc;
 		t1.setEditable(false);
 		t2.setEditable(false);
 		t3.setEditable(false);
@@ -39,6 +39,9 @@ public class BotoMesTextCalendari extends BotoMesText {
 		b1.addActionListener(this);
 		b2.addActionListener(this);
 		setLayout(new GridBagLayout());
+		remove(textfield1);
+		remove(b1);
+		remove(b2);
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 0;
 		c.gridy = 0;
@@ -159,6 +162,6 @@ public class BotoMesTextCalendari extends BotoMesText {
 		else {
 			
 		}
-		//cvc.swap(1,1);
+		ctrlvc.swap(1,1);
 	}
 }
