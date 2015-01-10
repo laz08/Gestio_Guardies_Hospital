@@ -58,12 +58,20 @@ public class CtrlVistaHospital {
 		}
 	}
 
+    //Inicialització detecció entrada a la pestanya
+    public void click_pestanya(){
+        llistat.actualitza_llista_docs();
+    }
+
 
     //Comunicació amb capa Domini
     public String getLlistaDocs_nom(){
         return CtrlHospital.getLlistatDoctorsenString_nom();
     }
 
+    public void crea_doctor(String d, String n, String cg1, String cg2, int s, int t, String cor){
+        CtrlHospital.creariAfegirDoctor(d, n, cg1, cg2, s, t, cor);
+    }
 
 
 

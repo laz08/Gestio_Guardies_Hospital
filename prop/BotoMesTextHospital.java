@@ -157,10 +157,27 @@ public class BotoMesTextHospital extends BotoMesText{
 			ctrlvh.swap(2,1);
 		}
 		else if (arg0.getSource() == b5) {
-            //ctrlvh.crea_doc();
-			ctrlvh.swap(2,1);
+            boolean v = crea_doc();
+            if(v){
+                ctrlvh.swap(2,1);
+                llistat.actualitza_llista_docs();
+                esborraTotsElsCamps();
+                llistat.esborrarTotsErrors();
+            }
 		}
 	}
+
+    //FUNCIONS AUXILIARS
+    public void esborraTotsElsCamps(){
+        t1.setText("");
+        t2.setText("");
+        t3.setText("");
+        t4.setText("");
+        t5.setText("");
+        t6.setText("");
+        t7.setText("");
+    }
+
 
     public boolean crea_doc(){
         boolean valid = true;
@@ -220,7 +237,7 @@ public class BotoMesTextHospital extends BotoMesText{
         //Si els camps estan plens i sou i telefon son correctes...
         if(valid){
             if(esCorreu(cor)){
-                CtrlHospital.creariAfegirDoctor(d, n, cg1, cg2, s, t, cor);
+                ctrlvh.crea_doctor(d, n, cg1, cg2, s, t, cor);
             }
             else{
                 llistat.noEsCorreu();
@@ -228,7 +245,6 @@ public class BotoMesTextHospital extends BotoMesText{
             }
         }
         return valid;
-
     }
 
 
