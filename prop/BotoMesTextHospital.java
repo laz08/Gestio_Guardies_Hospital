@@ -151,18 +151,40 @@ public class BotoMesTextHospital extends BotoMesText{
 			ctrlvh.swap(1,2);
 		}
 		else if (arg0.getSource() == b3) {
-			ctrlvh.swap(2,1);
+            esborraDoctor();
+            llistat.actualitza_llista_docs();
+            ctrlvh.swap(2,1);
 		}
 		else if (arg0.getSource() == b4) {
+            ctrlvh.activaBotonsRestriccionsEliminar();
 			ctrlvh.swap(2,1);
+            esborraTotsElsCamps();
+            llistat.esborrarTotsErrors();
+            t1.setEditable(true);
+
 		}
 		else if (arg0.getSource() == b5) {
-            boolean v = crea_doc();
-            if(v){
-                ctrlvh.swap(2,1);
-                llistat.actualitza_llista_docs();
-                esborraTotsElsCamps();
-                llistat.esborrarTotsErrors();
+            if(t1.isEditable()) {
+                boolean v = crea_doc();
+                if (v) {
+                    ctrlvh.activaBotonsRestriccionsEliminar();
+                    ctrlvh.swap(2, 1);
+                    llistat.actualitza_llista_docs();
+                    esborraTotsElsCamps();
+                    llistat.esborrarTotsErrors();
+
+                }
+            }
+            else {
+                boolean v = modifica_doc();
+                if (v){
+                    ctrlvh.activaBotonsRestriccionsEliminar();
+                    ctrlvh.swap(2, 1);
+                    llistat.actualitza_llista_docs();
+                    esborraTotsElsCamps();
+                    llistat.esborrarTotsErrors();
+
+                }
             }
 		}
 	}
@@ -178,7 +200,6 @@ public class BotoMesTextHospital extends BotoMesText{
         t7.setText("");
     }
 
-
     public boolean crea_doc(){
         boolean valid = true;
         String d = t1.getText();
@@ -193,12 +214,16 @@ public class BotoMesTextHospital extends BotoMesText{
             valid = false;
             llistat.errorUnOMesDunCampNull();
         }
-        if(valid && d.length() == 8){
+        else if(valid && d.length() == 8){
             try {
                 int dni_num = Integer.parseInt(d);
             } catch (Exception e){
                 llistat.condicionsDNIError();
                 valid = false;
+            }
+            if (ctrlvh.existeix_Doc(d)){
+                valid = false;
+                llistat.jaExisteixDocAmbDNI();
             }
         }
         else{
@@ -247,10 +272,94 @@ public class BotoMesTextHospital extends BotoMesText{
         return valid;
     }
 
+    public boolean modifica_doc(){
+        boolean valid = true;
+        String d = t1.getText();
+        String n = t2.getText();
+        String cg1 = t3.getText();
+        String cg2 = t4.getText();
+        String so = t5.getText();
+        String telf = t6.getText();
+        String cor = t7.getText();
+
+        if(n.equals("") || cg1.equals("") || cg2.equals("") || so.equals("") || telf.equals("") || cor.equals("")){
+            valid = false;
+            llistat.errorUnOMesDunCampNull();
+        }
+
+        int s = 0;
+        int t = 0;
+        //Si tots els camps estan plens...
+        if(valid){
+            try {
+                s = Integer.parseInt(so);
+                if(s < 0){
+                    valid = false;
+                    llistat.errorHaDeSerUnReal("Sou");
+                }
+            } catch (Exception e){
+                llistat.errorHaDeSerUnReal("Sou");
+                valid = false;
+            }
+            //Si sou és valid
+            if(valid){
+                try {
+                    t = Integer.parseInt(telf);
+                    if (t < 0){
+                        valid = false;
+                        llistat.errorHaDeSerUnReal("Telèfon");
+                    }
+                } catch(Exception e){
+                    llistat.errorHaDeSerUnReal("Telèfon");
+                    valid = false;
+                }
+            }
+        }
+        //Si els camps estan plens i sou i telefon son correctes...
+        if(valid){
+            if(esCorreu(cor)){
+                ctrlvh.modifica_doctor(d, n, cg1, cg2, s, t, cor);
+            }
+            else{
+                llistat.noEsCorreu();
+                valid = false;
+            }
+        }
+        return valid;
+    }
+
 
     public boolean esCorreu(String correu){
         Pattern p = Pattern.compile("[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}");
         Matcher m = p.matcher(correu);
         return m.matches();
+    }
+
+    public void ompleValuesDoctor(){
+        //agafem els valors
+        String selected = llistat.llista1.getSelectedValue().toString();
+        //String separadors = "[ \n]";
+        String[] separat = selected.split(" ");
+        String d = separat[0]; //Dni
+        //omplim segons el dni
+        ompleDoctorDni(d);
+        t1.setEditable(false);
+    }
+
+    public void ompleDoctorDni(String d){
+        String ret = ctrlvh.getDoctorEspecific(d);
+        String separadors = "[ \n]";
+        String[] separat = ret.split(separadors);
+        t1.setText(d);
+        t2.setText(separat[1]);
+        t3.setText(separat[2]);
+        t4.setText(separat[3]);
+        t5.setText(separat[4]);
+        t6.setText(separat[5]);
+        t7.setText(separat[6]);
+    }
+
+    private void esborraDoctor(){
+        ctrlvh.esborrar_doctor(t1.getText());
     }
 }

@@ -14,7 +14,7 @@ public class DriverCtrlEntrada {
     public static void main(String[] args) throws Error {
         prepara_prova();
         graf = CtrlEntrada.crea_graf();
-        Algorisme algo = new EdmondsKarp(true);
+        Algorisme algo = new FordFulkerson(true);
         algo.setGraf(graf);
         //algo.maxFlow();
         Thread thr = new Thread(algo);
@@ -35,7 +35,7 @@ public class DriverCtrlEntrada {
         CtrlPlantilla.consultarPlantilla("Prova").set_calendari_asoc(c);
         //Cream un conjunt de doctors de prova i els afagim a la plantilla
         for (int i = 0; i < 6; i++) {
-            CtrlHospital.creariAfegirDoctor(i + "", "Doc" + i, "...", "...", 0, 0, "prova");
+            CtrlHospital.creariAfegirDoctor(i + "", "Doc" + i, "...", "...", (int) (Math.random()*10), (int) (Math.random()*10), "prova");
             CtrlPlantilla.afegirDoctorAPlantilla(i + "", "Prova");
         }
 

@@ -36,6 +36,7 @@ public class CtrlVistaHospital {
     public void inicialitzacions_creadora(){
         llistat = new LlistatErrorHospital(this);
         doctor = new BotoMesTextHospital(this, llistat);
+        llistat.setBotoMesTextHospital(doctor);
         restriccions = new BotoLlistaHospital(this);
         cgc = new TresBotonsHospital(this);
     }
@@ -72,9 +73,34 @@ public class CtrlVistaHospital {
     public void crea_doctor(String d, String n, String cg1, String cg2, int s, int t, String cor){
         CtrlHospital.creariAfegirDoctor(d, n, cg1, cg2, s, t, cor);
     }
+    public void modifica_doctor(String d, String n, String cg1, String cg2, int s, int t, String cor){
+        CtrlHospital.modificaAtributs(d, n, cg1, cg2, s, t, cor);
+    }
+    public String getDoctorEspecific(String dni){
+        return CtrlHospital.getDoctorEspecificString(dni);
+    }
+
+    public void activaBotonsRestriccionsEliminar(){
+        doctor.b1.setEnabled(true);
+        doctor.b2.setEnabled(true);
+        doctor.b3.setEnabled(true);
+    }
+
+    public void desactivaBotonsRestriccionsEliminar(){
+        doctor.b1.setEnabled(false);
+        doctor.b2.setEnabled(false);
+        doctor.b3.setEnabled(false);
+    }
 
 
+    public void esborrar_doctor(String d){
+        CtrlHospital.eliminarDoctor(d);
 
+    }
+
+    public boolean existeix_Doc(String d){
+        return CtrlHospital.existeixDoctor(d);
+    }
 
 
 

@@ -18,6 +18,7 @@ public class TresBotonsHospital extends TresBotons {
 	public void actionPerformed(ActionEvent arg0) {
 		if (arg0.getSource() == b1) {
 			ctrlvh.swap(2,2);
+            ctrlvh.desactivaBotonsRestriccionsEliminar();
 		}
 		else {
 			
