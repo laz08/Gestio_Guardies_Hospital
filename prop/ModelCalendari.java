@@ -1,11 +1,9 @@
 package prop;
 
-import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
-import java.awt.event.ItemEvent;
 import java.util.GregorianCalendar;
 
 import javax.swing.DefaultComboBoxModel;
@@ -28,6 +26,8 @@ public class ModelCalendari extends TresBotons implements ListSelectionListener{
 	private CalendarModel model = new CalendarModel();
 	private JTable table = new JTable(model);
 	private GridBagConstraints c = new GridBagConstraints();
+	ListSelectionModel cellSelectionModel; 
+	private Boolean mod = true;
 
 	public ModelCalendari(CtrlVistaCalendari cvc) {
 		ctrlvc = cvc;
@@ -49,10 +49,11 @@ public class ModelCalendari extends TresBotons implements ListSelectionListener{
 		table.setBounds(10, 150, 550, 200);
 		table.setShowGrid(true);
 		table.setGridColor(Color.BLACK);
+		//table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		table.setCellSelectionEnabled(true);
 		table.setColumnSelectionAllowed(false);
 		table.setRowSelectionAllowed(false);
-		table.setCellSelectionEnabled(true);
-		ListSelectionModel cellSelectionModel = table.getSelectionModel();
+		cellSelectionModel = table.getSelectionModel();
 		cellSelectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		cellSelectionModel.addListSelectionListener(this);
 		c.fill = GridBagConstraints.HORIZONTAL;
@@ -76,16 +77,15 @@ public class ModelCalendari extends TresBotons implements ListSelectionListener{
 		c.gridwidth = 1;
 		add(b1, c);
 		c.fill = GridBagConstraints.HORIZONTAL;
-		c.gridx = 2;
+		c.gridx = 1;
 		c.gridy = 4;
 		c.gridwidth = 1;
 		add(b2, c);
 		c.fill = GridBagConstraints.HORIZONTAL;
-		c.gridx = 1;
+		c.gridx = 2;
 		c.gridy = 4;
 		c.gridwidth = 1;
-		add(b3, c);
-
+		add(b3, c); 
 	}
 
 	class CalendarModel extends AbstractTableModel {
@@ -149,28 +149,45 @@ public class ModelCalendari extends TresBotons implements ListSelectionListener{
 	}
 
 	public void actionPerformed(ActionEvent arg0) {
-		if (arg0.getSource() == b1) {
+		if (arg0.getSource() == this.b1) {
+			ctrlvc.swap(2,1);
+			ctrlvc.removeselection();
+		}
+		else if (arg0.getSource() == this.b2) {
+			ctrlvc.swap(2,1);
+			ctrlvc.eliminarcalendari(ctrlvc.seleccio());
+			ctrlvc.swap(1,1);
+			ctrlvc.removeselection();
+		}
 
+		else if (arg0.getSource() == this.b3) {
+			ctrlvc.swap(2,1);
+			ctrlvc.swap(1,1);
+			ctrlvc.removeselection();
 		}
-		else if (arg0.getSource() == b2) {
-			ctrlvc.swap(1, 1);
+
+		else if (arg0.getSource() == this.any) {
+			if (mod) {
+				ctrlvc.swap(1,1);
+				if (!mesos.isSelectionEmpty())  {
+					model.setMonth(Integer.parseInt((String)any.getSelectedItem()), mesos.getSelectedIndex());
+					repaint();
+				}
+			}
 		}
-		else {
-			
-		}
-		ctrlvc.swap(2,1);
+
 	}
 
-	@Override
 	public void valueChanged(ListSelectionEvent arg0) {
-		// TODO Auto-generated method stub
 		if (arg0.getSource() == mesos) {
+			ctrlvc.swap(1,1);
 			if (!arg0.getValueIsAdjusting()) {
 				model.setMonth(Integer.parseInt((String)any.getSelectedItem()), mesos.getSelectedIndex());
 				repaint();
 			}
 		}
-		else {
+
+		else if (arg0.getSource() == this.cellSelectionModel) {
 			//RETORNA LA FILA CLICADA
 			int fila = table.getSelectedRow();
 			// RETORNA LA COLUMNA CLICADA
@@ -181,28 +198,35 @@ public class ModelCalendari extends TresBotons implements ListSelectionListener{
 				int mes = mesos.getSelectedIndex();
 				int dia = Integer.parseInt((String)table.getValueAt(fila, columna));
 				GregorianCalendar data = new GregorianCalendar(rany,mes, dia);
-				//System.out.println(CtrlCalendari.consultarDiaFestiu(llistaplantilla.getSelectedValue(),data));
-				//festiu.setSelected(CtrlCalendari.consultarDiaFestiu(llistaplantilla.getSelectedValue(),data));            	
-				//percentmati.setText(String.valueOf(CtrlVistaCalendaris.consultarpercenttorn(new GregorianCalendar(Integer.parseInt((String) any.getSelectedItem()), mesos.getSelectedIndex(), Integer.parseInt((String) model.getValueAt(table.getSelectedRow(), table.getSelectedColumn()))), llistaplantilla.getSelectedValue(), 0)));
-				//minimmati.setText(String.valueOf(CtrlVistaCalendaris.consultaminimtorn(new GregorianCalendar(Integer.parseInt((String) any.getSelectedItem()), mesos.getSelectedIndex(), Integer.parseInt((String) model.getValueAt(table.getSelectedRow(), table.getSelectedColumn()))), llistaplantilla.getSelectedValue(), 0)));
-				//percentarda.setText(String.valueOf(CtrlVistaCalendaris.consultarpercenttorn(new GregorianCalendar(Integer.parseInt((String) any.getSelectedItem()), mesos.getSelectedIndex(), Integer.parseInt((String) model.getValueAt(table.getSelectedRow(), table.getSelectedColumn()))), llistaplantilla.getSelectedValue(), 1)));
-				//minimtarda.setText(String.valueOf(CtrlVistaCalendaris.consultaminimtorn(new GregorianCalendar(Integer.parseInt((String) any.getSelectedItem()), mesos.getSelectedIndex(), Integer.parseInt((String) model.getValueAt(table.getSelectedRow(), table.getSelectedColumn()))), llistaplantilla.getSelectedValue(), 1)));
-				//percentnit.setText(String.valueOf(CtrlVistaCalendaris.consultarpercenttorn(new GregorianCalendar(Integer.parseInt((String) any.getSelectedItem()), mesos.getSelectedIndex(), Integer.parseInt((String) model.getValueAt(table.getSelectedRow(), table.getSelectedColumn()))), llistaplantilla.getSelectedValue(), 2)));
-				//minimnit.setText(String.valueOf(CtrlVistaCalendaris.consultaminimtorn(new GregorianCalendar(Integer.parseInt((String) any.getSelectedItem()), mesos.getSelectedIndex(), Integer.parseInt((String) model.getValueAt(table.getSelectedRow(), table.getSelectedColumn()))), llistaplantilla.getSelectedValue(), 2)));
-				//diatorn.setText(Integer.toString(dia);
-				
+				ctrlvc.carregardia(rany, mes, dia, any.getSelectedItem(), mesos.getSelectedIndex(), model.getValueAt(table.getSelectedRow(),table.getSelectedColumn()));
+				ctrlvc.swap(1,2);
 			}
-			ctrlvc.swap(1,2);
+
 		}
 	}
 
-	public void itemStateChanged(ItemEvent e) {
-		if (e.getSource() == any) {
-			model.setMonth(Integer.parseInt((String)any.getSelectedItem()), mesos.getSelectedIndex());
-			table.repaint();
-			repaint();
-			//RETORNA L'ANY
-		}
-
+	public void modificable(Boolean b) {
+		mod = b;
 	}
+
+	public void ompleanys(int anyi, int anyf) {
+		if (modelcombo.getSize() != 0) {
+			mod = false;
+			modelcombo.removeAllElements();
+			mod = true;
+		}
+		for (int i = anyi; i <= anyf; i++) {
+			System.out.println(i);
+			modelcombo.addElement(String.valueOf(i));
+		}
+	}
+
+	public GregorianCalendar getdata() {
+		int rany = Integer.parseInt((String)any.getSelectedItem());
+		int mes = mesos.getSelectedIndex();
+		int dia = Integer.parseInt((String)table.getValueAt(table.getSelectedRow(), table.getSelectedColumn()));
+		GregorianCalendar data = new GregorianCalendar(rany,mes, dia);
+		return data;
+	}
+
 }

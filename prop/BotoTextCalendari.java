@@ -58,12 +58,46 @@ public class BotoTextCalendari extends BotoText {
 	}
 	
 	public void actionPerformed(ActionEvent arg0) {
-		if (arg0.getSource() == b1) {
-
+		if (arg0.getSource() == this.b1) {
+			ctrlvc.removeselection();
+			textfield1.setText("");
+			textfield2.setText("");
+			ctrlvc.swap(2,1);
 		}
-		else if (arg0.getSource() == b2) {
-			
+		else if (arg0.getSource() == this.b2) {
+			if (!isnumber(textfield1.getText(),1) || !isnumber(textfield2.getText(),1)){
+        		ctrlvc.texterror("ERROR: Any inici i/o any fi no són numeros");
+        	}
+        	else if (Integer.parseInt(textfield1.getText()) <= 0 ||	 Integer.parseInt(textfield2.getText()) <= 0) {
+        		ctrlvc.texterror("ERROR: Any inici i/o any fi inferior a 1");
+        	}
+        	else if (Integer.parseInt(textfield1.getText()) > Integer.parseInt(textfield2.getText())) {
+        		ctrlvc.texterror("ERROR: Any inici inferior a any fi");
+        	}
+        	else {
+        		ctrlvc.crearcalendari(ctrlvc.seleccio(), Integer.parseInt(textfield1.getText()), Integer.parseInt(textfield2.getText()));
+    			ctrlvc.removeselection();
+    			textfield1.setText("");
+    			textfield2.setText("");
+    			ctrlvc.swap(2,1);
+        	}
 		}
-		ctrlvc.swap(2,1);
+		
 	}
+	
+	public boolean isnumber(String str, int check) {  
+        try  { 
+        	if (check == 1) {
+        		int d = Integer.parseInt(str);
+        	}	
+        	else {
+        		Float d = Float.parseFloat(str);  
+        	}
+        }  
+        catch(NumberFormatException nfe)  {  
+      	  return false;
+        }  
+        return true; 
+      }
+	
 }
