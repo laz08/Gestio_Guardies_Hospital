@@ -14,12 +14,22 @@ import static prop.Algorisme.graf;
 public class EdmondsKarp extends Algorisme {
 
     private static ArrayList<Vertex> cua;
+    private static boolean selSou;
     // L'algorisme de Edmond's Karp no es mes que un recorregut en amplada per trobar tots els possibles
     // camins dins un graf, per tant, fem el recorregut en amplada pero no ens aturarem en trobar un cami
     // que arribi al vertex POU, sino que seguirem comprovant els altres possibles.
     // De manera que quan es troba el POU es fara un recorregut invers (cami que trobaria l'algorisme) 
     // per assignar flow a les branques
 
+    /**
+     * Aplica l'alsorisme d'Edmond's Karp per associar els doctors amb els torns
+     * @param selSou Si es 'true' llavors selcciona per sou; Si es 'false' només es basa en complir el minim de doctors per torn
+     */
+    public EdmondsKarp(boolean selSou){
+        this.selSou = selSou;
+    }
+    
+    
     @Override
     public void maxFlow() {
         graf.resetFlow();                                                       // posam tot el flow a 0
