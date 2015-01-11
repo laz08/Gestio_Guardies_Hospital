@@ -11,10 +11,12 @@ public class VistaPrincipal extends JFrame {
 	private JTabbedPane pestanyes = new JTabbedPane();
 	private CtrlVistaHospital ctrlvh;
 	private CtrlVistaCalendari ctrlvc;
+    private CtrlVistaPlantilla ctrlvp;
 	
 	public VistaPrincipal(CtrlVistaPrincipal cvp,CtrlVistaResultats cvrs, CtrlDiscGuardar cdg, CtrlDiscCarregar cdc, CtrlVistaAssignacio cva, CtrlVistaHospital cvh, CtrlVistaPlantilla cvp2, CtrlVistaCalendari cvc){
 		ctrlvh = cvh;
 		ctrlvc = cvc;
+        ctrlvp = cvp2;
 		setPreferredSize(new Dimension(900,600));
 		pestanyes.addTab("Hospital", cvh.tornavista());
 		pestanyes.addTab("Plantilla", cvp2.tornavista());
@@ -29,9 +31,12 @@ public class VistaPrincipal extends JFrame {
             public void stateChanged(ChangeEvent e) {
                 //HOSPITAL 
                 if(pestanyes.getSelectedIndex() == 0){
+                    ctrlvh.actualitza_Docs();
 
                 }
+                //PLANTILLA
                 else if(pestanyes.getSelectedIndex() == 1){
+                    ctrlvp.actualitzarLlistaPlantilles();
                 }
                 else if(pestanyes.getSelectedIndex() == 2){
                     ctrlvc.actualitza();

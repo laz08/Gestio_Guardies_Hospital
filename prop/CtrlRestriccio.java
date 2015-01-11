@@ -252,7 +252,7 @@ public class CtrlRestriccio {
         CtrlPersistencia.guardar(content, f);
     }
     
-    public static String carrega(File f) throws FileNotFoundException{
+    public static String carregar(File f) {
         String contingut = CtrlPersistencia.carregar(f);
         return contingut;
     }

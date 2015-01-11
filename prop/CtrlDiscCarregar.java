@@ -18,14 +18,14 @@ private static DiscCarregar disccarregar;
 	}
 	
 	public static void carregarp(File f) {
-	//	CtrlPlantilla.carregar(f);
+		CtrlPlantilla.carregar(f);
 	}
 	
 	public static void carregarc(File f) {
-		//CtrlCalendari.carregar(f);
+		CtrlCalendari.carregar(f);
 	}
 	
 	public static void carregarr(File f) {
-		//CtrlRestriccions.carregar(f);
+		CtrlRestriccio.carregar(f);
 	}
 }

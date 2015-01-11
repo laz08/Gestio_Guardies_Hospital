@@ -18,14 +18,14 @@ public class CtrlDiscGuardar {
 	}
 	
 	public static void guardarp(File f) {
-	//	CtrlPlantilla.guardar(f);
+		CtrlPlantilla.guardar(f);
 	}
 	
 	public static void guardarc(File f) {
-	//	CtrlCalendari.guardar(f);
+		CtrlCalendari.guardar(f);
 	}
 	
 	public static void guardarr(File f) {
-	//	CtrlRestriccions.guardar(f);
+		CtrlRestriccio.guardar(f);
 	}
 }

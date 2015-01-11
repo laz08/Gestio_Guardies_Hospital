@@ -1,10 +1,8 @@
 package prop;
 
-import java.awt.BorderLayout;
-import java.awt.CardLayout;
+import javax.swing.*;
+import java.awt.*;
 import java.io.File;
-
-import javax.swing.JPanel;
 
 
 public class CtrlVistaPlantilla {
@@ -62,6 +60,9 @@ public class CtrlVistaPlantilla {
 	public void actualitzarLlistaDocs() {
 		doctorssenseplantilla.actualitzarLlistaDoctors();
 	}
+    public void actualitzarLlistaPlantilles(){
+        plantilles.actualitzarLlistatPlantilles();
+    }
 	
 	public void mod(boolean b) {
 		caractplantilla.mod(b);
