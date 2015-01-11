@@ -10,6 +10,5 @@ public class TresBotons extends DosBotons{
 	
 	public TresBotons() {
 		this.add(b3);
-		b3.addActionListener(this);
 	}
 }

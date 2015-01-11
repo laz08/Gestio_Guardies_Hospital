@@ -21,7 +21,6 @@ public class BotoMesTextHospital extends BotoMesText{
 	public BotoMesTextHospital(CtrlVistaHospital cvh, LlistatErrorHospital ll) {
 		ctrlvh = cvh;
         llistat = ll;
-
 		b1.setText("Afegir Restricció");
 		b2.setText("Eliminar Restricció");
 		b1.addActionListener(this);
@@ -274,18 +273,18 @@ public class BotoMesTextHospital extends BotoMesText{
 
 	public void actionPerformed(ActionEvent arg0) {
         //AFEGIR RESTRICCIÓ
-		if(arg0.getSource() == b1) {
+		if(arg0.getSource() == this.b1) {
 			ctrlvh.swap(1,2);
             ctrlvh.carregaLlistaRestriccions();
 		}
 
         //ELIMINAR RESTRICCIÓ
-		else if (arg0.getSource() == b2) {
+		else if (arg0.getSource() == this.b2) {
 			ctrlvh.swap(1,3);
 		}
 
         //ELIMINAR DOCTOR
-		else if (arg0.getSource() == b3) {
+		else if (arg0.getSource() == this.b3) {
             esborraDoctor();
             llistat.actualitza_llista_docs();
             ctrlvh.swap(2,1);
