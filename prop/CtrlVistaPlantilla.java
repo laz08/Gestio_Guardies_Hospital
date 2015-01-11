@@ -11,19 +11,36 @@ public class CtrlVistaPlantilla {
 	private JPanel plantilla = new JPanel();
 	private JPanel dret = new JPanel();
 	private JPanel esquerre = new JPanel();
+	private TresBotonsPlantilla crearguardarcarregar;
+	private BotoTextPlantilla creacioplantilla;
+	private BotoLlistaMesPlantilla caractplantilla;
+	private LlistatErrorPlantilla plantilles;
+	private BotoLlistaPlantilla doctorssenseplantilla;
 	
 	public CtrlVistaPlantilla(CtrlVistaPrincipal cvp) {
 		ctrlvp = cvp;
+		inicialitzacions_creadora();
 		plantilla.setLayout(new BorderLayout());
 		dret.setLayout(new CardLayout());
 		esquerre.setLayout(new CardLayout());
-		dret.add(new TresBotonsPlantilla(this), "2-1");
-		dret.add(new BotoTextPlantilla(this), "2-2");
-		dret.add(new BotoLlistaMesPlantilla(this), "2-3");
-		esquerre.add(new LlistatErrorPlantilla(this), "1-1");
-		esquerre.add(new BotoLlistaPlantilla(this), "1-2");
+		dret.add(crearguardarcarregar, "2-1");
+		dret.add(creacioplantilla, "2-2");
+		dret.add(caractplantilla, "2-3");
+		esquerre.add(plantilles, "1-1");
+		esquerre.add(doctorssenseplantilla, "1-2");
 		plantilla.add(esquerre, BorderLayout.WEST);
 		plantilla.add(dret, BorderLayout.EAST);
+	}
+	
+	public void inicialitzacions_creadora() {
+		crearguardarcarregar = new TresBotonsPlantilla(this);
+		plantilles = new LlistatErrorPlantilla(this);
+		creacioplantilla = new BotoTextPlantilla(this,plantilles);
+		caractplantilla = new BotoLlistaMesPlantilla(this,plantilles);
+		plantilles.setBotoLlistaMesPlantilles(caractplantilla);
+		crearguardarcarregar.setBotoLlistaMesPlantilla(plantilles);
+		doctorssenseplantilla = new BotoLlistaPlantilla(this,caractplantilla);
+		
 	}
 	
 	public JPanel tornavista() {
@@ -39,5 +56,39 @@ public class CtrlVistaPlantilla {
 			CardLayout cl = (CardLayout) dret.getLayout();
 			cl.show(dret, String.valueOf(banda)+"-"+String.valueOf(numpanelins));
 		}
+	}
+	
+	//FUNCIONS DE COMUNICACIO AMB CAPA DE DOMINI
+	
+	public String obteLlistaPlantilles() {
+		return CtrlPlantilla.getLlista_plantilles();
+	}
+	
+	public void crearPlantilla(String plt) {
+		CtrlPlantilla.creariAfegirPlantilla(plt);
+	}
+	
+	public boolean existeixPlantilla(String plt) {
+		return CtrlPlantilla.existeixPlantilla(plt);
+	}
+	
+	public String llistaDoctorsPlantilla(String plt) {
+		return CtrlPlantilla.getPlantillaespecifica(plt);
+	}
+	
+	public String llistaDoctors() {
+		return CtrlHospital.getDoctorsSensePlt();
+	}
+	
+	public void assignarDocAPlt(String dni, String plt) {
+		CtrlPlantilla.afegirDoctorAPlantilla(dni, plt);
+	}
+	
+	public void eliminarPlantilla(String plt) {
+		CtrlPlantilla.esborrarPlantilla(plt);
+	}
+	
+	public void desasignarDoctorPlantilla(String dni, String plt) {
+		CtrlPlantilla.esborrarDoctordePlantilla(dni, plt);
 	}
 }

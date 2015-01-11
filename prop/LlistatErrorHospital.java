@@ -25,7 +25,6 @@ public class LlistatErrorHospital extends PanelLlistatError {
 		if (!mod) {
 			if (arg0.getSource() == this.llista1) {
 				if (!arg0.getValueIsAdjusting()) {
-					System.out.println("Aqui");
 					bmth.ompleValuesDoctor();
 			        ctrlvh.swap(2,2);
 				}
