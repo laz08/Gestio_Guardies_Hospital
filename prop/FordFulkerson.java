@@ -26,28 +26,15 @@ public class FordFulkerson extends Algorisme {
             ArrayList<Integer> la = s.getArestes();                                 //agafam el conjunt d'arrestes que surt del vertex
             if (s.getClasse() == Vertex.FONT_POU && selSou) {                        //si s'ha de tenir en compte el sou
                 ArrayList<Integer> lv = new ArrayList<Integer>();
-                for(int i=0; i<la.size(); i++){
+                for (int i = 0; i < la.size(); i++) {
                     lv.add(graf.getA(la.get(i)).getw());
                 }
-                
-                
-                
-        for(int i=0; i<lv.size(); i++){
-                    Vertex vd = graf.getVertex(lv.get(i));
-                    Doctor d = (Doctor) vd.getObjecte();
-                    System.out.print(d.getSou()+" ");
-                }
-                System.out.println();
-                
-                
-                
-                lv = ordenacioPerSou(lv, 0, lv.size()-1);                               //ordenam la llista segons els sous
-                
-                for(int i=0; i<lv.size(); i++){
+                lv = ordenacioPerSou(lv, 0, lv.size() - 1);                               //ordenam la llista segons els sous
+                for (int i = 0; i < lv.size(); i++) {
                     int vertex = lv.get(i);
                     boolean trobat = false;
-                    for(int e = i+1; e<la.size() && !trobat; e++){
-                        if(vertex == graf.getA(la.get(e)).getw()){
+                    for (int e = i + 1; e < la.size() && !trobat; e++) {
+                        if (vertex == graf.getA(la.get(e)).getw()) {
                             int tmp = la.get(i);
                             la.set(i, la.get(e));
                             la.set(e, tmp);
@@ -65,8 +52,8 @@ public class FordFulkerson extends Algorisme {
                             Vertex vf = graf.getVertex(graf.getA(la.get(e)).getw());                //comprovam un vertex fill
                             if (!vf.equals(s)) {                                                    //si son fills del vertex actual
                                 valors.add(consultaPercent(vf));                                        //enmagatzema el persentatge del fill
-                            }                                                                       //
-                            else{                                                                   //si no son fills del vertex actual
+                            } //
+                            else {                                                                   //si no son fills del vertex actual
                                 valors.add(Float.MAX_VALUE);                                            //marcam el valor com a maxim
                             }                                                                       //
                         }
@@ -219,12 +206,12 @@ public class FordFulkerson extends Algorisme {
      */
     private static ArrayList<Integer> ordenacioPerSou(ArrayList<Integer> llista, int inf, int sup) {
         int idx = particio(llista, inf, sup);
-        
+
         if (inf < idx) {
             llista = ordenacioPerSou(llista, inf, idx);
         }
-        if (sup > idx && sup-inf>=2) {
-            llista = ordenacioPerSou(llista, idx , sup);
+        if (sup > idx && sup - inf >= 2) {
+            llista = ordenacioPerSou(llista, idx, sup);
         }
         return llista;
     }
@@ -240,7 +227,7 @@ public class FordFulkerson extends Algorisme {
     private static int particio(ArrayList<Integer> llista, int inf, int sup) {
         int i = inf, j = sup;
         int tmp;
-        int indx = (i+j)/2;
+        int indx = (i + j) / 2;
         Vertex v = graf.getVertex(llista.get(indx));
         Doctor doc = (Doctor) v.getObjecte();
         int pivot = doc.getSou();
@@ -252,32 +239,41 @@ public class FordFulkerson extends Algorisme {
             v = graf.getVertex(llista.get(j));
             doc = (Doctor) v.getObjecte();
             int sou_j = doc.getSou();
-            if(sou_i >= pivot && pivot >= sou_j){
+            if (sou_i >= pivot && pivot >= sou_j) {
                 tmp = llista.get(i);
                 llista.set(i, llista.get(j));
                 llista.set(j, tmp);
-                if(i<indx)i++;
-                if(j>indx)j--;
-            }
-            else if (sou_i > pivot){
+                if (i < indx) {
+                    i++;
+                }
+                if (j > indx) {
+                    j--;
+                }
+            } else if (sou_i > pivot) {
                 tmp = llista.get(i);
                 llista.set(i, llista.get(indx));
                 llista.set(indx, tmp);
                 pivot = sou_i;
-                if(i<indx)i++;
-            }
-            else if (sou_j < pivot){
+                if (i < indx) {
+                    i++;
+                }
+            } else if (sou_j < pivot) {
                 tmp = llista.get(j);
                 llista.set(j, llista.get(indx));
                 llista.set(indx, tmp);
                 pivot = sou_j;
-                if(j>indx)j--;
+                if (j > indx) {
+                    j--;
+                }
+            } else {
+                if (i < indx) {
+                    i++;
+                }
+                if (j > indx) {
+                    j--;
+                }
             }
-            else{
-                if(i<indx)i++; 
-                if(j>indx)j--;
-            }
-            
+
         }
         return indx;
     }
