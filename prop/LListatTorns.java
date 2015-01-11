@@ -1,6 +1,7 @@
 package prop;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 
 import javax.swing.JLabel;
 import javax.swing.event.ListSelectionEvent;
@@ -14,6 +15,8 @@ public class LListatTorns extends PanelLlistat{
 		remove(scroll1);
 		add(titoltorns, BorderLayout.NORTH);
 		add(scroll1);
+		super.setMaximumSize(new Dimension(350,300));
+		scroll1.setMaximumSize(new Dimension(350,300));
 		llista1.addListSelectionListener(this);
 	}
 	
