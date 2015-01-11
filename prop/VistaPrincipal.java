@@ -15,7 +15,7 @@ public class VistaPrincipal extends JFrame {
 	public VistaPrincipal(CtrlVistaPrincipal cvp, CtrlDiscGuardar cdg, CtrlDiscCarregar cdc, CtrlVistaAssignacio cva, CtrlVistaHospital cvh, CtrlVistaPlantilla cvp2, CtrlVistaCalendari cvc){
 		ctrlvh = cvh;
 		ctrlvc = cvc;
-		setPreferredSize(new Dimension(800,600));
+		setPreferredSize(new Dimension(900,600));
 		pestanyes.addTab("Hospital", cvh.tornavista());
 		pestanyes.addTab("Plantilla", cvp2.tornavista());
 		pestanyes.addTab("Calendari", cvc.tornavista());
