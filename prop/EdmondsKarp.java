@@ -14,7 +14,6 @@ import static prop.Algorisme.graf;
 public class EdmondsKarp extends Algorisme {
 
     private static ArrayList<Vertex> cua;
-    private static boolean selSou;
     // L'algorisme de Edmond's Karp no es mes que un recorregut en amplada per trobar tots els possibles
     // camins dins un graf, per tant, fem el recorregut en amplada pero no ens aturarem en trobar un cami
     // que arribi al vertex POU, sino que seguirem comprovant els altres possibles.
@@ -27,8 +26,8 @@ public class EdmondsKarp extends Algorisme {
      * @param selSou Si es 'true' llavors selcciona per sou; Si es 'false' només
      * es basa en complir el minim de doctors per torn
      */
-    public EdmondsKarp(boolean selSou) {
-        this.selSou = selSou;
+    public EdmondsKarp(boolean selSou, Graf g) {
+        super(selSou, g);
     }
 
     @Override

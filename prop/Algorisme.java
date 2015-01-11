@@ -5,6 +5,12 @@ import java.util.logging.Logger;
 
 public abstract class Algorisme implements Runnable{
     protected static Graf graf = null;
+    protected static boolean selSou;
+    
+    public Algorisme(boolean selSou, Graf g){
+        graf = g;
+        this.selSou = selSou;
+    }
     
     public void setGraf(Graf g){
         graf = g;

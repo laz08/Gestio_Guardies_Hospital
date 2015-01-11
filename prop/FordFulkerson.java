@@ -7,10 +7,8 @@ import static prop.Algorisme.graf;
 
 public class FordFulkerson extends Algorisme {
 
-    private static boolean selSou;
-
-    public FordFulkerson(boolean selSou) {
-        this.selSou = selSou;
+    public FordFulkerson(boolean selSou, Graf g) {
+        super(selSou, g);
     }
 
     @Override

@@ -14,8 +14,7 @@ public class DriverCtrlEntrada {
     public static void main(String[] args) throws Error {
         prepara_prova();
         graf = CtrlEntrada.crea_graf();
-        Algorisme algo = new EdmondsKarp(true);
-        algo.setGraf(graf);
+        Algorisme algo = new Dijkstra(true,graf);
         //algo.maxFlow();
         Thread thr = new Thread(algo);
         thr.start();
