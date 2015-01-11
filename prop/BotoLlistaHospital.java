@@ -2,7 +2,10 @@ package prop;
 
 import java.awt.event.ActionEvent;
 
-public class BotoLlistaHospital extends BotoLlista {
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+
+public class BotoLlistaHospital extends BotoLlista implements ListSelectionListener {
 	private CtrlVistaHospital ctrlvh;
     private BotoMesTextHospital bmth;
     private boolean mode;                               //Mode == 0  => Afegir lligam restricció
@@ -13,6 +16,8 @@ public class BotoLlistaHospital extends BotoLlista {
 		b2.addActionListener(this);
 		b1.setText("Enrere");
 		b2.setText("Acceptar");
+        b2.setEnabled(false);
+        llista1.addListSelectionListener(this);
         b2.setEnabled(false);
 
 	}
@@ -56,6 +61,15 @@ public class BotoLlistaHospital extends BotoLlista {
     public void setBotoMesTextHospital(BotoMesTextHospital b){
         bmth = b;
     }
+
+	@Override
+	public void valueChanged(ListSelectionEvent arg0) {
+		if (arg0.getSource() == this.llista1) {
+			if(!arg0.getValueIsAdjusting()) {
+				b2.setEnabled(true);
+			}
+		}
+	}
 
 
 }
