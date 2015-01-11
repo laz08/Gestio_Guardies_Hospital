@@ -41,9 +41,19 @@ public class CtrlVistaHospital {
     	doctor = new BotoMesTextHospital(this);
         llistat = new LlistatErrorHospital(this);
         doctor.assignallista(llistat);
-        llistat.setBotoMesTextHospital(doctor);
         restriccionsNoAssociades = new BotoLlistaHospital(this);
         restriccionsAssociades = new BotoLlistaHospital(this);
+
+        //Per quan afegim
+        restriccionsNoAssociades.setMode(false);
+        //Per quan eliminem
+        restriccionsAssociades.setMode(true);
+
+        llistat.setBotoMesTextHospital(doctor);
+        restriccionsNoAssociades.setBotoMesTextHospital(doctor);
+        restriccionsAssociades.setBotoMesTextHospital(doctor);
+
+
         cgc = new TresBotonsHospital(this);
     }
     /*
@@ -132,6 +142,20 @@ public class CtrlVistaHospital {
 
     public void carregaRestriccionsAssociades(String dni){
         //Donat un DNI d'un doctor, agafem les restriccions associades de Doc_res
+        ArrayList<Integer> res = Doc_Res.getRestriccions(dni);
+        //Neteja
+        restriccionsAssociades.model1.clear();
+        for(int i = 0; i < res.size(); ++i) {
+            restriccionsAssociades.model1.addElement(CtrlRestriccio.consulta_explesio_res(res.get(i)));
+        }
+    }
+
+    public void carregaRestriccionsNOAssociades(String dni){
+        ArrayList<Integer> res = Doc_Res.getRestriccionsNoAssociades(dni);
+        restriccionsNoAssociades.model1.clear();
+        for(int i = 0; i < res.size(); ++i){
+            restriccionsNoAssociades.model1.addElement(CtrlRestriccio.consulta_explesio_res(res.get(i)));
+        }
     }
 
     public void stubRestriccions(){
@@ -141,10 +165,15 @@ public class CtrlVistaHospital {
 
     }
 
-    public void associaRestriccio(String r, String dni) throws Error{
+
+
+    public void associaRestriccio(String r, String dni) {
         Doc_Res.relaciona(dni, CtrlRestriccio.consulta_pos(r));
     }
-    //TODO: Falta posar restriccions ASSOCIADES I LES NO ASSOCIADES. Això Són totes les restriccions. S'ha de discernir,
+
+    public void desassociaRestriccio(String r, String dni){
+        Doc_Res.elimina(dni, CtrlRestriccio.consulta_pos(r));
+    }
 
 
 }

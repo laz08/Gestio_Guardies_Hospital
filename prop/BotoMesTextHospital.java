@@ -274,12 +274,14 @@ public class BotoMesTextHospital extends BotoMesText{
 	public void actionPerformed(ActionEvent arg0) {
         //AFEGIR RESTRICCIÓ
 		if(arg0.getSource() == this.b1) {
+            ctrlvh.carregaRestriccionsNOAssociades(t1.getText());
 			ctrlvh.swap(1,2);
-            ctrlvh.carregaLlistaRestriccions();
+            //ctrlvh.carregaLlistaRestriccions();
 		}
 
         //ELIMINAR RESTRICCIÓ
 		else if (arg0.getSource() == this.b2) {
+            ctrlvh.carregaRestriccionsAssociades(t1.getText());
 			ctrlvh.swap(1,3);
 		}
 
@@ -507,4 +509,8 @@ public class BotoMesTextHospital extends BotoMesText{
 	public void mod(boolean b) {
 		mod = b;
 	}
+
+    public String retornaDNI(){
+        return t1.getText();
+    }
 }

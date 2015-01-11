@@ -1,9 +1,8 @@
 package prop;
 
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-import javax.swing.JButton;
 
 
 public class DosBotons extends Panel implements ActionListener {
@@ -16,6 +15,6 @@ public class DosBotons extends Panel implements ActionListener {
 	}
 
 	public void actionPerformed(ActionEvent arg0) {
-		
+
 	}
 }
