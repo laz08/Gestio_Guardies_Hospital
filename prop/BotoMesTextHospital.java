@@ -288,6 +288,8 @@ public class BotoMesTextHospital extends BotoMesText{
         //ELIMINAR DOCTOR
 		else if (arg0.getSource() == this.b3) {
             esborraDoctor();
+            esborraTotsElsCamps();
+            t1.setEditable(true);
             llistat.actualitza_llista_docs();
             ctrlvh.swap(2,1);
 		}

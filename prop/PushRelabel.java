@@ -1,4 +1,4 @@
-package prop;
+/*package prop;
 
 public class PushRelabel extends Algorisme {
     /*
@@ -128,9 +128,10 @@ public class PushRelabel extends Algorisme {
         }
         return exces[t];
 	}
-*/
+
     @Override
     public void maxFlow() throws Error {
        //HOLA NO FAIG RES
     }
 }
+*/

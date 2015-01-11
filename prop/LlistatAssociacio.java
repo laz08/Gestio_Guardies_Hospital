@@ -1,12 +1,11 @@
 package prop;
 
-import java.awt.BorderLayout;
-
-import javax.swing.JLabel;
+import javax.swing.*;
+import java.awt.*;
 
 public class LlistatAssociacio extends PanelLlistat{
 	private CtrlVistaAssignacio ctrlva;
-	private JLabel titolassociat= new JLabel("ASSOCIAT AMB");
+	private JLabel titolassociat= new JLabel("ASSOCIAT AMB", SwingConstants.CENTER);
 	
 	public LlistatAssociacio(CtrlVistaAssignacio cva) {
 		ctrlva = cva;

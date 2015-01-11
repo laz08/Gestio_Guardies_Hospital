@@ -9,9 +9,9 @@ public class CtrlVistaHospital {
 	private JPanel dret = new JPanel();
 	private JPanel esquerre = new JPanel();
 	private JPanel hospital = new JPanel();
-	private LlistatErrorHospital llistat;       //Llista de doctors
-	private BotoMesTextHospital doctor;         //Tots els valors d'un Doctor (modificar i crear)
-	private BotoLlistaHospital restriccionsAssociades;    //Llistat de restriccions relacionades amb el doctor
+	private LlistatErrorHospital llistat;                   //Llista de doctors
+	private BotoMesTextHospital doctor;                     //Tots els valors d'un Doctor (modificar i crear)
+	private BotoLlistaHospital restriccionsAssociades;      //Llistat de restriccions relacionades amb el doctor
 	private BotoLlistaHospital restriccionsNoAssociades;    //Llistat de restriccions NO relacionades amb el doctor
 	private TresBotonsHospital cgc;
 	private CtrlVistaPrincipal ctrlvp;
@@ -37,7 +37,7 @@ public class CtrlVistaHospital {
 
 
     public void inicialitzacions_creadora(){
-        stubRestriccions();
+        //stubRestriccions();
     	doctor = new BotoMesTextHospital(this);
         llistat = new LlistatErrorHospital(this);
         doctor.assignallista(llistat);

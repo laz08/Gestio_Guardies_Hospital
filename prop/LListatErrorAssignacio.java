@@ -1,13 +1,12 @@
 package prop;
 
-import java.awt.BorderLayout;
-
-import javax.swing.JLabel;
+import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
+import java.awt.*;
 
 public class LListatErrorAssignacio extends PanelLlistatError{
 	private CtrlVistaAssignacio ctrlva;
-	private JLabel titoldoctor = new JLabel("LLISTA DOCTORS");
+	private JLabel titoldoctor = new JLabel("LLISTA DOCTORS", SwingConstants.CENTER);
 	
 	public LListatErrorAssignacio(CtrlVistaAssignacio cva) {
 		ctrlva = cva;
@@ -23,7 +22,18 @@ public class LListatErrorAssignacio extends PanelLlistatError{
 	public void valueChanged(ListSelectionEvent arg0) {
 		if (arg0.getSource() == this.llista1) {
 			if (!arg0.getValueIsAdjusting()) {
-				
+                /*
+                Graf g = ctrlVistaAssignacio.consultaGraf();
+                Vertex vd= g.getVertex((String) llista_doc.getSelectedValue(), Vertex.DOCTOR);
+                ArrayList<Torn> llista_t = Doc_Torn.getRel((Doctor)vd.getObjecte());
+
+                System.out.println(llista_t.size());
+
+                llr.removeAllElements();
+                for(int i=0; i<llista_t.size(); i++){
+                    llr.addElement(llista_t.get(i).toString()); // <----- canviar per algo llegible
+                }
+                */
 			}
 		}
 	}
