@@ -13,6 +13,7 @@ public class BotoMesTextHospital extends BotoMesText{
 	protected JButton b5 = new JButton("Acceptar");
 	protected JLabel l7 = new JLabel("Correu:");
 	protected GridBagConstraints c = new GridBagConstraints();
+	private boolean mod = false;
 
 	private CtrlVistaHospital ctrlvh;
 	private LlistatErrorHospital llistat;
@@ -20,6 +21,134 @@ public class BotoMesTextHospital extends BotoMesText{
 	public BotoMesTextHospital(CtrlVistaHospital cvh, LlistatErrorHospital ll) {
 		ctrlvh = cvh;
         llistat = ll;
+
+		b1.setText("Afegir Restricció");
+		b2.setText("Eliminar Restricció");
+		b1.addActionListener(this);
+		b2.addActionListener(this);
+		b3.addActionListener(this);
+		b4.addActionListener(this);
+		b5.addActionListener(this);
+		l1.setText("DNI: ");
+		l2.setText("Nom: ");
+		l3.setText("Primer Cognom: ");
+		l4.setText("Segon Cognom: ");
+		l5.setText("Sou: ");
+		l6.setText("Telèfon: ");
+		l7.setText("Correu: ");
+		remove(textfield1);
+		remove (b1);
+		remove(b2);
+		setLayout(new GridBagLayout());
+		setAlignmentX(Component.LEFT_ALIGNMENT);
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 0;
+		c.gridy = 0;
+		c.weightx = 1.0;
+		c.weighty = 1.0;
+		c.gridwidth = 1;
+		add(l1, c);
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 1;
+		c.gridy = 0;
+		c.weighty = 1.0;
+		c.gridwidth = 2;
+		add(t1, c);
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 0;
+		c.gridy = 1;
+		c.weighty = 1.0;
+		c.gridwidth = 1;
+		add(l2, c);
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 1;
+		c.gridy = 1;
+		c.weighty = 1.0;
+		c.gridwidth = 2;
+		add(t2, c);
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 0;
+		c.gridy = 2;
+		c.weighty = 1.0;
+		c.gridwidth = 1;
+		add(l3, c);
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 1;
+		c.gridy = 2;
+		c.gridwidth = 2;
+		add(t3, c);
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 0;
+		c.gridy = 3;
+		c.gridwidth = 1;
+		add(l4, c);
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 1;
+		c.gridy = 3;
+		c.gridwidth = 2;
+		add(t4, c);
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 0;
+		c.gridy = 4;
+		c.gridwidth = 1;
+		add(l5, c);
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 1;
+		c.gridy = 4;
+		c.gridwidth = 2;
+		add(t5, c);
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 0;
+		c.gridy = 5;
+		c.gridwidth = 1;
+		add(l6, c);
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 1;
+		c.gridy = 5;
+		c.gridwidth = 2;
+		add(t6, c);
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 0;
+		c.gridy = 6;
+		c.gridwidth = 1;
+		add(l7, c);
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 1;
+		c.gridy = 6;
+		c.gridwidth = 2;
+		add(t7, c);
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 0;
+		c.gridy = 8;
+		c.gridwidth = 1;
+		add(b1, c);
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 1;
+		c.gridy = 8;
+		c.gridwidth = 1;
+		add(b2, c);
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 2;
+		c.gridy = 8;
+		c.gridwidth = 1;
+		add(b3, c);
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 0;
+		c.gridy = 9;
+		c.gridwidth = 1;
+		add(b4, c);
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 2;
+		c.gridy = 9;
+		c.gridwidth = 1;
+		add(b5, c);
+	}
+
+	public void assignallista(LlistatErrorHospital ll) {
+		llistat = ll;
+	}
+	public BotoMesTextHospital(CtrlVistaHospital cvh) {
+		ctrlvh = cvh;
 
 		b1.setText("Afegir Restricció");
 		b2.setText("Eliminar Restricció");
@@ -176,24 +305,27 @@ public class BotoMesTextHospital extends BotoMesText{
                 }
             }
             else {
-                boolean v = modifica_doc();
-                System.out.println("He arribat fins aquí 1");
+            	if (!mod) {
+            		boolean v = modifica_doc();
+                    System.out.println("He arribat fins aquí 1");
 
-                if (v){
-                    System.out.println("He arribat fins aquí 2");
+                    if (v){
+                        System.out.println("He arribat fins aquí 2");
 
-                    ctrlvh.activaBotonsRestriccionsEliminar();
-                    ctrlvh.swap(2, 1);
-                    System.out.println("He arribat fins aquí 3");
+                        ctrlvh.activaBotonsRestriccionsEliminar();
+                        ctrlvh.swap(2, 1);
+                        System.out.println("He arribat fins aquí 3");
 
-                    llistat.actualitza_llista_docs();
-                    System.out.println("He arribat fins aquí 4");
+                        llistat.actualitza_llista_docs();
+                        System.out.println("He arribat fins aquí 4");
 
-                    esborraTotsElsCamps();
-                    llistat.esborrarTotsErrors();
-                    System.out.println("He arribat fins aquí");
+                        esborraTotsElsCamps();
+                        llistat.esborrarTotsErrors();
+                        System.out.println("He arribat fins aquí");
 
-                }
+                    }
+            	}
+                
             }
 		}
 	}
@@ -346,6 +478,7 @@ public class BotoMesTextHospital extends BotoMesText{
 
     public void ompleValuesDoctor(){
         //agafem els valors
+    	System.out.println(llistat.llista1.getSelectedValue());
         String selected = llistat.llista1.getSelectedValue().toString();
         //String separadors = "[ \n]";
         String[] separat = selected.split(" ");
@@ -371,4 +504,8 @@ public class BotoMesTextHospital extends BotoMesText{
     private void esborraDoctor(){
         ctrlvh.esborrar_doctor(t1.getText());
     }
+
+	public void mod(boolean b) {
+		mod = b;
+	}
 }

@@ -34,8 +34,9 @@ public class CtrlVistaHospital {
 
 
     public void inicialitzacions_creadora(){
+    	doctor = new BotoMesTextHospital(this);
         llistat = new LlistatErrorHospital(this);
-        doctor = new BotoMesTextHospital(this, llistat);
+        doctor.assignallista(llistat);
         llistat.setBotoMesTextHospital(doctor);
         restriccions = new BotoLlistaHospital(this);
         cgc = new TresBotonsHospital(this);
@@ -105,6 +106,10 @@ public class CtrlVistaHospital {
     public void actualitza_Docs(){
         llistat.actualitza_llista_docs();
     }
+
+	public void mod(boolean b) {
+		doctor.mod(b);
+	}
 
 
 }
