@@ -2,15 +2,17 @@ package prop;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 
 public class CtrlVistaHospital {
 	private JPanel dret = new JPanel();
 	private JPanel esquerre = new JPanel();
 	private JPanel hospital = new JPanel();
-	private LlistatErrorHospital llistat;
-	private BotoMesTextHospital doctor;
-	private BotoLlistaHospital restriccions;
+	private LlistatErrorHospital llistat;       //Llista de doctors
+	private BotoMesTextHospital doctor;         //Tots els valors d'un Doctor (modificar i crear)
+	private BotoLlistaHospital restriccionsAssociades;    //Llistat de restriccions relacionades amb el doctor
+	private BotoLlistaHospital restriccionsNoAssociades;    //Llistat de restriccions NO relacionades amb el doctor
 	private TresBotonsHospital cgc;
 	private CtrlVistaPrincipal ctrlvp;
 
@@ -20,7 +22,8 @@ public class CtrlVistaHospital {
 		hospital.setLayout(new BorderLayout());
 		esquerre.setLayout(new CardLayout());
 		esquerre.add(llistat, "1-1");
-		esquerre.add(restriccions, "1-2");
+		esquerre.add(restriccionsNoAssociades, "1-2");
+        esquerre.add(restriccionsAssociades, "1-3");
 		dret.setLayout(new CardLayout());
 		dret.add(cgc, "2-1");
 		dret.add(doctor, "2-2");
@@ -34,11 +37,13 @@ public class CtrlVistaHospital {
 
 
     public void inicialitzacions_creadora(){
+        stubRestriccions();
     	doctor = new BotoMesTextHospital(this);
         llistat = new LlistatErrorHospital(this);
         doctor.assignallista(llistat);
         llistat.setBotoMesTextHospital(doctor);
-        restriccions = new BotoLlistaHospital(this);
+        restriccionsNoAssociades = new BotoLlistaHospital(this);
+        restriccionsAssociades = new BotoLlistaHospital(this);
         cgc = new TresBotonsHospital(this);
     }
     /*
@@ -110,6 +115,32 @@ public class CtrlVistaHospital {
 	public void mod(boolean b) {
 		doctor.mod(b);
 	}
+
+    public void carregaLlistaRestriccions(){
+        ArrayList<String> lr = new ArrayList<String>();
+        for(int i=0; i<CtrlRestriccio.consulta_llista_res().size(); i++){
+            lr.add(CtrlRestriccio.consulta_explesio_res(i));
+        }
+        restriccionsNoAssociades.model1.clear();
+
+        //llistaRes.clear();//llistaRes.removeAllElements(); // buidam llista restriccions anteriors
+        for(int i=0; i<lr.size(); i++){
+            restriccionsNoAssociades.model1.addElement(lr.get(i));
+        }
+
+    }
+
+    public void stubRestriccions(){
+        CtrlRestriccio.nova_res("H (1)XOR(2)");
+        CtrlRestriccio.nova_res("D (1-1)XOR(2-1)");
+        CtrlRestriccio.nova_res("D (1-2)AND(2-4)");
+
+    }
+
+    public void associaRestriccio(String r, String dni) throws Error{
+        Doc_Res.relaciona(dni, CtrlRestriccio.consulta_pos(r));
+    }
+    //TODO: Falta posar restriccions ASSOCIADES I LES NO ASSOCIADES. Això Són totes les restriccions. S'ha de discernir,
 
 
 }

@@ -273,17 +273,25 @@ public class BotoMesTextHospital extends BotoMesText{
 	}
 
 	public void actionPerformed(ActionEvent arg0) {
+        //AFEGIR RESTRICCIÓ
 		if(arg0.getSource() == b1) {
 			ctrlvh.swap(1,2);
+            ctrlvh.carregaLlistaRestriccions();
 		}
+
+        //ELIMINAR RESTRICCIÓ
 		else if (arg0.getSource() == b2) {
-			ctrlvh.swap(1,2);
+			ctrlvh.swap(1,3);
 		}
+
+        //ELIMINAR DOCTOR
 		else if (arg0.getSource() == b3) {
             esborraDoctor();
             llistat.actualitza_llista_docs();
             ctrlvh.swap(2,1);
 		}
+
+        //ENRERE
 		else if (arg0.getSource() == b4) {
             ctrlvh.activaBotonsRestriccionsEliminar();
 			ctrlvh.swap(2,1);
@@ -292,6 +300,8 @@ public class BotoMesTextHospital extends BotoMesText{
             t1.setEditable(true);
 
 		}
+
+        //ACCEPTAR
 		else if (arg0.getSource() == b5) {
             if(t1.isEditable()) {
                 boolean v = crea_doc();

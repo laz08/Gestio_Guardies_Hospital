@@ -1,12 +1,9 @@
 package prop;
 
-import java.awt.BorderLayout;
-
-import javax.swing.DefaultListModel;
-import javax.swing.JList;
-import javax.swing.JScrollPane;
+import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import java.awt.*;
 
 
 public class PanelLlistat extends Panel implements ListSelectionListener{
@@ -17,6 +14,8 @@ public class PanelLlistat extends Panel implements ListSelectionListener{
 	public PanelLlistat(){
 		setLayout(new BorderLayout());
 		add(scroll1, BorderLayout.CENTER);
+        scroll1.setPreferredSize(new Dimension(50, 600));
+        scroll1.setMaximumSize(new Dimension(50, 600));
 	}
 
 	@Override
