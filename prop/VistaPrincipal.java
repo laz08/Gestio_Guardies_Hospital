@@ -12,15 +12,18 @@ public class VistaPrincipal extends JFrame {
 	private CtrlVistaHospital ctrlvh;
 	private CtrlVistaCalendari ctrlvc;
     private CtrlVistaPlantilla ctrlvp;
+    private CtrlVistaAlgorisme ctrlval;
 	
-	public VistaPrincipal(CtrlVistaPrincipal cvp,CtrlVistaResultats cvrs, CtrlDiscGuardar cdg, CtrlDiscCarregar cdc, CtrlVistaAssignacio cva, CtrlVistaHospital cvh, CtrlVistaPlantilla cvp2, CtrlVistaCalendari cvc){
+	public VistaPrincipal(CtrlVistaPrincipal cvp,CtrlVistaResultats cvrs, CtrlDiscGuardar cdg, CtrlDiscCarregar cdc, CtrlVistaAssignacio cva, CtrlVistaHospital cvh, CtrlVistaPlantilla cvp2, CtrlVistaAlgorisme cval, CtrlVistaCalendari cvc){
 		ctrlvh = cvh;
 		ctrlvc = cvc;
         ctrlvp = cvp2;
+        ctrlval = cval;
 		setPreferredSize(new Dimension(900,600));
 		pestanyes.addTab("Hospital", cvh.tornavista());
 		pestanyes.addTab("Plantilla", cvp2.tornavista());
 		pestanyes.addTab("Calendari", cvc.tornavista());
+		pestanyes.addTab("Algorisme", ctrlval.tornavista());
 		pestanyes.addTab("Assignació", cva.tornavista());
 		pestanyes.addTab("Resultats", cvrs.tornavisa());
 		pestanyes.addTab("Guardar",cdg.getDiscGuardar());

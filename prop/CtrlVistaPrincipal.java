@@ -10,6 +10,8 @@ public class CtrlVistaPrincipal {
 		CtrlVistaCalendari cvc = new CtrlVistaCalendari(this);
 		CtrlVistaAssignacio cva = new CtrlVistaAssignacio(this);
 		CtrlVistaResultats cvrs = new CtrlVistaResultats(this);
-		vistaprincipal = new VistaPrincipal(this, cvrs, cdg, cdc, cva, cvh, cvp, cvc);
+		CtrlVistaAlgorisme cval = new CtrlVistaAlgorisme(this);
+		
+		vistaprincipal = new VistaPrincipal(this, cvrs, cdg, cdc, cva, cvh, cvp, cval,cvc);
 	}
 }
