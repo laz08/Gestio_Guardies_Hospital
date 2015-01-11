@@ -1,5 +1,7 @@
 package prop;
 
+import java.awt.Dimension;
+
 import javax.swing.event.ListSelectionEvent;
 
 
@@ -10,7 +12,6 @@ public class LlistatErrorCalendari extends PanelLlistatError{
 		ctrlvc = cvc;
 		llista1.addListSelectionListener(this);
 		model1.removeAllElements();
-		CtrlPlantilla.creariAfegirPlantilla("Clica");
 		actualitzar();
 	}
 

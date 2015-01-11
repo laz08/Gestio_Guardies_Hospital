@@ -2,6 +2,7 @@ package prop;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.awt.Dimension;
 
 import javax.swing.JPanel;
 
@@ -18,6 +19,9 @@ public class CtrlVistaAssignacio {
         ctrlVistaPrincipal = vpc;
         assignacio.setLayout(new BorderLayout());
         esquerre.setLayout(new BorderLayout());
+        llistadoctors.setMaximumSize(new Dimension(350,300));
+        llistatorns.setMaximumSize(new Dimension(350,300));
+        esquerre.setSize(350,600);
         esquerre.add(llistatorns, BorderLayout.NORTH);
         esquerre.add(llistadoctors, BorderLayout.SOUTH);
         assignacio.add(esquerre, BorderLayout.WEST);

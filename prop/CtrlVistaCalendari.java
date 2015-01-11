@@ -24,6 +24,10 @@ public class CtrlVistaCalendari {
 		calendari.setLayout(new BorderLayout());
 		dret.setLayout(new CardLayout());
 		esquerre.setLayout(new CardLayout());
+		dret.setSize(450, 500);
+		
+		//esquerre.setSize(450,600);
+		llistatcalendari.setSize(450,500);
 		esquerre.add(llistatcalendari,"1-1");
 		esquerre.add(diacalendari, "1-2");
 		dret.add(gestiocalendari, "2-1");

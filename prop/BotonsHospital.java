@@ -18,11 +18,11 @@ public class BotonsHospital extends PanelBotons {
 		}
 		else {
 			
-			if (arg0.getSource() == b2) {
+			if (arg0.getSource() == this.b2) {
 				int ret = directori.showSaveDialog(this);
 				if (ret == directori.APPROVE_OPTION) CtrlDiscGuardar.guardarh(directori.getSelectedFile());
 			}
-			else if (arg0.getSource() == b3) {
+			else if (arg0.getSource() == this.b3) {
 				int ret = directori.showOpenDialog(this);
 				if (ret == directori.APPROVE_OPTION) CtrlDiscCarregar.carregarh(directori.getSelectedFile());
 			}

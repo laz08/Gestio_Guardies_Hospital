@@ -27,6 +27,7 @@ public class ModelCalendari extends TresBotons implements ListSelectionListener{
 	private JTable table = new JTable(model);
 	private GridBagConstraints c = new GridBagConstraints();
 	ListSelectionModel cellSelectionModel; 
+	ListSelectionModel modelcolumna;
 	private Boolean mod = true;
 
 	public ModelCalendari(CtrlVistaCalendari cvc) {
@@ -50,9 +51,11 @@ public class ModelCalendari extends TresBotons implements ListSelectionListener{
 		table.setShowGrid(true);
 		table.setGridColor(Color.BLACK);
 		//table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		modelcolumna = table.getColumnModel().getSelectionModel();
+		modelcolumna.addListSelectionListener(this);
+		table.setRowSelectionAllowed(true);
+		table.setColumnSelectionAllowed(true);
 		table.setCellSelectionEnabled(true);
-		table.setColumnSelectionAllowed(false);
-		table.setRowSelectionAllowed(false);
 		cellSelectionModel = table.getSelectionModel();
 		cellSelectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		cellSelectionModel.addListSelectionListener(this);
@@ -89,7 +92,7 @@ public class ModelCalendari extends TresBotons implements ListSelectionListener{
 	}
 
 	class CalendarModel extends AbstractTableModel {
-		String[] exempledies= { "Dissabte", "Diumenge", "Dilluns", "Dimarts", "Dimecres", "Dijous", "Divendres" };
+		String[] exempledies= { "Dilluns", "Dimarts", "Dimecres", "Dijous", "Divendres", "Dissabte","Diumenge"};
 
 		int[] numdies = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
 
@@ -117,11 +120,12 @@ public class ModelCalendari extends TresBotons implements ListSelectionListener{
 					calendar[i][j] = " ";
 			java.util.GregorianCalendar cal = new java.util.GregorianCalendar();
 			cal.set(year, month, 1);
-			int offset = cal.get(java.util.GregorianCalendar.DAY_OF_WEEK);
+			int offset = cal.get(java.util.GregorianCalendar.DAY_OF_WEEK)-2;
+			if (offset < 0) offset +=7;
 			offset += 7;
 			int num = daysInMonth(year, month);
 			for (int i = 0; i < num; ++i) {
-				calendar[offset / 7][offset % 7] = Integer.toString(i + 1);
+				calendar[(offset / 7)][offset % 7] = Integer.toString(i + 1);
 				++offset;
 			}
 		}
@@ -151,6 +155,7 @@ public class ModelCalendari extends TresBotons implements ListSelectionListener{
 	public void actionPerformed(ActionEvent arg0) {
 		if (arg0.getSource() == this.b1) {
 			ctrlvc.swap(2,1);
+			ctrlvc.swap(1, 1);
 			ctrlvc.removeselection();
 		}
 		else if (arg0.getSource() == this.b2) {
@@ -187,7 +192,7 @@ public class ModelCalendari extends TresBotons implements ListSelectionListener{
 			}
 		}
 
-		else if (arg0.getSource() == this.cellSelectionModel) {
+		else if (arg0.getSource() == this.cellSelectionModel || arg0.getSource() == this.modelcolumna) {
 			//RETORNA LA FILA CLICADA
 			int fila = table.getSelectedRow();
 			// RETORNA LA COLUMNA CLICADA
@@ -201,6 +206,7 @@ public class ModelCalendari extends TresBotons implements ListSelectionListener{
 				ctrlvc.carregardia(rany, mes, dia, any.getSelectedItem(), mesos.getSelectedIndex(), model.getValueAt(table.getSelectedRow(),table.getSelectedColumn()));
 				ctrlvc.swap(1,2);
 			}
+			else ctrlvc.swap(1,1);
 
 		}
 	}
@@ -215,8 +221,7 @@ public class ModelCalendari extends TresBotons implements ListSelectionListener{
 			modelcombo.removeAllElements();
 			mod = true;
 		}
-		for (int i = anyi; i <= anyf; i++) {
-			System.out.println(i);
+		for (int i = anyi; i <= anyf; i++){
 			modelcombo.addElement(String.valueOf(i));
 		}
 	}

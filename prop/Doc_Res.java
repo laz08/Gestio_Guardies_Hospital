@@ -11,11 +11,12 @@ public class Doc_Res{
 
     private static ArrayList<ArrayList<String>> assig = new ArrayList<ArrayList<String>>();
 
-    public static void relaciona(String doc, int res) throws Error{
+    public static void relaciona(String doc, int res){
         if (res < assig.size()) {
             if (assig.get(res).contains(doc)) {
-                throw new Error(
+               /* throw new Error(
                         "La relació entre el doctor i la restricció ja existeix");
+                        */
             } else {
                 assig.get(res).add(doc);
             }
@@ -29,12 +30,12 @@ public class Doc_Res{
         }
     }
 
-    public static void elimina(String doc, int res) throws Error {
+    public static void elimina(String doc, int res) {
         if(res < assig.size()){
             assig.get(res).remove(doc);
         }
         else{
-            throw new Error("La relació entre el doctor i la restricció no existeix");
+          //  throw new Error("La relació entre el doctor i la restricció no existeix");
         }
     }
     
@@ -44,6 +45,23 @@ public class Doc_Res{
             if(assig.get(i).contains(doc)) res.add(i);
         }
         return res;
+    }
+
+    public static ArrayList<Integer> getRestriccionsNoAssociades(String doc){
+        //Restriccions associades al doctor
+        ArrayList<Integer> res = getRestriccions(doc);
+        ArrayList<Integer> resNoAss  = new ArrayList<Integer>();
+
+        //Ens quedem amb les no associades
+        int s = CtrlRestriccio.consulta_llista_res().size();
+        for(int i = 0; i < s; ++i){
+            boolean associada = false;
+            for (int j = 0; j < res.size() && !associada; ++j) {
+                if (i == res.get(j)) associada = true;
+            }
+            if(!associada) resNoAss.add(i);
+        }
+        return resNoAss;
     }
     
     public static void guardar() {

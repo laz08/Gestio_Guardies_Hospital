@@ -21,7 +21,6 @@ public class BotoMesTextHospital extends BotoMesText{
 	public BotoMesTextHospital(CtrlVistaHospital cvh, LlistatErrorHospital ll) {
 		ctrlvh = cvh;
         llistat = ll;
-
 		b1.setText("Afegir Restricció");
 		b2.setText("Eliminar Restricció");
 		b1.addActionListener(this);
@@ -273,17 +272,27 @@ public class BotoMesTextHospital extends BotoMesText{
 	}
 
 	public void actionPerformed(ActionEvent arg0) {
-		if(arg0.getSource() == b1) {
+        //AFEGIR RESTRICCIÓ
+		if(arg0.getSource() == this.b1) {
+            ctrlvh.carregaRestriccionsNOAssociades(t1.getText());
 			ctrlvh.swap(1,2);
+            //ctrlvh.carregaLlistaRestriccions();
 		}
-		else if (arg0.getSource() == b2) {
-			ctrlvh.swap(1,2);
+
+        //ELIMINAR RESTRICCIÓ
+		else if (arg0.getSource() == this.b2) {
+            ctrlvh.carregaRestriccionsAssociades(t1.getText());
+			ctrlvh.swap(1,3);
 		}
-		else if (arg0.getSource() == b3) {
+
+        //ELIMINAR DOCTOR
+		else if (arg0.getSource() == this.b3) {
             esborraDoctor();
             llistat.actualitza_llista_docs();
             ctrlvh.swap(2,1);
 		}
+
+        //ENRERE
 		else if (arg0.getSource() == b4) {
             ctrlvh.activaBotonsRestriccionsEliminar();
 			ctrlvh.swap(2,1);
@@ -292,6 +301,8 @@ public class BotoMesTextHospital extends BotoMesText{
             t1.setEditable(true);
 
 		}
+
+        //ACCEPTAR
 		else if (arg0.getSource() == b5) {
             if(t1.isEditable()) {
                 boolean v = crea_doc();
@@ -307,22 +318,13 @@ public class BotoMesTextHospital extends BotoMesText{
             else {
             	if (!mod) {
             		boolean v = modifica_doc();
-                    System.out.println("He arribat fins aquí 1");
-
                     if (v){
-                        System.out.println("He arribat fins aquí 2");
-
                         ctrlvh.activaBotonsRestriccionsEliminar();
                         ctrlvh.swap(2, 1);
-                        System.out.println("He arribat fins aquí 3");
-
                         llistat.actualitza_llista_docs();
-                        System.out.println("He arribat fins aquí 4");
-
                         esborraTotsElsCamps();
                         llistat.esborrarTotsErrors();
-                        System.out.println("He arribat fins aquí");
-
+                        t1.setEditable(true);
                     }
             	}
                 
@@ -478,7 +480,6 @@ public class BotoMesTextHospital extends BotoMesText{
 
     public void ompleValuesDoctor(){
         //agafem els valors
-    	System.out.println(llistat.llista1.getSelectedValue());
         String selected = llistat.llista1.getSelectedValue().toString();
         //String separadors = "[ \n]";
         String[] separat = selected.split(" ");
@@ -508,4 +509,8 @@ public class BotoMesTextHospital extends BotoMesText{
 	public void mod(boolean b) {
 		mod = b;
 	}
+
+    public String retornaDNI(){
+        return t1.getText();
+    }
 }

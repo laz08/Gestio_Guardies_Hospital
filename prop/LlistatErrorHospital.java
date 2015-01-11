@@ -25,7 +25,6 @@ public class LlistatErrorHospital extends PanelLlistatError {
 		if (!mod) {
 			if (arg0.getSource() == this.llista1) {
 				if (!arg0.getValueIsAdjusting()) {
-					System.out.println("Aqui");
 					bmth.ompleValuesDoctor();
 			        ctrlvh.swap(2,2);
 				}
@@ -48,7 +47,7 @@ public class LlistatErrorHospital extends PanelLlistatError {
                 String separadors = "[ \n]";
                 String[] separat = contingut.split(separadors);
                 for (int i = 0; i < separat.length; i += 7) {
-                    model1.addElement(separat[i] + " " + separat[i + 1] + " " + separat[i + 2] + " " + separat[i + 3]);
+                    model1.addElement(separat[i] + " | " + separat[i + 2] + " " + separat[i + 3]+ ", " +separat[i + 1] );
                 }
             }
         }
