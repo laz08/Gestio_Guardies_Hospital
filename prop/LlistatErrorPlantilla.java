@@ -8,6 +8,7 @@ import javax.swing.event.ListSelectionListener;
 public class LlistatErrorPlantilla extends PanelLlistatError implements ListSelectionListener{
 	private CtrlVistaPlantilla ctrlvp;
 	private BotoLlistaMesPlantilla pltconcreta;
+	boolean mod = false;
 
 	public LlistatErrorPlantilla(CtrlVistaPlantilla cvp){
 		ctrlvp = cvp;
@@ -23,12 +24,22 @@ public class LlistatErrorPlantilla extends PanelLlistatError implements ListSele
 	}
 	
 	public void valueChanged(ListSelectionEvent arg0) {
-		if(llista1.getSelectedIndex()!=-1) pltconcreta.setNomPlt(llista1.getSelectedValue().toString());
-		ctrlvp.swap(2,3); 
+		//pltconcreta.setNomPlt(llista1.getSelectedValue().toString());
+		if(!mod) {
+			if(arg0.getSource() == this.llista1) {
+				if(!arg0.getValueIsAdjusting()) {
+					pltconcreta.setNomPlt(llista1.getSelectedValue().toString());
+					pltconcreta.actualitzarLlistaDoctorsPlt();
+					ctrlvp.swap(2,3); 
+				}
+			}
+		}
 		//llista1.clearSelection();
 	}
 	
 	public void actualitzarLlistatPlantilles() {
+		//ctrlvp.mod(true);
+		mod = true;
 		String content = ctrlvp.obteLlistaPlantilles();
         model1.removeAllElements();
         if(!content.equals("")) {
@@ -40,6 +51,8 @@ public class LlistatErrorPlantilla extends PanelLlistatError implements ListSele
         		}
         	}
         }
+        mod = false;
+        //ctrlvp.mod(false);
 	}
 	
 	public String nomSeleccionat() {

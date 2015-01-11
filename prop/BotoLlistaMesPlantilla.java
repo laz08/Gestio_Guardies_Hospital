@@ -14,6 +14,7 @@ public class BotoLlistaMesPlantilla extends BotoLlista {
 	private JButton b4 = new JButton("Enrere");
 	private LlistatErrorPlantilla llistat;
 	private JTextField nom = new JTextField();
+	private boolean mod = false;
 	
 	public BotoLlistaMesPlantilla(CtrlVistaPlantilla cvp, LlistatErrorPlantilla ll) {
 		llistat = ll;
@@ -29,48 +30,80 @@ public class BotoLlistaMesPlantilla extends BotoLlista {
 		setLayout(new GridLayout(6,1));
 		add(nomPlantilla);
 		add(scroll1);
+		//add(new JPanel());
 		b1.addActionListener(this);
 		b2.addActionListener(this);
 		b3.addActionListener(this);
 		b4.addActionListener(this);
 		b1.setText("Assignar Doctor");
 		b2.setText("Desassignar Doctor");
-		add(b1);
-		add(b2);
-		add(b3);
-		add(b4);
-		//Actualitzem llista de doctors de la plantilla on ens trobem
-		//faig el if perque no dongui error de nullpointer, pero es redundant
-		if(llistat.llista1.getSelectedIndex()!=-1) actualitzarLlistaDoctorsPlt();
-		
+		JPanel bto1 = new JPanel();
+		bto1.add(b1);
+		//bto1.add(b2);
+		add(bto1);
+		JPanel bto2 = new JPanel();
+		bto2.add(b2);
+		add(bto2);
+		JPanel bto3 = new JPanel();
+		bto3.add(b3);
+		//bto3.add(b4);
+		add(bto3);
+		JPanel bto4 = new JPanel();
+		bto4.add(b4);
+		add(bto4);
+
+	}
+	
+	public void mod(boolean b) {
+		mod = b;
 	}
 	
 	public void actualitzarLlistaDoctorsPlt() {
 		//Mostrem tots els doctors que pertanyen a la plantilla
-		String s = nom.getText();
-		model1.addElement(s);
+		String s = llistat.llista1.getSelectedValue().toString();
 		String content = ctrlvp.llistaDoctorsPlantilla(s);
-        model1.removeAllElements();
-        if (!content.equals("")) {
-            if (content.length() > 0) {
-                String separadors = "[ \n]";
-                String[] separat = content.split(separadors);
-                for (int i = 0; i < separat.length; i += 4) {
-                    model1.addElement(separat[i] + " " + separat[i + 1] + " " + separat[i + 2] + " " + separat[i + 3]);
-                }
-            }
-        }
+	    model1.removeAllElements();
+	    if (!content.equals("")) {
+	       if (content.length() > 0) {
+	           String separadors = "[ \n]";
+	           String[] separat = content.split(separadors);
+	           for (int i = 0; i < separat.length; i += 4) {
+	               model1.addElement(separat[i] + " " + separat[i + 1] + " " + separat[i + 2] + " " + separat[i + 3]);
+	           }
+	       }
+	   }
+		
+	}
+	
+	
+	public void actualitzarLlistaDoctorsPltNom() {
+		//Mostrem tots els doctors que pertanyen a la plantilla
+		String s = nom.getText();
+		String content = ctrlvp.llistaDoctorsPlantilla(s);
+	    model1.removeAllElements();
+	    if (!content.equals("")) {
+	       if (content.length() > 0) {
+	           String separadors = "[ \n]";
+	           String[] separat = content.split(separadors);
+	           for (int i = 0; i < separat.length; i += 4) {
+	               model1.addElement(separat[i] + " " + separat[i + 1] + " " + separat[i + 2] + " " + separat[i + 3]);
+	           }
+	       }
+	   }
+		
 	}
 	
 	public void actionPerformed(ActionEvent arg0) {
 		//b1=assignar doctor, canviem de panell (BotoLlistaPlantilla)
 		if (arg0.getSource() == b1) {
+			ctrlvp.actualitzarLlistaDocs();
 			ctrlvp.swap(1,2);
 		}
 		
 		//b2=desasignar doctor, treiem de la llista el que tenim seleccionat
 		else if (arg0.getSource() == b2) {
 			desasignarDoctor();
+			ctrlvp.actualitzarLlistaDocs();
 			actualitzarLlistaDoctorsPlt();
 			//Pot ser tambe haig d'actualitzar la llista de doctors que no tenen plt
 		}
@@ -79,10 +112,12 @@ public class BotoLlistaMesPlantilla extends BotoLlista {
 		else if (arg0.getSource() == b3) {
 			eliminarPlt();
 			ctrlvp.swap(2,1);
+			ctrlvp.swap(1,1);
 		}
 		//Tirem enrere
 		else {
 			ctrlvp.swap(2,1);
+			ctrlvp.swap(1, 1);
 		}
 	}
 	

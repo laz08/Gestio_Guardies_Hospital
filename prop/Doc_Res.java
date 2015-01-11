@@ -45,6 +45,22 @@ public class Doc_Res{
         }
         return res;
     }
+
+    public static ArrayList<Integer> getRestriccionsNoAssociades(String doc){
+        //Restriccions associades al doctor
+        ArrayList<Integer> res = getRestriccions(doc);
+        ArrayList<Integer> resNoAss  = new ArrayList<Integer>();
+
+        //Ens quedem amb les no associades
+        int s = CtrlRestriccio.consulta_llista_res().size();
+        for(int i = 0; i < s; ++i){
+            boolean associada = false;
+            for (int j = 0; j < res.size() && !associada; ++j) {
+                if (i != res.get(j)) associada = false;
+            }
+            if(!associada) resNoAss.add(i);
+        }
+    }
     
     public static void guardar() {
     	String content = "";

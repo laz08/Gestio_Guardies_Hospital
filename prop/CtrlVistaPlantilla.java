@@ -2,6 +2,7 @@ package prop;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
+import java.io.File;
 
 import javax.swing.JPanel;
 
@@ -58,6 +59,14 @@ public class CtrlVistaPlantilla {
 		}
 	}
 	
+	public void actualitzarLlistaDocs() {
+		doctorssenseplantilla.actualitzarLlistaDoctors();
+	}
+	
+	public void mod(boolean b) {
+		caractplantilla.mod(b);
+	}
+	
 	//FUNCIONS DE COMUNICACIO AMB CAPA DE DOMINI
 	
 	public String obteLlistaPlantilles() {
@@ -76,7 +85,7 @@ public class CtrlVistaPlantilla {
 		return CtrlPlantilla.getPlantillaespecifica(plt);
 	}
 	
-	public String llistaDoctors() {
+	public String llistaDoctorsSensePlt() {
 		return CtrlHospital.getDoctorsSensePlt();
 	}
 	
@@ -90,5 +99,15 @@ public class CtrlVistaPlantilla {
 	
 	public void desasignarDoctorPlantilla(String dni, String plt) {
 		CtrlPlantilla.esborrarDoctordePlantilla(dni, plt);
+	}
+	
+	public void guardarPlantilles(File f) {
+		CtrlPlantilla.guardar(f);
+		plantilles.actualitzarLlistatPlantilles();
+	}
+	
+	public void carregarPlantilles(File f) {
+		CtrlPlantilla.carregar(f);
+		plantilles.actualitzarLlistatPlantilles();
 	}
 }

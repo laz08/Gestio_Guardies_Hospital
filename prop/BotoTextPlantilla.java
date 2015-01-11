@@ -12,9 +12,10 @@ public class BotoTextPlantilla extends BotoText{
 	private LlistatErrorPlantilla llistat;
 	
 	public BotoTextPlantilla(CtrlVistaPlantilla cvp, LlistatErrorPlantilla ll) {
+		remove(textfield1);
 		textfield1 = new JTextField(20);
 		setLayout(new GridBagLayout());
-		remove(textfield1);
+		//remove(textfield1);
 		remove(b1);
 		remove(b2);
 		GridBagConstraints c = new GridBagConstraints();
@@ -33,7 +34,6 @@ public class BotoTextPlantilla extends BotoText{
 		c.gridy = 2;
 		c.gridwidth = 1;
 		add(b2,c);
-		
 		ctrlvp = cvp;
 		llistat = ll;
 		b1.setText("Enrere");

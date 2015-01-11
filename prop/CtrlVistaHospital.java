@@ -130,6 +130,10 @@ public class CtrlVistaHospital {
 
     }
 
+    public void carregaRestriccionsAssociades(String dni){
+        //Donat un DNI d'un doctor, agafem les restriccions associades de Doc_res
+    }
+
     public void stubRestriccions(){
         CtrlRestriccio.nova_res("H (1)XOR(2)");
         CtrlRestriccio.nova_res("D (1-1)XOR(2-1)");

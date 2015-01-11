@@ -28,15 +28,20 @@ public class TresBotonsPlantilla extends TresBotons{
 		else if (arg0.getSource() == b2) {
 			esborrarErrors();
 			int ret = directori.showSaveDialog(this);
-			if (ret == directori.APPROVE_OPTION) CtrlDiscGuardar.guardarh(directori.getSelectedFile());
+			if (ret == directori.APPROVE_OPTION) {
+				ctrlvp.guardarPlantilles(directori.getSelectedFile());
+			}
 		}
 		
 		//b3=carregar
 		else {
 			esborrarErrors();
 			int ret = directori.showOpenDialog(this);
-			if (ret == directori.APPROVE_OPTION) CtrlDiscCarregar.carregarh(directori.getSelectedFile());
+			if (ret == directori.APPROVE_OPTION) {
+				ctrlvp.carregarPlantilles(directori.getSelectedFile());
+			}
 		}
+		
 	}
 	
 	public void setBotoLlistaMesPlantilla(LlistatErrorPlantilla caractplantilla) {
