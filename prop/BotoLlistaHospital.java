@@ -1,9 +1,8 @@
 package prop;
 
-import java.awt.event.ActionEvent;
-
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import java.awt.event.ActionEvent;
 
 public class BotoLlistaHospital extends BotoLlista implements ListSelectionListener {
 	private CtrlVistaHospital ctrlvh;
@@ -26,27 +25,26 @@ public class BotoLlistaHospital extends BotoLlista implements ListSelectionListe
         //Enrere
 		if (arg0.getSource() == b1) {
             ctrlvh.swap(1,1);
+            b2.setEnabled(false);
 		}
 
         //Acceptar
 		else if (arg0.getSource() == b2) {
             //Afegir lligam restricció
             if (!mode){
-                if(!llista1.isSelectionEmpty()) {
-                    String expressio = llista1.getSelectedValue().toString();
-                    ctrlvh.associaRestriccio(expressio, bmth.retornaDNI());
-                    ctrlvh.swap(1,1);
-                }
-
+                String expressio = llista1.getSelectedValue().toString();
+                ctrlvh.associaRestriccio(expressio, bmth.retornaDNI());
+                b2.setEnabled(false);
+                ctrlvh.swap(1,1);
             }
 
             //Eliminar lligam restricció
             else{
-                if(!llista1.isSelectionEmpty()){
-                    String expressio = llista1.getSelectedValue().toString();
-                    ctrlvh.desassociaRestriccio(expressio, bmth.retornaDNI());
-                    ctrlvh.swap(1,1);
-                }
+                String expressio = llista1.getSelectedValue().toString();
+                ctrlvh.desassociaRestriccio(expressio, bmth.retornaDNI());
+                b2.setEnabled(false);
+                ctrlvh.swap(1,1);
+
 
             }
 		}
