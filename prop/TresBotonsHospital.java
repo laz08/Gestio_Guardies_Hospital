@@ -18,18 +18,21 @@ public class TresBotonsHospital extends TresBotons {
 	public void actionPerformed(ActionEvent arg0) {
 		if (arg0.getSource() == b1) {
 			ctrlvh.swap(2,2);
+            ctrlvh.desactivaBotonsRestriccionsEliminar();
 		}
-		else {
-			
-			if (arg0.getSource() == b2) {
-				int ret = directori.showSaveDialog(this);
-				if (ret == directori.APPROVE_OPTION) CtrlDiscGuardar.guardarh(directori.getSelectedFile());
-			}
-			else if (arg0.getSource() == b3) {
-				int ret = directori.showOpenDialog(this);
-				if (ret == directori.APPROVE_OPTION) CtrlDiscCarregar.carregarh(directori.getSelectedFile());
-			}
-		}
-		
+        else if (arg0.getSource() == b2) {
+            int ret = directori.showSaveDialog(this);
+            if (ret == directori.APPROVE_OPTION){
+                CtrlDiscGuardar.guardarh(directori.getSelectedFile());
+                ctrlvh.actualitza_Docs();
+            }
+        }
+        else if (arg0.getSource() == b3) {
+            int ret = directori.showOpenDialog(this);
+            if (ret == directori.APPROVE_OPTION){
+                CtrlDiscCarregar.carregarh(directori.getSelectedFile());
+            }
+            ctrlvh.actualitza_Docs();
+        }
 	}
 }

@@ -7,7 +7,9 @@ import java.awt.*;
 
 public class LlistatErrorHospital extends PanelLlistatError {
 	private CtrlVistaHospital ctrlvh;
-
+    private BotoMesTextHospital bmth;
+    boolean mod = false;
+    
 	public LlistatErrorHospital(CtrlVistaHospital cvh) {
 		ctrlvh = cvh;
 		llista1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -15,10 +17,20 @@ public class LlistatErrorHospital extends PanelLlistatError {
         actualitza_llista_docs();
         esborrarTotsErrors();
 	}
+    public void setBotoMesTextHospital(BotoMesTextHospital b){
+        bmth = b;
+    }
 	
 	public void valueChanged(ListSelectionEvent arg0) {
-        ctrlvh.swap(2,2);
-		llista1.clearSelection();
+		if (!mod) {
+			if (arg0.getSource() == this.llista1) {
+				if (!arg0.getValueIsAdjusting()) {
+					System.out.println("Aqui");
+					bmth.ompleValuesDoctor();
+			        ctrlvh.swap(2,2);
+				}
+			}
+		}        
 	}
 
     public void esborraElementsModel(){
@@ -27,7 +39,9 @@ public class LlistatErrorHospital extends PanelLlistatError {
 
     //AUXILIARS
     public void actualitza_llista_docs(){
-        esborraElementsModel();
+    	ctrlvh.mod(true);
+    	mod = true;
+    	esborraElementsModel();
         String contingut = ctrlvh.getLlistaDocs_nom();
         if (!contingut.equals("")) {
             if (contingut.length() > 0) {
@@ -38,14 +52,8 @@ public class LlistatErrorHospital extends PanelLlistatError {
                 }
             }
         }
-    }
-
-
-
-
-
-    public void modifica_doc(){
-
+        mod = false;
+        ctrlvh.mod(false);
     }
 
 
@@ -79,6 +87,9 @@ public class LlistatErrorHospital extends PanelLlistatError {
         calcula_mida_font();
     }
 
+    public void jaExisteixDocAmbDNI(){
+        error.setText("ERROR: Ja existeix un doctor amb aquest DNI.");
+    }
 
     public void calcula_mida_font(){
         error.setFont(new Font(error.getFont().getName(), Font.PLAIN, 10));

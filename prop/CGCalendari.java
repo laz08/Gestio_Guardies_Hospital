@@ -8,7 +8,7 @@ import javax.swing.JFileChooser;
 public class CGCalendari extends TresBotons{
 	private CtrlVistaCalendari ctrlvc;
 	public CGCalendari(CtrlVistaCalendari cvc) {
-		//ctrlvc = cvc;
+		ctrlvc = cvc;
 		b1.setText("Carregar Calendaris");
 		b2.setText("Guardar Calendaris");
 		b1.addActionListener(this);
@@ -19,18 +19,15 @@ public class CGCalendari extends TresBotons{
 	public void actionPerformed(ActionEvent arg0) {
 		if (arg0.getSource() == b1) {
 			if (directori.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
-				//ctrlvc.carregar(directori.getSelectedFile());
-				//ctrlvc.actualitzar();
+				ctrlvc.carregar(directori.getSelectedFile());
+				ctrlvc.actualitza();
 			}
-			
 		}
 		
-		else {
+		else if (arg0.getSource() == b2){
 			if (directori.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
-				//ctrlvc.guardar(directori.getSelectedFile());
-				//ctrlvc.actualitzar();
+				ctrlvc.guardar(directori.getSelectedFile());
 			}
-			
 		}
 	}
 	

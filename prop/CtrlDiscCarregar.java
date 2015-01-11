@@ -14,7 +14,7 @@ private static DiscCarregar disccarregar;
 	}
 	
 	public static void carregarh(File f) {
-//		CtrlHospital.carregar(f);
+		CtrlHospital.carregar(f);
 	}
 	
 	public static void carregarp(File f) {
