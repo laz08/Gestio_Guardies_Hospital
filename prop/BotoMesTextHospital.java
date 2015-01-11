@@ -177,12 +177,21 @@ public class BotoMesTextHospital extends BotoMesText{
             }
             else {
                 boolean v = modifica_doc();
+                System.out.println("He arribat fins aquí 1");
+
                 if (v){
+                    System.out.println("He arribat fins aquí 2");
+
                     ctrlvh.activaBotonsRestriccionsEliminar();
                     ctrlvh.swap(2, 1);
+                    System.out.println("He arribat fins aquí 3");
+
                     llistat.actualitza_llista_docs();
+                    System.out.println("He arribat fins aquí 4");
+
                     esborraTotsElsCamps();
                     llistat.esborrarTotsErrors();
+                    System.out.println("He arribat fins aquí");
 
                 }
             }

@@ -102,6 +102,9 @@ public class CtrlVistaHospital {
         return CtrlHospital.existeixDoctor(d);
     }
 
+    public void actualitza_Docs(){
+        llistat.actualitza_llista_docs();
+    }
 
 
 }

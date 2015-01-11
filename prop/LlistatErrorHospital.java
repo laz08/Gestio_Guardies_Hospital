@@ -23,9 +23,6 @@ public class LlistatErrorHospital extends PanelLlistatError {
 	public void valueChanged(ListSelectionEvent arg0) {
         bmth.ompleValuesDoctor();
         ctrlvh.swap(2,2);
-		llista1.clearSelection();
-        
-
 	}
 
     public void esborraElementsModel(){

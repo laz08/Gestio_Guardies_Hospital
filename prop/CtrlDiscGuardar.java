@@ -14,7 +14,7 @@ public class CtrlDiscGuardar {
 	}
 	
 	public static void guardarh(File f) {
-	//	CtrlHospital.guardar(f);
+		CtrlHospital.guardar(f);
 	}
 	
 	public static void guardarp(File f) {
