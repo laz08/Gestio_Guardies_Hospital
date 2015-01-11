@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.util.GregorianCalendar;
 
 import javax.swing.JCheckBox;
+import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 
@@ -18,6 +19,10 @@ public class BotoMesTextCalendari extends BotoMesText {
 	private JTextField t11 = new JTextField();
 	private JTextField t12 = new JTextField();
 	private JTextField t13 = new JTextField();
+	private JLabel l7 = new JLabel("Inici");
+	private JLabel l8 = new JLabel("Fi");
+	private JLabel l9 = new JLabel("% sou");
+	private JLabel l10 = new JLabel("Min. Docs.");
 	private GridBagConstraints c = new GridBagConstraints();
 
 	public BotoMesTextCalendari(CtrlVistaCalendari cvc) {
@@ -74,6 +79,22 @@ public class BotoMesTextCalendari extends BotoMesText {
 		c.gridy = 2;
 		c.gridwidth = 1;
 		add(l3, c);
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 1;
+		c.gridy = 2;
+		add(l7, c);
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 2;
+		c.gridy = 2;
+		add(l8, c);
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 3;
+		c.gridy = 2;
+		add(l9, c);
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 4;
+		c.gridy = 2;
+		add(l10, c);
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 0;
 		c.gridy = 3;

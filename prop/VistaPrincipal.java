@@ -34,6 +34,8 @@ public class VistaPrincipal extends JFrame {
                 }
                 else if(pestanyes.getSelectedIndex() == 2){
                     ctrlvc.actualitza();
+                    ctrlvc.swap(1, 1);
+                    ctrlvc.swap(2, 1);
                 }
                 else if(pestanyes.getSelectedIndex() == 3){
                 }

@@ -155,6 +155,7 @@ public class ModelCalendari extends TresBotons implements ListSelectionListener{
 	public void actionPerformed(ActionEvent arg0) {
 		if (arg0.getSource() == this.b1) {
 			ctrlvc.swap(2,1);
+			ctrlvc.swap(1, 1);
 			ctrlvc.removeselection();
 		}
 		else if (arg0.getSource() == this.b2) {
@@ -205,6 +206,7 @@ public class ModelCalendari extends TresBotons implements ListSelectionListener{
 				ctrlvc.carregardia(rany, mes, dia, any.getSelectedItem(), mesos.getSelectedIndex(), model.getValueAt(table.getSelectedRow(),table.getSelectedColumn()));
 				ctrlvc.swap(1,2);
 			}
+			else ctrlvc.swap(1,1);
 
 		}
 	}
