@@ -69,6 +69,9 @@ public class VistaPrincipal extends JFrame {
                     ctrlva.posaDocs();
                     ctrlva.posaTorns();
                 }
+                else if(pestanyes.getSelectedIndex() == 6){
+                	ctrlvr.swap(2,1);
+                }
             }
         });
 		

@@ -5,6 +5,7 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JRadioButton;
@@ -19,6 +20,7 @@ public class BotonsRestriccio extends QuatreBotons{
 	private JTextField restricciocompleta = new JTextField("aaaaaaaa");
 	private GridBagConstraints c = new GridBagConstraints();
 	private JButton neteja = new JButton("Neteja Restriccio");
+	private ButtonGroup gruprestriccio = new ButtonGroup();
 	
 	public BotonsRestriccio(CtrlVistaRestriccio cvr) {
 		ctrlvr = cvr;
@@ -36,6 +38,8 @@ public class BotonsRestriccio extends QuatreBotons{
 		neteja.addActionListener(this);
 		setLayout(new GridBagLayout());
 		b1.addActionListener(this);
+		gruprestriccio.add(bototorn);
+		gruprestriccio.add(botodia);
 		restricciocompleta.setEditable(false);
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 0;
