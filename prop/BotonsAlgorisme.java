@@ -123,25 +123,22 @@ public class BotonsAlgorisme extends DosBotons {
         Algorisme algo;
         if (alg1.isSelected()) {
             if (cost1.isSelected()) {
-                algo = new FordFulkerson(false);
+                CtrlAlgorisme.executaFordFulkerson(false);
             } else {
-                algo = new FordFulkerson(false);
-
+                CtrlAlgorisme.executaFordFulkerson(true);
             }
         } else if (alg2.isSelected()) {
             if (cost1.isSelected()) {
-                algo = new EdmondsKarp(false);
+                CtrlAlgorisme.executaEdmondsKarp(false);
             } else {
-                algo = new EdmondsKarp(true);
+                CtrlAlgorisme.executaEdmondsKarp(true);
             }
         } else {
             if (cost1.isSelected()) {
-                algo = new Dijkstra(false);
+                CtrlAlgorisme.executaDijkstra(false);
             } else {
-                algo = new Dijkstra(true);
+                CtrlAlgorisme.executaDijkstra(true);
             }
         }
-        Thread thr = new Thread(algo);
-        thr.start();
     }
 }

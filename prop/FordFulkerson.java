@@ -19,7 +19,7 @@ public class FordFulkerson extends Algorisme {
         CtrlEntrada.guarda_assignacions(graf);
     }
 
-    private static boolean seguent(Vertex s, String doc_r_pare) throws Error {
+    private boolean seguent(Vertex s, String doc_r_pare) throws Error {
         boolean arriba_a_torn = false;
         if (s.getClasse() != Vertex.TORN) {                                     //si no es un torn
             ArrayList<Integer> la = s.getArestes();                                 //agafam el conjunt d'arrestes que surt del vertex

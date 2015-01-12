@@ -14,6 +14,7 @@ public class VistaPrincipal extends JFrame {
     private CtrlVistaPlantilla ctrlvp;
     private CtrlVistaAlgorisme ctrlval;
     private CtrlVistaRestriccio ctrlvr;
+    private CtrlVistaResultats ctrlvrs;
 	
 	public VistaPrincipal(CtrlVistaPrincipal cvp,CtrlVistaResultats cvrs, CtrlDiscGuardar cdg, CtrlDiscCarregar cdc, CtrlVistaAssignacio cva, CtrlVistaHospital cvh, CtrlVistaPlantilla cvp2, CtrlVistaAlgorisme cval, CtrlVistaRestriccio cvr, CtrlVistaCalendari cvc){
 		ctrlvh = cvh;
@@ -21,6 +22,7 @@ public class VistaPrincipal extends JFrame {
         ctrlvp = cvp2;
         ctrlval = cval;
         ctrlvr = cvr;
+        ctrlvrs = cvrs;
         setTitle("Gestió de guàrdies d'un hospital");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setPreferredSize(new Dimension(900,600));
@@ -67,6 +69,10 @@ public class VistaPrincipal extends JFrame {
         });
 		
 	}
+        
+        public void posaResultat(int nr, long r){
+            ctrlvrs.posaResultats(nr, r);
+        }
 	
 	public void visible() {
 		pack();

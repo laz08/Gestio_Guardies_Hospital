@@ -12,8 +12,8 @@ public class Resultats extends BotoText{
 	private JLabel texta1 = new JLabel("Ford-Fulkerson");
 	private JLabel texta2 = new JLabel("Edmond's Karp");
 	private JLabel texta3 = new JLabel("3r Algorisme");
-	private JTextField textfield2 = new JTextField("");
-	private JTextField textfield3 = new JTextField("");
+	private JTextField textfield2 = new JTextField("-");
+	private JTextField textfield3 = new JTextField("-");
 	private GridBagConstraints c = new GridBagConstraints();
 	
 	
@@ -22,10 +22,14 @@ public class Resultats extends BotoText{
 		textfield1.setEditable(false);
 		textfield2.setEditable(false);
 		textfield3.setEditable(false);
+                textfield1.setHorizontalAlignment(JTextField.CENTER);
+                textfield2.setHorizontalAlignment(JTextField.CENTER);
+                textfield3.setHorizontalAlignment(JTextField.CENTER);
+
 		setLayout(new GridBagLayout());
 		remove(b1);
 		remove(b2);
-		textfield1.setText("");
+		textfield1.setText("-");
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 1;
 		c.gridy = 0;
@@ -64,4 +68,18 @@ public class Resultats extends BotoText{
 		
 		
 	}
+        
+        public void setResultats(int nr, long r){
+            switch(nr){
+                case 1:
+                    textfield1.setText(r+" ms");
+                    break;
+                case 2:
+                    textfield2.setText(r+" ms");
+                    break;
+                case 3:
+                    textfield3.setText(r+" ms");
+                    break;
+            }
+        }
 }

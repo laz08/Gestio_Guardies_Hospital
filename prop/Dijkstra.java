@@ -67,7 +67,7 @@ public class Dijkstra extends Algorisme {
         CtrlEntrada.guarda_assignacions(graf);
     }
 
-    private static ArrayList<Aresta> posaDoctors() {
+    private ArrayList<Aresta> posaDoctors() {
         ArrayList<Aresta> arestes = new ArrayList<Aresta>();
         Vertex font = graf.getVertex("FONT", Vertex.FONT_POU);
         ArrayList<Integer> la = font.getArestes();
@@ -162,7 +162,7 @@ public class Dijkstra extends Algorisme {
         return bloquejats;
     }
 
-    private static void preparaGraf() {
+    private void preparaGraf() {
         ArrayList<Integer> vertex = seleccionaTorns();
         while (!vertex.isEmpty()) {
             int nv = vertex.get(0);
@@ -191,7 +191,7 @@ public class Dijkstra extends Algorisme {
         return min;
     }
 
-    private static ArrayList<Integer> marcaArestaEntrada(int min, Vertex v) {
+    private ArrayList<Integer> marcaArestaEntrada(int min, Vertex v) {
         ArrayList<Integer> lvEntrada = new ArrayList<Integer>();
         if (!selSou) {
             ArrayList<Integer> la = v.getArestes();

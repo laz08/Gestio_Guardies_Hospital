@@ -42,7 +42,7 @@ public class EdmondsKarp extends Algorisme {
      *
      * @param s Vertex inicial
      */
-    private static void recorregut_en_amplada(Vertex s) {
+    private void recorregut_en_amplada(Vertex s) {
         cua = new ArrayList<Vertex>();                                          // cream una cua que farem servir per el recorregut en amplada
         cua.add(s);                                                             // afagim el primer vertex 
         while (!cua.isEmpty()) {                                                // mentre la cua no sigui buida
@@ -110,7 +110,7 @@ public class EdmondsKarp extends Algorisme {
         }
     }
 
-    private static void tractaVertexTorn(Vertex vp, Vertex v, Aresta a) {
+    private void tractaVertexTorn(Vertex vp, Vertex v, Aresta a) {
 ////        if (vp.getClasse() == Vertex.RESTRICCIO) {                          //si el vertex pare es una restriccio
         int minDoc = ((Torn) v.getObjecte()).getMin_num_doctors();              //agafam el nombre minim de doctors necessaris per aquest torn                         
         //Vertex vt = graf.getVertex(v.getId(), Vertex.TORN);
@@ -143,7 +143,7 @@ public class EdmondsKarp extends Algorisme {
 //        }
     }
 
-    private static void puja_flow(Vertex v, Aresta a) {
+    private void puja_flow(Vertex v, Aresta a) {
         if (v.getClasse() != Vertex.FONT_POU) {
             a.addFlow(1);
             Vertex vp = graf.getVertex(a.getv());
@@ -197,7 +197,7 @@ public class EdmondsKarp extends Algorisme {
 //            puja_flow(vp, aresta);
 //        }
 //    }
-    private static void elimina_fills_xor(Vertex vp, Vertex v) {
+    private void elimina_fills_xor(Vertex vp, Vertex v) {
         ArrayList<Integer> la = vp.getArestes();
         String tipusR = ((R_XOR) vp.getObjecte()).getTipus();
         boolean trobat = false;
