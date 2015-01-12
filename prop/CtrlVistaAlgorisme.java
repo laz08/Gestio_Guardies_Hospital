@@ -22,14 +22,21 @@ public class CtrlVistaAlgorisme {
     public JPanel tornavista() {
         return algorisme;
     }
-    
+
     //FUNCIONS DE COMUNICACIO AMB CAPA DE DOMINI
-    
     public String obteLlistaPlantilles() {
-    	return CtrlPlantilla.getLlista_plantilles();
+        return CtrlPlantilla.getLlista_plantilles();
     }
 
-    public void actualitzaLlistaPlantilles(){
+    public void actualitzaLlistaPlantilles() {
         llistatalgorisme.afegirPlantilles();
+    }
+
+    public boolean teCalendariAssociat(String plantilla) {
+        return CtrlPlantilla.existeixCalendari(plantilla);
+    }
+    
+    public void seleccionaPlantilla(String plantilla){
+        CtrlPlantilla.setPlantillaActual(plantilla);
     }
 }

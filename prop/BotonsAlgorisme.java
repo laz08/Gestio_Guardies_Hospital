@@ -67,10 +67,10 @@ public class BotonsAlgorisme extends DosBotons {
                 CtrlAlgorisme.initGraf();
                 String tv = textvertexs.getText();
                 String[] text = tv.split(":");
-                textvertexs.setText(text[0] + " " + CtrlAlgorisme.getNumVertex());
+                textvertexs.setText(text[0] + ": " + CtrlAlgorisme.getNumVertex());
                 String ta = textarestes.getText();
                 text = ta.split(":");
-                textvertexs.setText(text[0] + " " + CtrlAlgorisme.getNumArestes());
+                textarestes.setText(text[0] + ": " + CtrlAlgorisme.getNumArestes());
                 b2.setEnabled(true);
             }
         });
