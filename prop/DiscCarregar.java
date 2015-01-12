@@ -2,6 +2,7 @@ package prop;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.io.File;
 
@@ -27,13 +28,10 @@ public class DiscCarregar extends QuatreBotons{
 		remove(b3);
 		remove(b4);
 		setLayout(new GridBagLayout());
-		b1.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
-		b2.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
-		b3.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
-		b4.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 0;
 		c.gridy = 0;
+		c.insets = new Insets(20,10,10,20);
 		add(b1, c);
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 2;
