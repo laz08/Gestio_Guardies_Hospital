@@ -1,7 +1,10 @@
 package prop;
 
 import javax.swing.*;
+
 import java.awt.*;
+import java.io.File;
+import java.util.ArrayList;
 
 public class CtrlVistaRestriccio {
 	private CtrlVistaPrincipal ctrlvp;
@@ -40,5 +43,25 @@ public class CtrlVistaRestriccio {
 	public void habilitaoperacions(boolean operacions) {
 		botons.habilitaoperacions(operacions);
 	}
+
+	public void carregar(File selectedFile) {
+		CtrlRestriccio.carregar(selectedFile);
+	}
+
+	public void guardar(File selectedFile) {
+		CtrlRestriccio.guardar(selectedFile);
+	}
+
+	public void actualitza() {
+		llistat.actualitza(getLlistaRestriccions());
+	}
+	
+	public ArrayList<String> getLlistaRestriccions(){
+        ArrayList<String> llista = new ArrayList<String>();
+        for(int i=0; i<CtrlRestriccio.consulta_llista_res().size(); i++){
+            llista.add(CtrlRestriccio.consulta_explesio_res(i));
+        }
+        return llista;
+    }
 	
 }

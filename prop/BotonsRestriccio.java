@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
@@ -21,6 +22,8 @@ public class BotonsRestriccio extends QuatreBotons{
 	private GridBagConstraints c = new GridBagConstraints();
 	private JButton neteja = new JButton("Neteja Restriccio");
 	private ButtonGroup gruprestriccio = new ButtonGroup();
+	private JButton carrega = new JButton("Carregar Restriccions");
+	private JButton guarda = new JButton("Guardar Restriccions");
 	
 	public BotonsRestriccio(CtrlVistaRestriccio cvr) {
 		ctrlvr = cvr;
@@ -95,6 +98,18 @@ public class BotonsRestriccio extends QuatreBotons{
 		else if (arg0.getSource() == botodia) {
 			bototorn.setSelected(false);
 			restricciocompleta.setText("D");
+		}
+		else if (arg0.getSource() == carrega) {
+			if (directori.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+				ctrlvr.carregar(directori.getSelectedFile());
+				ctrlvr.actualitza();
+			}
+		}
+		else if (arg0.getSource() == guarda) {
+			if (directori.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
+				ctrlvr.guardar(directori.getSelectedFile());
+				ctrlvr.actualitza();
+			}
 		}
 	}
 
