@@ -11,16 +11,17 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
 public class BotonsRestriccio extends QuatreBotons{
-	//private CtrlVistaRestriccio ctrlvr;
+	private CtrlVistaRestriccio ctrlvr;
 	private JRadioButton bototorn = new JRadioButton("Torn");
 	private JRadioButton botodia = new JRadioButton("Dia");
 	private JLabel obrircalendari = new JLabel("Selecciona una data:");
 	private JLabel textcomplet = new JLabel("Restricció Completa");
-	private JTextField restricciocompleta = new JTextField();
+	private JTextField restricciocompleta = new JTextField("aaaaaaaa");
 	private GridBagConstraints c = new GridBagConstraints();
 	private JButton neteja = new JButton("Neteja Restriccio");
 	
-	public BotonsRestriccio() { //(CtrlVistaRestriccio cvr) {
+	public BotonsRestriccio(CtrlVistaRestriccio cvr) {
+		ctrlvr = cvr;
 		remove(b1);
 		remove(b2);
 		remove(b3);
@@ -29,6 +30,10 @@ public class BotonsRestriccio extends QuatreBotons{
 		b2.setText("XOR");
 		b3.setText("AND");
 		b4.setText("NOP");
+		habilitaoperacions(false);
+		bototorn.addActionListener(this);
+		botodia.addActionListener(this);
+		neteja.addActionListener(this);
 		setLayout(new GridBagLayout());
 		b1.addActionListener(this);
 		restricciocompleta.setEditable(false);
@@ -66,11 +71,32 @@ public class BotonsRestriccio extends QuatreBotons{
 		c.gridx = 0;
 		c.gridy = 5;
 		add(neteja, c);
+		bototorn.doClick();
 	}
 	
 	public void actionPerformed(ActionEvent arg0) {
 		if (arg0.getSource() == this.b1) {
-			
+			ctrlvr.habilitatorns(bototorn.isSelected());
+			ctrlvr.swap(2,2);
 		}
+		else if (arg0.getSource() == neteja) {
+			if (bototorn.isSelected())restricciocompleta.setText("H");
+			else if (botodia.isSelected())restricciocompleta.setText("D");
+			else restricciocompleta.setText("");
+		}
+		else if (arg0.getSource() == bototorn) {
+			botodia.setSelected(false);
+			restricciocompleta.setText("H");
+		}
+		else if (arg0.getSource() == botodia) {
+			bototorn.setSelected(false);
+			restricciocompleta.setText("D");
+		}
+	}
+
+	public void habilitaoperacions(boolean operacions) {
+		b2.setEnabled(operacions);
+		b3.setEnabled(operacions);
+		b4.setEnabled(operacions);
 	}
 }

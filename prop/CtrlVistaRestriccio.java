@@ -10,14 +10,16 @@ public class CtrlVistaRestriccio {
 	private CtrlVistaPrincipal ctrlvp;
 	private JPanel restriccions = new JPanel();
 	private JPanel dret = new JPanel();
-	private LlistatErrorRestriccio llistat= new LlistatErrorRestriccio();
-	private BotonsRestriccio botons = new BotonsRestriccio();
+	private CalendariRestriccio calendari = new CalendariRestriccio(this);
+	private LlistatErrorRestriccio llistat= new LlistatErrorRestriccio(this);
+	private BotonsRestriccio botons = new BotonsRestriccio(this);
 	
 	public CtrlVistaRestriccio(CtrlVistaPrincipal cvp) {
 		ctrlvp = cvp;
 		restriccions.setLayout(new BorderLayout());
 		dret.setLayout(new CardLayout());
-		dret.add(botons, "1-1");
+		dret.add(botons, "2-1");
+		dret.add(calendari, "2-2");
 		restriccions.add(llistat, BorderLayout.WEST);
 		restriccions.add(dret, BorderLayout.EAST);
 	}
@@ -25,4 +27,19 @@ public class CtrlVistaRestriccio {
 	public Component tornavista() {
 		return restriccions;
 	}
+	
+	public void swap(int banda, int numpanelins) {
+		if (banda == 2) {
+			CardLayout cl = (CardLayout) dret.getLayout();
+			cl.show(dret, String.valueOf(banda)+"-"+String.valueOf(numpanelins));
+		}
+	}
+	public void habilitatorns(boolean torns) {
+		calendari.habilitatorns(torns);
+	}
+	
+	public void habilitaoperacions(boolean operacions) {
+		botons.habilitaoperacions(operacions);
+	}
+	
 }
