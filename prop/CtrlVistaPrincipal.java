@@ -16,7 +16,7 @@ public class CtrlVistaPrincipal {
 		vistaprincipal = new VistaPrincipal(this, cvrs, cdg, cdc, cva, cvh, cvp, cval, cvr, cvc);
 	}
         
-        public void posaResultat(int nr, long r){
+        public static void posaResultat(int nr, long r){
             vistaprincipal.posaResultat(nr, r);
         }
         
