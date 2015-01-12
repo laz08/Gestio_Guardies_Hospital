@@ -1,9 +1,7 @@
 package prop;
 
-import java.awt.BorderLayout;
-import java.awt.Component;
-
-import javax.swing.JPanel;
+import javax.swing.*;
+import java.awt.*;
 
 public class CtrlVistaAlgorisme {
 	private CtrlVistaPrincipal ctrlvp;
@@ -14,6 +12,7 @@ public class CtrlVistaAlgorisme {
 	public CtrlVistaAlgorisme(CtrlVistaPrincipal cvp) {
 		ctrlvp = cvp;
 		algorisme.setLayout(new BorderLayout());
+        algorisme.setBorder(BorderFactory.createEmptyBorder(10, 15, 5, 60));
 		algorisme.add(llistatalgorisme, BorderLayout.WEST);
 		algorisme.add(botonsalgorisme, BorderLayout.EAST);
 	}
