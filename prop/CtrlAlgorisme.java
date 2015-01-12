@@ -16,10 +16,14 @@ public class CtrlAlgorisme {
     }
     
     public static void initGraf(){
-        graf = CtrlEntrada.crea_graf();
+        graf = Entrada.crea_graf();
     }
     
     public static int getNumArestes(){
         return graf.getNumA();
+    }
+
+    public static Graf getGraf(){
+        return graf;
     }
 }
