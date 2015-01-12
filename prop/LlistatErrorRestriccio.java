@@ -14,6 +14,9 @@ public class LlistatErrorRestriccio extends PanelLlistatError{
 		remove(scroll1);
 		add(textres, BorderLayout.NORTH);
 		add(scroll1);
+
+        setPreferredSize(new Dimension(343, 250));
+        setMaximumSize(new Dimension(343, 250));
 	}
 
 	public void actualitza(ArrayList<String> arrayList) {
