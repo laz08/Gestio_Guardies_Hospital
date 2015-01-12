@@ -43,4 +43,20 @@ public class CtrlVistaAlgorisme {
     public void actualitzaDocTorns(){
         ctrlvp.actualitzaDocTorns();
     }
+    
+    public void iniciarGraf() {
+    	if(llistatalgorisme.llista1.getSelectedIndex()!=-1) {
+    		String plt = llistatalgorisme.llista1.getSelectedValue().toString();
+    		CtrlAlgorisme.iniciarGraf(plt);
+    	}
+    }
+    
+    public boolean iniciarExecucio() {
+    	if(llistatalgorisme.llista1.getSelectedIndex()!=-1) {
+    		String plt = llistatalgorisme.llista1.getSelectedValue().toString();
+    		CtrlPlantilla.setPlantillaActual(plt);
+    		if(CtrlCalendari.existeixCalendari(plt)) return true;
+    	}
+    	return false;
+    }
 }

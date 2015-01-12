@@ -21,6 +21,10 @@ public class CtrlAlgorisme {
         graf = Entrada.crea_graf();
     }
     
+    public static void iniciarGraf(String plt) {
+    	graf = Entrada.crea_graf_plt(plt);
+    }
+    
     public static int getNumArestes(){
         return graf.getNumA();
     }

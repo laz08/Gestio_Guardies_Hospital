@@ -64,7 +64,8 @@ public class BotonsAlgorisme extends DosBotons {
         add(b1, c);
         b1.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
-                CtrlAlgorisme.initGraf();
+            	ctrlval.iniciarGraf();
+                //CtrlAlgorisme.initGraf();
                 String tv = textvertexs.getText();
                 String[] text = tv.split(":");
                 textvertexs.setText(text[0] + ": " + CtrlAlgorisme.getNumVertex());
@@ -122,24 +123,27 @@ public class BotonsAlgorisme extends DosBotons {
 
     private void ExecutaAlgorisme(ActionEvent evt) {
         Algorisme algo;
-        if (alg1.isSelected()) {
-            if (cost1.isSelected()) {
-                CtrlAlgorisme.executaFordFulkerson(false);
-            } else {
-                CtrlAlgorisme.executaFordFulkerson(true);
-            }
-        } else if (alg2.isSelected()) {
-            if (cost1.isSelected()) {
-                CtrlAlgorisme.executaEdmondsKarp(false);
-            } else {
-                CtrlAlgorisme.executaEdmondsKarp(true);
-            }
-        } else {
-            if (cost1.isSelected()) {
-                CtrlAlgorisme.executaDijkstra(false);
-            } else {
-                CtrlAlgorisme.executaDijkstra(true);
-            }
+        boolean b = ctrlval.iniciarExecucio();
+        if(b) {
+	        if (alg1.isSelected()) {
+	            if (cost1.isSelected()) {
+	                CtrlAlgorisme.executaFordFulkerson(false);
+	            } else {
+	                CtrlAlgorisme.executaFordFulkerson(true);
+	            }
+	        } else if (alg2.isSelected()) {
+	            if (cost1.isSelected()) {
+	                CtrlAlgorisme.executaEdmondsKarp(false);
+	            } else {
+	                CtrlAlgorisme.executaEdmondsKarp(true);
+	            }
+	        } else {
+	            if (cost1.isSelected()) {
+	                CtrlAlgorisme.executaDijkstra(false);
+	            } else {
+	                CtrlAlgorisme.executaDijkstra(true);
+	            }
+	        }
         }
     }
 }
