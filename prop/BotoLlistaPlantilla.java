@@ -1,14 +1,8 @@
 package prop;
 
-import java.awt.GridLayout;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
-
-import javax.swing.DefaultListModel;
-import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.ListSelectionModel;
 
 
 public class BotoLlistaPlantilla extends BotoLlista{
@@ -75,7 +69,8 @@ public class BotoLlistaPlantilla extends BotoLlista{
                 String separadors = "[ \n]";
                 String[] separat = content.split(separadors);
                 for (int i = 0; i < separat.length; i += 4) {
-                    model1.addElement(separat[i] + " " + separat[i + 1] + " " + separat[i + 2] + " " + separat[i + 3]);
+                    //model1.addElement(separat[i] + " " + separat[i + 1] + " " + separat[i + 2] + " " + separat[i + 3]);
+                    model1.addElement(separat[i] + " | " + separat[i + 2] + " " + separat[i + 3]+ ", " +separat[i + 1] );
                 }
             }
         }

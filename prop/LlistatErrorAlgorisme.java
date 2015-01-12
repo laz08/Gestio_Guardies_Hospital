@@ -3,7 +3,6 @@ package prop;
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import java.awt.*;
-import java.util.Iterator;
 
 public class LlistatErrorAlgorisme extends PanelLlistatError {
 	private CtrlVistaAlgorisme ctrlval;
@@ -13,9 +12,10 @@ public class LlistatErrorAlgorisme extends PanelLlistatError {
 		ctrlval = cval;
 		remove(scroll1);
 		add(textplantilla, BorderLayout.NORTH);
-                afegirPlantilles();
 		add(scroll1);
+		afegirPlantilles();
 		llista1.addListSelectionListener(this);
+		
 	}
 	
 	public void valueChanged(ListSelectionEvent arg0) {
@@ -27,9 +27,17 @@ public class LlistatErrorAlgorisme extends PanelLlistatError {
 	}
         
         
-        private void afegirPlantilles(){
-            for (Plantilla p : CtrlPlantilla.getCjt_plantilles()) {
-                model1.addElement(p.getNomPlantilla());
+    public void afegirPlantilles(){
+        String content = ctrlval.obteLlistaPlantilles();
+        model1.removeAllElements();
+        if(!content.equals("")) {
+            if(content.length() > 0) {
+                String separadors = "[ \n]";
+                String[] separat = content.split(separadors);
+                for (int i = 0; i < separat.length; i += 1) {
+                    model1.addElement(separat[i]);
+                }
             }
         }
+    }
 }

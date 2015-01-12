@@ -16,9 +16,20 @@ public class CtrlVistaAlgorisme {
         algorisme.setBorder(BorderFactory.createEmptyBorder(10, 15, 5, 60));
         algorisme.add(llistatalgorisme, BorderLayout.WEST);
         algorisme.add(botonsalgorisme, BorderLayout.EAST);
+        llistatalgorisme.afegirPlantilles();
     }
 
     public JPanel tornavista() {
         return algorisme;
+    }
+    
+    //FUNCIONS DE COMUNICACIO AMB CAPA DE DOMINI
+    
+    public String obteLlistaPlantilles() {
+    	return CtrlPlantilla.getLlista_plantilles();
+    }
+
+    public void actualitzaLlistaPlantilles(){
+        llistatalgorisme.afegirPlantilles();
     }
 }

@@ -68,7 +68,8 @@ public class BotoLlistaMesPlantilla extends BotoLlista {
 	           String separadors = "[ \n]";
 	           String[] separat = content.split(separadors);
 	           for (int i = 0; i < separat.length; i += 4) {
-	               model1.addElement(separat[i] + " " + separat[i + 1] + " " + separat[i + 2] + " " + separat[i + 3]);
+                   //model1.addElement(separat[i] + " " + separat[i + 1] + " " + separat[i + 2] + " " + separat[i + 3]);
+                   model1.addElement(separat[i] + " | " + separat[i + 2] + " " + separat[i + 3]+ ", " +separat[i + 1] );
 	           }
 	       }
 	   }
@@ -86,7 +87,8 @@ public class BotoLlistaMesPlantilla extends BotoLlista {
 	           String separadors = "[ \n]";
 	           String[] separat = content.split(separadors);
 	           for (int i = 0; i < separat.length; i += 4) {
-	               model1.addElement(separat[i] + " " + separat[i + 1] + " " + separat[i + 2] + " " + separat[i + 3]);
+	              // model1.addElement(separat[i] + " " + separat[i + 1] + " " + separat[i + 2] + " " + separat[i + 3]);
+                   model1.addElement(separat[i] + " | " + separat[i + 2] + " " + separat[i + 3]+ ", " +separat[i + 1] );
 	           }
 	       }
 	   }
