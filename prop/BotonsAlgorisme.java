@@ -5,6 +5,7 @@ import java.awt.GridBagLayout;
 
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JRadioButton;
 
 public class BotonsAlgorisme extends DosBotons{
 	CtrlVistaAlgorisme ctrlval;
@@ -13,8 +14,11 @@ public class BotonsAlgorisme extends DosBotons{
 	private JLabel textarestes = new JLabel("Nombre d'arestes:");
 	private String[] algorismes = {"Ford-Fulkerson", "Edmond's Karp", "FF + Dijkstra"};
 	private String[] funcionscost = {"Mínim Doctors", "Mínim Sou"};
-	private JComboBox algs = new JComboBox(algorismes);
-	private JComboBox costs = new JComboBox(funcionscost);
+	private JRadioButton alg1 = new JRadioButton("Ford-Fulkerson");
+	private JRadioButton alg2 = new JRadioButton("Edmonds-Karp");
+	private JRadioButton alg3 = new JRadioButton("FF+Dijkstra");
+	private JRadioButton cost1 = new JRadioButton("Mínim de Doctors");
+	private JRadioButton cost2 = new JRadioButton("Mínim Doctors i Sou");
 	private GridBagConstraints c = new GridBagConstraints();
 	
 	public BotonsAlgorisme(CtrlVistaAlgorisme cval) {
@@ -45,15 +49,35 @@ public class BotonsAlgorisme extends DosBotons{
 		c.gridwidth = 1;
 		add(b1, c);
 		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 0;
+		c.gridy = 4;
+		c.gridwidth = 1;
+		add(alg1, c);
+		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 1;
 		c.gridy = 4;
 		c.gridwidth = 1;
-		add(algs, c);
+		add(cost1, c);
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 0;
+		c.gridy = 5;
+		c.gridwidth = 1;
+		add(alg2, c);
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 1;
 		c.gridy = 5;
 		c.gridwidth = 1;
-		add(costs, c);
+		add(cost1, c);
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 0;
+		c.gridy = 6;
+		c.gridwidth = 1;
+		add(alg3, c);
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 1;
+		c.gridy = 6;
+		c.gridwidth = 1;
+		add(cost2, c);
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 2;
 		c.gridy = 3;
