@@ -13,14 +13,13 @@ public class DriverCtrlEntrada {
 
     public static void main(String[] args) throws Error {
         prepara_prova();
-        graf = CtrlEntrada.crea_graf();
-        Algorisme algo = new Dijkstra(true,graf);
+        CtrlAlgorisme.initGraf();
+        Algorisme algo = new Dijkstra(true);
         //algo.maxFlow();
         Thread thr = new Thread(algo);
         thr.start();
         //graf.mostra_graf();
         while(thr.isAlive());
-        CtrlEntrada.guarda_assignacions(graf);
         Doc_Torn.mostraRelacions();
     }
 

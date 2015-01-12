@@ -3,12 +3,12 @@ package prop;
 import java.util.*;
 import java.math.*;
 import java.io.*;
-import static prop.Algorisme.graf;
+import static prop.CtrlAlgorisme.graf;
 
 public class FordFulkerson extends Algorisme {
 
-    public FordFulkerson(boolean selSou, Graf g) {
-        super(selSou, g);
+    public FordFulkerson(boolean selSou) {
+        super(selSou);
     }
 
     @Override
@@ -16,6 +16,7 @@ public class FordFulkerson extends Algorisme {
         graf.resetFlow();
         Doc_Torn.removeAll();
         seguent(graf.getVertex("FONT", Vertex.FONT_POU), null);
+        CtrlEntrada.guarda_assignacions(graf);
     }
 
     private static boolean seguent(Vertex s, String doc_r_pare) throws Error {

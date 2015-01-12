@@ -5,7 +5,7 @@
 package prop;
 
 import java.util.ArrayList;
-import static prop.Algorisme.graf;
+import static prop.CtrlAlgorisme.graf;
 
 /**
  *
@@ -26,14 +26,15 @@ public class EdmondsKarp extends Algorisme {
      * @param selSou Si es 'true' llavors selcciona per sou; Si es 'false' només
      * es basa en complir el minim de doctors per torn
      */
-    public EdmondsKarp(boolean selSou, Graf g) {
-        super(selSou, g);
+    public EdmondsKarp(boolean selSou) {
+        super(selSou);
     }
 
     @Override
     public void maxFlow() {
         graf.resetFlow();                                                       // posam tot el flow a 0
         recorregut_en_amplada(graf.getVertex("FONT", Vertex.FONT_POU));         // iniciam el recorregut en amplada a partir del vertex font
+        CtrlEntrada.guarda_assignacions(graf);
     }
 
     /**

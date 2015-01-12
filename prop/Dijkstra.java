@@ -7,7 +7,7 @@ package prop;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import static prop.Algorisme.graf;
+import static prop.CtrlAlgorisme.graf;
 
 /**
  *
@@ -17,8 +17,8 @@ public class Dijkstra extends Algorisme {
 
     private static ArrayList<Aresta> arestesPendents;
 
-    public Dijkstra(boolean selSou, Graf g) {
-        super(selSou, g);
+    public Dijkstra(boolean selSou) {
+        super(selSou);
         preparaGraf();
     }
 
@@ -64,6 +64,7 @@ public class Dijkstra extends Algorisme {
             }
 
         }
+        CtrlEntrada.guarda_assignacions(graf);
     }
 
     private static ArrayList<Aresta> posaDoctors() {
