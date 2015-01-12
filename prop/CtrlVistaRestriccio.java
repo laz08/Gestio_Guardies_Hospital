@@ -1,10 +1,7 @@
 package prop;
 
-import java.awt.BorderLayout;
-import java.awt.CardLayout;
-import java.awt.Component;
-
-import javax.swing.JPanel;
+import javax.swing.*;
+import java.awt.*;
 
 public class CtrlVistaRestriccio {
 	private CtrlVistaPrincipal ctrlvp;
@@ -20,7 +17,9 @@ public class CtrlVistaRestriccio {
 		dret.setLayout(new CardLayout());
 		dret.add(botons, "2-1");
 		dret.add(calendari, "2-2");
-		restriccions.add(llistat, BorderLayout.WEST);
+
+        restriccions.setBorder(BorderFactory.createEmptyBorder(10, 15, 5, 0));
+        restriccions.add(llistat, BorderLayout.WEST);
 		restriccions.add(dret, BorderLayout.EAST);
 	}
 
