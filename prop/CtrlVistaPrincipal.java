@@ -11,7 +11,8 @@ public class CtrlVistaPrincipal {
 		CtrlVistaAssignacio cva = new CtrlVistaAssignacio(this);
 		CtrlVistaResultats cvrs = new CtrlVistaResultats(this);
 		CtrlVistaAlgorisme cval = new CtrlVistaAlgorisme(this);
+		CtrlVistaRestriccio cvr = new CtrlVistaRestriccio(this);
 		
-		vistaprincipal = new VistaPrincipal(this, cvrs, cdg, cdc, cva, cvh, cvp, cval,cvc);
+		vistaprincipal = new VistaPrincipal(this, cvrs, cdg, cdc, cva, cvh, cvp, cval, cvr, cvc);
 	}
 }
