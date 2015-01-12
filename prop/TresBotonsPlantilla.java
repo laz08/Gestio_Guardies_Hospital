@@ -1,5 +1,6 @@
 package prop;
 
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 
 
@@ -9,13 +10,16 @@ public class TresBotonsPlantilla extends TresBotons{
 	
 	public TresBotonsPlantilla(CtrlVistaPlantilla cvp){
 		ctrlvp = cvp;
-		b1.setText("Crear Plantilla");
-		b2.setText("Guardar Plantilla");
-		b3.setText("Carregar Plantilla");
+
+		b1.setText("<html> Crear <br /> Plantilles </html>");
+		b2.setText("<html> Guardar <br /> Plantilles </html>");
+		b3.setText("<html> Carregar <br /> Plantilles </html>");
 		b1.addActionListener(this);
 		b2.addActionListener(this);
 		b3.addActionListener(this);
-	}
+        setBorder(BorderFactory.createEmptyBorder(250, 15, 5, 80));
+
+    }
 	
 	public void actionPerformed(ActionEvent arg0) {
 		//b1=crear plantilla, canviem de panell a BotoTextPlantilla

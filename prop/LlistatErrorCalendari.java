@@ -1,15 +1,21 @@
 package prop;
 
-import java.awt.Dimension;
-
+import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
+import java.awt.*;
 
 
 public class LlistatErrorCalendari extends PanelLlistatError{
 	private CtrlVistaCalendari ctrlvc;
+    private JLabel titolllistat = new JLabel("LLISTAT DE PLANTILLES", SwingConstants.CENTER);
 
 	public LlistatErrorCalendari(CtrlVistaCalendari cvc) {
 		ctrlvc = cvc;
+
+        remove(scroll1);
+        add(titolllistat, BorderLayout.NORTH);
+        add(scroll1);
+
 		llista1.addListSelectionListener(this);
 		model1.removeAllElements();
 		actualitzar();

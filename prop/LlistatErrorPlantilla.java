@@ -1,18 +1,26 @@
 package prop;
 
-import javax.swing.ListSelectionModel;
+import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import java.awt.*;
 
 
 public class LlistatErrorPlantilla extends PanelLlistatError implements ListSelectionListener{
 	private CtrlVistaPlantilla ctrlvp;
 	private BotoLlistaMesPlantilla pltconcreta;
-	boolean mod = false;
+    private JLabel titolllistat = new JLabel("LLISTAT DE PLANTILLES", SwingConstants.CENTER);
+
+    boolean mod = false;
 
 	public LlistatErrorPlantilla(CtrlVistaPlantilla cvp){
 		ctrlvp = cvp;
 		esborrarErrors();
+
+        remove(scroll1);
+        add(titolllistat, BorderLayout.NORTH);
+        add(scroll1);
+
 		//model1.addElement(String.valueOf("Clica aqui"));
 		actualitzarLlistatPlantilles();
 		llista1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -69,7 +77,7 @@ public class LlistatErrorPlantilla extends PanelLlistatError implements ListSele
 	}
 	
 	public void esborrarErrors() {
-		error.setText("");
+		error.setText(" ");
 	}
 
 	public void removeselection() {

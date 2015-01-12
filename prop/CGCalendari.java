@@ -1,8 +1,7 @@
 package prop;
 
+import javax.swing.*;
 import java.awt.event.ActionEvent;
-
-import javax.swing.JFileChooser;
 
 
 public class CGCalendari extends TresBotons{
@@ -13,8 +12,9 @@ public class CGCalendari extends TresBotons{
 		b2.setText("Guardar Calendaris");
 		b1.addActionListener(this);
 		b2.addActionListener(this);
-		remove(b3);
-	}
+        remove(b3);
+        setBorder(BorderFactory.createEmptyBorder(250, 15, 5, 0));
+    }
 	
 	public void actionPerformed(ActionEvent arg0) {
 		if (arg0.getSource() == b1) {

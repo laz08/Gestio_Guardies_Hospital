@@ -8,10 +8,15 @@ import java.awt.*;
 public class LlistatErrorHospital extends PanelLlistatError {
 	private CtrlVistaHospital ctrlvh;
     private BotoMesTextHospital bmth;
+    private JLabel titolllistat = new JLabel("LLISTAT DE DOCTORS", SwingConstants.CENTER);
     boolean mod = false;
     
 	public LlistatErrorHospital(CtrlVistaHospital cvh) {
 		ctrlvh = cvh;
+        remove(scroll1);
+        add(titolllistat, BorderLayout.NORTH);
+        add(scroll1);
+
 		llista1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		llista1.addListSelectionListener(this);
         actualitza_llista_docs();

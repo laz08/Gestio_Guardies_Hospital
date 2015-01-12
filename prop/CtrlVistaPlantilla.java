@@ -22,7 +22,9 @@ public class CtrlVistaPlantilla {
 		plantilla.setLayout(new BorderLayout());
 		dret.setLayout(new CardLayout());
 		esquerre.setLayout(new CardLayout());
-		dret.add(crearguardarcarregar, "2-1");
+        esquerre.setBorder(BorderFactory.createEmptyBorder(10, 15, 5, 60));
+
+        dret.add(crearguardarcarregar, "2-1");
 		dret.add(creacioplantilla, "2-2");
 		dret.add(caractplantilla, "2-3");
 		esquerre.add(plantilles, "1-1");

@@ -1,12 +1,9 @@
 package prop;
 
-import java.awt.BorderLayout;
-import java.awt.CardLayout;
+import javax.swing.*;
+import java.awt.*;
 import java.io.File;
 import java.util.GregorianCalendar;
-
-import javax.swing.JComboBox;
-import javax.swing.JPanel;
 
 public class CtrlVistaCalendari {
 	private CtrlVistaPrincipal ctrlvp;
@@ -25,8 +22,9 @@ public class CtrlVistaCalendari {
 		dret.setLayout(new CardLayout());
 		esquerre.setLayout(new CardLayout());
 		dret.setSize(450, 500);
-		
-		//esquerre.setSize(450,600);
+        esquerre.setBorder(BorderFactory.createEmptyBorder(10, 15, 5, 60));
+
+        //esquerre.setSize(450,600);
 		llistatcalendari.setSize(450,500);
 		esquerre.add(llistatcalendari,"1-1");
 		esquerre.add(diacalendari, "1-2");

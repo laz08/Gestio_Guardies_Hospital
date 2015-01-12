@@ -1,18 +1,23 @@
 package prop;
 
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 
 public class TresBotonsHospital extends TresBotons {
 	
 	private CtrlVistaHospital ctrlvh;
-	public TresBotonsHospital(CtrlVistaHospital cvh) { //CtrlVistaHospital cvh) {
+    private JLabel titolllistat = new JLabel("LLISTAT DE PLANTILLES", SwingConstants.CENTER);
+
+
+    public TresBotonsHospital(CtrlVistaHospital cvh) { //CtrlVistaHospital cvh) {
 		ctrlvh = cvh;
-		b1.setText("Crear Doctor");
-		b2.setText("Guardar Doctors");
-		b3.setText("Carregar Doctors");
+		b1.setText("<html> Crear <br /> Doctor </html>");
+		b2.setText("<html> Guardar <br /> Doctors </html>");
+		b3.setText("<html> Carregar <br /> Doctors </html>");
 		b1.addActionListener(this);
 		b2.addActionListener(this);
 		b3.addActionListener(this);
+        setBorder(BorderFactory.createEmptyBorder(250, 15, 5, 30));
 	}
 	
 	public void actionPerformed(ActionEvent arg0) {
