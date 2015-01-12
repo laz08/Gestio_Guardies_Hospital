@@ -29,7 +29,9 @@ public class DiscGuardar extends QuatreBotons{
 		remove(b3);
 		remove(b4);
 		setLayout(new GridBagLayout());
-		c.insets = new Insets(20,10,10,20);
+		c.ipadx = 30;
+		c.ipady = 30;
+		c.insets = new Insets(40,20,20,40);
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 0;
 		c.gridy = 0;

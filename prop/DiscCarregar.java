@@ -31,7 +31,10 @@ public class DiscCarregar extends QuatreBotons{
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 0;
 		c.gridy = 0;
-		c.insets = new Insets(20,10,10,20);
+		c.ipadx = 30;
+		c.ipady = 30;
+		c.gridwidth = 2;
+		c.insets = new Insets(40,20,20,40);
 		add(b1, c);
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 2;
