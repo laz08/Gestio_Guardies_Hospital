@@ -95,6 +95,7 @@ public class BotonsRestriccio extends QuatreBotons{
 	public void actionPerformed(ActionEvent arg0) {
 		if (arg0.getSource() == this.b1) {
 			ctrlvr.habilitatorns(bototorn.isSelected());
+			ctrlvr.desactivaacceptar();
 			ctrlvr.swap(2,2);
 		}
 		else if (arg0.getSource() == neteja) {

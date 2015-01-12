@@ -42,6 +42,7 @@ public class CalendariRestriccio extends DosBotons implements ListSelectionListe
 		any.setBounds(10, 10, 100, 30);
 		any.addActionListener(this);
 		scrollmesos.setBounds(100, 10, 150, 100);
+		torn.addActionListener(this);
 		mesos.addListSelectionListener(this);
 		table.setBounds(10, 150, 550, 200);
 		table.setShowGrid(true);
@@ -152,6 +153,9 @@ public class CalendariRestriccio extends DosBotons implements ListSelectionListe
 			ctrlvr.habilitaoperacions(true);
 			ctrlvr.swap(2,1);
 		}
+		else if (arg0.getSource() == torn) {
+			b2.setEnabled(true);
+		}
 	}
 
 	public void valueChanged(ListSelectionEvent arg0) {
@@ -164,20 +168,38 @@ public class CalendariRestriccio extends DosBotons implements ListSelectionListe
 
 		else if (arg0.getSource() == this.cellSelectionModel || arg0.getSource() == this.modelcolumna) {
 			//RETORNA LA FILA CLICADA
+			
 			int fila = table.getSelectedRow();
 			// RETORNA LA COLUMNA CLICADA
 			int columna = table.getSelectedColumn();
 			if (fila > 0 && columna >= 0 && table.getValueAt(fila, columna) != " " && any.getSelectedItem() != null) {
 				//RETORNA DIA 
+				b2.setEnabled(true);
 				int rany = Integer.parseInt((String)any.getSelectedItem());
 				int mes = mesos.getSelectedIndex();
 				int dia = Integer.parseInt((String)table.getValueAt(fila, columna));
 			}
+			else b2.setEnabled(false);
 		}
+	}
+	
+	public void desactivaacceptar() {
+		b2.setEnabled(false);
 	}
 
 	public void habilitatorns(boolean torns) {
-		if (torns == false) torn.setEnabled(false);
-		else torn.setEnabled(true);	
+		if (torns) {
+			torn.setEnabled(true);
+			any.setEnabled(false);
+			mesos.setEnabled(false);
+			table.setEnabled(false);
+		}
+		else {
+			torn.setEnabled(false);
+			any.setEnabled(true);
+			mesos.setEnabled(true);
+			table.setEnabled(true);
+			
+		}
 	}
 }

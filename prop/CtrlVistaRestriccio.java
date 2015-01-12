@@ -66,5 +66,9 @@ public class CtrlVistaRestriccio {
         }
         return llista;
     }
+
+	public void desactivaacceptar() {
+		calendari.desactivaacceptar();
+	}
 	
 }
