@@ -21,6 +21,7 @@ public class CtrlVistaHospital {
         inicialitzacions_creadora();
 		hospital.setLayout(new BorderLayout());
 		esquerre.setLayout(new CardLayout());
+        esquerre.setBorder(BorderFactory.createEmptyBorder(10, 15, 5, 60));
 		esquerre.add(llistat, "1-1");
 		esquerre.add(restriccionsNoAssociades, "1-2");
         esquerre.add(restriccionsAssociades, "1-3");
@@ -166,6 +167,9 @@ public class CtrlVistaHospital {
     }
 
 
+    public void reiniciaVista(){
+        doctor.esborraTotsElsCamps();
+    }
 
     public void associaRestriccio(String r, String dni) {
         Doc_Res.relaciona(dni, CtrlRestriccio.consulta_pos(r));

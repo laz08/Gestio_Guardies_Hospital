@@ -115,4 +115,9 @@ public class CtrlVistaPlantilla {
 	public void removeselection() {
 		plantilles.removeselection();
 	}
+
+    public void reiniciaCamp(){
+        creacioplantilla.netejaNomPlant();
+    }
+
 }

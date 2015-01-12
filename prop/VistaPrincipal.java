@@ -35,11 +35,16 @@ public class VistaPrincipal extends JFrame {
                 //HOSPITAL 
                 if(pestanyes.getSelectedIndex() == 0){
                     ctrlvh.actualitza_Docs();
-
+                    ctrlvh.swap(1, 1);
+                    ctrlvh.swap(2, 1);
+                    ctrlvh.reiniciaVista();
                 }
                 //PLANTILLA
                 else if(pestanyes.getSelectedIndex() == 1){
                     ctrlvp.actualitzarLlistaPlantilles();
+                    ctrlvp.reiniciaCamp();
+                    ctrlvp.swap(1, 1);
+                    ctrlvp.swap(2, 1);
                 }
                 else if(pestanyes.getSelectedIndex() == 2){
                     ctrlvc.actualitza();
