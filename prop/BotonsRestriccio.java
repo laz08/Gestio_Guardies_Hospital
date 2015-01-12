@@ -18,6 +18,7 @@ public class BotonsRestriccio extends QuatreBotons{
 	private JLabel textcomplet = new JLabel("Restricció Completa");
 	private JTextField restricciocompleta = new JTextField();
 	private GridBagConstraints c = new GridBagConstraints();
+	private JButton neteja = new JButton("Neteja Restriccio");
 	
 	public BotonsRestriccio() { //(CtrlVistaRestriccio cvr) {
 		remove(b1);
@@ -62,6 +63,9 @@ public class BotonsRestriccio extends QuatreBotons{
 		c.gridx = 0;
 		c.gridy = 4;
 		add(restricciocompleta, c);
+		c.gridx = 0;
+		c.gridy = 5;
+		add(neteja, c);
 	}
 	
 	public void actionPerformed(ActionEvent arg0) {
