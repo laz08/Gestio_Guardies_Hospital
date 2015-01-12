@@ -1,15 +1,24 @@
 package prop;
 
-import javax.swing.JLabel;
+import javax.swing.*;
+
+import java.awt.*;
+import java.util.ArrayList;
 
 public class LlistatErrorRestriccio extends PanelLlistatError{
-	//private CtrlVistaRestriccio ctrlvr;
-	private JLabel textres = new JLabel("LLISTAT DE RESTRICCIONS");
+	private CtrlVistaRestriccio ctrlvr;
+	private JLabel textres = new JLabel("LLISTAT DE RESTRICCIONS", SwingConstants.CENTER);
 	
-	public LlistatErrorRestriccio() { //(CtrlVistaRestriccio cvr) {
-		//ctrlvr = cvr;
+	public LlistatErrorRestriccio(CtrlVistaRestriccio cvr) {
+		ctrlvr = cvr;
 		remove(scroll1);
-		add(textres);
+		add(textres, BorderLayout.NORTH);
 		add(scroll1);
+	}
+
+	public void actualitza(ArrayList<String> arrayList) {
+		for (int i = 0; i < arrayList.size(); ++i) {
+			model1.addElement(arrayList.get(i));
+		}
 	}
 }

@@ -32,6 +32,10 @@ public class LlistatErrorAlgorisme extends PanelLlistatError {
             }
         }
     }
+    
+    public void xivato(String p) {
+    	model1.addElement(p);
+    }
 
     public void afegirPlantilles() {
         String content = ctrlval.obteLlistaPlantilles();

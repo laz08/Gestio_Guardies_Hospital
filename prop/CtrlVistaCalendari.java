@@ -143,5 +143,4 @@ public class CtrlVistaCalendari {
 	public void texterror(String string) {
 		llistatcalendari.texterror(string);
 	}
-	
 }

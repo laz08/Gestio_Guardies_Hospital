@@ -61,6 +61,8 @@ public class VistaPrincipal extends JFrame {
                     ctrlvc.swap(2, 1);
                 }
                 else if(pestanyes.getSelectedIndex() == 3){
+                	ctrlvr.actualitza();
+                	ctrlvr.swap(2, 1);
                 }
                 else if(pestanyes.getSelectedIndex() == 4){
                     ctrlval.actualitzaLlistaPlantilles();
@@ -68,6 +70,9 @@ public class VistaPrincipal extends JFrame {
                 else if(pestanyes.getSelectedIndex() == 5){
                     ctrlva.posaDocs();
                     ctrlva.posaTorns();
+                }
+                else if(pestanyes.getSelectedIndex() == 6){
+                	ctrlvr.swap(2,1);
                 }
             }
         });

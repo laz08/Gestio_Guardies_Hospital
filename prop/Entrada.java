@@ -27,6 +27,27 @@ public class Entrada {
         }
         return g;
     }
+    
+    public static Graf crea_graf_plt(String plt) {
+        Graf g = new Graf();
+        Plantilla p = CtrlPlantilla.consultarPlantilla(plt);
+        if(CtrlCalendari.existeixCalendari(p.getNomPlantilla())) {
+	        CtrlPlantilla.setPlantillaActual(plt);
+	        try {
+	            Vertex pou = new Vertex("POU", Vertex.FONT_POU);
+	            Vertex font = new Vertex("FONT", Vertex.FONT_POU);
+	            g.afegirVertex(pou);
+	            g.afegirVertex(font);
+	            posaVertexDoctor(g, p);
+	            posaVertexTorn(g);
+	            posaRestriccions(p.getLlistaDoctorsDNI(), g);
+	            //posaArestesMax(g, p.getLlistaDoctorsDNI().size());
+	        } catch (Error e) {
+	            System.err.println("Hi ha hagut problemes a l'hora de crear el graf\n" + e);
+	        }
+        }
+        return g;
+    }
 
     private static void posaVertexDoctor(Graf g, Plantilla p) throws Error {
         Iterator<Doctor> it = p.getLlistaDoctorsDNI().iterator();
@@ -42,31 +63,33 @@ public class Entrada {
     private static void posaVertexTorn(Graf g) throws Error {
         Plantilla plantilla = CtrlPlantilla.getPlantillaActual();   
         System.out.println(CtrlCalendari.existeixCalendari(plantilla.getNomPlantilla()));
-        Dia[] dia = CtrlCalendari.consultarCalendari(plantilla.getNomPlantilla()).getCalendari();//plantilla.get_calendari_asoc().getCalendari();
-        for (int i = 0; i < dia.length; i++) { // cream nodes de tipus torn i els afagim al graf
-            for (int t = 0; t < 3; t++) {
-                Torn torn = null;
-                switch (t) {
-                    case 0:
-                        torn = dia[i].getTornMati();
-                        break;
-                    case 1:
-                        torn = dia[i].getTornTarda();
-                        break;
-                    case 2:
-                        torn = dia[i].getTornNit();
-                        break;
-                }
-                Dia d = dia[i];
-                if (torn != null) {
-//                    Vertex vmax = new Vertex(torn.toString(), Vertex.MAX);
-//                    g.afegirVertex(vmax);
-                    Vertex v = new Vertex(torn.toString(), Vertex.TORN, torn);
-                    Vertex pou = g.getVertex("POU", Vertex.FONT_POU);
-                    g.afegirVertex(v);
-                    g.afegirAresta(v, pou, torn.getMin_num_doctors(), 0);
-                }
-            }
+        if(CtrlCalendari.existeixCalendari(plantilla.getNomPlantilla())) {
+	        Dia[] dia = CtrlCalendari.consultarCalendari(plantilla.getNomPlantilla()).getCalendari();//plantilla.get_calendari_asoc().getCalendari();
+	        for (int i = 0; i < dia.length; i++) { // cream nodes de tipus torn i els afagim al graf
+	            for (int t = 0; t < 3; t++) {
+	                Torn torn = null;
+	                switch (t) {
+	                    case 0:
+	                        torn = dia[i].getTornMati();
+	                        break;
+	                    case 1:
+	                        torn = dia[i].getTornTarda();
+	                        break;
+	                    case 2:
+	                        torn = dia[i].getTornNit();
+	                        break;
+	                }
+	                Dia d = dia[i];
+	                if (torn != null) {
+	//                    Vertex vmax = new Vertex(torn.toString(), Vertex.MAX);
+	//                    g.afegirVertex(vmax);
+	                    Vertex v = new Vertex(torn.toString(), Vertex.TORN, torn);
+	                    Vertex pou = g.getVertex("POU", Vertex.FONT_POU);
+	                    g.afegirVertex(v);
+	                    g.afegirAresta(v, pou, torn.getMin_num_doctors(), 0);
+	                }
+	            }
+	        }
         }
     }
 

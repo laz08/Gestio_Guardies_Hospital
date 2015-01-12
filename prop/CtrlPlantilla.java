@@ -144,6 +144,12 @@ public class CtrlPlantilla {
 		return Cjt_plantilles.contains(aux);
     }
     
+    public static boolean existeixCalendariP(String plt) {
+		Plantilla p = Cjt_plantilles.ceiling(new Plantilla(plt));
+		if(p.get_calendari_asoc()!=null) return true;
+		return false;
+    }
+    
     public static void crearCalendari(String plt, int any, int anyf) {
     	setPlantillaActual(plt);
     	Plantilla p = getPlantillaActual();
