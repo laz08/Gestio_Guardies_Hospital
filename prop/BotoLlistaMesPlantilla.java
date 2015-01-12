@@ -115,8 +115,9 @@ public class BotoLlistaMesPlantilla extends BotoLlista {
 			ctrlvp.swap(1,1);
 		}
 		//Tirem enrere
-		else {
+		else if (arg0.getSource() == b4){
 			ctrlvp.swap(2,1);
+			ctrlvp.removeselection();
 			ctrlvp.swap(1, 1);
 		}
 	}

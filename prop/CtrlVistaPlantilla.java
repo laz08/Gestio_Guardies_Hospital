@@ -111,4 +111,8 @@ public class CtrlVistaPlantilla {
 		CtrlPlantilla.carregar(f);
 		plantilles.actualitzarLlistatPlantilles();
 	}
+
+	public void removeselection() {
+		plantilles.removeselection();
+	}
 }

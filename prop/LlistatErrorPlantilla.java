@@ -72,4 +72,10 @@ public class LlistatErrorPlantilla extends PanelLlistatError implements ListSele
 		error.setText("");
 	}
 
+	public void removeselection() {
+		mod = true;
+		llista1.clearSelection();	
+		mod = false;
+	}
+
 }
