@@ -1,11 +1,8 @@
 package prop;
 
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
-
-import javax.swing.JLabel;
-import javax.swing.JTextField;
 
 
 public class BotoTextCalendari extends BotoText {
@@ -14,9 +11,12 @@ public class BotoTextCalendari extends BotoText {
 	private JLabel anyf = new JLabel("Any fi");
 	private JTextField textfield2 = new JTextField();
 	private GridBagConstraints c = new GridBagConstraints();
+
+    private LlistatErrorCalendari llistatErrorCalendari;
 	
-	public BotoTextCalendari(CtrlVistaCalendari cvc) {
+	public BotoTextCalendari(CtrlVistaCalendari cvc, LlistatErrorCalendari llec) {
 		ctrlvc = cvc;
+        llistatErrorCalendari = llec;
 		remove(textfield1);
 		remove(b1);
 		remove(b2);
@@ -58,12 +58,15 @@ public class BotoTextCalendari extends BotoText {
 	}
 	
 	public void actionPerformed(ActionEvent arg0) {
+        //ENRERE
 		if (arg0.getSource() == this.b1) {
+            llistatErrorCalendari.esborraError();
 			ctrlvc.removeselection();
 			textfield1.setText("");
 			textfield2.setText("");
 			ctrlvc.swap(2,1);
 		}
+        //ACCEPTAR
 		else if (arg0.getSource() == this.b2) {
 			if (!isnumber(textfield1.getText(),1) || !isnumber(textfield2.getText(),1)){
         		ctrlvc.texterror("ERROR: Any inici i/o any fi no són numeros");
@@ -75,6 +78,7 @@ public class BotoTextCalendari extends BotoText {
         		ctrlvc.texterror("ERROR: Any inici inferior a any fi");
         	}
         	else {
+                llistatErrorCalendari.esborraError();
         		ctrlvc.crearcalendari(ctrlvc.seleccio(), Integer.parseInt(textfield1.getText()), Integer.parseInt(textfield2.getText()));
     			ctrlvc.removeselection();
     			textfield1.setText("");

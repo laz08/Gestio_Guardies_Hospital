@@ -11,11 +11,13 @@ public class LlistatErrorCalendari extends PanelLlistatError{
 
 	public LlistatErrorCalendari(CtrlVistaCalendari cvc) {
 		ctrlvc = cvc;
-
+        esborraError();
         remove(scroll1);
         add(titolllistat, BorderLayout.NORTH);
         add(scroll1);
 
+        setPreferredSize(new Dimension(343, 250));
+        setMaximumSize(new Dimension(343, 250));
 		llista1.addListSelectionListener(this);
 		model1.removeAllElements();
 		actualitzar();
@@ -65,4 +67,8 @@ public class LlistatErrorCalendari extends PanelLlistatError{
 	public void texterror(String string) {
 		error.setText(string);
 	}
+
+    public void esborraError(){
+        error.setText(" ");
+    }
 }

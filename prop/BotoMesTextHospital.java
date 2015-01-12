@@ -297,6 +297,7 @@ public class BotoMesTextHospital extends BotoMesText{
         //ENRERE
 		else if (arg0.getSource() == b4) {
             ctrlvh.activaBotonsRestriccionsEliminar();
+            ctrlvh.swap(1,1);
 			ctrlvh.swap(2,1);
             esborraTotsElsCamps();
             llistat.esborrarTotsErrors();
@@ -310,6 +311,7 @@ public class BotoMesTextHospital extends BotoMesText{
                 boolean v = crea_doc();
                 if (v) {
                     ctrlvh.activaBotonsRestriccionsEliminar();
+                    ctrlvh.swap(1,1);
                     ctrlvh.swap(2, 1);
                     llistat.actualitza_llista_docs();
                     esborraTotsElsCamps();
@@ -322,6 +324,7 @@ public class BotoMesTextHospital extends BotoMesText{
             		boolean v = modifica_doc();
                     if (v){
                         ctrlvh.activaBotonsRestriccionsEliminar();
+                        ctrlvh.swap(1,1);
                         ctrlvh.swap(2, 1);
                         llistat.actualitza_llista_docs();
                         esborraTotsElsCamps();

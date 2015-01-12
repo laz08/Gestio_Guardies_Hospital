@@ -64,31 +64,31 @@ public class LlistatErrorHospital extends PanelLlistatError {
     //MISSATGES ERROR
     public void errorUnOMesDunCampNull(){
         //missatgeErrors.setText("ERROR: Falten dades en un o més camps del doctor.");
-        error.setText("ERROR: Falten dades en un o més camps del doctor.");
-        calcula_mida_font();
+        error.setText("ERROR: Falten dades en un o més camps.");
+        //calcula_mida_font();
     }
     //Per a sou i telèfon
     public void errorHaDeSerUnReal(String s){
         // missatgeErrors.setText("ERROR: " + s + " ha de ser un número positiu.");
         error.setText("ERROR: " + s + " ha de ser un número positiu.");
-        calcula_mida_font();
+        //calcula_mida_font();
     }
 
     public void noEsCorreu(){
         //missatgeErrors.setText("ERROR: El correu introduït no és vàlid.");
         error.setText("ERROR: El correu introduït no és vàlid.");
-        calcula_mida_font();
+        //calcula_mida_font();
     }
 
     public void esborrarTotsErrors(){
         //missatgeErrors.setText("");
         error.setText(" ");
-        calcula_mida_font();
+        //calcula_mida_font();
     }
     public void condicionsDNIError(){
         //missatgeErrors.setText("ERROR: DNI ha de ser una cadena de 8 caràcters numèrics.");
         error.setText("ERROR: DNI ha de ser una cadena de 8 caràcters numèrics.");
-        calcula_mida_font();
+        //calcula_mida_font();
     }
 
     public void jaExisteixDocAmbDNI(){
