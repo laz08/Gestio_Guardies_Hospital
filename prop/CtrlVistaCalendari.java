@@ -24,6 +24,9 @@ public class CtrlVistaCalendari {
 		dret.setSize(450, 500);
         esquerre.setBorder(BorderFactory.createEmptyBorder(10, 15, 5, 60));
 
+
+        esquerre.setPreferredSize(new Dimension(415, 250));
+        esquerre.setMaximumSize(new Dimension(415, 250));
         //esquerre.setSize(450,600);
 		llistatcalendari.setSize(450,500);
 		esquerre.add(llistatcalendari,"1-1");

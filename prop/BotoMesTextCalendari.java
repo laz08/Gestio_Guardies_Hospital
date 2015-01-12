@@ -1,13 +1,9 @@
 package prop;
 
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.util.GregorianCalendar;
-
-import javax.swing.JCheckBox;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
 
 
 public class BotoMesTextCalendari extends BotoMesText {
@@ -27,6 +23,10 @@ public class BotoMesTextCalendari extends BotoMesText {
 
 	public BotoMesTextCalendari(CtrlVistaCalendari cvc) {
 		ctrlvc = cvc;
+
+        setPreferredSize(new Dimension(300, 250));
+        setMaximumSize(new Dimension(300, 250));
+
 		t1.setEditable(false);
 		t2.setEditable(false);
 		t3.setEditable(false);
@@ -201,6 +201,7 @@ public class BotoMesTextCalendari extends BotoMesText {
         	else {
         		if (festiu.isSelected()) CtrlCalendari.modificarDiaFestiu(ctrlvc.seleccio(), data, true);
             	else CtrlCalendari.modificarDiaFestiu(ctrlvc.seleccio(), data, false);
+                ctrlvc.texterror(" ");
         		CtrlCalendari.modificarPercentatgeTorn(Float.parseFloat(t4.getText()), data, ctrlvc.seleccio(), 0);
         		CtrlCalendari.modificarPercentatgeTorn(Float.parseFloat(t8.getText()), data, ctrlvc.seleccio(), 1);
         		CtrlCalendari.modificarPercentatgeTorn(Float.parseFloat(t12.getText()), data, ctrlvc.seleccio(), 2);

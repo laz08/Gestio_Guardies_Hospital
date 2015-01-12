@@ -16,6 +16,8 @@ public class LlistatErrorCalendari extends PanelLlistatError{
         add(titolllistat, BorderLayout.NORTH);
         add(scroll1);
 
+        setPreferredSize(new Dimension(343, 250));
+        setMaximumSize(new Dimension(343, 250));
 		llista1.addListSelectionListener(this);
 		model1.removeAllElements();
 		actualitzar();
