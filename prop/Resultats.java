@@ -71,13 +71,13 @@ public class Resultats extends BotoText{
         
         public void setResultats(int nr, long r){
             switch(nr){
-                case 1:
+                case 0:
                     textfield1.setText(r+" ms");
                     break;
-                case 2:
+                case 1:
                     textfield2.setText(r+" ms");
                     break;
-                case 3:
+                case 2:
                     textfield3.setText(r+" ms");
                     break;
             }

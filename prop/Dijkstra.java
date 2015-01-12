@@ -24,6 +24,9 @@ public class Dijkstra extends Algorisme {
 
     @Override
     void maxFlow() throws Error {
+        
+        System.out.println("Max flow Dij");
+        
         arestesPendents = posaDoctors();
         while (!arestesPendents.isEmpty() && !totsBloquejats()) {
             Aresta a = arestesPendents.get(0);

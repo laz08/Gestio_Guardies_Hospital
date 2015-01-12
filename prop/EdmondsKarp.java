@@ -32,6 +32,10 @@ public class EdmondsKarp extends Algorisme {
 
     @Override
     public void maxFlow() {
+        
+        
+        System.out.println("Max flow Edmonds");
+        
         graf.resetFlow();                                                       // posam tot el flow a 0
         recorregut_en_amplada(graf.getVertex("FONT", Vertex.FONT_POU));         // iniciam el recorregut en amplada a partir del vertex font
         Entrada.guarda_assignacions(graf);

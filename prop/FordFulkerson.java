@@ -12,6 +12,11 @@ public class FordFulkerson extends Algorisme {
 
     @Override
     public void maxFlow() throws Error {
+        
+        
+        
+        System.out.println("Max flow Ford");
+        
         graf.resetFlow();
         Doc_Torn.removeAll();
         seguent(graf.getVertex("FONT", Vertex.FONT_POU), null);
