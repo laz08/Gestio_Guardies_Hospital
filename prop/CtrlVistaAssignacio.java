@@ -37,33 +37,31 @@ public class CtrlVistaAssignacio {
 
 
     public void posaTorns(){
-        /*
-        Graf g = ctrlVistaAssignacio.consultaGraf();
-        llt.removeAllElements();
+        Graf g = consultaGraf();
+        llistatorns.model1.clear();
         if(g!=null){
             for(int i=0; i<g.numV(); i++){
                 if(g.getVertex(i).getClasse() == Vertex.TORN){
                     String torn = g.getVertex(i).getId();
-                    llt.addElement(torn);
+                    llistatorns.model1.addElement(torn);
                 }
             }
         }
-        */
+
     }
 
     public void posaDocs(){
-        /*
-        Graf g = ctrlVistaAssignacio.consultaGraf();
-        lld.removeAllElements();
+        Graf g = consultaGraf();
+        llistadoctors.model1.clear();
         if(g!=null){
             for(int i=0; i<g.numV(); i++){
                 if(g.getVertex(i).getClasse() == Vertex.DOCTOR){
-                    String torn = g.getVertex(i).getId();
-                    lld.addElement(torn);
+                    String doc = g.getVertex(i).getId();
+                    llistadoctors.model1.addElement(doc);
                 }
             }
         }
-        */
+
     }
 
 
@@ -75,18 +73,17 @@ public class CtrlVistaAssignacio {
 
 
 
-    // OLD
-/*
+
     public Graf consultaGraf(){
-        return CtrlVistaAlgorismes.getGraf();
+        return CtrlAlgorisme.getGraf();
     }
 
-    /*
+
     public Calendari consultaCalendari(){
         Plantilla p = CtrlPlantilla.getPlantillaActual();
         return CtrlCalendari.consultarCalendari(p.getNomPlantilla());
     }
-    */
+
 
 
 }

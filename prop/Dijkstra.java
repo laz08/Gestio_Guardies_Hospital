@@ -64,7 +64,7 @@ public class Dijkstra extends Algorisme {
             }
 
         }
-        CtrlEntrada.guarda_assignacions(graf);
+        Entrada.guarda_assignacions(graf);
     }
 
     private ArrayList<Aresta> posaDoctors() {

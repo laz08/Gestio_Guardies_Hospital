@@ -18,7 +18,7 @@ public class CtrlAlgorisme {
     }
     
     public static void initGraf(){
-        graf = CtrlEntrada.crea_graf();
+        graf = Entrada.crea_graf();
     }
     
     public static int getNumArestes(){
@@ -42,5 +42,9 @@ public class CtrlAlgorisme {
     
     public static Algorisme getAlgorisme(int pos){
         return algorismes[pos];
+    }
+    
+    public static Graf getGraf(){
+        return graf;
     }
 }

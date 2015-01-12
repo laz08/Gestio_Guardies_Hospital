@@ -34,7 +34,7 @@ public class EdmondsKarp extends Algorisme {
     public void maxFlow() {
         graf.resetFlow();                                                       // posam tot el flow a 0
         recorregut_en_amplada(graf.getVertex("FONT", Vertex.FONT_POU));         // iniciam el recorregut en amplada a partir del vertex font
-        CtrlEntrada.guarda_assignacions(graf);
+        Entrada.guarda_assignacions(graf);
     }
 
     /**
