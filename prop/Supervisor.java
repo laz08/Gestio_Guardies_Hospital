@@ -9,13 +9,14 @@ package prop;
  * @author Xisco
  */
 public class Supervisor implements Runnable{
-
-    
     @Override
     public void run() {
+        
         while (algunViu()) {
             comprova_vius();
+            System.out.println("-------------------");
         }
+        CtrlThreads.setSupervisor(false);
     }
 
     private boolean algunViu() {
@@ -31,7 +32,7 @@ public class Supervisor implements Runnable{
 
     private void comprova_vius() {
         for (int i = 0; i < 3; i++) {
-            if (CtrlThreads.getVius(i) && !CtrlThreads.getThread(i).isAlive()) {
+            if (CtrlThreads.getVius(i) && CtrlThreads.getThread(i)!=null && !CtrlThreads.getThread(i).isAlive()) {
                 CtrlThreads.setVius(i, false);
                 actualitza(i);
             }
@@ -45,15 +46,17 @@ public class Supervisor implements Runnable{
             case 0:
                 algorisme = CtrlAlgorisme.getAlgorisme(0);
                 temps = algorisme.getTemps();
-                
+                CtrlVistaPrincipal.posaResultat(0, temps);
                 break;
             case 1:
                 algorisme = CtrlAlgorisme.getAlgorisme(1);
                 temps = algorisme.getTemps();
+                CtrlVistaPrincipal.posaResultat(1, temps);
                 break;
             case 2:
                 algorisme = CtrlAlgorisme.getAlgorisme(2);
                 temps = algorisme.getTemps();
+                CtrlVistaPrincipal.posaResultat(2, temps);
                 break;
         }
         

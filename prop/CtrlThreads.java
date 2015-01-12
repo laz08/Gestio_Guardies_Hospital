@@ -11,33 +11,42 @@ package prop;
 public class CtrlThreads{
 
     private static Thread[] threads = new Thread[3];
-    private static Thread threadCtrl = new Thread((Runnable) new Supervisor());
+    private static boolean supervisor = false;
     private static boolean[] vius = {false, false, false};
     
     public static void FordFulquerson(Algorisme algo) {
-        threads[0] = new Thread(algo);
-        threads[0].start();
+        System.out.println("Ford");
+        Thread ford = new Thread(algo);
+        threads[0] = ford;
+        ford.start();
         vius[0] = true;
-        if (!threadCtrl.isAlive()) {
-            threadCtrl.start();
+        if (!supervisor) {
+            Thread supervisor0 = new Thread((Runnable) new Supervisor());
+            supervisor0.start();
         }
     }
 
     public static void EdmondsKarp(Algorisme algo) {
-        threads[1] = new Thread(algo);
-        threads[1].start();
+        System.out.println("Edmonds");
+        Thread edmonds = new Thread(algo);
+        threads[0] = edmonds;
+        edmonds.start();
         vius[1] = true;
-        if (!threadCtrl.isAlive()) {
-            threadCtrl.start();
+        if (!supervisor) {
+            Thread supervisor1 = new Thread((Runnable) new Supervisor());
+            supervisor1.start();
         }
     }
 
     public static void Dijkstra(Algorisme algo) {
-        threads[2] = new Thread(algo);
-        threads[2].start();
+        System.out.println("Dij");
+        Thread dij = new Thread(algo);
+        threads[0] = dij;
+        dij.start();
         vius[2] = true;
-        if(!threadCtrl.isAlive()) {
-            threadCtrl.start();
+        if (!supervisor) {
+            Thread supervisor2 = new Thread((Runnable) new Supervisor());
+            supervisor2.start();
         }
     }
     
@@ -51,5 +60,9 @@ public class CtrlThreads{
     
     public static Thread getThread(int pos){
         return threads[pos];
+    }
+    
+    public static void setSupervisor(boolean estat){
+        supervisor = estat;
     }
 }
