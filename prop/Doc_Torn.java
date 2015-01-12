@@ -180,6 +180,7 @@ public class Doc_Torn {
     
     
     public static ArrayList<Doctor> getDocRel(String torn){
+        //null pointer calendari
         Dia[] any = CtrlPlantilla.getPlantillaActual().get_calendari_asoc().getCalendari();
         boolean trobat = false;
         Torn t = null;
