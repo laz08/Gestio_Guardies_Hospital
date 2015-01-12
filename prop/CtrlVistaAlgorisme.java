@@ -39,4 +39,8 @@ public class CtrlVistaAlgorisme {
     public void seleccionaPlantilla(String plantilla){
         CtrlPlantilla.setPlantillaActual(plantilla);
     }
+    
+    public void actualitzaDocTorns(){
+        ctrlvp.actualitzaDocTorns();
+    }
 }

@@ -71,6 +71,7 @@ public class BotonsAlgorisme extends DosBotons {
                 String ta = textarestes.getText();
                 text = ta.split(":");
                 textarestes.setText(text[0] + ": " + CtrlAlgorisme.getNumArestes());
+                ctrlval.actualitzaDocTorns();
                 b2.setEnabled(true);
             }
         });

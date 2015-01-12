@@ -77,6 +77,11 @@ public class VistaPrincipal extends JFrame {
         public void posaResultat(int nr, long r){
             ctrlvrs.posaResultats(nr, r);
         }
+        
+        public void actualitzaDocTorns(){
+            ctrlva.posaDocs();
+            ctrlva.posaTorns();
+        }
 	
 	public void visible() {
 		pack();

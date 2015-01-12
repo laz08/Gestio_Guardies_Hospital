@@ -155,6 +155,64 @@ public class Doc_Torn {
         doctors.clear();
     }
 
+    
+    public static ArrayList<Torn> getTornsRel(String doc){
+        Doctor d = CtrlHospital.getDoctor(doc);
+        ArrayList<Torn> ts = new ArrayList<Torn>();
+        boolean existeixd = false;
+        int posd = 0;
+        while (posd < torns.size() && !existeixd) {
+            if (d.equals(torns.get(posd).getObj())) {
+                existeixd = true;
+            }
+            if (!existeixd) {
+                posd++;
+            }
+        }
+        if (existeixd) {
+            ArrayList<Relacio> rt = torns.get(posd).getRelacionats();
+            for (int i = 0; i < rt.size(); i++) {
+                ts.add((Torn) rt.get(i).getObj());
+            }
+        }
+        return ts;
+    }
+    
+    
+    public static ArrayList<Doctor> getDocRel(String torn){
+        Dia[] any = CtrlPlantilla.getPlantillaActual().get_calendari_asoc().getCalendari();
+        boolean trobat = false;
+        Torn t = null;
+        for(int i=0; i<any.length && !trobat; i++){
+            Torn[] torns = any[i].getTorns();
+            for(int e=0; e<torns.length; e++){
+                if(torns[i].toString().equals(torn)){
+                    trobat = true;
+                    t = torns[i];
+                }
+            }
+        }
+        ArrayList<Doctor> ts = new ArrayList<Doctor>();
+        boolean existeix = false;
+        int pos = 0;
+        while (pos < doctors.size() && !existeix) {
+            if (t.equals(doctors.get(pos).getObj())) {
+                existeix = true;
+            }
+            if (!existeix) {
+                pos++;
+            }
+        }
+        if (existeix) {
+            ArrayList<Relacio> rd = torns.get(pos).getRelacionats();
+            for (int i = 0; i < rd.size(); i++) {
+                ts.add((Doctor) rd.get(i).getObj());
+            }
+        }
+        return ts;
+    }
+    
+    
     public static ArrayList<Torn> getRel(Doctor d) {
         ArrayList<Torn> ts = new ArrayList<Torn>();
         boolean existeixd = false;

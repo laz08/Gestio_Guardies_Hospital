@@ -19,4 +19,8 @@ public class CtrlVistaPrincipal {
         public void posaResultat(int nr, long r){
             vistaprincipal.posaResultat(nr, r);
         }
+        
+        public void actualitzaDocTorns(){
+            vistaprincipal.actualitzaDocTorns();
+        }
 }
