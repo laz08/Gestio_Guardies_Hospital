@@ -35,6 +35,11 @@ public class BotonsRestriccio extends QuatreBotons{
 		b2.setText("XOR");
 		b3.setText("AND");
 		b4.setText("NOP");
+		b2.addActionListener(this);
+		b3.addActionListener(this);
+		b4.addActionListener(this);
+		carrega.addActionListener(this);
+		guarda.addActionListener(this);
 		habilitaoperacions(false);
 		bototorn.addActionListener(this);
 		botodia.addActionListener(this);
@@ -78,6 +83,12 @@ public class BotonsRestriccio extends QuatreBotons{
 		c.gridx = 0;
 		c.gridy = 5;
 		add(neteja, c);
+		c.gridx = 0;
+		c.gridy = 7;
+		add(carrega, c);
+		c.gridx = 1;
+		c.gridy = 7;
+		add(guarda, c);
 		bototorn.doClick();
 	}
 	
