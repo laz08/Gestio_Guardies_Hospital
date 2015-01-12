@@ -11,7 +11,7 @@ public class LlistatErrorCalendari extends PanelLlistatError{
 
 	public LlistatErrorCalendari(CtrlVistaCalendari cvc) {
 		ctrlvc = cvc;
-
+        esborraError();
         remove(scroll1);
         add(titolllistat, BorderLayout.NORTH);
         add(scroll1);
@@ -65,4 +65,8 @@ public class LlistatErrorCalendari extends PanelLlistatError{
 	public void texterror(String string) {
 		error.setText(string);
 	}
+
+    public void esborraError(){
+        error.setText(" ");
+    }
 }

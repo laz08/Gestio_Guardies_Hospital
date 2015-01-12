@@ -13,7 +13,7 @@ public class CtrlVistaCalendari {
 	private LlistatErrorCalendari llistatcalendari = new LlistatErrorCalendari(this);
 	private BotoMesTextCalendari diacalendari = new BotoMesTextCalendari(this);
 	private CGCalendari gestiocalendari = new CGCalendari(this);
-	private BotoTextCalendari crearcalendari = new BotoTextCalendari(this);
+	private BotoTextCalendari crearcalendari = new BotoTextCalendari(this, llistatcalendari);
 	private ModelCalendari modelcalendari = new ModelCalendari(this);
 	
 	public CtrlVistaCalendari(CtrlVistaPrincipal cvp) {
