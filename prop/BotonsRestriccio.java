@@ -341,4 +341,8 @@ public class BotonsRestriccio extends QuatreBotons {
         b1.setEnabled(false);
         ctrlvr.actualitzaEstatBotons();
     }
+    
+    public boolean seleccioPerTorns(){
+        return bototorn.isSelected();
+    }
 }

@@ -87,4 +87,8 @@ public class CtrlVistaRestriccio {
         CtrlRestriccio.nova_res(r);
         actualitza();
     }
+    
+    public boolean seleccioPerTorns(){
+        return botons.seleccioPerTorns();
+    }
 }

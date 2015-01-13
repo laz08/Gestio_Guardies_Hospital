@@ -31,7 +31,7 @@ public class CalendariRestriccio extends DosBotons implements ListSelectionListe
     ListSelectionModel cellSelectionModel;
     ListSelectionModel modelcolumna;
     //necessari per evitar la repeticio a la seleccio al calendari
-    private boolean filtre = false;
+    private int[] data = new int[2];
 
     public CalendariRestriccio(CtrlVistaRestriccio cvr) {
         ctrlvr = cvr;
@@ -162,7 +162,9 @@ public class CalendariRestriccio extends DosBotons implements ListSelectionListe
         } else if (arg0.getSource() == b2) {
             ctrlvr.habilitaoperacions(true);
             ctrlvr.swap(2, 1);
-            ctrlvr.seleccioTorn(torn.getSelectedIndex());
+            if(ctrlvr.seleccioPerTorns())ctrlvr.seleccioTorn(torn.getSelectedIndex());
+            else ctrlvr.seleccioDia(data[0], data[1]);
+            
         } else if (arg0.getSource() == torn) {
             b2.setEnabled(true);
         }
@@ -186,8 +188,8 @@ public class CalendariRestriccio extends DosBotons implements ListSelectionListe
                 int rany = Integer.parseInt((String) any.getSelectedItem());
                 int mes = mesos.getSelectedIndex();
                 int dia = Integer.parseInt((String) table.getValueAt(fila, columna));
-                ctrlvr.seleccioDia(dia, mes);
-                ctrlvr.swap(2, 1);
+                data[0] = dia;
+                data[1] = mes;
 
             } else {
                 b2.setEnabled(false);
