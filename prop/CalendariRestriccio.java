@@ -187,7 +187,6 @@ public class CalendariRestriccio extends DosBotons implements ListSelectionListe
                 int mes = mesos.getSelectedIndex();
                 int dia = Integer.parseInt((String) table.getValueAt(fila, columna));
                 ctrlvr.seleccioDia(dia, mes);
-                ctrlvr.habilitaoperacions(false);
                 ctrlvr.swap(2, 1);
 
             } else {
