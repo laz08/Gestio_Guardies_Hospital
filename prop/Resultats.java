@@ -2,6 +2,7 @@ package prop;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Insets;
 
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -30,6 +31,7 @@ public class Resultats extends BotoText{
 		remove(b1);
 		remove(b2);
 		textfield1.setText("-");
+		c.insets = new Insets(20, 5, 5,20);
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 1;
 		c.gridy = 0;
