@@ -3,7 +3,6 @@ package prop;
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import java.awt.*;
-import javax.swing.event.ListSelectionListener;
 
 public class LListatTorns extends PanelLlistat {
 
@@ -17,6 +16,8 @@ public class LListatTorns extends PanelLlistat {
         add(scroll1);
         super.setMaximumSize(new Dimension(350, 300));
         scroll1.setMaximumSize(new Dimension(350, 300));
+        llista1.addListSelectionListener(this);
+        /*
         llista1.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
@@ -24,5 +25,14 @@ public class LListatTorns extends PanelLlistat {
                 ctrlva.mostraDoctorsAssociats(Torn);
             }
         });
+        */
+    }
+    public void valueChanged(ListSelectionEvent arg0) {
+        if (arg0.getSource() == this.llista1) {
+            if (!arg0.getValueIsAdjusting()) {
+                String Torn = (String) llista1.getSelectedValue();
+                ctrlva.mostraDoctorsAssociats(Torn);
+            }
+        }
     }
 }
