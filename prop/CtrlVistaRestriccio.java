@@ -75,4 +75,12 @@ public class CtrlVistaRestriccio {
             botons.seleccioDia(dia, mes);
         }
 	
+        public void seleccioTorn(int ntorn){
+            botons.seleccioTorn(ntorn); 
+        }
+        
+        public void actualitzaEstatBotons(){
+            dret.invalidate();
+            System.out.println("actualitza");
+        }
 }

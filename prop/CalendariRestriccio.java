@@ -162,6 +162,7 @@ public class CalendariRestriccio extends DosBotons implements ListSelectionListe
         } else if (arg0.getSource() == b2) {
             ctrlvr.habilitaoperacions(true);
             ctrlvr.swap(2, 1);
+            ctrlvr.seleccioTorn(torn.getSelectedIndex());
         } else if (arg0.getSource() == torn) {
             b2.setEnabled(true);
         }
@@ -173,7 +174,7 @@ public class CalendariRestriccio extends DosBotons implements ListSelectionListe
                 model.setMonth(Integer.parseInt((String) any.getSelectedItem()), mesos.getSelectedIndex());
                 repaint();
             }
-        } else if (arg0.getSource() == this.cellSelectionModel || arg0.getSource() == this.modelcolumna) {
+        } else if (arg0.getSource() == this.modelcolumna) {
             //RETORNA LA FILA CLICADA
 
             int fila = table.getSelectedRow();
@@ -210,7 +211,7 @@ public class CalendariRestriccio extends DosBotons implements ListSelectionListe
             any.setEnabled(true);
             mesos.setEnabled(true);
             table.setEnabled(true);
-
+            b2.setEnabled(false);
         }
     }
 }
