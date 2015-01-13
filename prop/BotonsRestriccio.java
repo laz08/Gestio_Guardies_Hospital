@@ -199,7 +199,7 @@ public class BotonsRestriccio extends QuatreBotons {
         
         else if (arg0.getSource() == crearrestriccio) {
             if(!restricciocompleta.getText().equals("")){
-                ctrlvr.afegeixRestriccio(restricciocompleta.getText());
+                ctrlvr.afegeixRestriccio(restriccio);
             }
         	
         }
