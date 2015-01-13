@@ -55,8 +55,13 @@ public class CtrlVistaAssignacio {
         if (g != null) {
             for (int i = 0; i < g.numV(); i++) {
                 if (g.getVertex(i).getClasse() == Vertex.DOCTOR) {
-                    String doc = g.getVertex(i).getId();
-                    llistadoctors.model1.addElement(doc);
+                    //String doc = g.getVertex(i).getId();
+                    String doc = g.retornaDoctorDeVertex(i);
+                    /*String separadors = "[ \n]";
+                    String[] separat = doc.split(separadors);
+                    */
+                    String[] separat = doc.split(" ");
+                        llistadoctors.model1.addElement(separat[i] + " | " + separat[i + 2] + " " + separat[i + 3]+ ", " +separat[i + 1] );
                 }
             }
         }

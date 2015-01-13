@@ -170,10 +170,17 @@ public class Graf {
                 break;
         }
         resultat = resultat + "del " + any;
-        System.out.println(resultat);
         return resultat;
     }
 
+    public String retornaDoctorDeVertex(int pos){
+        Vertex v = Vs.get(pos);
+        Doctor doc = (Doctor) v.getObjecte();
+        String content = doc.getdni() + " " + doc.getNom() + " " + doc.getCognom1() + " "
+                + doc.getCognom2() + " " + doc.getSou() + " " + doc.getTelefon() + " " + doc.getCorreu() + "\n";
+        return content;
+
+    }
     /**
      * Donat un identificador de vertex, format per un String i la classe del
      * vertex retorna l'objecte en cuestió
