@@ -65,6 +65,7 @@ public class VistaPrincipal extends JFrame {
                 	ctrlvr.swap(2, 1);
                 }
                 else if(pestanyes.getSelectedIndex() == 4){
+                	ctrlval.esborrarErrors();
                     ctrlval.actualitzaLlistaPlantilles();
                 }
                 else if(pestanyes.getSelectedIndex() == 5){

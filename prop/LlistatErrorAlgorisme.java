@@ -16,9 +16,11 @@ public class LlistatErrorAlgorisme extends PanelLlistatError {
         add(textplantilla, BorderLayout.NORTH);
         add(scroll1);
         afegirPlantilles();
+        esborrarErrors();
         llista1.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
+            	esborrarErrors();
                 String plantilla = (String) llista1.getSelectedValue();
                 ctrlval.seleccionaPlantilla(plantilla);
             }
@@ -28,14 +30,12 @@ public class LlistatErrorAlgorisme extends PanelLlistatError {
 
     public void valueChanged(ListSelectionEvent arg0) {
         if (arg0.getSource() == llista1) {
+        	esborrarErrors();
             if (!arg0.getValueIsAdjusting()) {
             }
         }
     }
     
-    public void xivato(String p) {
-    	model1.addElement(p);
-    }
 
     public void afegirPlantilles() {
         String content = ctrlval.obteLlistaPlantilles();
@@ -50,5 +50,17 @@ public class LlistatErrorAlgorisme extends PanelLlistatError {
                 }
             }
         }
+    }
+    
+    public void esborrarErrors() {
+    	error.setText("");
+    }
+    
+    public void errorNoSelect() {
+    	error.setText("ERROR: No hi ha cap plantilla seleccionada");
+    }
+    
+    public void errorNoCalendari() {
+    	error.setText("ERROR: La plantilla no té calendari");
     }
 }

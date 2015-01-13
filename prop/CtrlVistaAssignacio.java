@@ -41,7 +41,7 @@ public class CtrlVistaAssignacio {
         if (g != null) {
             for (int i = 0; i < g.numV(); i++) {
                 if (g.getVertex(i).getClasse() == Vertex.TORN) {
-                    String torn = g.getVertex(i).getId();
+                    String torn = g.getDiaMesAnydeTorn(i);
                     llistatorns.model1.addElement(torn);
                 }
             }
@@ -89,4 +89,6 @@ public class CtrlVistaAssignacio {
             llistaassociacio.model1.addElement(docs.get(i).getdni());
         }
     }
+
+
 }

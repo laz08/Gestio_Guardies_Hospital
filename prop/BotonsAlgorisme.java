@@ -64,8 +64,8 @@ public class BotonsAlgorisme extends DosBotons {
         add(b1, c);
         b1.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
+            	ctrlval.esborrarErrors();
             	ctrlval.iniciarGraf();
-                //CtrlAlgorisme.initGraf();
                 String tv = textvertexs.getText();
                 String[] text = tv.split(":");
                 textvertexs.setText(text[0] + ": " + CtrlAlgorisme.getNumVertex());
@@ -115,6 +115,7 @@ public class BotonsAlgorisme extends DosBotons {
 
         b2.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
+            	ctrlval.esborrarErrors();
                 ExecutaAlgorisme(evt);
             }
         });
@@ -122,6 +123,7 @@ public class BotonsAlgorisme extends DosBotons {
     }
 
     private void ExecutaAlgorisme(ActionEvent evt) {
+    	ctrlval.esborrarErrors();
         Algorisme algo;
         boolean b = ctrlval.iniciarExecucio();
         if(b) {

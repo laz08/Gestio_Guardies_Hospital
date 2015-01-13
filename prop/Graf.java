@@ -1,6 +1,8 @@
 package prop;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 public class Graf {
 
@@ -108,6 +110,54 @@ public class Graf {
      */
     public Vertex getVertex(int posX) {
         return Vs.get(posX);
+    }
+
+
+    public String getDiaMesAnydeTorn(int posX){
+        Plantilla plantilla = CtrlPlantilla.getPlantillaActual();
+        Vertex v = Vs.get(posX);
+        Torn t = (Torn) v.getObjecte();
+
+        int pos = t.getPosicio();
+
+        int any_i = CtrlCalendari.consultarCalendari(plantilla.getNomPlantilla()).getAny();
+        int any_pos = pos/365;
+        int any = any_i + any_pos;
+
+        GregorianCalendar d = CtrlCalendari.quinDia(pos, any);
+        int mes = d.get(Calendar.MONTH);
+        int dia = d.get(Calendar.DAY_OF_MONTH);
+
+        String resultat = dia + " ";
+        switch(mes){
+            case 0: resultat = resultat + "Gener" + " ";
+                break;
+            case 1: resultat = resultat + "Febrer" + " ";
+                break;
+            case 2: resultat = resultat + "Març" + " ";
+                break;
+            case 3: resultat = resultat + "Abril" + " ";
+                break;
+            case 4: resultat = resultat + "Maig" + " ";
+                break;
+            case 5: resultat = resultat + "Juny" + " ";
+                break;
+            case 6: resultat = resultat + "Juliol" + " ";
+                break;
+            case 7: resultat = resultat + "Agost" + " ";
+                break;
+            case 8: resultat = resultat + "Setembre" + " ";
+                break;
+            case 9: resultat = resultat + "Octubre" + " ";
+                break;
+            case 10: resultat = resultat + "Novembre" + " ";
+                break;
+            case 11: resultat = resultat + "Desembre" + " ";
+                break;
+        }
+        resultat = resultat + any;
+        System.out.println(resultat);
+        return resultat;
     }
 
     /**
