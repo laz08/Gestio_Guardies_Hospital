@@ -96,10 +96,10 @@ public class CtrlVistaAssignacio {
     public String transformaTornAStringLlista(Torn t){
         String resultat = "";
         int h = t.getHora_inici();
-        if (h == 5){
+        if (h == 0){
             resultat = "(Matí) ";
         }
-        else if(h == 12){
+        else if(h == 8){
             resultat = "(Tarda) ";
         }
         else resultat = "(Nit) ";
