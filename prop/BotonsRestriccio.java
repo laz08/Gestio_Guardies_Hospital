@@ -1,16 +1,8 @@
 package prop;
 
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
-
-import javax.swing.ButtonGroup;
-import javax.swing.JButton;
-import javax.swing.JFileChooser;
-import javax.swing.JLabel;
-import javax.swing.JRadioButton;
-import javax.swing.JTextField;
 
 public class BotonsRestriccio extends QuatreBotons {
 
@@ -19,7 +11,7 @@ public class BotonsRestriccio extends QuatreBotons {
     private JRadioButton botodia = new JRadioButton("Dia");
     private JLabel obrircalendari = new JLabel("Selecciona una data:");
     private JLabel textcomplet = new JLabel("Restricció Completa");
-    private JTextField restricciocompleta = new JTextField("aaaaaaaa");
+    private JTextField restricciocompleta = new JTextField("");
     private GridBagConstraints c = new GridBagConstraints();
     private JButton neteja = new JButton("Neteja Restriccio");
     private ButtonGroup gruprestriccio = new ButtonGroup();
@@ -206,6 +198,9 @@ public class BotonsRestriccio extends QuatreBotons {
         }
         
         else if (arg0.getSource() == crearrestriccio) {
+            if(!restricciocompleta.getText().equals("")){
+                ctrlvr.afegeixRestriccio(restricciocompleta.getText());
+            }
         	
         }
     }

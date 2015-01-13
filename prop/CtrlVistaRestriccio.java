@@ -82,4 +82,8 @@ public class CtrlVistaRestriccio {
         public void actualitzaEstatBotons(){
             dret.revalidate();
         }
+
+    public void afegeixRestriccio(String r){
+        CtrlRestriccio.nova_res(r);
+    }
 }
