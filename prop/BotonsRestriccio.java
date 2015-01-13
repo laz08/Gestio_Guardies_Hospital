@@ -317,16 +317,16 @@ public class BotonsRestriccio extends QuatreBotons {
                 break;
         }
         if (restriccioA == 0) {
-            restricciocompleta.setText(restricciocompleta.getText() + hora + ")");
-            restriccio = restriccio + torn + ")";
+            restricciocompleta.setText(restricciocompleta.getText() + torn + ")");
+            restriccio = restriccio + hora + ")";
             if (acumulat) {
                 restricciocompleta.setText(restricciocompleta.getText() + ")");
                 restriccio = restriccio + ")";
                 System.out.println("acumulat");
             }
         } else {
-            restricciocompleta.setText(restricciocompleta.getText() + hora);
-            restriccio = restriccio + torn;
+            restricciocompleta.setText(restricciocompleta.getText() + torn);
+            restriccio = restriccio + hora;
             if (restriccioA > 0) {
                 restriccioA--;
             }
