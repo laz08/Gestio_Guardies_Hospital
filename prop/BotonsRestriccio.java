@@ -25,6 +25,7 @@ public class BotonsRestriccio extends QuatreBotons {
     private ButtonGroup gruprestriccio = new ButtonGroup();
     private JButton carrega = new JButton("Carregar Restriccions");
     private JButton guarda = new JButton("Guardar Restriccions");
+    private JButton crearrestriccio = new JButton("Crear Restricció");
     //control per crear la restriccio
     private int restriccioA = 1;
     private boolean acumulat = false;
@@ -53,6 +54,7 @@ public class BotonsRestriccio extends QuatreBotons {
         b1.addActionListener(this);
         gruprestriccio.add(bototorn);
         gruprestriccio.add(botodia);
+        crearrestriccio.addActionListener(this);
         restricciocompleta.setEditable(false);
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
@@ -88,6 +90,9 @@ public class BotonsRestriccio extends QuatreBotons {
         c.gridx = 0;
         c.gridy = 5;
         add(neteja, c);
+        c.gridx = 1;
+        c.gridy =5;
+        add(crearrestriccio, c);
         c.gridx = 0;
         c.gridy = 7;
         add(carrega, c);
@@ -198,6 +203,10 @@ public class BotonsRestriccio extends QuatreBotons {
                 ctrlvr.guardar(directori.getSelectedFile());
                 ctrlvr.actualitza();
             }
+        }
+        
+        else if (arg0.getSource() == crearrestriccio) {
+        	
         }
     }
 
