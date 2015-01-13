@@ -83,7 +83,7 @@ public class BotonsRestriccio extends QuatreBotons {
         c.gridy = 5;
         add(neteja, c);
         c.gridx = 1;
-        c.gridy =5;
+        c.gridy = 5;
         add(crearrestriccio, c);
         c.gridx = 0;
         c.gridy = 7;
@@ -109,7 +109,7 @@ public class BotonsRestriccio extends QuatreBotons {
             if (esRestriccio) {
                 b4.setEnabled(true);
                 acumulat = true;
-                restriccioA ++;
+                restriccioA++;
             } else {
                 b4.setEnabled(false);
             }
@@ -125,7 +125,7 @@ public class BotonsRestriccio extends QuatreBotons {
             if (esRestriccio) {
                 b4.setEnabled(true);
                 acumulat = true;
-                restriccioA ++;
+                restriccioA++;
             } else {
                 b4.setEnabled(false);
             }
@@ -195,13 +195,11 @@ public class BotonsRestriccio extends QuatreBotons {
                 ctrlvr.guardar(directori.getSelectedFile());
                 ctrlvr.actualitza();
             }
-        }
-        
-        else if (arg0.getSource() == crearrestriccio) {
-            if(!restricciocompleta.getText().equals("")){
+        } else if (arg0.getSource() == crearrestriccio) {
+            if (!restricciocompleta.getText().equals("")) {
                 ctrlvr.afegeixRestriccio(restriccio);
             }
-        	
+
         }
     }
 
@@ -211,7 +209,7 @@ public class BotonsRestriccio extends QuatreBotons {
         String agrupacio = "";
         int cont = 0;
         while (!acaba) {
-            
+
             if (resultat.length() != 0) {
                 String c = resultat.substring(resultat.length() - 1, resultat.length());
                 resultat = resultat.substring(0, resultat.length() - 1);
@@ -219,18 +217,17 @@ public class BotonsRestriccio extends QuatreBotons {
                     cont++;
                 } else if (c.equals("(")) {
                     cont--;
-                }
-                else if (c.equals(" ")){
+                } else if (c.equals(" ")) {
                     acaba = true;
                 }
-                
+
                 if (cont < 0 || c.equals(" ")) {
                     acaba = true;
                     resultat = resultat + c;
-                } else if(!c.equals(" ")){
+                } else if (!c.equals(" ")) {
                     agrupacio = c + agrupacio;
                 }
-                if(c.equals(" ")){
+                if (c.equals(" ")) {
                     resultat = resultat + c;
                 }
             } else {
@@ -252,15 +249,14 @@ public class BotonsRestriccio extends QuatreBotons {
                     cont++;
                 } else if (c.equals("(")) {
                     cont--;
-                }
-                else if (c.equals(" ")){
+                } else if (c.equals(" ")) {
                     acaba = true;
                 }
-                
+
                 if (cont < 0 || c.equals(" ")) {
                     acaba = true;
                     resultat = resultat + c;
-                } else if(!c.equals(" ")){
+                } else if (!c.equals(" ")) {
                     agrupacio = c + agrupacio;
                 }
             } else {
@@ -282,13 +278,18 @@ public class BotonsRestriccio extends QuatreBotons {
     }
 
     public void seleccioDia(int dia, int mes) {
+        crearrestriccio.setEnabled(false);
+
         if (restriccioA == 0) {
             restricciocompleta.setText(restricciocompleta.getText() + dia + "-" + mes + ")");
             restriccio = restriccio + dia + "-" + mes + ")";
             if (acumulat) {
                 restricciocompleta.setText(restricciocompleta.getText() + ")");
                 restriccio = restriccio + ")";
+
             }
+            crearrestriccio.setEnabled(true);
+
         } else {
             restricciocompleta.setText(restricciocompleta.getText() + dia + "-" + mes);
             restriccio = restriccio + dia + "-" + mes;
@@ -304,6 +305,7 @@ public class BotonsRestriccio extends QuatreBotons {
     }
 
     public void seleccioTorn(int ntorn) {
+        crearrestriccio.setEnabled(false);
         int hora = 0;
         String torn = "";
         switch (ntorn) {
@@ -326,8 +328,8 @@ public class BotonsRestriccio extends QuatreBotons {
             if (acumulat) {
                 restricciocompleta.setText(restricciocompleta.getText() + ")");
                 restriccio = restriccio + ")";
-                System.out.println("acumulat");
             }
+            crearrestriccio.setEnabled(true);
         } else {
             restricciocompleta.setText(restricciocompleta.getText() + torn);
             restriccio = restriccio + hora;
@@ -341,8 +343,8 @@ public class BotonsRestriccio extends QuatreBotons {
         b1.setEnabled(false);
         ctrlvr.actualitzaEstatBotons();
     }
-    
-    public boolean seleccioPerTorns(){
+
+    public boolean seleccioPerTorns() {
         return bototorn.isSelected();
     }
 }
