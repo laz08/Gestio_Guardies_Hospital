@@ -80,7 +80,7 @@ public class CtrlVistaRestriccio {
         }
         
         public void actualitzaEstatBotons(){
-            dret.invalidate();
+            dret.revalidate();
             System.out.println("actualitza");
         }
 }

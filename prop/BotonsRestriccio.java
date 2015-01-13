@@ -147,17 +147,25 @@ public class BotonsRestriccio extends QuatreBotons {
             if (bototorn.isSelected()) {
                 restricciocompleta.setText("H ");
                 restriccio = "H ";
+                restriccioA = 1;
+                acumulat = false;
             } else if (botodia.isSelected()) {
                 restricciocompleta.setText("D ");
                 restriccio = "D ";
+                restriccioA = 1;
+                acumulat = false;
             } else {
                 restricciocompleta.setText("");
                 restriccio = "";
+                restriccioA = 1;
+                acumulat = false;
             }
         } else if (arg0.getSource() == bototorn) {
             botodia.setSelected(false);
             restricciocompleta.setText("H ");
             restriccio = "H ";
+            restriccioA = 1;
+            acumulat = false;
             b3.setEnabled(false);
             b2.setEnabled(false);
             b4.setEnabled(true);
@@ -168,6 +176,8 @@ public class BotonsRestriccio extends QuatreBotons {
             bototorn.setSelected(false);
             restricciocompleta.setText("D ");
             restriccio = "D ";
+            restriccioA = 1;
+            acumulat = false;
             b3.setEnabled(false);
             b2.setEnabled(false);
             b4.setEnabled(true);
@@ -193,6 +203,7 @@ public class BotonsRestriccio extends QuatreBotons {
         String agrupacio = "";
         int cont = 0;
         while (!acaba) {
+            
             if (resultat.length() != 0) {
                 String c = resultat.substring(resultat.length() - 1, resultat.length());
                 resultat = resultat.substring(0, resultat.length() - 1);
@@ -201,10 +212,17 @@ public class BotonsRestriccio extends QuatreBotons {
                 } else if (c.equals("(")) {
                     cont--;
                 }
-                if (cont < 0) {
+                else if (c.equals(" ")){
                     acaba = true;
-                } else {
+                }
+                
+                if (cont < 0 || c.equals(" ")) {
+                    acaba = true;
+                } else if(!c.equals(" ")){
                     agrupacio = c + agrupacio;
+                }
+                if(c.equals(" ")){
+                    resultat = resultat + c;
                 }
             } else {
                 acaba = true;
@@ -226,10 +244,17 @@ public class BotonsRestriccio extends QuatreBotons {
                 } else if (c.equals("(")) {
                     cont--;
                 }
-                if (cont < 0) {
+                else if (c.equals(" ")){
                     acaba = true;
-                } else {
+                }
+                
+                if (cont < 0 || c.equals(" ")) {
+                    acaba = true;
+                } else if(!c.equals(" ")){
                     agrupacio = c + agrupacio;
+                }
+                if(c.equals(" ")){
+                    resultat = resultat + c;
                 }
             } else {
                 acaba = true;
