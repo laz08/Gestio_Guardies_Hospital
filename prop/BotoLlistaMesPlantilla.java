@@ -1,9 +1,12 @@
 package prop;
 
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 
 public class BotoLlistaMesPlantilla extends BotoLlista {
@@ -51,6 +54,14 @@ public class BotoLlistaMesPlantilla extends BotoLlista {
 		JPanel bto4 = new JPanel();
 		bto4.add(b4);
 		add(bto4);
+		b2.setEnabled(false);
+		
+		llista1.addListSelectionListener(new ListSelectionListener() {
+	        @Override
+	        public void valueChanged(ListSelectionEvent e) {
+	        	b2.setEnabled(true);
+	        }
+		});
 
 	}
 	
@@ -92,10 +103,16 @@ public class BotoLlistaMesPlantilla extends BotoLlista {
 	           }
 	       }
 	   }
+	    b2.setEnabled(false);
 		
 	}
 	
+	
+	
+	
+	
 	public void actionPerformed(ActionEvent arg0) {
+
 		//b1=assignar doctor, canviem de panell (BotoLlistaPlantilla)
 		if (arg0.getSource() == b1) {
 			ctrlvp.actualitzarLlistaDocs();
@@ -107,6 +124,7 @@ public class BotoLlistaMesPlantilla extends BotoLlista {
 			desasignarDoctor();
 			ctrlvp.actualitzarLlistaDocs();
 			actualitzarLlistaDoctorsPlt();
+			b2.setEnabled(false);
 			//Pot ser tambe haig d'actualitzar la llista de doctors que no tenen plt
 		}
 		

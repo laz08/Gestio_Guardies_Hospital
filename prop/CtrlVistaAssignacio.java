@@ -55,7 +55,8 @@ public class CtrlVistaAssignacio {
         if (g != null) {
             for (int i = 0; i < g.numV(); i++) {
                 if (g.getVertex(i).getClasse() == Vertex.DOCTOR) {
-                    String doc = g.getVertex(i).getId();
+                    //String doc = g.getVertex(i).getId();
+                    String doc = g.retornaDoctorDeVertex(i);
                     llistadoctors.model1.addElement(doc);
                 }
             }

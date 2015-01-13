@@ -2,8 +2,8 @@ package prop;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
-import java.awt.*;
 import javax.swing.event.ListSelectionListener;
+import java.awt.*;
 
 public class LListatErrorAssignacio extends PanelLlistatError {
 
@@ -18,6 +18,7 @@ public class LListatErrorAssignacio extends PanelLlistatError {
         add(scroll1);
         add(error, BorderLayout.SOUTH);
         scroll1.setSize(getSize());
+        error.setText("");
         llista1.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {

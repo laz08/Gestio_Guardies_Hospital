@@ -181,15 +181,15 @@ public class Doc_Torn {
     
     public static ArrayList<Doctor> getDocRel(String torn){
         //null pointer calendari
-        Dia[] any = CtrlPlantilla.getPlantillaActual().get_calendari_asoc().getCalendari();
+    	Dia[] any =  CtrlCalendari.consultarCalendari(CtrlPlantilla.getPlantillaActual().getNomPlantilla()).getCalendari();
         boolean trobat = false;
         Torn t = null;
         for(int i=0; i<any.length && !trobat; i++){
             Torn[] torns = any[i].getTorns();
             for(int e=0; e<torns.length; e++){
-                if(torns[i].toString().equals(torn)){
+                if(torns[e].toString().equals(torn)){
                     trobat = true;
-                    t = torns[i];
+                    t = torns[e];
                 }
             }
         }
