@@ -20,6 +20,7 @@ public class LlistatErrorRestriccio extends PanelLlistatError{
 	}
 
 	public void actualitza(ArrayList<String> arrayList) {
+        model1.clear();
 		for (int i = 0; i < arrayList.size(); ++i) {
 			model1.addElement(arrayList.get(i));
 		}
