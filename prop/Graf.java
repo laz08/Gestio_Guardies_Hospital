@@ -114,6 +114,20 @@ public class Graf {
 
 
     public String getDiaMesAnydeTorn(int posX){
+        String resultat = "";
+        int matiTardaNit = posX%3;
+        switch(matiTardaNit){
+            case 0:
+                resultat = "(Matí) ";
+                break;
+            case 1:
+                resultat= "(Tarda) ";
+                break;
+            case 2:
+                resultat = "(Nit) ";
+                break;
+        }
+
         Plantilla plantilla = CtrlPlantilla.getPlantillaActual();
         Vertex v = Vs.get(posX);
         Torn t = (Torn) v.getObjecte();
@@ -128,7 +142,7 @@ public class Graf {
         int mes = d.get(Calendar.MONTH);
         int dia = d.get(Calendar.DAY_OF_MONTH);
 
-        String resultat = dia + " ";
+        resultat = resultat + dia + " de ";
         switch(mes){
             case 0: resultat = resultat + "Gener" + " ";
                 break;
@@ -155,7 +169,7 @@ public class Graf {
             case 11: resultat = resultat + "Desembre" + " ";
                 break;
         }
-        resultat = resultat + any;
+        resultat = resultat + "del " + any;
         System.out.println(resultat);
         return resultat;
     }
