@@ -11,17 +11,18 @@ package prop;
 public class CtrlThreads{
 
     private static Thread[] threads = new Thread[3];
-    private static Supervisor s = new Supervisor();
+    private static Thread s;
+    private static boolean[] vius = {false, false, false};
     private static boolean supervisor = false;
     
     public static void FordFulquerson(Algorisme algo) {
         Thread ford = new Thread(algo);
         threads[0] = ford;
         ford.start();
-        s.setVius(0, true);
+        vius[0] = true;
         if (!supervisor) {
-            Thread supervisor0 = new Thread(s);
-            supervisor0.start();
+            s = new Thread(new Supervisor());
+            s.start();
         }
     }
 
@@ -29,10 +30,10 @@ public class CtrlThreads{
         Thread edmonds = new Thread(algo);
         threads[1] = edmonds;
         edmonds.start();
-        s.setVius(1, true);
+        vius[1] = true;
         if (!supervisor) {
-            Thread supervisor1 = new Thread(s);
-            supervisor1.start();
+            s = new Thread(new Supervisor());
+            s.start();
         }
     }
 
@@ -40,10 +41,10 @@ public class CtrlThreads{
         Thread dij = new Thread(algo);
         threads[2] = dij;
         dij.start();
-        s.setVius(2, true);
+        vius[2] = true;
         if (!supervisor) {
-            Thread supervisor2 = new Thread(s);
-            supervisor2.start();
+            s = new Thread(new Supervisor());
+            s.start();
         }
     }
     
@@ -53,5 +54,13 @@ public class CtrlThreads{
     
     public static void setSupervisor(boolean estat){
         supervisor = estat;
+    }
+    
+    public static boolean getViu(int pos){
+        return vius[pos];
+    }
+    
+    public static void setViu(int pos, boolean estat){
+        vius[pos] = estat;
     }
 }

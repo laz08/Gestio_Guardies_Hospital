@@ -9,11 +9,11 @@ package prop;
  * @author Xisco
  */
 public class Supervisor implements Runnable{
-    private boolean[] vius = {false, false, false};
     
     @Override
     public void run() {
-        while (true) {
+        System.out.println("arranca");
+        while (algunViu()) {
             comprova_vius();
         }
     }
@@ -22,17 +22,18 @@ public class Supervisor implements Runnable{
         boolean viu = false;
         int pos = 0;
         while (!viu && pos < 3) {
-            if (vius[pos]) {
+            if (CtrlThreads.getViu(pos)) {
                 viu = true;
             }
+            pos++;
         }
         return viu;
     }
 
     private void comprova_vius() {
         for (int i = 0; i < 3; i++) {
-            if (vius[i] && CtrlThreads.getThread(i)!=null && !CtrlThreads.getThread(i).isAlive()) {
-                vius[i] = false;
+            if (CtrlThreads.getViu(i) && CtrlThreads.getThread(i)!=null && !CtrlThreads.getThread(i).isAlive()) {
+                CtrlThreads.setViu(i, false);
                 actualitza(i);
             }
         }
@@ -64,10 +65,6 @@ public class Supervisor implements Runnable{
                 break;
         }
         
-    }
-    
-    public void setVius(int i, boolean viu){
-        vius[i] = viu;
     }
     
 }
