@@ -92,6 +92,7 @@ public class BotonsRestriccio extends QuatreBotons {
         c.gridy = 7;
         add(guarda, c);
         bototorn.doClick();
+        crearrestriccio.setEnabled(false);
     }
 
     @Override
