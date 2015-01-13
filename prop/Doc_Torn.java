@@ -25,14 +25,14 @@ public class Doc_Torn {
                 post++;
             }
         }
-        
+
         if (existeixt) {
             torns.get(post).addRelacio(rd);
         } else {
             rt.addRelacio(rd);
             torns.add(rt);
         }
-        
+
         boolean existeixd = false;
         int posd = 0;
         while (posd < torns.size() && !existeixd) {
@@ -65,16 +65,16 @@ public class Doc_Torn {
             Torn[] torns = dia.getTorns();
             int posTorn = 0;
             while (posTorn < 3) {
-                if(torns[posTorn].toString().equals(t)){
+                if (torns[posTorn].toString().equals(t)) {
                     trobat = true;
                     torn = torns[posTorn];
                 }
-                posTorn ++;
+                posTorn++;
             }
             posDia++;
         }
         Relacio rt = new Relacio(torn);
-        
+
         Doctor doc = CtrlHospital.getDoctor(d);
         Relacio rd = new Relacio(doc);
 
@@ -96,8 +96,8 @@ public class Doc_Torn {
             rt.addRelacio(rd);
             torns.add(rt);
         }
-        
-        
+
+
         boolean existeixd = false;
         int posd = 0;
         while (posd < torns.size() && !existeixd) {
@@ -155,65 +155,38 @@ public class Doc_Torn {
         doctors.clear();
     }
 
-    
-    public static ArrayList<Torn> getTornsRel(String doc){
+    public static ArrayList<Torn> getTornsRel(String doc) {
+        ArrayList<Torn> torns = new ArrayList<Torn>();
         Doctor d = CtrlHospital.getDoctor(doc);
-        ArrayList<Torn> ts = new ArrayList<Torn>();
-        boolean existeixd = false;
-        int posd = 0;
-        while (posd < torns.size() && !existeixd) {
-            if (d.equals(torns.get(posd).getObj())) {
-                existeixd = true;
-            }
-            if (!existeixd) {
-                posd++;
-            }
-        }
-        if (existeixd) {
-            ArrayList<Relacio> rt = torns.get(posd).getRelacionats();
-            for (int i = 0; i < rt.size(); i++) {
-                ts.add((Torn) rt.get(i).getObj());
-            }
-        }
-        return ts;
-    }
-    
-    
-    public static ArrayList<Doctor> getDocRel(String torn){
-        //null pointer calendari
-    	Dia[] any =  CtrlCalendari.consultarCalendari(CtrlPlantilla.getPlantillaActual().getNomPlantilla()).getCalendari();
-        boolean trobat = false;
-        Torn t = null;
-        for(int i=0; i<any.length && !trobat; i++){
-            Torn[] torns = any[i].getTorns();
-            for(int e=0; e<torns.length; e++){
-                if(torns[e].toString().equals(torn)){
-                    trobat = true;
-                    t = torns[e];
+        for (int i = 0; i < doctors.size(); i++) {
+            Relacio rel = doctors.get(i);
+            if (d.equals((Doctor) rel.getObj())) {
+                ArrayList<Relacio> relacionats = rel.getRelacionats();
+                for (int e = 0; e < relacionats.size(); e++) {
+                    Relacio r = relacionats.get(e);
+                    torns.add((Torn) r.getObj());
                 }
             }
         }
-        ArrayList<Doctor> ts = new ArrayList<Doctor>();
-        boolean existeix = false;
-        int pos = 0;
-        while (pos < doctors.size() && !existeix) {
-            if (t.equals(doctors.get(pos).getObj())) {
-                existeix = true;
-            }
-            if (!existeix) {
-                pos++;
-            }
-        }
-        if (existeix) {
-            ArrayList<Relacio> rd = torns.get(pos).getRelacionats();
-            for (int i = 0; i < rd.size(); i++) {
-                ts.add((Doctor) rd.get(i).getObj());
-            }
-        }
-        return ts;
+        return torns;
     }
-    
-    
+
+    public static ArrayList<Doctor> getDocRel(String torn) {
+        ArrayList<Doctor> doctors = new ArrayList<Doctor>();
+        for (int i = 0; i < torns.size(); i++) {
+            Relacio rel = torns.get(i);
+            if (torn.equals(((Torn) rel.getObj()).toString())) {
+                System.out.print(" relacionat amb ");
+                ArrayList<Relacio> relacionats = rel.getRelacionats();
+                for (int e = 0; e < relacionats.size(); e++) {
+                    Relacio r = relacionats.get(e);
+                    doctors.add((Doctor) r.getObj());
+                }
+            }
+        }
+        return doctors;
+    }
+
     public static ArrayList<Torn> getRel(Doctor d) {
         ArrayList<Torn> ts = new ArrayList<Torn>();
         boolean existeixd = false;
@@ -255,31 +228,31 @@ public class Doc_Torn {
         }
         return ts;
     }
-    
-    public static void mostraRelacions(){
+
+    public static void mostraRelacions() {
         System.out.println("________DOCTORS______");
-        for(int i=0; i<doctors.size(); i++){
+        for (int i = 0; i < doctors.size(); i++) {
             Relacio rel = doctors.get(i);
-            System.out.print("Doctor "+((Doctor)rel.getObj()).getdni()); 
+            System.out.print("Doctor " + ((Doctor) rel.getObj()).getdni());
             System.out.print(" relacionat amb ");
             ArrayList<Relacio> relacionats = rel.getRelacionats();
-            for(int e=0; e<relacionats.size(); e++){
+            for (int e = 0; e < relacionats.size(); e++) {
                 Relacio r = relacionats.get(e);
-                System.out.print(((Torn)r.getObj()).toString()+" ");
+                System.out.print(((Torn) r.getObj()).toString() + " ");
             }
             System.out.println();
         }
-        
-        
+
+
         System.out.println("________TORNS______");
-        for(int i=0; i<torns.size(); i++){
+        for (int i = 0; i < torns.size(); i++) {
             Relacio rel = torns.get(i);
-            System.out.print("Torn "+((Torn)rel.getObj()).toString()); 
+            System.out.print("Torn " + ((Torn) rel.getObj()).toString());
             System.out.print(" relacionat amb ");
             ArrayList<Relacio> relacionats = rel.getRelacionats();
-            for(int e=0; e<relacionats.size(); e++){
+            for (int e = 0; e < relacionats.size(); e++) {
                 Relacio r = relacionats.get(e);
-                System.out.print(((Doctor)r.getObj()).getdni()+" ");
+                System.out.print(((Doctor) r.getObj()).getdni() + " ");
             }
             System.out.println();
         }
