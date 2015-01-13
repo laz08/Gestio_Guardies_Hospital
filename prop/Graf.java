@@ -176,8 +176,8 @@ public class Graf {
     public String retornaDoctorDeVertex(int pos){
         Vertex v = Vs.get(pos);
         Doctor doc = (Doctor) v.getObjecte();
-        String content = doc.getdni() + " " + doc.getNom() + " " + doc.getCognom1() + " "
-                + doc.getCognom2() + " " + doc.getSou() + " " + doc.getTelefon() + " " + doc.getCorreu() + "\n";
+        String content = doc.getdni() + " | " + doc.getCognom1() + " "
+                + doc.getCognom2() + ", " + doc.getNom() ;
         return content;
 
     }
