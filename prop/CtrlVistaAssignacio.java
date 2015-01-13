@@ -42,7 +42,7 @@ public class CtrlVistaAssignacio {
             for (int i = 0; i < g.numV(); i++) {
                 if (g.getVertex(i).getClasse() == Vertex.TORN) {
                     String torn = g.getDiaMesAnydeTorn(i);
-                    llistatorns.model1.addElement(torn);
+                    llistatorns.model1.addElement(torn + " || " + g.getVertex(i).getId());
                 }
             }
         }

@@ -30,8 +30,10 @@ public class LListatTorns extends PanelLlistat {
     public void valueChanged(ListSelectionEvent arg0) {
         if (arg0.getSource() == this.llista1) {
             if (!arg0.getValueIsAdjusting()) {
-                String Torn = (String) llista1.getSelectedValue();
-                ctrlva.mostraDoctorsAssociats(Torn);
+                //Posició 7
+                String torn = (String) llista1.getSelectedValue();
+                String splitejat[] = torn.split(" ");
+                ctrlva.mostraDoctorsAssociats(splitejat[7]);
             }
         }
     }
