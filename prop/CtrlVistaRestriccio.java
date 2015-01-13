@@ -85,5 +85,6 @@ public class CtrlVistaRestriccio {
 
     public void afegeixRestriccio(String r){
         CtrlRestriccio.nova_res(r);
+        actualitza();
     }
 }
