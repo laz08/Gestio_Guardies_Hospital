@@ -78,6 +78,7 @@ public class CtrlVistaAssignacio {
     }
 
     public void mostraTornsAssociats(String Doctor) {
+        llistaassociacio.model1.clear();
         ArrayList<Torn> torns = Doc_Torn.getTornsRel(Doctor);
         for (int i = 0; i < torns.size(); i++) {
             llistaassociacio.model1.addElement(torns.get(i).toString());
@@ -85,6 +86,7 @@ public class CtrlVistaAssignacio {
     }
     
     public void mostraDoctorsAssociats(String Torn) {
+        llistaassociacio.model1.clear();
         ArrayList<Doctor> docs = Doc_Torn.getDocRel(Torn);
         for (int i = 0; i < docs.size(); i++) {
             llistaassociacio.model1.addElement(docs.get(i).getdni());
