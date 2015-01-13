@@ -24,6 +24,9 @@ public class BotonsRestriccio extends QuatreBotons{
 	private ButtonGroup gruprestriccio = new ButtonGroup();
 	private JButton carrega = new JButton("Carregar Restriccions");
 	private JButton guarda = new JButton("Guardar Restriccions");
+        //control per crear la restriccio
+        private int restriccio = 1;
+        private boolean acumulat = false;
 	
 	public BotonsRestriccio(CtrlVistaRestriccio cvr) {
 		ctrlvr = cvr;
@@ -99,17 +102,17 @@ public class BotonsRestriccio extends QuatreBotons{
 			ctrlvr.swap(2,2);
 		}
 		else if (arg0.getSource() == neteja) {
-			if (bototorn.isSelected())restricciocompleta.setText("H");
-			else if (botodia.isSelected())restricciocompleta.setText("D");
+			if (bototorn.isSelected())restricciocompleta.setText("H ");
+			else if (botodia.isSelected())restricciocompleta.setText("D ");
 			else restricciocompleta.setText("");
 		}
 		else if (arg0.getSource() == bototorn) {
 			botodia.setSelected(false);
-			restricciocompleta.setText("H");
+			restricciocompleta.setText("H ");
 		}
 		else if (arg0.getSource() == botodia) {
 			bototorn.setSelected(false);
-			restricciocompleta.setText("D");
+			restricciocompleta.setText("D ");
 		}
 		else if (arg0.getSource() == carrega) {
 			if (directori.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
@@ -130,4 +133,23 @@ public class BotonsRestriccio extends QuatreBotons{
 		b3.setEnabled(operacions);
 		b4.setEnabled(operacions);
 	}
+        
+        public void seleccioDia(int dia, int mes){
+            if(restriccio==0){
+                restricciocompleta.setText(restricciocompleta.getText()+dia+"-"+mes+")");
+                if(acumulat){
+                    restricciocompleta.setText(restricciocompleta.getText()+")");
+                }
+            }
+            else{
+                restricciocompleta.setText(restricciocompleta.getText()+dia+"-"+mes);
+                if(restriccio>0){
+                    restriccio--;
+                }
+            }
+            b3.setEnabled(true);
+            b2.setEnabled(true);
+            b4.setEnabled(false);
+            b1.setEnabled(false);
+        }
 }

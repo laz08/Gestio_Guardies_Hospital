@@ -70,5 +70,9 @@ public class CtrlVistaRestriccio {
 	public void desactivaacceptar() {
 		calendari.desactivaacceptar();
 	}
+        
+        public void seleccioDia(int dia, int mes){
+            botons.seleccioDia(dia, mes);
+        }
 	
 }
