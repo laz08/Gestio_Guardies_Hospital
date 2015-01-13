@@ -111,6 +111,8 @@ public class BotonsRestriccio extends QuatreBotons {
             b2.setEnabled(false);
             if (esRestriccio) {
                 b4.setEnabled(true);
+                acumulat = true;
+                restriccioA ++;
             } else {
                 b4.setEnabled(false);
             }
@@ -125,6 +127,8 @@ public class BotonsRestriccio extends QuatreBotons {
             b2.setEnabled(false);
             if (esRestriccio) {
                 b4.setEnabled(true);
+                acumulat = true;
+                restriccioA ++;
             } else {
                 b4.setEnabled(false);
             }
@@ -218,6 +222,7 @@ public class BotonsRestriccio extends QuatreBotons {
                 
                 if (cont < 0 || c.equals(" ")) {
                     acaba = true;
+                    resultat = resultat + c;
                 } else if(!c.equals(" ")){
                     agrupacio = c + agrupacio;
                 }
@@ -250,11 +255,9 @@ public class BotonsRestriccio extends QuatreBotons {
                 
                 if (cont < 0 || c.equals(" ")) {
                     acaba = true;
+                    resultat = resultat + c;
                 } else if(!c.equals(" ")){
                     agrupacio = c + agrupacio;
-                }
-                if(c.equals(" ")){
-                    resultat = resultat + c;
                 }
             } else {
                 acaba = true;
@@ -319,6 +322,7 @@ public class BotonsRestriccio extends QuatreBotons {
             if (acumulat) {
                 restricciocompleta.setText(restricciocompleta.getText() + ")");
                 restriccio = restriccio + ")";
+                System.out.println("acumulat");
             }
         } else {
             restricciocompleta.setText(restricciocompleta.getText() + hora);
