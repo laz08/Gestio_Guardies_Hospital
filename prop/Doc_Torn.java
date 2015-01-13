@@ -176,7 +176,6 @@ public class Doc_Torn {
         for (int i = 0; i < torns.size(); i++) {
             Relacio rel = torns.get(i);
             if (torn.equals(((Torn) rel.getObj()).toString())) {
-                System.out.print(" relacionat amb ");
                 ArrayList<Relacio> relacionats = rel.getRelacionats();
                 for (int e = 0; e < relacionats.size(); e++) {
                     Relacio r = relacionats.get(e);
