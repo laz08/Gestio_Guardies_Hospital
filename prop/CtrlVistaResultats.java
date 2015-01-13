@@ -15,7 +15,6 @@ public class CtrlVistaResultats {
 	}
         
         public void posaResultats(int nr, long r){
-            System.out.println("CtrlVistaResultats " + r);
             resultat.setResultats(nr, r);
         }
 	

@@ -15,7 +15,6 @@ public class CtrlThreads{
     private static boolean supervisor = false;
     
     public static void FordFulquerson(Algorisme algo) {
-        System.out.println("Ford");
         Thread ford = new Thread(algo);
         threads[0] = ford;
         ford.start();
@@ -27,7 +26,6 @@ public class CtrlThreads{
     }
 
     public static void EdmondsKarp(Algorisme algo) {
-        System.out.println("Edmonds");
         Thread edmonds = new Thread(algo);
         threads[1] = edmonds;
         edmonds.start();
@@ -39,7 +37,6 @@ public class CtrlThreads{
     }
 
     public static void Dijkstra(Algorisme algo) {
-        System.out.println("Dij");
         Thread dij = new Thread(algo);
         threads[2] = dij;
         dij.start();
