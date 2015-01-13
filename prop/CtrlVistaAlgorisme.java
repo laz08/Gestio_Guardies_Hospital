@@ -48,7 +48,9 @@ public class CtrlVistaAlgorisme {
     	if(llistatalgorisme.llista1.getSelectedIndex()!=-1) {
     		String plt = llistatalgorisme.llista1.getSelectedValue().toString();
     		CtrlAlgorisme.iniciarGraf(plt);
+    		if(!CtrlCalendari.existeixCalendari(plt)) llistatalgorisme.errorNoCalendari();
     	}
+    	else llistatalgorisme.errorNoSelect();
     }
     
     public boolean iniciarExecucio() {
@@ -56,7 +58,13 @@ public class CtrlVistaAlgorisme {
     		String plt = llistatalgorisme.llista1.getSelectedValue().toString();
     		CtrlPlantilla.setPlantillaActual(plt);
     		if(CtrlCalendari.existeixCalendari(plt)) return true;
+    		else llistatalgorisme.errorNoCalendari();
     	}
+    	else llistatalgorisme.errorNoSelect();
     	return false;
+    }
+    
+    public void esborrarErrors() {
+    	llistatalgorisme.esborrarErrors();
     }
 }
