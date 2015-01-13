@@ -8,7 +8,8 @@ public class LListatTorns extends PanelLlistat {
 
     private CtrlVistaAssignacio ctrlva;
     private JLabel titoltorns = new JLabel("LLISTA DE TORNS", SwingConstants.CENTER);
-
+    private boolean event = true;
+    
     public LListatTorns(CtrlVistaAssignacio cva) {
         ctrlva = cva;
         remove(scroll1);
@@ -31,10 +32,15 @@ public class LListatTorns extends PanelLlistat {
         if (arg0.getSource() == this.llista1) {
             if (!arg0.getValueIsAdjusting()) {
                 //Posició 7
-                String torn = (String) llista1.getSelectedValue();
-                String splitejat[] = torn.split(" ");
-                ctrlva.mostraDoctorsAssociats(splitejat[7]);
+            	if (event) {
+            		String torn = (String) llista1.getSelectedValue();
+                	String splitejat[] = torn.split(" ");
+                	ctrlva.mostraDoctorsAssociats(splitejat[7]);
+            	}
             }
         }
     }
+	public void event(boolean b) {
+		event = b;
+	}
 }

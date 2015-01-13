@@ -37,6 +37,7 @@ public class CtrlVistaAssignacio {
 
     public void posaTorns() {
         Graf g = consultaGraf();
+        llistatorns.event(false);
         llistatorns.model1.clear();
         if (g != null) {
             for (int i = 0; i < g.numV(); i++) {
@@ -46,11 +47,13 @@ public class CtrlVistaAssignacio {
                 }
             }
         }
+        llistatorns.event(true);
 
     }
 
     public void posaDocs() {
         Graf g = consultaGraf();
+        llistadoctors.event(false);
         llistadoctors.model1.clear();
         if (g != null) {
             for (int i = 0; i < g.numV(); i++) {
@@ -61,6 +64,7 @@ public class CtrlVistaAssignacio {
                 }
             }
         }
+        llistadoctors.event(true);
 
     }
 
