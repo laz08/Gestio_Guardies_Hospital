@@ -2,8 +2,8 @@ package prop;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
-import java.awt.*;
 import javax.swing.event.ListSelectionListener;
+import java.awt.*;
 
 public class LlistatErrorAlgorisme extends PanelLlistatError {
 
@@ -13,6 +13,7 @@ public class LlistatErrorAlgorisme extends PanelLlistatError {
     public LlistatErrorAlgorisme(CtrlVistaAlgorisme cval) {
         ctrlval = cval;
         remove(scroll1);
+        error.setText(" ");
         add(textplantilla, BorderLayout.NORTH);
         add(scroll1);
         afegirPlantilles();
