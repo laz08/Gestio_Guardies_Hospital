@@ -210,7 +210,7 @@ public class FordFulkerson extends Algorisme {
     private static ArrayList<Integer> ordenacioPerSou(ArrayList<Integer> llista, int inf, int sup) {
         int idx = particio(llista, inf, sup);
 
-        if (inf < idx) {
+        if (inf < idx && sup - inf >= 2) {
             llista = ordenacioPerSou(llista, inf, idx);
         }
         if (sup > idx && sup - inf >= 2) {

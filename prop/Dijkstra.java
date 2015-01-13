@@ -321,7 +321,7 @@ public class Dijkstra extends Algorisme {
         } else {
             idx = particioPerPercent(llista, inf, sup);
         }
-        if (inf < idx) {
+        if (inf < idx && sup - inf >= 2) {
             llista = ordena(llista, inf, idx, doc_torn);
         }
         if (sup > idx && sup - inf >= 2) {
