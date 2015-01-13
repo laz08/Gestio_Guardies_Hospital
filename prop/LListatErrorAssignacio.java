@@ -37,7 +37,7 @@ public class LListatErrorAssignacio extends PanelLlistatError {
 				if (event) {
 					String Doctor = (String) llista1.getSelectedValue();
 					String[] splitejat = Doctor.split(" ");
-					System.out.println(splitejat[0]);
+					//System.out.println(splitejat[0]);
 					ctrlva.mostraTornsAssociats(splitejat[0]);
 				}
 			}
