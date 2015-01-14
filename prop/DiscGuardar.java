@@ -51,6 +51,10 @@ public class DiscGuardar extends QuatreBotons{
 		c.gridx = 2;
 		c.gridy = 2;
 		add(b4, c);
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 0;
+		c.gridy = 3;
+		add(b5, c);
 	}
 	
 	public void actionPerformed(ActionEvent arg0) {
