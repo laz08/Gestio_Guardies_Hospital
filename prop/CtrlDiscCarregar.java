@@ -28,4 +28,8 @@ private static DiscCarregar disccarregar;
 	public static void carregarr(File f) {
 		CtrlRestriccio.carregar(f);
 	}
+	
+	public static void carregardr(File f) throws NumberFormatException, Error {
+		Doc_Res.carregar(f);
+	}
 }

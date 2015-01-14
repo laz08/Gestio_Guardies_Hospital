@@ -10,14 +10,16 @@ public class BotonsRestriccio extends QuatreBotons {
     private JRadioButton bototorn = new JRadioButton("Torn");
     private JRadioButton botodia = new JRadioButton("Dia");
     private JLabel obrircalendari = new JLabel("Selecciona una data:");
-    private JLabel textcomplet = new JLabel("Expressió de la restricció completa:");
+    private JLabel textcomplet = new JLabel("ExpressiÃ³ de la restricciÃ³ completa:");
     private JTextField restricciocompleta = new JTextField("");
     private GridBagConstraints c = new GridBagConstraints();
     private JButton neteja = new JButton("Neteja Restriccio");
     private ButtonGroup gruprestriccio = new ButtonGroup();
     private JButton carrega = new JButton("Carregar Restriccions");
     private JButton guarda = new JButton("Guardar Restriccions");
-    private JButton crearrestriccio = new JButton("Crear Restricció");
+    private JButton crearrestriccio = new JButton("Crear RestricciÃ³");
+    private BoundedRangeModel brm = restricciocompleta.getHorizontalVisibility();
+    private JScrollBar scrollBar = new JScrollBar(JScrollBar.HORIZONTAL);
     //control per crear la restriccio
     private int restriccioA = 1;
     private boolean acumulat = false;
@@ -51,10 +53,7 @@ public class BotonsRestriccio extends QuatreBotons {
         gruprestriccio.add(botodia);
         crearrestriccio.addActionListener(this);
         restricciocompleta.setEditable(false);
-
-
-
-
+        scrollBar.setModel(brm);
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
         c.gridy = 0;
@@ -88,12 +87,16 @@ public class BotonsRestriccio extends QuatreBotons {
         c.gridy = 4;
         c.gridwidth = 3;
         add(restricciocompleta, c);
-        c.gridwidth = 1;
         c.gridx = 0;
         c.gridy = 5;
+        c.gridwidth = 3;
+        add(scrollBar, c);
+        c.gridwidth = 1;
+        c.gridx = 0;
+        c.gridy = 6;
         add(neteja, c);
         c.gridx = 1;
-        c.gridy = 5;
+        c.gridy = 6;
         add(crearrestriccio, c);
         c.gridx = 0;
         c.gridy = 7;
@@ -322,7 +325,7 @@ public class BotonsRestriccio extends QuatreBotons {
         switch (ntorn) {
             case 0:
                 hora = 5;
-                torn = "MATÍ";
+                torn = "MATÃ�";
                 break;
             case 1:
                 hora = 12;

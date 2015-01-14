@@ -252,9 +252,13 @@ public class CtrlRestriccio {
         CtrlPersistencia.guardar(content, f);
     }
     
-    public static String carregar(File f) {
+    public static void carregar(File f) {
         String contingut = CtrlPersistencia.carregar(f);
-        return contingut;
+        String separadors = "/";
+        String[] separat = contingut.split(separadors);
+        for(String r: separat) {
+        	nova_res(r);
+        }
     }
     
 }
