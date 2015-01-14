@@ -10,7 +10,7 @@ public class BotonsRestriccio extends QuatreBotons {
     private JRadioButton bototorn = new JRadioButton("Torn");
     private JRadioButton botodia = new JRadioButton("Dia");
     private JLabel obrircalendari = new JLabel("Selecciona una data:");
-    private JLabel textcomplet = new JLabel("Restricció Completa");
+    private JLabel textcomplet = new JLabel("Expressió de la restricció completa:");
     private JTextField restricciocompleta = new JTextField("");
     private GridBagConstraints c = new GridBagConstraints();
     private JButton neteja = new JButton("Neteja Restriccio");
@@ -25,6 +25,9 @@ public class BotonsRestriccio extends QuatreBotons {
 
     public BotonsRestriccio(CtrlVistaRestriccio cvr) {
         ctrlvr = cvr;
+
+        setMaximumSize(new Dimension(450, 500));
+        setPreferredSize(new Dimension(450, 500));
         remove(b1);
         remove(b2);
         remove(b3);
@@ -48,6 +51,10 @@ public class BotonsRestriccio extends QuatreBotons {
         gruprestriccio.add(botodia);
         crearrestriccio.addActionListener(this);
         restricciocompleta.setEditable(false);
+
+
+
+
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
         c.gridy = 0;
@@ -74,11 +81,14 @@ public class BotonsRestriccio extends QuatreBotons {
         c.gridy = 2;
         add(b4, c);
         c.gridx = 0;
+        c.gridwidth = 3;
         c.gridy = 3;
         add(textcomplet, c);
         c.gridx = 0;
         c.gridy = 4;
+        c.gridwidth = 3;
         add(restricciocompleta, c);
+        c.gridwidth = 1;
         c.gridx = 0;
         c.gridy = 5;
         add(neteja, c);

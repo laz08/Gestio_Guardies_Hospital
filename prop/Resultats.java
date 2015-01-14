@@ -1,18 +1,14 @@
 package prop;
 
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
-
-import javax.swing.JLabel;
-import javax.swing.JTextField;
+import javax.swing.*;
+import java.awt.*;
 
 public class Resultats extends BotoText{
 	private CtrlVistaResultats ctrlvrs;
 	private JLabel textresultat = new JLabel("RESULTAT");
 	private JLabel texta1 = new JLabel("Ford-Fulkerson");
 	private JLabel texta2 = new JLabel("Edmond's Karp");
-	private JLabel texta3 = new JLabel("3r Algorisme");
+	private JLabel texta3 = new JLabel("Dijkstra");
 	private JTextField textfield2 = new JTextField("-");
 	private JTextField textfield3 = new JTextField("-");
 	private GridBagConstraints c = new GridBagConstraints();

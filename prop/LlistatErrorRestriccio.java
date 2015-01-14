@@ -11,6 +11,7 @@ public class LlistatErrorRestriccio extends PanelLlistatError{
 	
 	public LlistatErrorRestriccio(CtrlVistaRestriccio cvr) {
 		ctrlvr = cvr;
+        error.setText(" ");
 		remove(scroll1);
 		add(textres, BorderLayout.NORTH);
 		add(scroll1);

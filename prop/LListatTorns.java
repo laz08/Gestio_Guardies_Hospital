@@ -33,9 +33,12 @@ public class LListatTorns extends PanelLlistat {
             if (!arg0.getValueIsAdjusting()) {
                 //Posició 7
             	if (event) {
+                    /*
             		String torn = (String) llista1.getSelectedValue();
                 	String splitejat[] = torn.split(" ");
-                	ctrlva.mostraDoctorsAssociats(splitejat[7]);
+                	*/
+                    int pos = llista1.getSelectedIndex();
+                	ctrlva.mostraDoctorsAssociats(ctrlva.consultaIdTorn(pos));
             	}
             }
         }

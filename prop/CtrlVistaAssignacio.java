@@ -14,9 +14,11 @@ public class CtrlVistaAssignacio {
     private LListatTorns llistatorns = new LListatTorns(this);
     private LlistatAssociacio llistaassociacio = new LlistatAssociacio(this);
     private JPanel esquerre = new JPanel();
+    private ArrayList<String> idTorns;
 
     public CtrlVistaAssignacio(CtrlVistaPrincipal vpc) {
         ctrlVistaPrincipal = vpc;
+        idTorns = new ArrayList<String>();
         assignacio.setLayout(new BorderLayout());
         esquerre.setLayout(new BorderLayout());
         llistadoctors.setMaximumSize(new Dimension(320, 250));
@@ -44,8 +46,9 @@ public class CtrlVistaAssignacio {
         if (g != null) {
             for (int i = 0; i < g.numV(); i++) {
                 if (g.getVertex(i).getClasse() == Vertex.TORN) {
-                    String torn = g.getDiaMesAnydeTorn(i);
-                    llistatorns.model1.addElement(torn + " || " + g.getVertex(i).getId());
+                    String torn = transformaTornAStringLlista((Torn)g.getVertex(i).getObjecte());
+                    idTorns.add(g.getVertex(i).getId());
+                    llistatorns.model1.addElement(torn);
                 }
             }
         }
@@ -78,10 +81,6 @@ public class CtrlVistaAssignacio {
         return CtrlAlgorisme.getGraf();
     }
 
-    public Calendari consultaCalendari() {
-        Plantilla p = CtrlPlantilla.getPlantillaActual();
-        return CtrlCalendari.consultarCalendari(p.getNomPlantilla());
-    }
 
     public void mostraTornsAssociats(String Doctor) {
         llistaassociacio.model1.clear();
@@ -144,7 +143,7 @@ public class CtrlVistaAssignacio {
                 break;
         }
         resultat = resultat + "del " + any;
-        System.out.println(resultat);
+        //System.out.println(resultat);
         return resultat;
 
     }
@@ -159,6 +158,10 @@ public class CtrlVistaAssignacio {
                     + doc.getCognom2() + ", " + doc.getNom() ;
             llistaassociacio.model1.addElement(content);
         }
+    }
+
+    public String consultaIdTorn(int i){
+        return idTorns.get(i);
     }
 
 

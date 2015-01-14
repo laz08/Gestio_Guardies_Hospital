@@ -113,65 +113,6 @@ public class Graf {
     }
 
 
-    public String getDiaMesAnydeTorn(int posX){
-        String resultat = "";
-        int matiTardaNit = posX%3;
-        switch(matiTardaNit){
-            case 0:
-                resultat = "(Matí) ";
-                break;
-            case 1:
-                resultat= "(Tarda) ";
-                break;
-            case 2:
-                resultat = "(Nit) ";
-                break;
-        }
-
-        Plantilla plantilla = CtrlPlantilla.getPlantillaActual();
-        Vertex v = Vs.get(posX);
-        Torn t = (Torn) v.getObjecte();
-
-        int pos = t.getPosicio();
-
-        int any_i = CtrlCalendari.consultarCalendari(plantilla.getNomPlantilla()).getAny();
-        int any_pos = pos/365;
-        int any = any_i + any_pos;
-
-        GregorianCalendar d = CtrlCalendari.quinDia(pos, any);
-        int mes = d.get(Calendar.MONTH);
-        int dia = d.get(Calendar.DAY_OF_MONTH);
-
-        resultat = resultat + dia + " de ";
-        switch(mes){
-            case 0: resultat = resultat + "Gener" + " ";
-                break;
-            case 1: resultat = resultat + "Febrer" + " ";
-                break;
-            case 2: resultat = resultat + "Març" + " ";
-                break;
-            case 3: resultat = resultat + "Abril" + " ";
-                break;
-            case 4: resultat = resultat + "Maig" + " ";
-                break;
-            case 5: resultat = resultat + "Juny" + " ";
-                break;
-            case 6: resultat = resultat + "Juliol" + " ";
-                break;
-            case 7: resultat = resultat + "Agost" + " ";
-                break;
-            case 8: resultat = resultat + "Setembre" + " ";
-                break;
-            case 9: resultat = resultat + "Octubre" + " ";
-                break;
-            case 10: resultat = resultat + "Novembre" + " ";
-                break;
-            case 11: resultat = resultat + "Desembre" + " ";
-                break;
-        }
-        resultat = resultat + "del " + any;
-        return resultat;
-    }
 
     public String retornaDoctorDeVertex(int pos){
         Vertex v = Vs.get(pos);
