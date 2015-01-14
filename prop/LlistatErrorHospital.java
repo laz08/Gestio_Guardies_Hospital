@@ -37,11 +37,19 @@ public class LlistatErrorHospital extends PanelLlistatError {
 		}        
 	}
 
+    /**
+     * S'esborren els doctors de la llista
+     */
     public void esborraElementsModel(){
         model1.removeAllElements();
     }
 
     //AUXILIARS
+
+    /**
+     * Actualitza el llistat de doctors a mostrar
+     * Es mostra el DNI, els cognoms i el nom de pila
+     */
     public void actualitza_llista_docs(){
     	ctrlvh.mod(true);
     	mod = true;
@@ -62,62 +70,55 @@ public class LlistatErrorHospital extends PanelLlistatError {
 
 
     //MISSATGES ERROR
+
+    /**
+     * Mostra el missatge d'error de que un o més camps del doctor estan buits
+     */
     public void errorUnOMesDunCampNull(){
         //missatgeErrors.setText("ERROR: Falten dades en un o més camps del doctor.");
         error.setText("ERROR: Falten dades en un o més camps.");
         //calcula_mida_font();
     }
-    //Per a sou i telèfon
+
+
+
+    /**
+     * (Per a sou i tèlefon)
+     * Escriu el missatge d'error de que S (telèfon o sou) ha de ser un numero positiu
+     * @param s
+     */
     public void errorHaDeSerUnReal(String s){
         // missatgeErrors.setText("ERROR: " + s + " ha de ser un número positiu.");
         error.setText("ERROR: " + s + " ha de ser un número positiu.");
         //calcula_mida_font();
     }
 
+    /**
+     * Escriu el missatge d'error de que el correu no és valid
+     */
     public void noEsCorreu(){
-        //missatgeErrors.setText("ERROR: El correu introduït no és vàlid.");
         error.setText("ERROR: El correu introduït no és vàlid.");
-        //calcula_mida_font();
     }
 
+    /**
+     * Esborra el missatge d'error
+     */
     public void esborrarTotsErrors(){
-        //missatgeErrors.setText("");
         error.setText(" ");
-        //calcula_mida_font();
-    }
-    public void condicionsDNIError(){
-        //missatgeErrors.setText("ERROR: DNI ha de ser una cadena de 8 caràcters numèrics.");
-        error.setText("ERROR: DNI ha de ser una cadena de 8 caràcters numèrics.");
-        //calcula_mida_font();
     }
 
+    /**
+     * Escriu el missatge d'error de que el DNI ha de tenir 8 caracters numerics
+     */
+    public void condicionsDNIError(){
+        error.setText("ERROR: DNI ha de ser una cadena de 8 caràcters numèrics.");
+    }
+
+    /**
+     * Escriu el missatge d'error que ja existeix un doctor amb aquell dni
+     */
     public void jaExisteixDocAmbDNI(){
         error.setText("ERROR: Ja existeix un doctor amb aquest DNI.");
     }
-
-    public void calcula_mida_font(){
-        error.setFont(new Font(error.getFont().getName(), Font.PLAIN, 10));
-
-        /*
-        Font labelFont = error.getFont();
-        String labelText = error.getText();
-
-        int stringWidth = error.getFontMetrics(labelFont).stringWidth(labelText);
-        int componentWidth = error.getWidth();
-
-        // Find out how much the font can grow in width.
-        double widthRatio = (double)componentWidth / (double)stringWidth;
-
-        int newFontSize = (int)(labelFont.getSize() * widthRatio);
-        int componentHeight = error.getHeight();
-
-        // Pick a new font size so it will not be larger than the height of label.
-        int fontSizeToUse = Math.min(newFontSize, componentHeight);
-
-        // Set the label's font size to the newly determined size.
-        error.setFont(new Font(labelFont.getName(), Font.PLAIN, fontSizeToUse));
-        */
-    }
-
 
 }

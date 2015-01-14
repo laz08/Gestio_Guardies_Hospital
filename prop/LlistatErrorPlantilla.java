@@ -26,7 +26,11 @@ public class LlistatErrorPlantilla extends PanelLlistatError implements ListSele
 		llista1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		llista1.addListSelectionListener(this);
 	}
-	
+
+    /**
+     * Escull la plantilla actual
+     * @param plt
+     */
 	public void setBotoLlistaMesPlantilles(BotoLlistaMesPlantilla plt) {
 		pltconcreta = plt;
 	}
@@ -44,7 +48,10 @@ public class LlistatErrorPlantilla extends PanelLlistatError implements ListSele
 		}
 		//llista1.clearSelection();
 	}
-	
+
+    /**
+     * Actualitza el llistat de plantilles existents
+     */
 	public void actualitzarLlistatPlantilles() {
 		//ctrlvp.mod(true);
 		mod = true;
@@ -63,23 +70,34 @@ public class LlistatErrorPlantilla extends PanelLlistatError implements ListSele
         //ctrlvp.mod(false);
 	}
 	
-	public String nomSeleccionat() {
-		return (String) llista1.getSelectedValue();
-	}
+
 	
 	//MISSATGES D'ERROR
+
+    /**
+     * Mostra error de que el nom de la plantilla és buit
+     */
 	public void errorNomPlantBuit() {
 		error.setText("ERROR: El nom de la pantilla no pot ser buit");
 	}
-	
+
+    /**
+     * Mostra error de plantilla ja existent amb aquell nom
+     */
 	public void errorNomPlantRepe() {
 		error.setText("ERROR: El nom de la plantilla ja existeix");
 	}
-	
+
+    /**
+     * Esborra els errors de la vista
+     */
 	public void esborrarErrors() {
 		error.setText(" ");
 	}
 
+    /**
+     * Remou la selecció de la llista
+     */
 	public void removeselection() {
 		mod = true;
 		llista1.clearSelection();	

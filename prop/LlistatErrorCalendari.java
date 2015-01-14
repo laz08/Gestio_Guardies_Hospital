@@ -40,8 +40,11 @@ public class LlistatErrorCalendari extends PanelLlistatError{
 			}
 
 		}
-	} 
+	}
 
+    /**
+     * S'actualitza la llista de plantilles existents i es mostra
+     */
 	public void actualitzar() {
 		String content = CtrlPlantilla.getLlista_plantilles();
 		model1.removeAllElements();
@@ -56,18 +59,32 @@ public class LlistatErrorCalendari extends PanelLlistatError{
 		}
 	}
 
+    /**
+     * S'agafa el valor seleccionat
+     * @return
+     */
 	public String getselected() {
 		return llista1.getSelectedValue();
 	}
 
+    /**
+     * S'esborra la selecció de la llista
+     */
 	public void removeselection() {
 		this.llista1.clearSelection();
 	}
 
+    /**
+     * Mostra el missatge d'error amb el missatge = string
+     * @param string
+     */
 	public void texterror(String string) {
 		error.setText(string);
 	}
 
+    /**
+     * S'esborra el missatge d'error
+     */
     public void esborraError(){
         error.setText(" ");
     }

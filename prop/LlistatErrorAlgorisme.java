@@ -36,8 +36,11 @@ public class LlistatErrorAlgorisme extends PanelLlistatError {
             }
         }
     }
-    
 
+
+    /**
+     * Omple el llistat de plantilles existents
+     */
     public void afegirPlantilles() {
         String content = ctrlval.obteLlistaPlantilles();
         model1.removeAllElements();
@@ -52,11 +55,17 @@ public class LlistatErrorAlgorisme extends PanelLlistatError {
             }
         }
     }
-    
+
+    /**
+     * Esborra els errors mostrats per pantalla
+     */
     public void esborrarErrors() {
     	error.setText("");
     }
-    
+
+    /**
+     * Mostra el missatge d'error de que no hi ha cap plantilla seleccionada
+     */
     public void errorNoSelect() {
     	error.setText("ERROR: No hi ha cap plantilla seleccionada");
     }

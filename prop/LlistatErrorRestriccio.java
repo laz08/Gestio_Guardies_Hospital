@@ -20,6 +20,10 @@ public class LlistatErrorRestriccio extends PanelLlistatError{
         setMaximumSize(new Dimension(343, 250));
 	}
 
+    /**
+     * Actualitza el llistat de restriccions (i tradueix les de torns per algo més amigable)
+     * @param arrayList
+     */
 	public void actualitza(ArrayList<String> arrayList) {
         model1.clear();
 		for (int i = 0; i < arrayList.size(); ++i) {
