@@ -64,7 +64,7 @@ public class Doc_Res{
         return resNoAss;
     }
     
-    public static void guardar() {
+    public static void guardar(File f) {
     	String content = "";
   		for (int i = 0; i < assig.size(); i++) {
   			for (int j = 0; j < assig.get(i).size(); j++) {
@@ -72,13 +72,11 @@ public class Doc_Res{
   			}
   			content += "Fi"+"\n";
   		}
-  		File file = new File("/home/acer/doc_res.txt");
-    	CtrlPersistencia.guardar(content, file);
+    	CtrlPersistencia.guardar(content, f);
     }
 
-    public static void carregar() throws NumberFormatException, Error {
-    	File file = new File("/home/acer/doc_res.txt");
-    	String content = CtrlPersistencia.carregar(file);
+    public static void carregar(File f) throws NumberFormatException, Error {
+    	String content = CtrlPersistencia.carregar(f);
     	String separadors = "[ \n]";
     	String[] separat = content.split(separadors);
     	int i = 0;
