@@ -116,6 +116,7 @@ public class BotonsAlgorisme extends DosBotons {
         b2.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
             	ctrlval.esborrarErrors();
+            	ctrlval.esborraAssignacio();
                 ExecutaAlgorisme(evt);
             }
         });

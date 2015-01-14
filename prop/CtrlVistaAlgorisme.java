@@ -1,6 +1,7 @@
 package prop;
 
 import javax.swing.*;
+
 import java.awt.*;
 
 public class CtrlVistaAlgorisme {
@@ -67,4 +68,9 @@ public class CtrlVistaAlgorisme {
     public void esborrarErrors() {
     	llistatalgorisme.esborrarErrors();
     }
+
+	public void esborraAssignacio() {
+		Doc_Torn.removeAll();
+		
+	}
 }
