@@ -7,9 +7,13 @@ public class TresBotonsHospital extends TresBotons {
 	
 	private CtrlVistaHospital ctrlvh;
     private JLabel titolllistat = new JLabel("LLISTAT DE PLANTILLES", SwingConstants.CENTER);
+    
+    /**
+     * Creadora de la classe.
+     * @param cvh Referencia del Controlador del panel.
+     */
 
-
-    public TresBotonsHospital(CtrlVistaHospital cvh) { //CtrlVistaHospital cvh) {
+    public TresBotonsHospital(CtrlVistaHospital cvh) { 
 		ctrlvh = cvh;
 		b1.setText("<html> Crear <br /> Doctor </html>");
 		b2.setText("<html> Guardar <br /> Doctors </html>");

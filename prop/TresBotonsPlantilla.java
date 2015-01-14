@@ -8,6 +8,11 @@ public class TresBotonsPlantilla extends TresBotons{
 	private CtrlVistaPlantilla ctrlvp;
 	private LlistatErrorPlantilla llista;
 	
+	/**
+	 * Creadora de la classe.
+	 * @param cvp Referencia de CtrlVistaPlantilla
+	 */
+	
 	public TresBotonsPlantilla(CtrlVistaPlantilla cvp){
 		ctrlvp = cvp;
 
@@ -48,10 +53,18 @@ public class TresBotonsPlantilla extends TresBotons{
 		
 	}
 	
+	/**
+	 * Associa el panel botollistamesplantilla.
+	 * @param caractplantilla
+	 */
 	public void setBotoLlistaMesPlantilla(LlistatErrorPlantilla caractplantilla) {
 		llista = caractplantilla;
 		esborrarErrors();
 	}
+	/**
+	 * Esborra el label d'errors de la llista
+	 * de plantilles
+	 */
 	
 	public void esborrarErrors() {
 		llista.esborrarErrors();
