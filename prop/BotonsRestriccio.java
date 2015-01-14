@@ -159,22 +159,8 @@ public class BotonsRestriccio extends QuatreBotons {
             ctrlvr.actualitzaEstatBotons();
 
         } else if (arg0.getSource() == neteja) {
-            if (bototorn.isSelected()) {
-                restricciocompleta.setText("H ");
-                restriccio = "H ";
-                restriccioA = 1;
-                acumulat = false;
-            } else if (botodia.isSelected()) {
-                restricciocompleta.setText("D ");
-                restriccio = "D ";
-                restriccioA = 1;
-                acumulat = false;
-            } else {
-                restricciocompleta.setText("");
-                restriccio = "";
-                restriccioA = 1;
-                acumulat = false;
-            }
+            neteja();
+            reiniciabotons();
         } else if (arg0.getSource() == bototorn) {
             botodia.setSelected(false);
             restricciocompleta.setText("H ");
@@ -213,10 +199,37 @@ public class BotonsRestriccio extends QuatreBotons {
             if (!restricciocompleta.getText().equals("")) {
                 ctrlvr.afegeixRestriccio(restriccio);
             }
-
+            neteja();
+            reiniciabotons();
         }
     }
+    
+    /**
+     * Neteja el text complet de la restriccio.
+     */
+    private void neteja() {
+    	if (bototorn.isSelected()) {
+            restricciocompleta.setText("H ");
+            restriccio = "H ";
+            restriccioA = 1;
+            acumulat = false;
+        } else if (botodia.isSelected()) {
+            restricciocompleta.setText("D ");
+            restriccio = "D ";
+            restriccioA = 1;
+            acumulat = false;
+        } else {
+            restricciocompleta.setText("");
+            restriccio = "";
+            restriccioA = 1;
+            acumulat = false;
+        }
+	}
 
+	/**
+     * Agrupa la restriccio.
+     * @return
+     */
     private boolean agrupa_anterior() {
         boolean acaba = false;
         String resultat = restricciocompleta.getText();
@@ -284,13 +297,23 @@ public class BotonsRestriccio extends QuatreBotons {
         }
         return sortida;
     }
-
+    
+    /**
+     * Habilita les operacions de restriccio.
+     * @param operacions
+     */
     public void habilitaoperacions(boolean operacions) {
         b2.setEnabled(operacions);
         b3.setEnabled(operacions);
         b4.setEnabled(operacions);
     }
 
+    /**
+     * Completa una part de la restriccio amb 
+     * dia i mes selecionat, i habilita botons.
+     * @param dia
+     * @param mes
+     */
     public void seleccioDia(int dia, int mes) {
         crearrestriccio.setEnabled(false);
 
@@ -318,6 +341,11 @@ public class BotonsRestriccio extends QuatreBotons {
         ctrlvr.actualitzaEstatBotons();
     }
 
+    /**
+     * Guarda una part de restriccio i 
+     * habilita botons d'operacions.
+     * @param ntorn
+     */
     public void seleccioTorn(int ntorn) {
         crearrestriccio.setEnabled(false);
         int hora = 0;
@@ -357,8 +385,24 @@ public class BotonsRestriccio extends QuatreBotons {
         b1.setEnabled(false);
         ctrlvr.actualitzaEstatBotons();
     }
-
+    
+    /**
+     * Retorna si estem creant una 
+     * restriccio per torns.
+     * @return
+     */
     public boolean seleccioPerTorns() {
         return bototorn.isSelected();
+    }
+    
+    /**
+     * Reinicia els botons per a poder
+     * crear una nova restriccio.
+     */
+    public void reiniciabotons() {
+    	b4.setEnabled(true);
+    	b2.setEnabled(false);
+    	b3.setEnabled(false);
+    	b1.setEnabled(true);
     }
 }
