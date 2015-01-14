@@ -77,25 +77,15 @@ public class FordFulkerson extends Algorisme {
                                     Vertex vf2 = graf.getVertex(aresta.getw());
                                     if (!vf2.equals(s) && !vf2.getVisitat()) {                                                   // si l'aresta "surt del vertex"
                                         Torn tf = (Torn) graf.getVertex(vf2.getId(), Vertex.TORN).getObjecte(); //agafam el fill del vertex
-                                        
-                                        System.out.println("Comprovam "+tf.getPosicio());
-                                        
-                                        
                                         String op = ((Restriccio) s.getObjecte()).getTipus();                   //agafam el tips de restriccio (Dia o Hora)
                                         switch (op) {
                                             case "D":                                                           //en el cas de dia
-                                                if (t.getPosicio() == tf.getPosicio() && !t.equals(tf)) {                            //si la posicio del primer torn visitat i la del segon coincideixen (es el mateix dia)
-                                                    
-                                                    
-                                                    System.out.print("Dia "+t.getPosicio()+t.getHorari());
-                                                    
+                                                if (t.getPosicio() == tf.getPosicio() && !t.equals(tf)) { 
                                                     arriba_a_torn = seguent(vf2, s.getDoctorsRel().get(0));            //comprovam que es pugui associar 
                                                     if (arriba_a_torn) {                                                //si fins al moment tots han arribat al torn
-                                                        System.out.println(" Arriba");
                                                         aresta.addFlow(1);                                                  //agafim 1 al flow de l'aresta actual
                                                     }
                                                     else{
-                                                        System.out.println(" No arriba");
                                                         desferTornsSeleccionats(tf.getPosicio(), s.getDoctorsRel().get(0), la);
                                                     }
                                                 }
@@ -187,6 +177,7 @@ public class FordFulkerson extends Algorisme {
                     }
                 }
             }
+            alliberaFills(s);
         } else {                                                                //si el vertex es un torn
             int numD = s.getNumDocRelacionats();                                    //agafam el numero de doctors ja assignats
             int numMD = ((Torn) s.getObjecte()).getMin_num_doctors();                //agafam el numero minim de doctors que ha de tenir el torn (el que s'ha de complir)
@@ -332,6 +323,20 @@ public class FordFulkerson extends Algorisme {
                 if(torn.getPosicio() == dia){
                     v.rmDoctorRel(doc);
                     v.setVisitat(true);
+                }
+            }
+        }
+    }
+    
+    private static void alliberaFills(Vertex v){
+        ArrayList<Integer> la = v.getArestes();
+        for(int i=0; i<la.size(); i++){
+            Aresta a = graf.getA(la.get(i));
+            Vertex vf = graf.getVertex(a.getw());
+            if(!vf.equals(v) && vf.getClasse() == Vertex.TORN){
+                Torn t = (Torn) vf.getObjecte();
+                if(t.getMin_num_doctors()>vf.getNumDocRelacionats()){
+                    vf.setVisitat(false);
                 }
             }
         }
