@@ -14,7 +14,6 @@ import javax.swing.JButton;
 
 public class DiscCarregar extends QuatreBotons{
 	private GridBagConstraints c = new GridBagConstraints();
-	private JButton b5 = new JButton("Carergar Doc/Res");
 	
 	public DiscCarregar(CtrlDiscCarregar cdc) {
 		b1.setText("Carregar Hospital");
@@ -25,7 +24,6 @@ public class DiscCarregar extends QuatreBotons{
 		b2.addActionListener(this);
 		b3.addActionListener(this);
 		b4.addActionListener(this);
-		b5.addActionListener(this);
 		remove(b1);
 		remove(b2);
 		remove(b3);
@@ -51,10 +49,6 @@ public class DiscCarregar extends QuatreBotons{
 		c.gridx = 2;
 		c.gridy = 2;
 		add(b4, c);
-		c.fill = GridBagConstraints.HORIZONTAL;
-		c.gridx = 0;
-		c.gridy = 3;
-		add(b5,c);
 	}
 	
 	public void actionPerformed(ActionEvent arg0) {
@@ -72,15 +66,6 @@ public class DiscCarregar extends QuatreBotons{
             }
             else if (arg0.getSource() == b4) {
             	CtrlDiscCarregar.carregarr(f);
-            }
-            else if (arg0.getSource() == b5) {
-            	try {
-					CtrlDiscCarregar.carregardr(f);
-				} catch (NumberFormatException e) {
-					e.printStackTrace();
-				} catch (Error e) {
-					e.printStackTrace();
-				}
             }
         }
 	}

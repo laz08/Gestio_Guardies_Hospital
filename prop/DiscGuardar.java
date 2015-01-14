@@ -14,7 +14,6 @@ import javax.swing.JLabel;
 public class DiscGuardar extends QuatreBotons{
 	protected ImageIcon load = new ImageIcon("Cercle.gif");
 	private GridBagConstraints c = new GridBagConstraints();
-	private JButton b5 = new JButton("Guardar Doc/Res");
 	
 	public DiscGuardar(CtrlDiscGuardar cdg){
 		b1.setText("Guardar Hospital");
@@ -25,7 +24,6 @@ public class DiscGuardar extends QuatreBotons{
 		b2.addActionListener(this);
 		b3.addActionListener(this);
 		b4.addActionListener(this);
-		b5.addActionListener(this);
 		setLayout(new GridBagLayout());
 		remove(b1);
 		remove(b2);
@@ -51,10 +49,6 @@ public class DiscGuardar extends QuatreBotons{
 		c.gridx = 2;
 		c.gridy = 2;
 		add(b4, c);
-		c.fill = GridBagConstraints.HORIZONTAL;
-		c.gridx = 0;
-		c.gridy = 3;
-		add(b5, c);
 	}
 	
 	public void actionPerformed(ActionEvent arg0) {
@@ -72,9 +66,6 @@ public class DiscGuardar extends QuatreBotons{
             }
             else if (arg0.getSource() == b4) {
             	CtrlDiscGuardar.guardarr(f);
-            }
-            else if (arg0.getSource() == b5) {
-            	CtrlDiscGuardar.guardardr(f);
             }
         }
 	}
