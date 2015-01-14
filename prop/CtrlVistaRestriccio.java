@@ -13,6 +13,7 @@ public class CtrlVistaRestriccio {
 	private CalendariRestriccio calendari = new CalendariRestriccio(this);
 	private LlistatErrorRestriccio llistat= new LlistatErrorRestriccio(this);
 	private BotonsRestriccio botons = new BotonsRestriccio(this);
+
 	
 	public CtrlVistaRestriccio(CtrlVistaPrincipal cvp) {
 		ctrlvp = cvp;

@@ -10,14 +10,14 @@ public class BotonsRestriccio extends QuatreBotons {
     private JRadioButton bototorn = new JRadioButton("Torn");
     private JRadioButton botodia = new JRadioButton("Dia");
     private JLabel obrircalendari = new JLabel("Selecciona una data:");
-    private JLabel textcomplet = new JLabel("ExpressiÃ³ de la restricciÃ³ completa:");
+    private JLabel textcomplet = new JLabel("Expressió de la restricció completa:");
     private JTextField restricciocompleta = new JTextField("");
     private GridBagConstraints c = new GridBagConstraints();
-    private JButton neteja = new JButton("Neteja Restriccio");
+    private JButton neteja = new JButton("Neteja Restricció");
     private ButtonGroup gruprestriccio = new ButtonGroup();
     private JButton carrega = new JButton("Carregar Restriccions");
     private JButton guarda = new JButton("Guardar Restriccions");
-    private JButton crearrestriccio = new JButton("Crear RestricciÃ³");
+    private JButton crearrestriccio = new JButton("Crear Restricció");
     private BoundedRangeModel brm = restricciocompleta.getHorizontalVisibility();
     private JScrollBar scrollBar = new JScrollBar(JScrollBar.HORIZONTAL);
     //control per crear la restriccio
