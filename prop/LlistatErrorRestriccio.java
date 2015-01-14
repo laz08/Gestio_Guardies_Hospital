@@ -23,7 +23,29 @@ public class LlistatErrorRestriccio extends PanelLlistatError{
 	public void actualitza(ArrayList<String> arrayList) {
         model1.clear();
 		for (int i = 0; i < arrayList.size(); ++i) {
-			model1.addElement(arrayList.get(i));
+            //Traducció de la restricció per torns
+            String r = arrayList.get(i);
+            if(r.charAt(0) == 'H'){
+                //Es per torn
+                String r_trad = "H";
+                for(int j = 1; j < r.length(); ++j){
+                    if(r.charAt(j) == '5'){
+                        r_trad += "MATI";
+                    }
+                    else if(r.charAt(j) == '1'){
+                        ++j;
+                        r_trad += "TARDA";
+                    }
+                    else if(r.charAt(j) == '2'){
+                        ++j;
+                        r_trad += "NIT";
+                    }
+                    else r_trad += r.charAt(j);
+                }
+                model1.addElement(r_trad);
+            }
+            else
+			    model1.addElement(r);
 		}
 	}
 }

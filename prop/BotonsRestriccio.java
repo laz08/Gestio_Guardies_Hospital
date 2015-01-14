@@ -325,7 +325,7 @@ public class BotonsRestriccio extends QuatreBotons {
         switch (ntorn) {
             case 0:
                 hora = 5;
-                torn = "MATÃ�";
+                torn = "MATI";
                 break;
             case 1:
                 hora = 12;
