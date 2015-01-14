@@ -66,7 +66,12 @@ public class Resultats extends BotoText{
 		
 		
 	}
-        
+        /**
+         * Posa els resultats en els textfields 
+         * corresponents.
+         * @param nr Numero algorisme.
+         * @param r Temps ultima execucio d'aquest.
+         */
         public void setResultats(int nr, long r){
             switch(nr){
                 case 0:

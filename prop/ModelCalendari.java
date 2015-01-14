@@ -105,15 +105,29 @@ public class ModelCalendari extends TresBotons implements ListSelectionListener{
 				for (int j = 0; j < 7; ++j)
 					calendar[i][j] = " ";
 		}
-
+		
+		/**
+		 * Retorna el valor de la cela.
+		 */
 		public Object getValueAt(int fila, int columna) {
 			return calendar[fila][columna];
 		}
-
+		
+		/**
+		 * Guarda el valor passat per parametre a la cela 
+		 * corresponent
+		 */
 		public void setValueAt(Object valor, int fila, int columna) {
 			calendar[fila][columna] = (String) valor;
 		}
-
+		
+		/**
+		 * Actualitza tota la taula de dies segons 
+		 * mes i any passat per parametre.
+		 * @param year
+		 * @param month
+		 */
+		
 		public void setMonth(int year, int month) {
 			for (int i = 1; i < 7; ++i)
 				for (int j = 0; j < 7; ++j)
@@ -130,23 +144,44 @@ public class ModelCalendari extends TresBotons implements ListSelectionListener{
 			}
 		}
 
+		/**
+		 * Retorna si lany passat per paramete
+		 * es de traspas (%4 == 0)
+		 * @param year
+		 * @return
+		 */
+		
 		public boolean isLeapYear(int year) {
 			if (year % 4 == 0)
 				return true;
 			return false;
 		}
-
+		
+		/**
+		 * Retorna el numero de dies del mes i any passat per parametre.
+		 * @param year
+		 * @param month
+		 * @return
+		 */
+		
 		public int daysInMonth(int year, int month) {
 			int days = numdies[month];
 			if (month == 1 && isLeapYear(year))
 				++days;
 			return days;
 		}
-
+		
+		/**
+		 * Retorna Numero de files de la taula.
+		 */
+		
 		public int getColumnCount() {
 			return 7;
 		}
-
+		
+		/**
+		 * Retorna Numero de columnes de la taula.
+		 */
 		public int getRowCount() {
 			return 7;
 		}
@@ -211,10 +246,22 @@ public class ModelCalendari extends TresBotons implements ListSelectionListener{
 		}
 	}
 
+	/**
+	 * Boolea que ignora l'event.
+	 * @param b
+	 */
+	
 	public void modificable(Boolean b) {
 		mod = b;
 	}
 
+	/**
+	 * Omple els anys del combobox segons 
+	 * el calendari de la plantilla
+	 * @param anyi
+	 * @param anyf
+	 */
+	
 	public void ompleanys(int anyi, int anyf) {
 		if (modelcombo.getSize() != 0) {
 			mod = false;
@@ -226,6 +273,12 @@ public class ModelCalendari extends TresBotons implements ListSelectionListener{
 		}
 	}
 
+	/**
+	 * Retorna la data seleccionada graficament com a
+	 * GregorianCalendar
+	 * @return
+	 */
+	
 	public GregorianCalendar getdata() {
 		int rany = Integer.parseInt((String)any.getSelectedItem());
 		int mes = mesos.getSelectedIndex();

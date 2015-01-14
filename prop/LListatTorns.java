@@ -43,6 +43,10 @@ public class LListatTorns extends PanelLlistat {
             }
         }
     }
+    /**
+     * Modifica si el boolea que es salta l'event.
+     * @param b
+     */
 	public void event(boolean b) {
 		event = b;
 	}

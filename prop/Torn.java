@@ -1,6 +1,5 @@
 package prop;
 
-
 public class Torn {
 
 	private int hora_inici;
@@ -9,9 +8,10 @@ public class Torn {
 	private int min_num_doctors;
 	private int posicio_dia;
 
-
-	//Pre: -
-	//Post: Creem un torn amb tots els parametres que ens arriben
+	/**
+	 * Creem un torn amb tots els parametres que ens arriben.
+	 */
+	
 	public Torn(int horari, float percentatge, int minim) {
 		if(horari==0) {
 			hora_inici = 0;
@@ -28,9 +28,11 @@ public class Torn {
 		percent_sou = percentatge;
 		min_num_doctors = minim;
 	}
-
-	//Pre: -
-	//Post: Reinicialitzem torn, posant tot a 0
+	
+	/**
+	 * Reinicialitzem torn, posant tot a 0.
+	 */
+	
 	public void borrar() {
 		hora_inici = 0;
 		hora_fi = 0;
@@ -38,26 +40,40 @@ public class Torn {
 		min_num_doctors = 0;
 	}
 
-	//Pre: -
-	//Post: Retornem l'hora d'inici del torn
+	/**
+	 * Retornem l'hora d'inici del torn.
+	 * @return
+	 */
+	
 	public int getHora_inici() {
 		return hora_inici;
 	}
 
-	//Pre: -
-	//Post: modifiquem hora d'inici del torn per la que ens passen si compleix les condicions que sigui menor que la hora fi i que sigui un enter entre 0 i 23, sino no es modificat.
+	/**
+	 * modifiquem hora d'inici del torn per la que ens passen si compleix les condicions 
+	 * que sigui menor que la hora fi i que sigui un enter entre 0 i 23, sino no es modificat.
+	 * @param h_i
+	 */
+	
 	public void setHora_inici(int h_i) {
 		if(h_i<hora_fi && h_i>=0 && h_i<24) hora_inici = h_i;
 	}
 
-	//Pre: -
-	//Post: Retornem l'hora fi del torn
+	/**
+	 * Retornem l'hora fi del torn.
+	 * @return
+	 */
 	public int getHora_fi() {
 		return hora_fi;
 	}
 
-	//Pre: -
-	//Post: modifiquem hora d'inici del torn per la que ens passen si compleix les condicions que sigui major que la hora inici i que sigui un enter entre 0 i 23, sino no es modificat.
+	/**
+	 * modifiquem hora d'inici del torn per la que ens passen si compleix 
+	 * les condicions que sigui major que la hora inici i 
+	 * que sigui un enter entre 0 i 23, sino no es modificat.
+	 * @param h_f
+	 */
+	
 	public void setHora_fi(int h_f) {
 		if(h_f>hora_inici && h_f>=0 && h_f<=24) hora_fi = h_f;
 	}

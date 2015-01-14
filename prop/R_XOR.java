@@ -49,12 +49,16 @@ public class R_XOR extends Restriccio{
         else return restriccio2;
     }
     
-    @Override
+    /**
+     * Retorna el tipus d'operacio.
+     */
     public String getOp() {
         return "XOR";
     }
 
-    @Override
+    /**
+     * Retorna l'identificador de la classe.
+     */
     public String getId() {
         return id;
     }

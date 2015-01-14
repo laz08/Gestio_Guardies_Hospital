@@ -21,12 +21,16 @@ public class R_NOP extends Restriccio{
         return fill;
     }
     
-    @Override
+    /**
+     * Retorna el tipus d'operacio.
+     */
     public String getOp() {
         return "NOP";
     }
 
-    @Override
+    /**
+     * Retorna l'identificador de la classe.
+     */
     public String getId() {
         return id;
     }

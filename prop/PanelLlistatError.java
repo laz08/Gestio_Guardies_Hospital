@@ -13,7 +13,10 @@ public class PanelLlistatError extends PanelLlistat{
 		add(error, BorderLayout.SOUTH);
 
 	}
-
+	
+	/**
+	 * Inicilitza el label error.
+	 */
     private void inicialitza_icona(){
         error.setHorizontalTextPosition(JLabel.LEFT);
         error.setVisible(true);

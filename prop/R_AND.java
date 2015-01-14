@@ -50,12 +50,16 @@ public class R_AND extends Restriccio{
     }
 
     
-    @Override
+    /**
+     * Retorna el tipus d'operacio.
+     */
     public String getOp() {
         return "AND";
     }
 
-    @Override
+    /**
+     * Retorna l'identificador de la classe.
+     */
     public String getId() {
         return id;
     }
