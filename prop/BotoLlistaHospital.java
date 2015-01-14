@@ -32,7 +32,8 @@ public class BotoLlistaHospital extends BotoLlista implements ListSelectionListe
 		else if (arg0.getSource() == b2) {
             //Afegir lligam restricció
             if (!mode){
-                String expressio = llista1.getSelectedValue().toString();
+                int pos = llista1.getSelectedIndex();
+                String expressio = ctrlvh.consultaExpressioRealNOAssociada(pos);
                 ctrlvh.associaRestriccio(expressio, bmth.retornaDNI());
                 b2.setEnabled(false);
                 ctrlvh.swap(1,1);
@@ -40,7 +41,8 @@ public class BotoLlistaHospital extends BotoLlista implements ListSelectionListe
 
             //Eliminar lligam restricció
             else{
-                String expressio = llista1.getSelectedValue().toString();
+                int pos = llista1.getSelectedIndex();
+                String expressio = ctrlvh.consultaExpressioRealAssociada(pos);
                 ctrlvh.desassociaRestriccio(expressio, bmth.retornaDNI());
                 b2.setEnabled(false);
                 ctrlvh.swap(1,1);
@@ -51,11 +53,21 @@ public class BotoLlistaHospital extends BotoLlista implements ListSelectionListe
 
 	}
 
-    //Mode == 0  => Afegir lligam restricció
-    //Mode == 1  => Eliminar lligam restricció
+
+
+    /**
+     *  Mode == 0  => Afegir lligam restricció
+     *  Mode == 1  => Eliminar lligam restricció
+     * @param b
+     */
     public void setMode(boolean b){
         mode = b;
     }
+
+    /**
+     *
+     * @param b
+     */
     public void setBotoMesTextHospital(BotoMesTextHospital b){
         bmth = b;
     }

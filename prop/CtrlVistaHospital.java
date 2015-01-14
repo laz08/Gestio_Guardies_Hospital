@@ -16,6 +16,9 @@ public class CtrlVistaHospital {
 	private TresBotonsHospital cgc;
 	private CtrlVistaPrincipal ctrlvp;
 
+    private ArrayList<String> rest_ass = new ArrayList<String>();
+    private ArrayList<String> rest_no_ass = new ArrayList<String>();
+
 	public CtrlVistaHospital(CtrlVistaPrincipal cvp) {
 		ctrlvp = cvp;
         inicialitzacions_creadora();
@@ -37,6 +40,9 @@ public class CtrlVistaHospital {
 	}
 
 
+    /**
+     * Inicialitza la vista d'hospital
+     */
     public void inicialitzacions_creadora(){
         //stubRestriccions();
     	doctor = new BotoMesTextHospital(this);
@@ -65,6 +71,12 @@ public class CtrlVistaHospital {
         =============
 
      */
+
+    /**
+     * Canvia els panells a mostrar en la vista d'Hospital
+     * @param banda
+     * @param numpanelins
+     */
 	public void swap(int banda, int numpanelins) {
 		if (banda == 1) {
 			CardLayout cl = (CardLayout) (esquerre.getLayout());
@@ -76,105 +88,217 @@ public class CtrlVistaHospital {
 		}
 	}
 
-    //Inicialització detecció entrada a la pestanya
-    public void click_pestanya(){
-        llistat.actualitza_llista_docs();
-    }
+
 
 
     //Comunicació amb capa Domini
+
+    /**
+     *
+     * Retorna la llista de doctors existents a l'hospital ordenats per nom
+     * @return
+     */
     public String getLlistaDocs_nom(){
         return CtrlHospital.getLlistatDoctorsenString_nom();
     }
 
+    /**
+     * Crea un doctor amb tots els atributs
+     * (Dni, nom, cognoms, sou, telèfon i correu electrònic)
+     * @param d
+     * @param n
+     * @param cg1
+     * @param cg2
+     * @param s
+     * @param t
+     * @param cor
+     */
     public void crea_doctor(String d, String n, String cg1, String cg2, int s, int t, String cor){
         CtrlHospital.creariAfegirDoctor(d, n, cg1, cg2, s, t, cor);
     }
+
+    /**
+     * Modifica el doctor amb dni d amb tots els atributs nous
+     * (Es modifica el nom, cognoms, sou, telèfon i correu electrònic)
+     * @param d
+     * @param n
+     * @param cg1
+     * @param cg2
+     * @param s
+     * @param t
+     * @param cor
+     */
     public void modifica_doctor(String d, String n, String cg1, String cg2, int s, int t, String cor){
         CtrlHospital.modificaAtributs(d, n, cg1, cg2, s, t, cor);
     }
+
+    /**
+     * Retorna un String amb tota la informació del doctor amb dni dni
+     * desde la capa de Domini
+     * @param dni
+     * @return
+     */
     public String getDoctorEspecific(String dni){
         return CtrlHospital.getDoctorEspecificString(dni);
     }
 
+    /**
+     * Activa els botons de Restriccions i eliminar
+     */
     public void activaBotonsRestriccionsEliminar(){
         doctor.b1.setEnabled(true);
         doctor.b2.setEnabled(true);
         doctor.b3.setEnabled(true);
     }
 
+    /**
+     * Desactiva els botons de Restriccions i eliminar
+     */
     public void desactivaBotonsRestriccionsEliminar(){
         doctor.b1.setEnabled(false);
         doctor.b2.setEnabled(false);
         doctor.b3.setEnabled(false);
     }
 
-
+    /**
+     * Esborra el doctor amb dni d de l'hospital
+     * @param d
+     */
     public void esborrar_doctor(String d){
         CtrlHospital.eliminarDoctor(d);
 
     }
 
+    /**
+     * Retorna un booleà indicant si existeix doctor amb aquell DNI o no
+     * @param d
+     * @return
+     */
     public boolean existeix_Doc(String d){
         return CtrlHospital.existeixDoctor(d);
     }
 
+    /**
+     * Actualitza el llistat de doctors de l'hospital
+     */
     public void actualitza_Docs(){
         llistat.actualitza_llista_docs();
     }
 
+
+    /**
+     * Modifica el booleà que indica si s'han de tenir en compte els events o no
+     * @param b
+     */
 	public void mod(boolean b) {
 		doctor.mod(b);
 	}
 
-    public void carregaLlistaRestriccions(){
-        ArrayList<String> lr = new ArrayList<String>();
-        for(int i=0; i<CtrlRestriccio.consulta_llista_res().size(); i++){
-            lr.add(CtrlRestriccio.consulta_explesio_res(i));
-        }
-        restriccionsNoAssociades.model1.clear();
-
-        //llistaRes.clear();//llistaRes.removeAllElements(); // buidam llista restriccions anteriors
-        for(int i=0; i<lr.size(); i++){
-            restriccionsNoAssociades.model1.addElement(lr.get(i));
-        }
-
-    }
-
+    /**
+     * Donat un DNI d'un doctor, carrega a la llista de restriccions associades
+     * totes aquelles restriccions associades al metge amb aquell DNI
+     * @param dni
+     */
     public void carregaRestriccionsAssociades(String dni){
         //Donat un DNI d'un doctor, agafem les restriccions associades de Doc_res
         ArrayList<Integer> res = Doc_Res.getRestriccions(dni);
         //Neteja
         restriccionsAssociades.model1.clear();
+        rest_ass.clear();
         for(int i = 0; i < res.size(); ++i) {
-            restriccionsAssociades.model1.addElement(CtrlRestriccio.consulta_explesio_res(res.get(i)));
+            String r = CtrlRestriccio.consulta_explesio_res(res.get(i));
+            rest_ass.add(r);
+            restriccionsAssociades.model1.addElement(tradueix_restriccio(r));
         }
     }
 
+    /**
+     * Donat un DNI d'un doctor, carrega a la llista de restriccions associades
+     * totes aquelles restriccions no associades al metge amb aquell DNI
+     * @param dni
+     */
     public void carregaRestriccionsNOAssociades(String dni){
         ArrayList<Integer> res = Doc_Res.getRestriccionsNoAssociades(dni);
         restriccionsNoAssociades.model1.clear();
+        rest_no_ass.clear();
         for(int i = 0; i < res.size(); ++i){
-            restriccionsNoAssociades.model1.addElement(CtrlRestriccio.consulta_explesio_res(res.get(i)));
+            String r = CtrlRestriccio.consulta_explesio_res(res.get(i));
+            rest_no_ass.add(r);
+            restriccionsNoAssociades.model1.addElement(tradueix_restriccio(r));
         }
     }
 
-    public void stubRestriccions(){
-        CtrlRestriccio.nova_res("H (1)XOR(2)");
-        CtrlRestriccio.nova_res("D (1-1)XOR(2-1)");
-        CtrlRestriccio.nova_res("D (1-2)AND(2-4)");
+    /**
+     * Retorna l'expressió de la restricció real (sense traduir)
+     * @param pos
+     * @return
+     */
+    public String consultaExpressioRealAssociada(int pos){
+        return rest_ass.get(pos);
+    }
 
+    /**
+     * Retorna l'expressió de la restricció real (sense traduir)
+     * @param pos
+     * @return
+     */
+    public String consultaExpressioRealNOAssociada(int pos){
+        return rest_no_ass.get(pos);
     }
 
 
+
+    /**
+     * Tradueix, si es una restricció d'H (de torns), a una expressió entendible per a l'usuari
+     * (User-friendly)
+     * @param r
+     */
+    public String tradueix_restriccio(String r){
+        if(r.charAt(0) == 'H'){
+            //Es per torn
+            String r_trad = "H";
+            for(int j = 1; j < r.length(); ++j){
+                if(r.charAt(j) == '5'){
+                    r_trad += "MATI";
+                }
+                else if(r.charAt(j) == '1'){
+                    ++j;
+                    r_trad += "TARDA";
+                }
+                else if(r.charAt(j) == '2'){
+                    ++j;
+                    r_trad += "NIT";
+                }
+                else r_trad += r.charAt(j);
+            }
+            return r_trad;
+        }
+        else
+            return r;
+
+    }
+
+    /**
+     * Reinicia tots els camps de doctor (els esborra)
+     */
     public void reiniciaVista(){
         doctor.esborraTotsElsCamps();
     }
 
+    /**
+     * Donada una expressió d'una restricció i un DNI, els associa
+     * @param r
+     * @param dni
+     */
     public void associaRestriccio(String r, String dni) {
         Doc_Res.relaciona(dni, CtrlRestriccio.consulta_pos(r));
     }
 
+    /**
+     * Donada una expressió d'una restricció i un DNI, els desassocia
+     * @param r
+     * @param dni
+     */
     public void desassociaRestriccio(String r, String dni){
         Doc_Res.elimina(dni, CtrlRestriccio.consulta_pos(r));
     }
