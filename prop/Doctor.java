@@ -17,11 +17,21 @@ public class Doctor {
         dni = d;
     }
 
+    /**
+     * Afegeix restricció a doctor
+     * @param r
+     * @throws Error
+     */
     public void afegir_res(Restriccio r) throws Error{
         int pos = CtrlRestriccio.consulta_pos(r);
         if (pos != -1) Doc_Res.relaciona(dni, pos);
      }
-    
+
+    /**
+     * Esborra restricció associada a doctor
+     * @param r
+     * @throws Error
+     */
     public void eliminar_res(Restriccio r) throws Error{
         int pos = CtrlRestriccio.consulta_pos(r);
         if (pos != -1) Doc_Res.elimina(dni, pos);

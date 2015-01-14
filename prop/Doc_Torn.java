@@ -55,6 +55,11 @@ public class Doc_Torn {
 
     }
 
+    /**
+     * Crea el lligam entre el doctor amb dni d i el torn t
+     * @param d
+     * @param t
+     */
     public static void addRel(String d, String t) {
         Dia[] any = CtrlCalendari.consultarCalendari(CtrlPlantilla.getPlantillaActual().getNomPlantilla()).getCalendari();
         boolean trobat = false;
@@ -155,6 +160,11 @@ public class Doc_Torn {
         doctors.clear();
     }
 
+    /**
+     * retorna els torns relacionats amb aquell doctor
+     * @param doc
+     * @return
+     */
     public static ArrayList<Torn> getTornsRel(String doc) {
         ArrayList<Torn> torns = new ArrayList<Torn>();
         Doctor d = CtrlHospital.getDoctor(doc);
@@ -171,6 +181,9 @@ public class Doc_Torn {
         return torns;
     }
 
+    /**
+     * Retorna els doctors relacionats amb aquell torn
+     */
     public static ArrayList<Doctor> getDocRel(String torn) {
         ArrayList<Doctor> doctors = new ArrayList<Doctor>();
         for (int i = 0; i < torns.size(); i++) {

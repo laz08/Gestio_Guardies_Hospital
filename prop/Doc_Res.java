@@ -11,6 +11,11 @@ public class Doc_Res{
 
     private static ArrayList<ArrayList<String>> assig = new ArrayList<ArrayList<String>>();
 
+    /**
+     * Relaciona el doctor amb dni doc i la restriccio res
+     * @param doc
+     * @param res
+     */
     public static void relaciona(String doc, int res){
         if (res < assig.size()) {
             if (assig.get(res).contains(doc)) {
@@ -30,6 +35,11 @@ public class Doc_Res{
         }
     }
 
+    /**
+     * Esborra la relació entre el doctor amb dni doc i la restricció res
+     * @param doc
+     * @param res
+     */
     public static void elimina(String doc, int res) {
         if(res < assig.size()){
             assig.get(res).remove(doc);
@@ -38,7 +48,12 @@ public class Doc_Res{
           //  throw new Error("La relació entre el doctor i la restricció no existeix");
         }
     }
-    
+
+    /**
+     * Retorna el llistat de restriccions associades al doctor doc
+     * @param doc
+     * @return
+     */
     public static ArrayList<Integer> getRestriccions(String doc){
         ArrayList<Integer> res = new ArrayList<Integer>();
         for(int i = 0; i< assig.size(); i++){
@@ -47,6 +62,11 @@ public class Doc_Res{
         return res;
     }
 
+    /**
+     * Retorna les restriccions no associades al doctor doc
+     * @param doc
+     * @return
+     */
     public static ArrayList<Integer> getRestriccionsNoAssociades(String doc){
         //Restriccions associades al doctor
         ArrayList<Integer> res = getRestriccions(doc);
@@ -63,7 +83,11 @@ public class Doc_Res{
         }
         return resNoAss;
     }
-    
+
+    /**
+     * Guarda les relacions
+     * @param f
+     */
     public static void guardar(File f) {
     	String content = "";
   		for (int i = 0; i < assig.size(); i++) {
@@ -75,6 +99,12 @@ public class Doc_Res{
     	CtrlPersistencia.guardar(content, f);
     }
 
+    /**
+     * Carrega les relacions
+     * @param f
+     * @throws NumberFormatException
+     * @throws Error
+     */
     public static void carregar(File f) throws NumberFormatException, Error {
     	String content = CtrlPersistencia.carregar(f);
     	String separadors = "[ \n]";
