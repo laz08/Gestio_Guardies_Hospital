@@ -28,4 +28,8 @@ public class CtrlDiscGuardar {
 	public static void guardarr(File f) {
 		CtrlRestriccio.guardar(f);
 	}
+	
+	public static void guardardr(File f) {
+		Doc_Res.guardar(f);
+	}
 }
