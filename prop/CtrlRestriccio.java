@@ -15,12 +15,20 @@ public class CtrlRestriccio {
     private static ArrayList<String> eRestriccions = new ArrayList<String>();
     private static int idcount = 0;
 
+    /**
+     * Crea una nova restricció amb la expressió expressio
+     * @param expressio
+     */
     public static void nova_res(String expressio) {
         Restriccio r = crea_arbre(expressio);
         restriccions.add(r);
         eRestriccions.add(expressio);
     }
 
+    /**
+     * Elimina la restricció r
+     * @param r
+     */
     public static void elimina_res(Restriccio r) {
         int pos = consulta_pos(r);
         if (pos != -1) {
@@ -28,7 +36,11 @@ public class CtrlRestriccio {
             eRestriccions.remove(pos);
         }
     }
-    
+
+    /**
+     * Elimina la restricció que es troba en la posició pos
+     * @param pos
+     */
     public static void elimina_res(int pos){
         if(pos<restriccions.size()){
             restriccions.remove(pos);
@@ -36,14 +48,28 @@ public class CtrlRestriccio {
         }
     }
 
+    /**
+     * Retorna el llistat de restriccions
+     * @return
+     */
     public static ArrayList<Restriccio> consulta_llista_res() {
         return restriccions;
     }
 
+    /**
+     * Retorna la restricció que es troba en la posició i
+     * @param i
+     * @return
+     */
     public static Restriccio consulta_res(int i) {
         return restriccions.get(i);
     }
-    
+
+    /**
+     * Donada una posició retorna l'expressió de la restricció d'aquella posició i
+     * @param i
+     * @return
+     */
     public static String consulta_explesio_res(int i){
         return eRestriccions.get(i);
     }
@@ -134,6 +160,11 @@ public class CtrlRestriccio {
         return r;
     }
 
+    /**
+     * Mostra l'arbre de la restricció o
+     * @param o
+     * @return
+     */
     public static String mostra_arbre(Object o) {
         String sortida = "";
         if (R_AND.class.equals(o.getClass())
@@ -175,6 +206,11 @@ public class CtrlRestriccio {
         return sortida;
     }
 
+    /**
+     * Consulta la posició en el vector de restriccions de la restricció amb r
+     * @param r
+     * @return
+     */
     public static int consulta_pos(Restriccio r) {
         int trobat = -1;
         int i = 0;
@@ -188,7 +224,13 @@ public class CtrlRestriccio {
         }
         return trobat;
     }
-    
+
+
+    /**
+     * Consulta la posició en el vector de restriccions de la restricció amb expressió = expressio
+     * @param expressio
+     * @return
+     */
     public static int consulta_pos(String expressio){
         int trobat = -1;
         int i = 0;
@@ -246,6 +288,10 @@ public class CtrlRestriccio {
         return fill;
     }
 
+    /**
+     * Guarda les restriccions
+     * @param f
+     */
     public static void guardar(File f) {
         String content = "";
         for (String r : eRestriccions) {
@@ -253,7 +299,11 @@ public class CtrlRestriccio {
         }
         CtrlPersistencia.guardar(content, f);
     }
-    
+
+    /**
+     * Carrega les restriccions
+     * @param f
+     */
     public static void carregar(File f) {
         String contingut = CtrlPersistencia.carregar(f);
         String separadors = "/";
