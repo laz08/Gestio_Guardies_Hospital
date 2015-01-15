@@ -254,9 +254,10 @@ public class CtrlVistaHospital {
      * @param r
      */
     public String tradueix_restriccio(String r){
+        String r_trad = "";
         if(r.charAt(0) == 'H'){
             //Es per torn
-            String r_trad = "H";
+            r_trad = "H";
             for(int j = 1; j < r.length(); ++j){
                 if(r.charAt(j) == '5'){
                     r_trad += "MATI";
@@ -273,9 +274,64 @@ public class CtrlVistaHospital {
             }
             return r_trad;
         }
-        else
-            return r;
+        else {
+            //Es per dia
+            r_trad = "D";
 
+            for (int j = 1; j < r.length(); ++j) {
+                char a = r.charAt(j);
+                if (a == '-') {
+                    //Comença un mes
+                    ++j;
+                    r_trad += " ";
+                    a = r.charAt(j);
+                    if (a == '0') {
+                        //GENER
+                        r_trad += "GENER";
+                    } else if (a == '1') {
+                        //FEBRER, NOVEMBRE O DESEMBRE
+                        ++j;
+                        a = r.charAt(j);
+                        if (a == '0') {
+                            //NOVEMBRE
+                            r_trad += "NOVEMBRE";
+                        } else if (a == '1') {
+                            //DESEMBRE
+                            r_trad += "DESEMBRE";
+                        } else {
+                            r_trad += "FEBRER";
+                            --j;
+                        }
+                    } else if (a == '2') {
+                        //MARÇ
+                        r_trad += "MARÇ";
+                    } else if (a == '3') {
+                        //ABRIL
+                        r_trad += "ABRIL";
+                    } else if (a == '4') {
+                        //MAIG
+                        r_trad += "MAIG";
+                    } else if (a == '5') {
+                        //JUNY
+                        r_trad += "JUNY";
+                    } else if (a == '6') {
+                        //JULIOL
+                        r_trad += "JULIOL";
+                    } else if (a == '7') {
+                        //AGOST
+                        r_trad += "AGOST";
+                    } else if (a == '8') {
+                        //SETEMBRE
+                        r_trad += "SETEMBRE";
+                    } else if (a == '9') {
+                        //OCTUBRE
+                        r_trad += "OCTUBRE";
+                    }
+                } else
+                    r_trad += a;
+            }
+            return r_trad;
+        }
     }
 
     /**
