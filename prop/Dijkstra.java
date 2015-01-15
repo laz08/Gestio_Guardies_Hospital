@@ -144,7 +144,7 @@ public class Dijkstra extends Algorisme {
                 arriba_particular = seguent(fill, null);
                 if (arriba_particular) {
                     ArrayList<Integer> arestes_fill = fill.getArestes();
-                    for (int e = 0; e < arestes.size(); e++) {
+                    for (int e = 0; e < arestes_fill.size(); e++) {
                         Aresta a1 = graf.getA(arestes_fill.get(e));
                         Vertex pare = graf.getVertex(a1.getv());
                         if (pare.equals(font)) {
