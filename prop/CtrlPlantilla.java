@@ -23,8 +23,11 @@ public class CtrlPlantilla {
         Cjt_plantilles.add(p);
     }
 
-    //Pre:  -
-    //Post: S'ha esborrat del conjunt de plantilles la plantilla amb nom nom_p
+    /**
+     * Pre: -
+     * Post: S'ha esborrat del conjunt de plantilles la plantilla amb nom nom_p
+     * @param nom_p
+     */
     public static void esborrarPlantilla(String nom_p){
         Plantilla p = Cjt_plantilles.ceiling(new Plantilla(nom_p));
         //Creem Dummy i el passem
@@ -34,13 +37,21 @@ public class CtrlPlantilla {
         Cjt_plantilles.remove(p);
     }
 
-    //Pre:  -
-    //Post: Retorna un booleà indicant si una plantilla al conjunt de plantilles amb el nom = nom_p existeix
+    /**
+     * Pre: -
+     * Post: Retorna un booleà indicant si una plantilla al conjunt de plantilles amb el nom = nom_p existeix
+     * @param nom_p
+     * @return
+     */
     public static boolean existeixPlantilla(String nom_p){
         Plantilla aux = new Plantilla(nom_p);
         return Cjt_plantilles.contains(aux);
     }
 
+    /**
+     * Retorna el conjunt de plantilles
+     * @return
+     */
     public static TreeSet<Plantilla> getCjt_plantilles(){
         return Cjt_plantilles;
     }
@@ -49,25 +60,48 @@ public class CtrlPlantilla {
 
     //Pre: Existeix plantilla amb nom_p
     //Post: plantillaActual passa a ser la plantilla amb nom_p
+
+    /**
+     * Pre: Existeix plantilla amb nom_p
+     * Post: plantillaActual passa a ser la plantilla amb nom_p
+     *
+     * @param nom_p
+     */
     public static void setPlantillaActual(String nom_p){
        Plantilla p = new Plantilla(nom_p);
         p = Cjt_plantilles.ceiling(p);
         plantillaActual = p;
     }
 
+    /**
+     * Retorna la plantilla actual
+     * @return
+     */
     public static Plantilla getPlantillaActual(){
         return plantillaActual;
     }
 
+    /**
+     * Reseteja la plantilla Actual
+     */
     public static void plantillaActualANull(){
         plantillaActual = null;
     }
 
+    /**
+     * Retorna la plantilla amb nom nom_p
+     * @param nom_p
+     * @return
+     */
     public static Plantilla consultarPlantilla(String nom_p){
         Plantilla p = new Plantilla(nom_p);
         return Cjt_plantilles.ceiling(p);
     }
 
+    /**
+     * Retorna el num de plantilles que té el sistema
+     * @return
+     */
     public static int num_plantilles(){
         return Cjt_plantilles.size();
     }

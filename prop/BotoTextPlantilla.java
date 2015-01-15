@@ -1,10 +1,8 @@
 package prop;
 
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
-
-import javax.swing.JTextField;
 
 
 public class BotoTextPlantilla extends BotoText{
@@ -74,7 +72,10 @@ public class BotoTextPlantilla extends BotoText{
 		}
 		
 	}
-	
+
+    /**
+     * Neteja el nom de la plantilla
+     */
 	public void netejaNomPlant() {
 		textfield1.setText("");
 	}

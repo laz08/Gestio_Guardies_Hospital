@@ -93,12 +93,24 @@ public class CtrlHospital {
         return (Doctor) Hospital.getHospital_dni().ceiling(new Doctor(dni));
     }
 
+    /**
+     * Retorna el núm. total de doctors existents a l'hospital
+     * @return
+     */
     public static int numDocs(){ return Hospital.getHospital_dni().size();}
 
+    /**
+     * Retorna l'hospital (conjunt de doctors) ordenat per cognom1, cognom2, nom i DNI
+     * @return
+     */
     public static TreeSet<Doctor> getHospital_nom(){
         return Hospital.getHospital_nom();
     }
 
+    /**
+     * Retorna l'hospital (conjunt de doctors) ordenat per DNI
+     * @return
+     */
     public static TreeSet<Doctor> getHospital_dni(){
         return Hospital.getHospital_dni();
     }
@@ -106,63 +118,17 @@ public class CtrlHospital {
 
     // -------- Modificadors per a cada doctor ------------------
 
-    public static void modificarNom(Doctor doc, String nom){
-        doc.setNom(nom);
-    }
-    public static void modificarNomD(String d, String nom){
-        Doctor doc = getDoctor(d);
-        doc.setNom(nom);
-    }
-
-
-    public static void modificarCognom1(Doctor doc, String cg1){
-        doc.setCognom1(cg1);
-    }
-    public static void modificarCognom1D(String d, String cg1){
-        Doctor doc = getDoctor(d);
-        doc.setCognom1(cg1);
-    }
-
-    public static void modificarCognom2(Doctor doc, String cg2){
-        doc.setCognom2(cg2);
-    }
-    public static void modificarCognom2D(String d, String cg2){
-        Doctor doc = getDoctor(d);
-        doc.setCognom2(cg2);
-    }
-
-    public static void modificarTelf(Doctor doc, int telf){
-        doc.setTelefon(telf);
-    }
-    public static void modificarTelfD(String d, int telf){
-        Doctor doc = getDoctor(d);
-        doc.setTelefon(telf);
-    }
-
-    public static void modificarCorreu(Doctor doc, String mail){
-        doc.setCorreu(mail);
-    }
-    public static void modificarCorreuD(String d, String correu){
-        Doctor doc = getDoctor(d);
-        doc.setCorreu(correu);
-    }
-
-    public static void modificarSou(Doctor doc, int sou){
-        doc.setSou(sou);
-    }
-    public static void modificarSouD(String d, int sou){
-        Doctor doc = getDoctor(d);
-        doc.setSou(sou);
-    }
-
-    public static void modificarActivitat(Doctor doc, boolean actiu){
-        doc.setActiu(actiu);
-    }
-    public static void modificarActivitatD (String d, boolean actiu){
-        Doctor doc = getDoctor(d);
-        doc.setActiu(actiu);
-    }
-
+    /**
+     * Modifica tots els atributs d'un doctor amb dni = d amb els nous.
+     * (Nom, cognoms, sou, telèfon i correu electrònic)
+     * @param d
+     * @param n
+     * @param cg1
+     * @param cg2
+     * @param s
+     * @param t
+     * @param c
+     */
     public static void modificaAtributs(String d, String n, String cg1, String cg2, int s, int t, String c){
         Doctor doc = getDoctor(d);
 
@@ -180,41 +146,6 @@ public class CtrlHospital {
         ll.add(doc);
     }
 
-
-    // -------- Consultors per a cada doctor ------------------
-    public static String consultarNom(Doctor doc){
-        return doc.getNom();
-    }
-
-    public static String consultarCognom1(Doctor doc){
-        return doc.getCognom1();
-
-    }
-
-    public static String consultarCognom2(Doctor doc){
-        return doc.getCognom2();
-    }
-
-    public static String consultarDni(Doctor doc){
-        return doc.getdni();
-    }
-
-    public static int consultarSou(Doctor doc){
-        return doc.getSou();
-    }
-
-    public static int consultarTelefon(Doctor doc){
-        return doc.getTelefon();
-    }
-
-    public static String consultarCorreu(Doctor doc){
-        return doc.getCorreu();
-    }
-
-    public static boolean consultarActivitat(Doctor doc){
-        return doc.isActiu();
-    }
-
     /**
      * Retorna strings dels doctors que hi ha a l'hospital ordenats per nom
      * @return
@@ -229,12 +160,23 @@ public class CtrlHospital {
 
         return content;
     }
+
+    /**
+     * Retorna tota la informació del doctor amb dni = dni
+     * @param dni
+     * @return
+     */
     public static String getDoctorEspecificString(String dni){
         Doctor doc = getDoctor(dni);
         return doc.getdni() + " " + doc.getNom() + " " + doc.getCognom1() + " " + doc.getCognom2() + " " + doc.getSou() + " " + doc.getTelefon() + " " + doc.getCorreu() + " \n";
 
     }
 
+    /**
+     * Retorna en un String (per a la capa de presentació) que conté tots els doctors amb tota la
+     * informació de cadascún d'ells
+     * @return
+     */
     public static String getDoctorsSensePlt() {
         String content ="";
         TreeSet<Doctor> ll = CtrlHospital.getHospital_nom();
@@ -248,6 +190,9 @@ public class CtrlHospital {
     }
 
 
+    /**
+     * Guarda tots els doctors
+     */
     public static void guardar(File f) {
     	String content = "";
     	TreeSet<Doctor> ll = CtrlHospital.getHospital_dni();
@@ -258,6 +203,10 @@ public class CtrlHospital {
     	CtrlPersistencia.guardar(content, f);
     }
 
+    /**
+     * Carrega els doctors del fitxer f
+     * @param f
+     */
     public static void carregar(File f) {
     	String content = CtrlPersistencia.carregar(f);
     	String separadors = "[ \n]";

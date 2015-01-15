@@ -1,16 +1,14 @@
 package prop;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.io.*;
 
 public class CtrlPersistencia {
 
+    /**
+     * Guardar el contingut content al fitxer f
+     * @param content
+     * @param f
+     */
 	public static void guardar(String content, File f) {
 		File file = f;
 		try {
@@ -28,6 +26,11 @@ public class CtrlPersistencia {
 		}
 	}
 
+    /**
+     * Retorna un string resultant de la lectura del fitxer f
+     * @param f
+     * @return
+     */
 	public static String carregar(File f) {
 		BufferedReader br = null;
  		String line = "";

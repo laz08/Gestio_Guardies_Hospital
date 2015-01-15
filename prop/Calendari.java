@@ -11,10 +11,15 @@ public class Calendari {
 	private int anyfi;
 	private Plantilla p;
 	
-	
-	//Pre: No existeix un calendari per a la plantilla plt
-	//Post: Creem un calendari per la plantilla plt des d'any_inici fins any_fi, buit, només amb els diumenges marcats com festius.
-	public Calendari(String plt, int any_inici, int any_fi) {
+
+    /**
+     * Pre: No existeix un calendari per a la plantilla plt
+     * Post: Creem un calendari per la plantilla plt des d'any_inici fins any_fi, buit, només amb els diumenges marcats com festius.
+     * @param plt
+     * @param any_inici
+     * @param any_fi
+     */
+    public Calendari(String plt, int any_inici, int any_fi) {
 		GregorianCalendar dia = new GregorianCalendar(any_inici,0,1);
 		GregorianCalendar diaf = new GregorianCalendar(any_fi+1,0,1);
 		long dies = diaf.getTimeInMillis() - dia.getTimeInMillis();
@@ -27,107 +32,65 @@ public class Calendari {
 		setPlantillaAssociada(plt);
 		pl = plt;
 	}
-	
-	//Pre: -
-	//Post: Retorna l'any d'inici del calendari
+
+    /**
+     * Retorna l'any d'inici del calendari seleccionat
+     * @return
+     */
 	public int getAny() {
 		return any;
 	}
-	
+
+    /**
+     * Retorna l'any final del calendari seleccionat
+     * @return
+     */
 	public int getAnyFi() {
 		return anyfi;
 	}
-	
-	//Pre: -
-	//Post: Retornem el calendari en el que ens trobem
+
+    /**
+     * Retorna el calendari seleccionat
+     * @return
+     */
 	public Dia[] getCalendari() {
 		return cal;
 	}
-	
-	//Pre: -
-	//Post: Modifiquem el calendari pel calendari que ens arriba
-	public void setCalendari(Dia[] c) {
+
+    /**
+     * Modifica el calendari pel calendari c
+     * @param c
+     */
+    public void setCalendari(Dia[] c) {
 		cal = c;
 	}
-	
-	//Pre: -
-	//Post: Retornem el nom de la plantilla associada a aquest calendari
-	public String getPlantillaAssociada() {
+
+    /**
+     * Retorna el nom de la plantilla associada a aquest calendari
+     * @return
+     */
+    public String getPlantillaAssociada() {
 		return pl;
 	}
-	
-	//Pre: La plantilla nom existeix
-	//Post: Associem la plantilla nom amb el calendari que estem
-	public void setPlantillaAssociada(String nom) {
+
+    /**
+     * Pre: La plantilla nom existeix
+     * Post: Associem la plantilla nom amb el calendari que estem
+     * @param nom
+     */
+    public void setPlantillaAssociada(String nom) {
 		p =  CtrlPlantilla.consultarPlantilla(nom);
 		pl = nom;
 	}
 	
-	/*
-	//Pre: -
-	//Post: Borrem tota la informació del calendari
-	public void borrar() {
-		p = null;
-		cal = null;
-		any = 0;
-	}
-	
-
-	//--------FUNCIONS PER DIES--------
-	
-	//Pre: dia pertany al calendari 
-	//Post: Retorna tota la informació del dia que ens passen
-	public Dia consultarDiaConcret(GregorianCalendar dia) {
-		int i = calcularPosicioDia(dia);
-		return cal[i];
-	}
-	
-	//Pre: dia pertany al calendari
-	//Post: borrem tota la informació que tenim a dia
-	public void borrarDiaConcret(GregorianCalendar dia) {
-		int i = calcularPosicioDia(dia);
-		cal[i].borrar();
-	}
-	
-	//--------FUNCIONS PER TORNS CONCRETS------
-	//Pre: dia pertany a calendari
-	//Post: afegeix el torn al dia 
-	public void afegirTornDia(Torn t, GregorianCalendar dia) {
-		int posicio = calcularPosicioDia(dia);
-		cal[posicio].setTorn(t);
-	}
-	
-	//Pre: dia pertany al calendari i tipus es un enter entre 0 i 2
-	//Post: borrem el torn del dia en concret
-	public void eliminarTornDia(int tipus, GregorianCalendar dia) {
-		int posicio = calcularPosicioDia(dia);
-		cal[posicio].borrarTorn(tipus);
-	}
-	
-	//Pre: dia pertany al calendari i tipus es un enter entre 0 i 2
-	//Post: retorna el torn que volem del dia en concret
-	public Torn consultarTornDia(int tipus, GregorianCalendar dia) {
-		int posicio = calcularPosicioDia(dia);
-		return cal[posicio].getTorn_concret(tipus);
-	}
-	
-	//Pre: dia pertany al calendari
-	//Post: modificar el torn del dia concret
-	public void modificarTornDia(Torn t, GregorianCalendar dia) {
-		int posicio = calcularPosicioDia(dia);
-		cal[posicio].setTorn(t);
-	}
-	*/
-
-	
-
 
 	
 
 	//------ FUNCIONS AUXILIARS ------
-	
-	//Pre: -
-	//Post: Afegeix el boolea festiu=true a tots els diumenges de l'any
+
+    /**
+     * Afegeix el boolea festiu=true a tots els diumenges de l'any
+     */
 	public void afegirFestius() {
 			GregorianCalendar dia1 = new GregorianCalendar(any,0,1);
 			int diaset = dia1.get(Calendar.DAY_OF_WEEK);
@@ -143,33 +106,15 @@ public class Calendari {
 			}
 		
 	}
-	
-	//Pre: -
-	//Post: Afegim la posicio de calendari a la qual pertany el torn
+
+    /**
+     * Afegeix la posicio de calendari a la qual pertany el torn
+     */
 	public void afegirPosicio() {
 		for(int i=0; i<cal.length; ++i){
 			cal[i] = new Dia(false);
 			for(int j=0; j<3; ++j) cal[i].getTorns()[j].setPosicio(i);
 		}
 	}
-	
-	/*//Pre: dia pertany a l'any
-	//Post: Ens retorna la posició on es troba el dia en qüestió en el nostre calendari
-	public int calcularPosicioDia(GregorianCalendar dia) {
-		GregorianCalendar primerdia = new GregorianCalendar(any,1,1);
-		long dif = primerdia.getTimeInMillis() - dia.getTimeInMillis();
-		dif = dif/1000/60/60/24;
-		return (int) dif;
-		
-	}
-	
-	//Pre: i pertany a una posicio del vector
-	//Post: Retorna la data que te la posicio i al vector.
-	public GregorianCalendar quinDia(int i) {
-		GregorianCalendar primerdia = new GregorianCalendar(any,1,1);
-		primerdia.add(Calendar.DAY_OF_YEAR,i);
-		return primerdia;		
-	}*/
-	
 	
 }

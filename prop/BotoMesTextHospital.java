@@ -143,10 +143,15 @@ public class BotoMesTextHospital extends BotoMesText{
 		add(b5, c);
 	}
 
+    /**
+     * Assigna la llista
+     * @param ll
+     */
 	public void assignallista(LlistatErrorHospital ll) {
 		llistat = ll;
 	}
-	public BotoMesTextHospital(CtrlVistaHospital cvh) {
+
+    public BotoMesTextHospital(CtrlVistaHospital cvh) {
 		ctrlvh = cvh;
 
 		b1.setText("Afegir Restricció");
@@ -338,6 +343,10 @@ public class BotoMesTextHospital extends BotoMesText{
 	}
 
     //FUNCIONS AUXILIARS
+
+    /**
+     * Esborra tots els camps pertanyents a doctor
+     */
     public void esborraTotsElsCamps(){
         t1.setText("");
         t2.setText("");
@@ -348,6 +357,10 @@ public class BotoMesTextHospital extends BotoMesText{
         t7.setText("");
     }
 
+    /**
+     * Crea el doctor llegint els valors dels camps
+     * @return
+     */
     public boolean crea_doc(){
         boolean valid = true;
         String d = t1.getText();
@@ -420,6 +433,10 @@ public class BotoMesTextHospital extends BotoMesText{
         return valid;
     }
 
+    /**
+     * Modifica el doctor llegint els valors dels camps
+     * @return
+     */
     public boolean modifica_doc(){
         boolean valid = true;
         String d = t1.getText();
@@ -477,12 +494,20 @@ public class BotoMesTextHospital extends BotoMesText{
     }
 
 
+    /**
+     * Retorna si un String es un correu electrònic vàlid o no
+     * @param correu
+     * @return
+     */
     public boolean esCorreu(String correu){
         Pattern p = Pattern.compile("[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}");
         Matcher m = p.matcher(correu);
         return m.matches();
     }
 
+    /**
+     * En una selecció, omple els camps del doctor seleccionat
+     */
     public void ompleValuesDoctor(){
         //agafem els valors
         String selected = llistat.llista1.getSelectedValue().toString();
@@ -494,6 +519,10 @@ public class BotoMesTextHospital extends BotoMesText{
         t1.setEditable(false);
     }
 
+    /**
+     * Omple els camps amb les dades del doctor amb dni d
+     * @param d
+     */
     public void ompleDoctorDni(String d){
         String ret = ctrlvh.getDoctorEspecific(d);
         String separadors = "[ \n]";
@@ -507,14 +536,25 @@ public class BotoMesTextHospital extends BotoMesText{
         t7.setText(separat[6]);
     }
 
+    /**
+     * Esborra el doctor seleccionat de la llista
+     */
     private void esborraDoctor(){
         ctrlvh.esborrar_doctor(t1.getText());
     }
 
+    /**
+     * Escull si fer cas als events o no
+     * @param b
+     */
 	public void mod(boolean b) {
 		mod = b;
 	}
 
+    /**
+     * Retorna el DNI del doctor seleccionat
+     * @return
+     */
     public String retornaDNI(){
         return t1.getText();
     }

@@ -9,7 +9,11 @@ public abstract class Algorisme implements Runnable{
     }
     
     abstract void maxFlow() throws Error;
-    
+
+    /**
+     * Retorna el temps d'execució
+     * @return
+     */
     public long getTemps(){
         return temps;
     }

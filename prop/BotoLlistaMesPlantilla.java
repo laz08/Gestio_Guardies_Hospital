@@ -3,10 +3,8 @@ package prop;
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 
 public class BotoLlistaMesPlantilla extends BotoLlista {
@@ -68,7 +66,10 @@ public class BotoLlistaMesPlantilla extends BotoLlista {
 	public void mod(boolean b) {
 		mod = b;
 	}
-	
+
+    /**
+     * Actualitza el llistat de doctors pertanyents a la plantilla
+     */
 	public void actualitzarLlistaDoctorsPlt() {
 		//Mostrem tots els doctors que pertanyen a la plantilla
 		String s = llistat.llista1.getSelectedValue().toString();
@@ -86,8 +87,11 @@ public class BotoLlistaMesPlantilla extends BotoLlista {
 	   }
 		
 	}
-	
-	
+
+
+    /**
+     * Actualitza el llistat de doctors pertanyents a la plantilla
+     */
 	public void actualitzarLlistaDoctorsPltNom() {
 		//Mostrem tots els doctors que pertanyen a la plantilla
 		String s = nom.getText();

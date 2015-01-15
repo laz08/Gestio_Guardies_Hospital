@@ -214,6 +214,15 @@ public class BotoMesTextCalendari extends BotoMesText {
 		
 	}
 
+    /**
+     * Carrega el dia a partir dels valors seleccionats
+     * @param rany
+     * @param mes
+     * @param dia
+     * @param selectedItem
+     * @param selectedIndex
+     * @param object
+     */
 	public void carregardia(int rany, int mes, int dia, Object selectedItem, int selectedIndex, Object object) {
 		GregorianCalendar data = new GregorianCalendar(rany, mes, dia);
 		festiu.setSelected(CtrlCalendari.consultarDiaFestiu(ctrlvc.seleccio(),data));
@@ -226,7 +235,13 @@ public class BotoMesTextCalendari extends BotoMesText {
 		t1.setText(Integer.toString(dia));
 		
 	}
-	
+
+    /**
+     * Retorna si és un número o no
+     * @param str
+     * @param check
+     * @return
+     */
 	public boolean isnumber(String str, int check) {  
         try  { 
         	if (check == 1) {

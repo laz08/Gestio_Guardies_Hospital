@@ -3,7 +3,14 @@ package prop;
 public class Aresta {
 	private int v, w;
 	private int flow, capacitat;
-	
+
+    /**
+     * Creadora d'aresta, del vertex v al vertex w, amb flow f i capacitat cap
+     * @param vertexv
+     * @param vertexw
+     * @param f
+     * @param cap
+     */
 	public Aresta(int vertexv, int vertexw, int f, int cap) {
 		v = vertexv;
 		w = vertexw;
@@ -17,11 +24,21 @@ public class Aresta {
 		flow = a.flow;
 		capacitat = a.capacitat;
 	}
-	
+
+    /**
+     * Retorna el vèrtex origen
+     * (Aresta v-w)
+     * @return
+     */
 	public int getv() {
 		return v;
 	}
-	
+
+    /**
+     * Retorna el vertex destí
+     * (Aresta v-w)
+     * @return
+     */
 	public int getw() {
 		return w;
 	}
@@ -41,19 +58,34 @@ public class Aresta {
 	public void setflow(int f) {
 		flow = f;
 	}
-	
+
+    /**
+     * Retorna el flow
+     * @return
+     */
 	public int getflow() {
 		return flow;
 	}
-	
+
+    /**
+     * Reseteja el flow
+     */
 	public void resetflow() {
 		flow = 0;
 	}
-	
+
+    /**
+     * Retorna la capacitat de l'aresta
+     * @return
+     */
 	public int getcap() {
 		return capacitat;
 	}
-	
+
+    /**
+     * La capacitat de la aresta és c
+     * @param c
+     */
         public void setCap(int c){
             capacitat = c;
         }
@@ -62,7 +94,11 @@ public class Aresta {
 		if (ver == v) return w;
 		else return v;
 	}
-	
+
+    /**
+     * Afegeix flow f
+     * @param f
+     */
 	public void addFlow(int f) {
 		flow += f;
 	}

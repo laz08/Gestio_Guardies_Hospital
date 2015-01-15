@@ -88,7 +88,13 @@ public class BotoTextCalendari extends BotoText {
 		}
 		
 	}
-	
+
+    /**
+     * Retorna si es un numero
+     * @param str
+     * @param check
+     * @return
+     */
 	public boolean isnumber(String str, int check) {  
         try  { 
         	if (check == 1) {
