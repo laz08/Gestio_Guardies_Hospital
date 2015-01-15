@@ -105,13 +105,15 @@ public class CtrlRestriccio {
                 r.setNumVertex(r2.getNumVertex());
                 r.setNumVertex(r.getNumVertex() + 1);
             } else if (!Restriccio.esRestriccio(sub_r1) && !Restriccio.esRestriccio(sub_r2)) {
-
+                
+                Restriccio r1 = crea_arbre(tipus+"NOP("+sub_r1+")");
+                Restriccio r2 = crea_arbre(tipus+"NOP("+sub_r2+")");
                 switch (operacio) {
                     case "AND":
-                        r = new R_AND(sub_r1, sub_r2, "R" + id);
+                        r = new R_AND(r1, r2, "R" + id);
                         break;
                     case "XOR":
-                        r = new R_XOR(sub_r1, sub_r2, "R" + id);
+                        r = new R_XOR(r1, r2, "R" + id);
                         //r = new R_XOR(t1,t2);
                         break;
                 }

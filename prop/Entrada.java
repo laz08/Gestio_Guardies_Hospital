@@ -102,14 +102,6 @@ public class Entrada {
             ArrayList<Integer> llista_r = d.getRestriccions();
             Vertex vd = g.getVertex(d.getdni(), Vertex.DOCTOR);
             for (int e = 0; e < llista_r.size(); e++) {
-//                
-//                
-//                System.out.println(d.getNom());
-//                System.out.println(e);
-//                
-//                
-                
-                
                 r = CtrlRestriccio.consulta_res(llista_r.get(e));
                 Vertex vr = recorregut_restriccio(r, d.getdni(), g);
                 g.afegirAresta(vd, vr, /*vr.getCapacitatAcumulada()*/ Graf.INFINIT, 0);
@@ -333,31 +325,6 @@ public class Entrada {
                     }
                 }
                 break;
-//            case "S":
-//                int numSetmana = Integer.parseInt(t);
-//                int diesAnteriors = (numSetmana - 1) * 7;
-//                for (int i = diesAnteriors; i < 7; i++) {
-//                    if (i < any.length) {
-//                        for (int e = 0; e < 3; e++) {
-//                            Torn torn = null;
-//                            switch (e) {
-//                                case 0:
-//                                    torn = any[i].getTornMati();
-//                                    break;
-//                                case 1:
-//                                    torn = any[i].getTornTarda();
-//                                    break;
-//                                case 2:
-//                                    torn = any[i].getTornNit();
-//                                    break;
-//                            }
-//                            if (torn != null) {
-//                                v_torns.add(g.getVertex(torn.toString(), Vertex.MAX));
-//                            }
-//                        }
-//                    }
-//                }
-//                break;
             default:
                 throw new Error("No es reconeix el tipus de la restricció");
         }
