@@ -98,7 +98,7 @@ public class FordFulkerson extends Algorisme {
     private boolean tracta_font(Vertex font) {
         boolean arriba = true;
         ArrayList<Integer> llista_arestes = font.getArestes();
-        if (selSou) {
+        if (!selSou) {
             for (int i = 0; i < llista_arestes.size(); i++) {
                 Aresta a = graf.getA(llista_arestes.get(i));
                 Vertex fill = graf.getVertex(a.getw());
@@ -116,21 +116,21 @@ public class FordFulkerson extends Algorisme {
             for (int i = 0; i < llista_arestes.size(); i++) {
                 Aresta a = graf.getA(llista_arestes.get(i));
                 Vertex fill = graf.getVertex(a.getw());
-                if(!fill.equals(font)){
+                if (!fill.equals(font)) {
                     fills.add(a.getw());
                 }
             }
-            fills = ordenacioPerSou(fills, 0, fills.size()-1);
-            for(int i=0; i<fills.size(); i++){
+            fills = ordenacioPerSou(fills, 0, fills.size() - 1);
+            for (int i = 0; i < fills.size(); i++) {
                 boolean arriba_particular = true;
                 Vertex fill = graf.getVertex(fills.get(i));
-                arriba_particular =seguent(fill, null);
-                if(arriba_particular){
+                arriba_particular = seguent(fill, null);
+                if (arriba_particular) {
                     ArrayList<Integer> arestes = fill.getArestes();
-                    for(int e=0; e<arestes.size(); e++){
+                    for (int e = 0; e < arestes.size(); e++) {
                         Aresta a = graf.getA(arestes.get(e));
                         Vertex pare = graf.getVertex(a.getv());
-                        if(pare.equals(font)){
+                        if (pare.equals(font)) {
                             a.addFlow(1);
                         }
                     }
@@ -168,8 +168,11 @@ public class FordFulkerson extends Algorisme {
      * fills o no
      */
     private boolean tracta_nop(Vertex vnop, String doctor) {
-        boolean arriba = true;
         ArrayList<Integer> llista_arestes = vnop.getArestes();
+        Restriccio restriccio = (Restriccio) vnop.getObjecte();
+        boolean arriba;
+        if(restriccio.getTipus().equals("D"))arriba = true;
+        else arriba = false;
         for (int i = 0; i < llista_arestes.size(); i++) {
             Aresta a = graf.getA(llista_arestes.get(i));
             Vertex fill = graf.getVertex(a.getw());
@@ -179,13 +182,11 @@ public class FordFulkerson extends Algorisme {
                 if (arriba_particular) {
                     a.addFlow(1);
                 }
-                arriba &= arriba_particular;
+                if(restriccio.getTipus().equals("D"))arriba &= arriba_particular;
+                else arriba |= arriba_particular;
             }
         }
-        if (!arriba) {
-            elimina_relacionats(vnop, doctor);
-        }
-        System.out.println("arriba: "+arriba);
+        System.out.println("arriba: " + arriba);
         return arriba;
     }
 
@@ -206,6 +207,9 @@ public class FordFulkerson extends Algorisme {
             Vertex fill = graf.getVertex(a.getw());
             if (!fill.equals(vxor)) {
                 arriba = seguent(fill, doctor);
+                if (!arriba) {
+                    elimina_relacionats(fill, doctor);
+                }
             }
         }
         return arriba;
@@ -222,15 +226,15 @@ public class FordFulkerson extends Algorisme {
      */
     private boolean tracta_and(Vertex vand, String doctor) {
         boolean arriba = true;
-        
+
         System.out.println("Comprovam AND");
-        
+
         ArrayList<Integer> llista_arestes = vand.getArestes();
         for (int i = 0; i < llista_arestes.size(); i++) {
             Aresta a = graf.getA(llista_arestes.get(i));
             Vertex fill = graf.getVertex(a.getw());
             if (!fill.equals(vand)) {
-                System.out.println("Comprovam fill "+i);
+                System.out.println("Comprovam fill " + i);
                 arriba &= seguent(fill, doctor);
             }
         }
