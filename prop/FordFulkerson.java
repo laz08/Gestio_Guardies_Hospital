@@ -186,7 +186,6 @@ public class FordFulkerson extends Algorisme {
                 else arriba |= arriba_particular;
             }
         }
-        System.out.println("arriba: " + arriba);
         return arriba;
     }
 
@@ -226,16 +225,17 @@ public class FordFulkerson extends Algorisme {
      */
     private boolean tracta_and(Vertex vand, String doctor) {
         boolean arriba = true;
-
-        System.out.println("Comprovam AND");
-
         ArrayList<Integer> llista_arestes = vand.getArestes();
         for (int i = 0; i < llista_arestes.size(); i++) {
             Aresta a = graf.getA(llista_arestes.get(i));
             Vertex fill = graf.getVertex(a.getw());
             if (!fill.equals(vand)) {
-                System.out.println("Comprovam fill " + i);
-                arriba &= seguent(fill, doctor);
+                boolean arriba_particular = true;
+                arriba_particular &= seguent(fill, doctor);
+                if (!arriba_particular) {
+                    elimina_relacionats(fill, doctor);
+                }
+                arriba &= arriba_particular;
             }
         }
         return arriba;
@@ -262,16 +262,7 @@ public class FordFulkerson extends Algorisme {
     ////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////
 
-    private static void desfesFillsVisitats(Vertex s) {
-        ArrayList<Integer> la = s.getArestes();
-        for (int i = 0; i < la.size(); i++) {
-            Aresta a = graf.getA(la.get(i));
-            if (a.getflow() > 0 && graf.getVertex(a.getv()).equals(s)) {
-                a.setflow(0);
-            }
-        }
-    }
-
+   
     /**
      * QuckSort segons el sou dels doctors que es veuen a la llista de vertex
      *

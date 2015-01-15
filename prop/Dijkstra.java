@@ -23,146 +23,276 @@ public class Dijkstra extends Algorisme {
     }
 
     @Override
-    void maxFlow() throws Error {
-        
-        System.out.println("Max flow Dij");
-        
-        arestesPendents = posaDoctors();
-        while (!arestesPendents.isEmpty() && !totsBloquejats()) {
-            Aresta a = arestesPendents.get(0);
-            arestesPendents.remove(0);
-            a.addFlow(1);
-            Vertex v = graf.getVertex(a.getw());
-            if (v.getClasse() == Vertex.TORN) {
-                if (v.getVisitat()) {
-                    tornaEnrere(a);
-                } else {
-                    Vertex vp = graf.getVertex(a.getv());
-                    v.addDoctorRel(vp.getDoctorsRel().get(0));
-                    if (v.getNumDocRelacionats() == v.getNumMaxRestr()) {
-                        v.setVisitat(true);
-                    }
-                }
-            } else {
-                ArrayList<Integer> la = v.getArestes();
-                for (int i = 0; i < la.size(); i++) {
-                    Aresta a1 = graf.getA(la.get(i));
-                    Vertex v1 = graf.getVertex(a1.getw());
-                    if (!v1.equals(v) && !v1.getVisitat()) {
-                        if (v.getId().contains("XOR")) {
-                            bloqueja_arestes(la, a1, v);
-                        }
-                        boolean posicionat = false;
-                        int pos = 0;
-                        while (!posicionat && pos < arestesPendents.size()) {
-                            Aresta aresta = arestesPendents.get(pos);
-                            if (aresta.getcap() > a1.getcap()) {
-                                arestesPendents.add(pos, a1);
-                                posicionat = true;
-                            }
-                            pos++;
-                        }
-                    }
-                }
-            }
-
-        }
+    public void maxFlow() throws Error {
+        graf.resetFlow();
+        Doc_Torn.removeAll();
+        seguent(graf.getVertex("FONT", Vertex.FONT_POU), null);
         Entrada.guarda_assignacions(graf);
     }
 
-    private ArrayList<Aresta> posaDoctors() {
-        ArrayList<Aresta> arestes = new ArrayList<Aresta>();
-        Vertex font = graf.getVertex("FONT", Vertex.FONT_POU);
-        ArrayList<Integer> la = font.getArestes();
-        for (int i = 0; i < la.size(); i++) {
-            Aresta a = graf.getA(la.get(i));
-            arestes.add(a);
+    private boolean seguent(Vertex s, String doc_r_pare) {
+        boolean arriba_a_torn = false;
+        switch (s.getClasse()) {
+            case Vertex.TORN:
+                arriba_a_torn = tracta_torn(s, doc_r_pare);
+                break;
+            case Vertex.RESTRICCIO:
+                arriba_a_torn = tracta_restriccio(s, doc_r_pare);
+                break;
+            case Vertex.DOCTOR:
+                arriba_a_torn = tracta_doctor(s);
+                break;
+            case Vertex.FONT_POU:
+                arriba_a_torn = tracta_font(s);
+                break;
         }
-        if (selSou) {
-            Collections.sort(arestes, new Comparator<Aresta>() {
-                @Override
-                public int compare(Aresta a1, Aresta a2) {
-                    return Integer.compare(a1.getcap(), a2.getcap());
+        return arriba_a_torn;
+    }
+
+    /**
+     * Quan li passam un Vertex torn, l'assigna o no segons el nombre minim de
+     * doctors i en retorna un boolea
+     *
+     * @param torn Vertex que representa al torn
+     * @param doctor_rel Possible doctor relacionat amb el vertex pare
+     * @return Boolea que determina si s'ha assignat el torn o no
+     */
+    private boolean tracta_torn(Vertex vtorn, String doctor_rel) {
+        boolean relacionat = false;
+        if (!vtorn.getVisitat()) {
+            Torn torn = (Torn) vtorn.getObjecte();
+            if (torn.getMin_num_doctors() > vtorn.getNumDocRelacionats() + 1) {
+                vtorn.addDoctorRel(doctor_rel);
+                relacionat = true;
+            } else if (torn.getMin_num_doctors() > vtorn.getNumDocRelacionats()) {
+                vtorn.addDoctorRel(doctor_rel);
+                vtorn.setVisitat(true);
+                relacionat = true;
+            }
+        }
+        return relacionat;
+    }
+
+    /**
+     * Doant un node del tipus doctor, comprovara els seus fills i retornara
+     * true si tots ells arriben a assignar-se a un torn
+     *
+     * @param vdoc Vertex que representa al doctor
+     * @return Boolea que determina si tots els fills del doctor s'assignen a un
+     * torn (true) o no(false)
+     */
+    private boolean tracta_doctor(Vertex vdoc) {
+        boolean relacionat = true;
+        ArrayList<Integer> llista_arestes = vdoc.getArestes();
+        for (int i = 0; i < llista_arestes.size(); i++) {
+            Aresta a = graf.getA(llista_arestes.get(i));
+            Vertex fill = graf.getVertex(a.getw());
+            if (!fill.equals(vdoc)) {
+                boolean relacionat_particular = true;
+                Doctor doc = (Doctor) vdoc.getObjecte();
+                relacionat_particular = seguent(fill, doc.getdni());
+                if (relacionat_particular) {
+                    a.addFlow(1);
                 }
+                relacionat &= relacionat_particular;
+            }
+        }
+        return relacionat;
+    }
+
+    /**
+     * Donat un vertex font comprova si tots els seus fills s'assignen a un torn
+     *
+     * @param font Vertex font
+     * @return Retorna true si s'han compit totes les restriccions de tots els
+     * fills del vertex font, sino, retorna false
+     */
+    private boolean tracta_font(Vertex font) {
+        boolean arriba = true;
+        ArrayList<Integer> llista_arestes = font.getArestes();
+        if (!selSou) {
+            for (int i = 0; i < llista_arestes.size(); i++) {
+                Aresta a = graf.getA(llista_arestes.get(i));
+                Vertex fill = graf.getVertex(a.getw());
+                if (!fill.equals(font)) {
+                    boolean arriba_particular = true;
+                    arriba_particular = seguent(fill, null);
+                    if (arriba_particular) {
+                        a.addFlow(1);
+                    }
+                    arriba &= arriba_particular;
+                }
+            }
+        } else {
+            ArrayList<Integer> arestes = font.getArestes();
+            //Ordenam
+            Collections.sort(arestes, new Comparator<Integer>() {
+
+                @Override
+                public int compare(Integer a1, Integer a2) {
+                    Aresta aresta1 = graf.getA(a1);
+                    Aresta aresta2 = graf.getA(a2);
+                    return  Integer.compare(aresta1.getcap(),aresta2.getcap());
+                }
+                
+            });
+            
+            for (int i = 0; i < arestes.size(); i++) {
+                boolean arriba_particular = true;
+                Aresta a = graf.getA(arestes.get(i));
+                Vertex fill = graf.getVertex(a.getw());
+                arriba_particular = seguent(fill, null);
+                if (arriba_particular) {
+                    ArrayList<Integer> arestes_fill = fill.getArestes();
+                    for (int e = 0; e < arestes.size(); e++) {
+                        Aresta a1 = graf.getA(arestes_fill.get(e));
+                        Vertex pare = graf.getVertex(a1.getv());
+                        if (pare.equals(font)) {
+                            a1.addFlow(1);
+                        }
+                    }
+                }
+                arriba &= arriba_particular;
+            }
+        }
+        return arriba;
+    }
+
+    private boolean tracta_restriccio(Vertex vr, String doctor) {
+        Restriccio restriccio = (Restriccio) vr.getObjecte();
+        boolean arriba = true;
+        switch (restriccio.getOp()) {
+            case "XOR":
+                arriba = tracta_xor(vr, doctor);
+                break;
+            case "AND":
+                arriba = tracta_and(vr, doctor);
+                break;
+            case "NOP":
+                arriba = tracta_nop(vr, doctor);
+                break;
+        }
+        return arriba;
+    }
+
+    /**
+     * Donat un vertex que representa una restricció te tipus NOP retorna un
+     * boolea que marca si s'ha pogut assignar un torn a tots els seus fills
+     *
+     * @param vnop Vertex que representa la retricció NOP
+     * @param doctor Doctor relacionat amb el vertex
+     * @return Boolea que marca si s'ha pogut relacionar un torn amb els seus
+     * fills o no
+     */
+    private boolean tracta_nop(Vertex vnop, String doctor) {
+        ArrayList<Integer> llista_arestes = vnop.getArestes();
+        Restriccio restriccio = (Restriccio) vnop.getObjecte();
+        boolean arriba;
+        if (restriccio.getTipus().equals("D")) {
+            arriba = true;
+        } else {
+            arriba = false;
+        }
+        for (int i = 0; i < llista_arestes.size(); i++) {
+            Aresta a = graf.getA(llista_arestes.get(i));
+            Vertex fill = graf.getVertex(a.getw());
+            if (!fill.equals(vnop)) {
+                boolean arriba_particular = true;
+                arriba_particular = seguent(fill, doctor);
+                if (arriba_particular) {
+                    a.addFlow(1);
+                }
+                if (restriccio.getTipus().equals("D")) {
+                    arriba &= arriba_particular;
+                } else {
+                    arriba |= arriba_particular;
+                }
+            }
+        }
+        System.out.println("arriba: " + arriba);
+        return arriba;
+    }
+
+    /**
+     * Donat un vèrtex excollira el primer fill al que es pugui asignar un torn
+     * o dia complet en cas que existeixi
+     *
+     * @param vxor Vèrtex que representa la restriccio XOR
+     * @param doctor Doctor relacionat amb el vèrtex
+     * @return Retorna true si ha trobat alguna assignacio amb un dia o torn
+     * complet, en cas contrari retorna false
+     */
+    private boolean tracta_xor(Vertex vxor, String doctor) {
+        boolean arriba = false;
+        ArrayList<Integer> llista_arestes = vxor.getArestes();
+        if(selSou){
+            Collections.sort(llista_arestes, new Comparator<Integer>() {
+                @Override
+                public int compare(Integer a1, Integer a2) {
+                    Aresta aresta1 = graf.getA(a1);
+                    Aresta aresta2 = graf.getA(a2);
+                    return  Integer.compare(aresta1.getcap(),aresta2.getcap());
+                }
+                
             });
         }
-        return arestes;
+        for (int i = 0; i < llista_arestes.size() && !arriba; i++) {
+            Aresta a = graf.getA(llista_arestes.get(i));
+            Vertex fill = graf.getVertex(a.getw());
+            if (!fill.equals(vxor)) {
+                arriba = seguent(fill, doctor);
+                if (!arriba) {
+                    elimina_relacionats(fill, doctor);
+                }
+            }
+        }
+        return arriba;
     }
 
-    private static void tornaEnrere(Aresta a) {
-        Vertex v = graf.getVertex(a.getv());
-        boolean atura = false;
-        while (!atura) {
-            if (v.getClasse() == Vertex.FONT_POU || v.getId().contains("XOR")) {
-                atura = true;
-                if (v.getId().contains("XOR")) {
-                    desbloqueja_arestes(v);
+    /**
+     * Donat un vèrtex escollira tots els fills als que es puguin assignar un
+     * torn o dia complets
+     *
+     * @param vand Vèrtex que representa la restriccio AND
+     * @param doctor Doctor relacionat amb el vèrtex
+     * @return Retorna true si tots s'han pogut assignar, si algun no ho ha
+     * pogut fer, retorna false
+     */
+    private boolean tracta_and(Vertex vand, String doctor) {
+        boolean arriba = true;
+        ArrayList<Integer> llista_arestes = vand.getArestes();
+        for (int i = 0; i < llista_arestes.size(); i++) {
+            Aresta a = graf.getA(llista_arestes.get(i));
+            Vertex fill = graf.getVertex(a.getw());
+            if (!fill.equals(vand)) {
+                boolean arriba_particular = true;
+                arriba_particular &= seguent(fill, doctor);
+                if (!arriba_particular) {
+                    elimina_relacionats(fill, doctor);
                 }
-            } else {
+                arriba &= arriba_particular;
+            }
+        }
+        return arriba;
+    }
+
+    /**
+     * Donat un vertex, elimina la relació amb tots els seus fills
+     *
+     * @param vertex Vertex del que es volen eliminar les relacions amb els
+     * fills
+     * @param doc Doctor relacionat amb el vertexs
+     */
+    private void elimina_relacionats(Vertex vertex, String doc) {
+        ArrayList<Integer> llista_arestes = vertex.getArestes();
+        for (int i = 0; i < llista_arestes.size(); i++) {
+            Aresta a = graf.getA(llista_arestes.get(i));
+            Vertex fill = graf.getVertex(a.getw());
+            if (!fill.equals(vertex) && a.getflow() > 0) {
                 a.addFlow(-1);
-                ArrayList<Integer> arestes = v.getArestes();
-                boolean trobat = false;
-                int pos = 0;
-                while (!trobat && pos < arestes.size()) {
-                    Aresta a1 = graf.getA(arestes.get(pos));
-                    Vertex v1 = graf.getVertex(a1.getv());
-                    if (!v1.equals(v)) {
-                        trobat = true;
-                        v = v1;
-                        a = a1;
-                    }
-                    pos++;
-                }
+                fill.rmDoctorRel(doc);
             }
         }
-    }
-
-    private static void bloqueja_arestes(ArrayList<Integer> la, Aresta aresta, Vertex vertex) {
-        for (int i = 0; i < la.size(); i++) {
-            Aresta a = graf.getA(la.get(i));
-            if (!a.equals(aresta)) {
-                Vertex v = graf.getVertex(a.getw());
-                if (!v.equals(vertex)) {
-                    v.setVisitat(true);
-                }
-            }
-        }
-    }
-
-    private static void desbloqueja_arestes(Vertex v) {
-        ArrayList<Integer> arestes = v.getArestes();
-        for (int i = 0; i < arestes.size(); i++) {
-            Aresta a = graf.getA(arestes.get(i));
-            Vertex v1 = graf.getVertex(a.getw());
-            if (!v1.equals(v)) {
-                v1.setVisitat(false);
-            }
-        }
-    }
-
-    private static boolean totsBloquejats() {
-        boolean bloquejats = true;
-        for (int i = 0; i < arestesPendents.size(); i++) {
-            Vertex v = graf.getVertex(arestesPendents.get(i).getw());
-            if (!v.getVisitat()) {
-                bloquejats = false;
-            } else {                                                               // si el vertex esta bloquejat es mou al final de la llista
-                boolean colocat = false;
-                for (int e = i; e < arestesPendents.size() && !colocat; e++) {      // si hi ha algun altre bloquejat el posam just abans
-                    Vertex v1 = graf.getVertex(arestesPendents.get(e).getw());
-                    if (v1.getVisitat()) {
-                        colocat = true;
-                        arestesPendents.add(e, arestesPendents.get(i));
-                        arestesPendents.remove(i);
-                    }
-                }
-                if (!colocat) {                                                   // si no hi ha cap altre bloquejat, es posa al final
-                    arestesPendents.add(arestesPendents.get(i));
-                    arestesPendents.remove(i);
-                }
-            }
-        }
-        return bloquejats;
     }
 
     private void preparaGraf() {
