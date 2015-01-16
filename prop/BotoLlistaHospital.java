@@ -2,6 +2,7 @@ package prop;
 
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 
 public class BotoLlistaHospital extends BotoLlista implements ListSelectionListener {
@@ -17,7 +18,21 @@ public class BotoLlistaHospital extends BotoLlista implements ListSelectionListe
 		b2.setText("Acceptar");
         b2.setEnabled(false);
         llista1.addListSelectionListener(this);
+        /*
+        llista1.setPreferredSize(new Dimension(200, 300));
+        llista1.setMaximumSize(new Dimension(200, 300));
+        */
         b2.setEnabled(false);
+
+
+        scroll1.setSize(new Dimension(250, 300));
+        scroll1.setSize(new Dimension(250, 300));
+        scroll1.setMinimumSize(new Dimension(250, 300));
+        scroll1.setMinimumSize(new Dimension(250, 300));
+        scroll1.setPreferredSize(new Dimension(250, 300));
+        scroll1.setMaximumSize(new Dimension(250, 300));
+        scroll1.setPreferredSize(new Dimension(250, 300));
+        scroll1.setMaximumSize(new Dimension(250, 300));
 
 	}
 

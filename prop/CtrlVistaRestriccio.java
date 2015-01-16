@@ -22,7 +22,7 @@ public class CtrlVistaRestriccio {
 		dret.add(botons, "2-1");
 		dret.add(calendari, "2-2");
 
-        llistat.setSize(450,500);
+        //llistat.setSize(450,500);
         restriccions.setPreferredSize(new Dimension(415, 250));
         restriccions.setMaximumSize(new Dimension(415, 250));
         restriccions.setBorder(BorderFactory.createEmptyBorder(10, 15, 5, 0));

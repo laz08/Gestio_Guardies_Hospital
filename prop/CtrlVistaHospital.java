@@ -33,6 +33,7 @@ public class CtrlVistaHospital {
 		dret.add(doctor, "2-2");
 		hospital.add(esquerre, BorderLayout.WEST);
 		hospital.add(dret, BorderLayout.EAST);
+
 	}
 
 	public JPanel tornavista() {
@@ -59,6 +60,11 @@ public class CtrlVistaHospital {
         llistat.setBotoMesTextHospital(doctor);
         restriccionsNoAssociades.setBotoMesTextHospital(doctor);
         restriccionsAssociades.setBotoMesTextHospital(doctor);
+
+
+        //SIZE
+
+
 
 
         cgc = new TresBotonsHospital(this);

@@ -21,6 +21,7 @@ public class LlistatErrorHospital extends PanelLlistatError {
 		llista1.addListSelectionListener(this);
         actualitza_llista_docs();
         esborrarTotsErrors();
+        stubRestriccionsLlargues();
 	}
     public void setBotoMesTextHospital(BotoMesTextHospital b){
         bmth = b;
@@ -121,4 +122,10 @@ public class LlistatErrorHospital extends PanelLlistatError {
         error.setText("ERROR: Ja existeix un doctor amb aquest DNI.");
     }
 
+
+
+    public void stubRestriccionsLlargues(){
+        CtrlRestriccio.nova_res("H ((5)XOR(12))XOR(NOP(20))");
+        CtrlRestriccio.nova_res("D ((1-0)AND(30-8))XOR((31-11)AND(1-0))");
+    }
 }

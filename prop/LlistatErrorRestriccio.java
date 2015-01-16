@@ -16,6 +16,9 @@ public class LlistatErrorRestriccio extends PanelLlistatError{
 		add(textres, BorderLayout.NORTH);
 		add(scroll1);
 
+        scroll1.setPreferredSize(new Dimension(343, 250));
+        scroll1.setMaximumSize(new Dimension(343, 250));
+
         setPreferredSize(new Dimension(343, 250));
         setMaximumSize(new Dimension(343, 250));
 	}
