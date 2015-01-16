@@ -53,14 +53,21 @@ public class BotoLlistaPlantilla extends BotoLlista{
 		}
 		ctrlvp.swap(1,1);
 	}
-	
+
+    /**
+     * Retorna el DNI del doctor seleccionat
+     * @return
+     */
     public String getDNIseleccionatdePlt(){
         String content = (String) llista1.getSelectedValue();
         String separadors = "[ \n]";
         String[] separat = content.split(separadors);
         return separat[0];
     }
-	
+
+    /**
+     * Actualitza el llistat de doctors
+     */
 	public void actualitzarLlistaDoctors() {
 		String content = ctrlvp.llistaDoctorsSensePlt();
         model1.removeAllElements();

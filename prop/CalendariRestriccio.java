@@ -1,19 +1,11 @@
 package prop;
 
-import java.awt.Color;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.event.ActionEvent;
-
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JComboBox;
-import javax.swing.JList;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.ListSelectionModel;
+import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
+import java.awt.*;
+import java.awt.event.ActionEvent;
 
 public class CalendariRestriccio extends DosBotons implements ListSelectionListener {
 
@@ -197,10 +189,17 @@ public class CalendariRestriccio extends DosBotons implements ListSelectionListe
         }
     }
 
+    /**
+     * Desactiva el botó d'acceptar
+     */
     public void desactivaacceptar() {
         b2.setEnabled(false);
     }
 
+    /**
+     * Habilita els botons de torns
+     * @param torns
+     */
     public void habilitatorns(boolean torns) {
         if (torns) {
             torn.setEnabled(true);

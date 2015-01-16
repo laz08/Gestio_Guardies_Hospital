@@ -3,8 +3,12 @@ package prop;
 
 import java.util.Comparator;
 
+
 public class compNomP implements Comparator<Plantilla> {
     @Override
+    /**
+     * Compara les plantilles pel seu nom
+     */
     public int compare(Plantilla p1, Plantilla p2){
         if (p1 == p2) return 0;
         if(p1.getNomPlantilla()== null) return 1;
